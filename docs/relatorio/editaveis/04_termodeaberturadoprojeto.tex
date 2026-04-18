@@ -32,6 +32,54 @@ possível de ser medido por meio de um ou mais indicadores;
 
 \textcolor{red}{Listar os fatos que são essenciais para o consumidor adquirir o produto, exemplo: cor, tamanho, material, tempo de vida-útil, dispositivo de segurança \textbf{x}, entre outros.}
 
+\textcolor{blue}{
+\paragraph*{Instruções do Grupo}
+Ao escrever requisitos, atentem-se às seguintes recomendações:
+\begin{itemize}
+    \item Atomicidade: cada requisito deve ser indivisível. Caso descreva mais de uma funcionalidade (ex.: "o sistema deve fazer A e B"), ele deve ser separado em dois ou mais requisitos independentes;
+    \item Mensurabilidade: os requisitos devem ser objetivos e verificáveis. Evitem termos vagos ou subjetivos (como "rápido" ou "eficiente"). Prefiram descrições quantificáveis, como "latência máxima de 600 ms";
+    \item Classificação:
+    \begin{itemize}
+        \item Requisitos funcionais descrevem comportamentos ou funcionalidades do sistema (ex.: autenticação de usuário, exibição de dados);
+        \item Requisitos não funcionais definem restrições ou atributos de qualidade (ex.: desempenho, confiabilidade, usabilidade, consumo de energia);
+    \end{itemize}
+    \item Padronização: todos os requisitos devem seguir a estrutura definida no projeto, utilizando os comandos:
+    \begin{itemize}
+        \item \texttt{\textbackslash rf\{<título>\}\{<descrição>\}};
+        \item \texttt{\textbackslash rnf[<rótulo>]\{<título>\}\{<descrição>\}}.
+    \end{itemize}
+\end{itemize}
+}
+
+\begin{table}[htpb]
+\begin{center}
+\caption{Requisitos Funcionais.}
+\begin{tabular}{l l p{8cm}}
+    \toprule
+    ID & Nome & Descrição \\
+    \midrule
+    \rf[cadastro]{Cadastro de produtos}{O sistema deve permitir cadastro de produtos com nome, SKU e preço unitário.}   
+    \rf[login]{Autenticação de usuário}{O sistema deve autenticar o usuário via e-mail e senha, com bloqueio após 5 tentativas falhas.}
+    \bottomrule
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[htpb]
+\begin{center}
+\caption{Requisitos Não Funcionais.}
+\begin{tabular}{l l p{8cm}}
+    \toprule
+    ID & Nome & Descrição \\
+    \midrule
+    \rnf[usabilidade_feedback]{Feedback do sistema}{O sistema deve fornecer feedback visual imediato (em até 200 ms) após cada interação do usuário.}
+    \bottomrule
+\end{tabular}
+\end{center}
+\end{table}
+
+Exemplo de referência a um requisito: \cref{req:login}.
+
 \section{Justificativa}
 
 \textcolor{red}{Informar o problema ou a oportunidade (necessidade) que justifica o porquê de o projeto ser realizado. Por exemplo: atende uma demanda específica do consumidor final; supre uma necessidade do mercado comercializador; é um diferencial X para o órgão regulamentador.}

@@ -7,6 +7,44 @@
 \input{fixos/informacoes}
 \input{fixos/setup}
 
+\usepackage{hyperref} 
+\usepackage{xparse}
+\usepackage{cleveref}
+
+\newcounter{rfcounter}
+\newcounter{rnfcounter}
+\setcounter{rfcounter}{0}
+\setcounter{rnfcounter}{0}
+
+\crefformat{rfcounter}{RF-#2#1#3}
+\crefformat{rnfcounter}{RNF-#2#1#3}
+
+\newcommand{\checkduplicatelabel}[1]{%
+  \ifcsdef{labelused@#1}{%
+    \PackageError{requisitos}{Label duplicado: #1}{Cada requisito deve ter um label unico.}%
+  }{%
+    \global\csdef{labelused@#1}{}%
+  }%
+}
+
+\NewDocumentCommand{\rf}{O{} m m}{%
+  \refstepcounter{rfcounter}%
+  \IfValueT{#1}{%
+    \checkduplicatelabel{#1}%
+    \label{req:#1}%
+  }%
+  RF\therfcounter & #2 & #3  \\
+}
+
+\NewDocumentCommand{\rnf}{O{} m m}{%
+  \refstepcounter{rnfcounter}%
+  \IfValueT{#1}{%
+    \checkduplicatelabel{#1}%
+    \label{req:#1}%
+  }%
+  RNF\thernfcounter & #2 & #3  \\
+}
+
 \begin{document}
 
 \frenchspacing
