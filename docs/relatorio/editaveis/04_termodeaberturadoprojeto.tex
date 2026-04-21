@@ -150,13 +150,21 @@ Para garantir que o objetivo seja SMART, o projeto compromete-se a:
         O sistema web deve possuir um botão que envia comandos para iniciar e reiniciar percursos remotamente.
          Ao iniciar, o temporizador deve ser ativado automaticamente. Ao reiniciar, o sistema deve resetar o cronômetro e garantir o envio imediato dos dados
           do percurso anterior para o banco de dados.} \\
+    \rf[on_temp_ web]{Iniciar temporidazador ao iniciar percurso}{
+         Ao iniciar o percurso, o temporizador deve ser ativado automaticamente. Ao reiniciar, o sistema deve resetar o cronômetro e garantir o envio imediato dos dados
+          do percurso anterior para o banco de dados.} \\
+    \rf[reset_temp_ web]{Reiniciar temporidazador ao reiniciar percurso}{
+         Ao reiniciaro percurso, o sistema deve resetar o cronômetro } \\
+    \rf[envio_dados_web]{Envio de dados ao finalizar percurso}{
+         Ao finalizar o percurso, o sistema deve enviar os dados do percurso anterior para o banco de dados.} \\
     \rf[salvar_bd]{Persistência por tipo de labirinto}{
         Após a conclusão do desafio, os dados finais devem ser armazenados em um banco de dados, categorizados de acordo com o tipo de labirinto.} \\
     \rf[consulta_bd]{Consulta de trajetos históricos}{
         O sistema deve permitir a consulta e exibição de dados de qualquer trajeto específico armazenado, independentemente do tipo de labirinto.} \\
-    \rf[obstaculos_web]{Processamento e identificação de obstáculos}{
-        O sistema web deve processar os dados recebidos do micromouse em tempo real para identificar a presença de paredes.
-         Ao detectar um obstáculo, o software deve atualizar instantaneamente a estrutura de dados do labirinto na interface web.} \\
+    \rf[obstaculos_web]{Processamento de obstáculos}{
+        O sistema web deve processar os dados recebidos do micromouse em tempo real para identificar a presença de paredes.} \\
+    \rf[obstaculos_id_web]{Identificação de obstáculos}{
+         Ao detectar um obstáculo, o software deve atualizar a estrutura de dados do labirinto na interface web.} \\
     \rf[map_lab_web]{Mapeamento do labirinto}{
         O sistema web deve realizar a construção progressiva de uma representação lógica (matriz ou grafo) do ambiente conforme o Micromouse explora o labirinto.} \\
     \rf[websocket]{Comunicação via WebSocket}{
