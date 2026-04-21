@@ -82,7 +82,7 @@ Ao escrever requisitos, atentem-se às seguintes recomendações:
 Exemplo de referência a um requisito: \cref{req:login}.
 
 \begin{longtable}{l l p{8cm}}
-    \caption{Requisitos Funcionais -- Hardware} \\
+    \caption{Requisitos Funcionais} \\
     \toprule
     ID & Nome & Descrição \\
     \midrule
@@ -126,6 +126,12 @@ Exemplo de referência a um requisito: \cref{req:login}.
     \rf[wifi-telemetria]{Transmissão de telemetria}{
         O sistema deve transmitir dados de telemetria ao sistema
         web em tempo real.} \\
+    \rf[estabilidade]{Estabilidade estrutural}{O sistema deve manter estabilidade durante o movimento, garantindo deslocamento contínuo sem tombamentos.}\\
+    \rf[disposição]{Suporte dos componentes}{O micromouse deve suportar e integrar todos os componentes necessários (bateria, sensores e controle), garantindo seu funcionamento adequado durante a operação.} \\
+    \rf[manutenção]{Manutenção da estrutura}{A estrutura deve permitir montagem, desmontagem e substituição de componentes sem comprometer seu funcionamento.} \\
+    \rf[tamanho]{Compatibilidade com o labirinto}{A estrutura deve permitir que o micromouse percorra o labirinto sem interferências, respeitando limites de altura, largura e mobilidade.} \\
+    \rf[proteção]{Proteção estrutural}{A estrutura deve proteger os componentes eletrônicos contra choques mecânicos e possíveis danos durante o percurso.}\\
+    \rf[vibracao]{Resistência à vibrações}{A estrutura deve ser capaz de minimizar vibrações geradas pelos motores, evitando prejuízo ao desempenho dos sensores.}\\
 \end{longtable}
 
 \section{Justificativa}
