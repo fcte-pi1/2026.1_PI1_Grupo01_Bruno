@@ -141,19 +141,23 @@ Para garantir que o objetivo seja SMART, o projeto compromete-se a:
     \rf[vmedia_web]{Exibição da velocidade média}{
         Após a conclusão do percurso, o sistema web deve exibir a velocidade média mantida pelo Micromouse.} \\
     \rf[on_off_web]{Possuir botão para controle remoto de operação}{
-        O sistema web deve possuir um botão que envia comandos para iniciar e reiniciar percursos remotamente. Ao iniciar, o temporizador deve ser ativado automaticamente. Ao reiniciar, o sistema deve resetar o cronômetro e garantir o envio imediato dos dados do percurso anterior para o banco de dados.} \\
+        O sistema web deve possuir um botão que envia comandos para iniciar e reiniciar percursos remotamente.
+         Ao iniciar, o temporizador deve ser ativado automaticamente. Ao reiniciar, o sistema deve resetar o cronômetro e garantir o envio imediato dos dados
+          do percurso anterior para o banco de dados.} \\
     \rf[salvar_bd]{Persistência por tipo de labirinto}{
         Após a conclusão do desafio, os dados finais devem ser armazenados em um banco de dados, categorizados de acordo com o tipo de labirinto.} \\
     \rf[consulta_bd]{Consulta de trajetos históricos}{
         O sistema deve permitir a consulta e exibição de dados de qualquer trajeto específico armazenado, independentemente do tipo de labirinto.} \\
-    \rf[obstaculos_web]{Processamento e Identificação de Obstáculos}{
-        O sistema web deve processar os dados recebidos do micromouse em tempo real para identificar a presença de paredes. Ao detectar um obstáculo, o software deve atualizar instantaneamente a matriz do labirinto na interface web.} \\
+    \rf[obstaculos_web]{Processamento e identificação de obstáculos}{
+        O sistema web deve processar os dados recebidos do micromouse em tempo real para identificar a presença de paredes.
+         Ao detectar um obstáculo, o software deve atualizar instantaneamente a estrutura de dados do labirinto na interface web.} \\
     \rf[map_lab_web]{Mapeamento do labirinto}{
         O sistema web deve realizar a construção progressiva de uma representação lógica (matriz ou grafo) do ambiente conforme o Micromouse explora o labirinto.} \\
     \rf[websocket]{Comunicação via WebSocket}{
         A troca de informações entre o Micromouse e o sistema web deve ser estabelecida através do protocolo WebSockets.} \\
 
 \end{longtable}
+
 
 \section{Justificativa}
 
