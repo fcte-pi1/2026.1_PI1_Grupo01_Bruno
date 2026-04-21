@@ -171,6 +171,35 @@ Para garantir que o objetivo seja SMART, o projeto compromete-se a:
 
 \end{longtable}
 
+\begin{longtable}{l l p{8cm}}
+    \caption{Requisitos Não-Funcionais} \\
+    \toprule
+    ID & Nome & Descrição \\
+    \midrule
+    \endfirsthead
+    \endhead
+    \endfoot
+    \bottomrule
+    \endlastfoot
+
+    \rnf[isolam_dominios]{Isolamento de Domínios}{
+    A fonte de alimentação do microcontrolador e dos sensores deve ser eletricamente isolada (ou fortemente desacoplada) da alimentação dos motores.} \\
+    \rnf[reg_tensao]{Regulação de Tensão}{
+    O circuito lógico deve manter uma tensão estável, mesmo quando os motores exigirem o pico máximo de corrente, no momento da partida.} \\
+    \rnf[sinais_analogicos]{Sinais Analógicos}{
+    Sinais analógicos (como o retorno de sensores infravermelhos de distância) devem possuir filtros passa-baixa (filtros RC) no hardware para atenuar ruídos de alta frequência do ambiente e do próprio circuito antes de chegarem ao devkit (ESP32).} \\
+    \rnf[aterramento]{Aterramento}{
+    A placa perfurada (ou, se for o caso, PCB) deve possuir um nó comum bem definido, evitando ground loops que possam interferir nas leituras.} \\
+    \rnf[pontos_teste]{Pontos de Teste}{
+    A placa deve expor pinos ou ilhas de fácil acesso para testes via multímetro (e, se necessário, osciloscópio), especificamente para: VCC, GND, sinais de saída dos sensores e PWM dos motores.} \\
+    \rnf[feedback_visual]{Feedback Visual}{
+    O circuito deve incluir LEDs de status integrados que não afetem a lógica para indicar condições vitais, como "Alimentação OK", "Bateria Fraca" ou para debuggar a ativação individual de sensores sem precisar olhar para o terminal do computador.} \\
+    \rnf[acoplamento_cis]{Acoplamento Mecânico de CIs}{
+    Componentes de alto risco ou alto custo (como a placa do microcontrolador e a ponte H) não devem ser soldados diretamente na placa principal. Eles devem utilizar soquetes para permitir a substituição em, no máximo, 5 minutos em caso de queima.} \\
+    \rnf[protecao_polaridade]{Proteção contra Polaridade}{
+    O circuito de entrada da bateria deve incluir um componente ou circuito para proteção contra inversão de polaridade.} \\
+    
+\end{longtable}
 
 \section{Justificativa}
 
