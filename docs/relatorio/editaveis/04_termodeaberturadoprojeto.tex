@@ -34,52 +34,52 @@ Para garantir que o objetivo seja SMART, o projeto compromete-se a:
 \textcolor{red}{Listar os fatos que são essenciais para o consumidor adquirir o produto, exemplo: cor, tamanho, material, tempo de vida-útil, dispositivo de segurança \textbf{x}, entre outros.}
 
 
-\paragraph*{Instruções do Grupo}
-Ao escrever requisitos, atentem-se às seguintes recomendações:
-\begin{itemize}
-    \item Atomicidade: cada requisito deve ser indivisível. Caso descreva mais de uma funcionalidade (ex.: "o sistema deve fazer A e B"), ele deve ser separado em dois ou mais requisitos independentes;
-    \item Mensurabilidade: os requisitos devem ser objetivos e verificáveis. Evitem termos vagos ou subjetivos (como "rápido" ou "eficiente"). Prefiram descrições quantificáveis, como "latência máxima de 600 ms";
-    \item Classificação:
-    \begin{itemize}
-        \item Requisitos funcionais descrevem comportamentos ou funcionalidades do sistema (ex.: autenticação de usuário, exibição de dados);
-        \item Requisitos não funcionais definem restrições ou atributos de qualidade (ex.: desempenho, confiabilidade, usabilidade, consumo de energia);
-    \end{itemize}
-    \item Padronização: todos os requisitos devem seguir a estrutura definida no projeto, utilizando os comandos:
-    \begin{itemize}
-        \item \texttt{\textbackslash rf\{<título>\}\{<descrição>\}};
-        \item \texttt{\textbackslash rnf[<rótulo>]\{<título>\}\{<descrição>\}}.
-    \end{itemize}
-\end{itemize}
+% \paragraph*{Instruções do Grupo}
+% Ao escrever requisitos, atentem-se às seguintes recomendações:
+% \begin{itemize}
+%     \item Atomicidade: cada requisito deve ser indivisível. Caso descreva mais de uma funcionalidade (ex.: "o sistema deve fazer A e B"), ele deve ser separado em dois ou mais requisitos independentes;
+%     \item Mensurabilidade: os requisitos devem ser objetivos e verificáveis. Evitem termos vagos ou subjetivos (como "rápido" ou "eficiente"). Prefiram descrições quantificáveis, como "latência máxima de 600 ms";
+%     \item Classificação:
+%     \begin{itemize}
+%         \item Requisitos funcionais descrevem comportamentos ou funcionalidades do sistema (ex.: autenticação de usuário, exibição de dados);
+%         \item Requisitos não funcionais definem restrições ou atributos de qualidade (ex.: desempenho, confiabilidade, usabilidade, consumo de energia);
+%     \end{itemize}
+%     \item Padronização: todos os requisitos devem seguir a estrutura definida no projeto, utilizando os comandos:
+%     \begin{itemize}
+%         \item \texttt{\textbackslash rf\{<título>\}\{<descrição>\}};
+%         \item \texttt{\textbackslash rnf[<rótulo>]\{<título>\}\{<descrição>\}}.
+%     \end{itemize}
+% \end{itemize}
 
 
-\begin{table}[htpb]
-\begin{center}
-\caption{Requisitos Funcionais.}
-\begin{tabular}{l l p{8cm}}
-    \toprule
-    ID & Nome & Descrição \\
-    \midrule
-    \rf[cadastro]{Cadastro de produtos}{O sistema deve permitir cadastro de produtos com nome, SKU e preço unitário.} \\   
-    \rf[login]{Autenticação de usuário}{O sistema deve autenticar o usuário via e-mail e senha, com bloqueio após 5 tentativas falhas.} \\
-    \bottomrule
-\end{tabular}
-\end{center}
-\end{table}
+% \begin{table}[htpb]
+% \begin{center}
+% \caption{Requisitos Funcionais.}
+% \begin{tabular}{l l p{8cm}}
+%     \toprule
+%     ID & Nome & Descrição \\
+%     \midrule
+%     \rf[cadastro]{Cadastro de produtos}{O sistema deve permitir cadastro de produtos com nome, SKU e preço unitário.} \\   
+%     \rf[login]{Autenticação de usuário}{O sistema deve autenticar o usuário via e-mail e senha, com bloqueio após 5 tentativas falhas.} \\
+%     \bottomrule
+% \end{tabular}
+% \end{center}
+% \end{table}
 
-\begin{table}[htpb]
-\begin{center}
-\caption{Requisitos Não Funcionais.}
-\begin{tabular}{l l p{8cm}}
-    \toprule
-    ID & Nome & Descrição \\
-    \midrule
-    \rnf[usabilidade_feedback]{Feedback do sistema}{O sistema deve fornecer feedback visual imediato (em até 200 ms) após cada interação do usuário.} \\
-    \bottomrule
-\end{tabular}
-\end{center}
-\end{table}
+% \begin{table}[htpb]
+% \begin{center}
+% \caption{Requisitos Não Funcionais.}
+% \begin{tabular}{l l p{8cm}}
+%     \toprule
+%     ID & Nome & Descrição \\
+%     \midrule
+%     \rnf[usabilidade_feedback]{Feedback do sistema}{O sistema deve fornecer feedback visual imediato (em até 200 ms) após cada interação do usuário.} \\
+%     \bottomrule
+% \end{tabular}
+% \end{center}
+% \end{table}
 
-Exemplo de referência a um requisito: \cref{req:login}.
+% Exemplo de referência a um requisito: \cref{req:login}.
 
 \begin{longtable}{l l p{8cm}}
     \caption{Requisitos Funcionais} \\
@@ -132,7 +132,45 @@ Exemplo de referência a um requisito: \cref{req:login}.
     \rf[tamanho]{Compatibilidade com o labirinto}{A estrutura deve permitir que o micromouse percorra o labirinto sem interferências, respeitando limites de altura, largura e mobilidade.} \\
     \rf[proteção]{Proteção estrutural}{A estrutura deve proteger os componentes eletrônicos contra choques mecânicos e possíveis danos durante o percurso.}\\
     \rf[vibracao]{Resistência à vibrações}{A estrutura deve ser capaz de minimizar vibrações geradas pelos motores, evitando prejuízo ao desempenho dos sensores.}\\
+    \rf[mapeamento_trajeto_web]{Exibição do mapeamento e trajeto}{
+        Em relação ao percurso atual, o sistema web deve exibir e atualizar em tempo real o mapeamento da localização e o trajeto do Micromouse no labirinto.} \\  
+    \rf[tipo_labirinto_web]{Exibição do tipo de labirinto}{
+        O sistema web deve identificar e exibir o tipo de labirinto selecionado para o percurso atual.} \\
+    \rf[resto_bateria_web]{Exibição da bateria disponível}{
+        O sistema web deve exibir e atualizar em tempo real a porcentagem de bateria disponível do Micromouse.} \\
+    \rf[bateria_consumida_web]{Exibição da bateria consumida}{
+        O sistema web deve exibir e atualizar em tempo real a porcentagem de bateria consumida pelo Micromouse durante o trajeto.} \\
+    \rf[tempo_web]{Exibição do tempo de percurso}{
+        O sistema web deve exibir e atualizar em tempo real um temporizador indicando o tempo decorrido até a conclusão ou interrupção do desafio.} \\
+    \rf[status_web]{Status do desafio}{
+        Após a conclusão do percurso, o sistema web deve exibir se o desafio foi cumprido com sucesso ou não.} \\
+    \rf[vmedia_web]{Exibição da velocidade média}{
+        Após a conclusão do percurso, o sistema web deve exibir a velocidade média mantida pelo Micromouse.} \\
+    \rf[on_off_web]{Possuir botão para controle remoto de operação}{
+        O sistema web deve possuir um botão que envia comandos para iniciar e reiniciar percursos remotamente.
+         Ao iniciar, o temporizador deve ser ativado automaticamente. Ao reiniciar, o sistema deve resetar o cronômetro e garantir o envio imediato dos dados
+          do percurso anterior para o banco de dados.} \\
+    \rf[on_temp_ web]{Iniciar temporidazador ao iniciar percurso}{
+         Ao iniciar o percurso, o temporizador deve ser ativado automaticamente. } \\
+    \rf[reset_temp_ web]{Reiniciar temporidazador ao reiniciar percurso}{
+         Ao reiniciar o percurso, o sistema deve resetar o cronômetro. } \\
+    \rf[dados_bd_web]{Envio de dados ao finalizar percurso}{
+         Ao finalizar o percurso, o sistema deve enviar os dados do percurso anterior para o banco de dados.} \\
+    \rf[salvar_bd]{Persistência por tipo de labirinto}{
+        Após a conclusão do desafio, os dados finais devem ser armazenados em um banco de dados, categorizados de acordo com o tipo de labirinto.} \\
+    \rf[consulta_bd]{Consulta de trajetos históricos}{
+        O sistema deve permitir a consulta e exibição de dados de qualquer trajeto específico armazenado, independentemente do tipo de labirinto.} \\
+    \rf[obstaculos_web]{Processamento de obstáculos}{
+        O sistema web deve processar os dados recebidos do micromouse em tempo real para identificar a presença de paredes.} \\
+    \rf[obstaculos_id_web]{Identificação de obstáculos}{
+         Ao detectar um obstáculo, o software deve atualizar a estrutura de dados do labirinto na interface web.} \\
+    \rf[map_lab_web]{Mapeamento do labirinto}{
+        O sistema web deve realizar a construção progressiva de uma representação lógica (matriz ou grafo) do ambiente conforme o Micromouse explora o labirinto.} \\
+    \rf[websocket]{Comunicação via WebSocket}{
+        A troca de informações entre o Micromouse e o sistema web deve ser estabelecida através do protocolo WebSockets.} \\
+
 \end{longtable}
+
 
 \section{Justificativa}
 
