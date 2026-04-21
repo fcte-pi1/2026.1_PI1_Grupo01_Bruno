@@ -32,7 +32,7 @@ possível de ser medido por meio de um ou mais indicadores;
 
 \textcolor{red}{Listar os fatos que são essenciais para o consumidor adquirir o produto, exemplo: cor, tamanho, material, tempo de vida-útil, dispositivo de segurança \textbf{x}, entre outros.}
 
-\textcolor{blue}{
+
 \paragraph*{Instruções do Grupo}
 Ao escrever requisitos, atentem-se às seguintes recomendações:
 \begin{itemize}
@@ -49,7 +49,7 @@ Ao escrever requisitos, atentem-se às seguintes recomendações:
         \item \texttt{\textbackslash rnf[<rótulo>]\{<título>\}\{<descrição>\}}.
     \end{itemize}
 \end{itemize}
-}
+
 
 \begin{table}[htpb]
 \begin{center}
@@ -58,8 +58,8 @@ Ao escrever requisitos, atentem-se às seguintes recomendações:
     \toprule
     ID & Nome & Descrição \\
     \midrule
-    \rf[cadastro]{Cadastro de produtos}{O sistema deve permitir cadastro de produtos com nome, SKU e preço unitário.}   
-    \rf[login]{Autenticação de usuário}{O sistema deve autenticar o usuário via e-mail e senha, com bloqueio após 5 tentativas falhas.}
+    \rf[cadastro]{Cadastro de produtos}{O sistema deve permitir cadastro de produtos com nome, SKU e preço unitário.} \\   
+    \rf[login]{Autenticação de usuário}{O sistema deve autenticar o usuário via e-mail e senha, com bloqueio após 5 tentativas falhas.} \\
     \bottomrule
 \end{tabular}
 \end{center}
@@ -72,13 +72,64 @@ Ao escrever requisitos, atentem-se às seguintes recomendações:
     \toprule
     ID & Nome & Descrição \\
     \midrule
-    \rnf[usabilidade_feedback]{Feedback do sistema}{O sistema deve fornecer feedback visual imediato (em até 200 ms) após cada interação do usuário.}
+    \rnf[usabilidade_feedback]{Feedback do sistema}{O sistema deve fornecer feedback visual imediato (em até 200 ms) após cada interação do usuário.} \\
     \bottomrule
 \end{tabular}
 \end{center}
 \end{table}
 
 Exemplo de referência a um requisito: \cref{req:login}.
+
+\begin{longtable}{l l p{8cm}}
+    \caption{Requisitos Funcionais -- Hardware} \\
+    \toprule
+    ID & Nome & Descrição \\
+    \midrule
+    \endfirsthead
+    \endhead
+    \endfoot
+    \bottomrule
+    \endlastfoot
+
+    \rf[tof-paredes]{Detecção de paredes do labirinto}{
+        O sistema deve detectar a presença ou ausência de paredes
+        nas direções frontal, lateral esquerda e lateral direita
+        do micromouse, compatível com as dimensões das células de
+        18~cm × 18~cm e paredes de 5~cm de altura.} \\
+    \rf[motor-pwm]{Controle de velocidade dos motores}{
+        O sistema deve controlar individualmente a velocidade de
+        cada motor DC por meio de sinal PWM enviado ao driver
+        de motor.} \\
+    \rf[motor-direcao]{Controle de direção dos motores}{
+        O sistema deve controlar o sentido de rotação de cada motor
+        DC de forma independente, permitindo movimentos de avanço,
+        recuo e curvas.} \\
+    \rf[linha-reta]{Deslocamento em linha reta}{
+        O sistema deve mover o micromouse em linha reta dentro dos
+        corredores do labirinto, mantendo trajetória centralizada
+        entre as paredes.} \\
+    \rf[curva]{Execução de curvas}{
+        O sistema deve executar curvas de 90° e 180° de forma
+        precisa, compatível com as dimensões das células de
+        18~cm × 18~cm do labirinto.} \\
+    \rf[botao]{Acionamento por botão}{
+        O sistema deve iniciar e interromper a navegação por meio
+        de um botão físico acessível externamente no micromouse} \\
+    \rf[bat-consumo]{Autonomia de bateria}{
+        A bateria do sistema deve fornecer energia suficiente para
+        completar os três labirintos (4×4, 8×8 e 16×16
+        células) em sequência sem necessidade de recarga.} \\
+    \rf[bat-alerta]{Alerta de bateria baixa}{
+        O sistema deve detectar e sinalizar quando a tensão da
+        bateria atingir nível insuficiente para continuidade
+        segura da navegação.} \\
+    \rf[buzzer]{Sinalização sonora ao atingir objetivo}{
+        O sistema deve acionar um buzzer ao detectar que o micromouse
+        atingiu a sala objetivo do labirinto.} \\
+    \rf[wifi-telemetria]{Transmissão de telemetria}{
+        O sistema deve transmitir dados de telemetria ao sistema
+        web em tempo real.} \\
+\end{longtable}
 
 \section{Justificativa}
 
