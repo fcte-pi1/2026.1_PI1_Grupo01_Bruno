@@ -27,7 +27,13 @@ Para garantir que o objetivo seja SMART, o projeto compromete-se a:
 
 \section{Mercado-alvo}
 
-\textcolor{red}{Pessoas, empresas, instituições etc. que usufruirão dos produtos, serviços e resultados gerados pelo projeto, cujos requisitos (tópico abaixo) devem atender as suas necessidades. Podem ser internas ou externas à organização, mas, merecem destaque especial, pois, o projeto está sendo feito para atendê-los de forma direta ou indireta.}
+% \textcolor{red}{Pessoas, empresas, instituições etc. que usufruirão dos produtos, serviços e resultados gerados pelo projeto, cujos requisitos (tópico abaixo) devem atender as suas necessidades. Podem ser internas ou externas à organização, mas, merecem destaque especial, pois, o projeto está sendo feito para atendê-los de forma direta ou indireta.}
+
+O público-alvo mais direto deste projeto é composto por instituições de ensino e estudantes das áreas de robótica, engenharias e computação. A natureza multidisciplinar da solução \cite{jabuti2022} possibilita que discentes, sob orientação docente, desenvolvam competências em diferentes domínios, como eletrônica, eficiência energética, desenvolvimento de software e estruturas.
+
+Além do contexto acadêmico, o projeto também atende participantes de competições de micromouse e equipes de robótica, ao oferecer uma solução completa que permite a coleta, visualização e monitoramento de dados em tempo real. Essa capacidade contribui diretamente para a depuração, análise de desempenho e melhoria contínua dos robôs, apoiando decisões mais precisas no desenvolvimento de estratégias de navegação.
+
+De forma mais ampla, o projeto apresenta relevância indireta para o setor tecnológico, especialmente na área de robótica móvel. Os conceitos e técnicas empregados de IoT e sistemas embarcados constituem a base de aplicações mais complexas de automação, tanto em contextos industriais quanto domésticos, como em robôs autônomos utilizados para limpeza e logística \cite{simulacao2024}.
 
 \section{Requisitos}
 
@@ -171,6 +177,7 @@ Para garantir que o objetivo seja SMART, o projeto compromete-se a:
 
 \end{longtable}
 
+
 \begin{longtable}{l l p{8cm}}
     \caption{Requisitos Não-Funcionais} \\
     \toprule
@@ -198,6 +205,14 @@ Para garantir que o objetivo seja SMART, o projeto compromete-se a:
     Componentes de alto risco ou alto custo (como a placa do microcontrolador e a ponte H) não devem ser soldados diretamente na placa principal. Eles devem utilizar soquetes para permitir a substituição em, no máximo, 5 minutos em caso de queima.} \\
     \rnf[protecao_polaridade]{Proteção contra Polaridade}{
     O circuito de entrada da bateria deve incluir um componente ou circuito para proteção contra inversão de polaridade.} \\
+    \rnf[autonomia_operacao]{Autonomia de operação}{Garantir funcionamento ininterrupto do sistema por, no mínimo, 20 minutos.} \\
+    \rnf[ciclo_missao]{Ciclo de missão}{Suportar o mapeamento completo no labirinto 16x16 sem recarga..} \\
+    \rnf[eficiencia_conversao]{Eficiência de conversão}{Utilizar reguladores de tensão com rendimento energético mínimo de 85\%.} \\
+    \rnf[consumo_standby]{Consumo em standby}{Limitar a corrente consumida em modo de espera a um máximo de 50mA.} \\
+    \rnf[monitorar_carga]{Monitoramento de carga}{Implementar detecção de baixa tensão para alertar quando a célula atingir 3,2V.} \\
+    \rnf[peso_bateria]{Peso do sistema de alimentação}{O sistema de alimentação não deve exceder 25\% do peso total do micromouse.} \\
+    \rnf[acessibilidade_bateria]{Acessibilidade}{Permitir o carregamento das baterias sem a necessidade de desmontagem.} \\
+    \rnf[estabilidade_tensao]{Estabilidade de tensão}{ Manter a variação de tensão nos sensores dentro de uma margem de +/- 5\% durante a aceleração dos motores.} \\
     
 \end{longtable}
 
