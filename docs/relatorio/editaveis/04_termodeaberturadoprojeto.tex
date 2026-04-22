@@ -181,7 +181,18 @@ Para garantir que o objetivo seja SMART, o projeto compromete-se a:
     \endfoot
     \bottomrule
     \endlastfoot
-
+    \rnf[autonomia_operacao]{Autonomia de operação}{Garantir funcionamento ininterrupto do sistema por, no mínimo, 20 minutos.} \\
+        \rnf[ciclo_missao]{Ciclo de missão}{Suportar o mapeamento completo no labirinto 16x16 sem recarga..} \\
+        \rnf[eficiencia_conversao]{Eficiência de conversão}{Utilizar reguladores de tensão com rendimento energético mínimo de 85%.
+    } \\
+        \rnf[consumo_standby]{Consumo em standby}{Limitar a corrente consumida em modo de espera a um máximo de 50mA.} \\
+        \rnf[monitorar_carga]{Monitoramento de carga}{Implementar detecção de baixa tensão para alertar quando a célula atingir 3,2V.} \\
+        \rnf[peso_bateria]{Peso do sistema de alimentação}{O sistema de alimentação não deve exceder 25\% do peso total do micromouse.
+    } \\
+    \rnf[acessibilidade_bateria]{Acessibilidade}{Permitir o carregamento das baterias sem a necessidade de desmontagem.
+    } \\
+    \rnf[estabilidade_tensao]{Estabilidade de tensão}{ Manter a variação de tensão nos sensores dentro de uma margem de +/- 5\% durante a aceleração dos motores.
+    } \\
     \rnf[vel_alg]{Tempo de execução do algoritmo}{
         O algoritmo de navegação deve processar a tomada de decisão em um tempo inferior a 5 ms.} \\
     \rnf[prec_parede]{Precisão na detecção de paredes}{
