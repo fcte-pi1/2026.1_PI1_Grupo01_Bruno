@@ -1,0 +1,228 @@
+\chapter{Termo de Abertura do Projeto}
+
+\textcolor{red}{Termo de abertura do projeto / Project Charter. Um documento publicado pelo iniciador ou patrocinador do projeto que autoriza formalmente a existência de um projeto e fornece ao gerente do projeto a autoridade para aplicar os recursos organizacionais nas atividades do projeto.}
+
+\section{Dados do projeto}
+\begin{description}
+    \item [Nome do Projeto:] XAROPi
+    \item [Data de abertura:] 09/04/2026
+    \item [Código:] 1-A
+    \item [Patrocinador:] Universidade de Brasília
+    \item [Responsável:] Prof. Bruno
+    \item [Gerente:] Davi do Egito / 231030421 / 231030421@aluno.unb.br
+\end{description}
+
+\section{Objetivos}
+
+O objetivo central deste projeto é o desenvolvimento de um robô móvel autônomo (Micromouse), denominado XAROPi, capaz de navegar e resolver três diferentes configurações de labirintos (4x4, 8x8 e 4x4 células com áreas de 72 cm, 144 cm e 288 cm de lado, respectivamente) de forma totalmente independente e sem auxílio humano.
+
+Para garantir que o objetivo seja SMART, o projeto compromete-se a:
+\begin{itemize}
+    \item \textbf{Específico:} Implementar um sistema embarcado capaz de realizar sensoriamento de paredes, mapeamento simultâneo e tomada de decisão autônoma para alcançar a área de objetivo central.
+    \item \textbf{Mensurável:} O sucesso será medido pela conclusão dos três labirintos propostos, com a transmissão de telemetria (posição, velocidade e consumo) exibida em uma interface web com perda de dados inferior a 5\%.
+    \item \textbf{Acordado:} O projeto segue as diretrizes e especificações técnicas estabelecidas pelos docentes das disciplinas de Projeto Integrador 1 da Faculdade UnB Gama (FGA).
+    \item \textbf{Realista:} O desenvolvimento utilizará metodologias de engenharia simultânea e algoritmos de busca (como Flood Fill ou Partition-Central) compatíveis com o hardware e o cronograma do semestre letivo 2026/1.
+    \item \textbf{Limitado no Tempo:} O protótipo funcional e a documentação final deverão ser entregues e validados até o encerramento do semestre, conforme os marcos estabelecidos nos Pontos de Controle.
+\end{itemize}
+
+\section{Mercado-alvo}
+
+\textcolor{red}{Pessoas, empresas, instituições etc. que usufruirão dos produtos, serviços e resultados gerados pelo projeto, cujos requisitos (tópico abaixo) devem atender as suas necessidades. Podem ser internas ou externas à organização, mas, merecem destaque especial, pois, o projeto está sendo feito para atendê-los de forma direta ou indireta.}
+
+\section{Requisitos}
+
+\textcolor{red}{Listar os fatos que são essenciais para o consumidor adquirir o produto, exemplo: cor, tamanho, material, tempo de vida-útil, dispositivo de segurança \textbf{x}, entre outros.}
+
+
+% \paragraph*{Instruções do Grupo}
+% Ao escrever requisitos, atentem-se às seguintes recomendações:
+% \begin{itemize}
+%     \item Atomicidade: cada requisito deve ser indivisível. Caso descreva mais de uma funcionalidade (ex.: "o sistema deve fazer A e B"), ele deve ser separado em dois ou mais requisitos independentes;
+%     \item Mensurabilidade: os requisitos devem ser objetivos e verificáveis. Evitem termos vagos ou subjetivos (como "rápido" ou "eficiente"). Prefiram descrições quantificáveis, como "latência máxima de 600 ms";
+%     \item Classificação:
+%     \begin{itemize}
+%         \item Requisitos funcionais descrevem comportamentos ou funcionalidades do sistema (ex.: autenticação de usuário, exibição de dados);
+%         \item Requisitos não funcionais definem restrições ou atributos de qualidade (ex.: desempenho, confiabilidade, usabilidade, consumo de energia);
+%     \end{itemize}
+%     \item Padronização: todos os requisitos devem seguir a estrutura definida no projeto, utilizando os comandos:
+%     \begin{itemize}
+%         \item \texttt{\textbackslash rf\{<título>\}\{<descrição>\}};
+%         \item \texttt{\textbackslash rnf[<rótulo>]\{<título>\}\{<descrição>\}}.
+%     \end{itemize}
+% \end{itemize}
+
+
+% \begin{table}[htpb]
+% \begin{center}
+% \caption{Requisitos Funcionais.}
+% \begin{tabular}{l l p{8cm}}
+%     \toprule
+%     ID & Nome & Descrição \\
+%     \midrule
+%     \rf[cadastro]{Cadastro de produtos}{O sistema deve permitir cadastro de produtos com nome, SKU e preço unitário.} \\   
+%     \rf[login]{Autenticação de usuário}{O sistema deve autenticar o usuário via e-mail e senha, com bloqueio após 5 tentativas falhas.} \\
+%     \bottomrule
+% \end{tabular}
+% \end{center}
+% \end{table}
+
+% \begin{table}[htpb]
+% \begin{center}
+% \caption{Requisitos Não Funcionais.}
+% \begin{tabular}{l l p{8cm}}
+%     \toprule
+%     ID & Nome & Descrição \\
+%     \midrule
+%     \rnf[usabilidade_feedback]{Feedback do sistema}{O sistema deve fornecer feedback visual imediato (em até 200 ms) após cada interação do usuário.} \\
+%     \bottomrule
+% \end{tabular}
+% \end{center}
+% \end{table}
+
+% Exemplo de referência a um requisito: \cref{req:login}.
+
+\begin{longtable}{l l p{8cm}}
+    \caption{Requisitos Funcionais} \\
+    \toprule
+    ID & Nome & Descrição \\
+    \midrule
+    \endfirsthead
+    \endhead
+    \endfoot
+    \bottomrule
+    \endlastfoot
+
+    \rf[tof-paredes]{Detecção de paredes do labirinto}{
+        O sistema deve detectar a presença ou ausência de paredes
+        nas direções frontal, lateral esquerda e lateral direita
+        do micromouse, compatível com as dimensões das células de
+        18~cm × 18~cm e paredes de 5~cm de altura.} \\
+    \rf[motor-pwm]{Controle de velocidade dos motores}{
+        O sistema deve controlar individualmente a velocidade de
+        cada motor DC por meio de sinal PWM enviado ao driver
+        de motor.} \\
+    \rf[motor-direcao]{Controle de direção dos motores}{
+        O sistema deve controlar o sentido de rotação de cada motor
+        DC de forma independente, permitindo movimentos de avanço,
+        recuo e curvas.} \\
+    \rf[linha-reta]{Deslocamento em linha reta}{
+        O sistema deve mover o micromouse em linha reta dentro dos
+        corredores do labirinto, mantendo trajetória centralizada
+        entre as paredes.} \\
+    \rf[curva]{Execução de curvas}{
+        O sistema deve executar curvas de 90° e 180° de forma
+        precisa, compatível com as dimensões das células de
+        18~cm × 18~cm do labirinto.} \\
+    \rf[botao]{Acionamento por botão}{
+        O sistema deve iniciar e interromper a navegação por meio
+        de um botão físico acessível externamente no micromouse} \\
+    \rf[bat-alerta]{Alerta de bateria baixa}{
+        O sistema deve detectar e sinalizar quando a tensão da
+        bateria atingir nível insuficiente para continuidade
+        segura da navegação.} \\
+    \rf[buzzer]{Sinalização sonora ao atingir objetivo}{
+        O sistema deve acionar um buzzer ao detectar que o micromouse
+        atingiu a sala objetivo do labirinto.} \\
+    \rf[wifi-telemetria]{Transmissão de telemetria}{
+        O sistema deve transmitir dados de telemetria ao sistema
+        web em tempo real.} \\
+    \rf[estabilidade]{Estabilidade estrutural}{O sistema deve manter estabilidade durante o movimento, garantindo deslocamento contínuo sem tombamentos.}\\
+    \rf[disposição]{Suporte dos componentes}{O micromouse deve suportar e integrar todos os componentes necessários (bateria, sensores e controle), garantindo seu funcionamento adequado durante a operação.} \\
+    \rf[manutenção]{Manutenção da estrutura}{A estrutura deve permitir montagem, desmontagem e substituição de componentes sem comprometer seu funcionamento.} \\
+    \rf[tamanho]{Compatibilidade com o labirinto}{A estrutura deve permitir que o micromouse percorra o labirinto sem interferências, respeitando limites de altura, largura e mobilidade.} \\
+    \rf[proteção]{Proteção estrutural}{A estrutura deve proteger os componentes eletrônicos contra choques mecânicos e possíveis danos durante o percurso.}\\
+    \rf[vibracao]{Resistência à vibrações}{A estrutura deve ser capaz de minimizar vibrações geradas pelos motores, evitando prejuízo ao desempenho dos sensores.}\\
+    \rf[mapeamento_trajeto_web]{Exibição do mapeamento e trajeto}{
+        Em relação ao percurso atual, o sistema web deve exibir e atualizar em tempo real o mapeamento da localização e o trajeto do Micromouse no labirinto.} \\  
+    \rf[tipo_labirinto_web]{Exibição do tipo de labirinto}{
+        O sistema web deve identificar e exibir o tipo de labirinto selecionado para o percurso atual.} \\
+    \rf[resto_bateria_web]{Exibição da bateria disponível}{
+        O sistema web deve exibir e atualizar em tempo real a porcentagem de bateria disponível do Micromouse.} \\
+    \rf[bateria_consumida_web]{Exibição da bateria consumida}{
+        O sistema web deve exibir e atualizar em tempo real a porcentagem de bateria consumida pelo Micromouse durante o trajeto.} \\
+    \rf[tempo_web]{Exibição do tempo de percurso}{
+        O sistema web deve exibir e atualizar em tempo real um temporizador indicando o tempo decorrido até a conclusão ou interrupção do desafio.} \\
+    \rf[status_web]{Status do desafio}{
+        Após a conclusão do percurso, o sistema web deve exibir se o desafio foi cumprido com sucesso ou não.} \\
+    \rf[vmedia_web]{Exibição da velocidade média}{
+        Após a conclusão do percurso, o sistema web deve exibir a velocidade média mantida pelo Micromouse.} \\
+    \rf[on_off_web]{Possuir botão para controle remoto de operação}{
+        O sistema web deve possuir um botão que envia comandos para iniciar e reiniciar percursos remotamente.
+         Ao iniciar, o temporizador deve ser ativado automaticamente. Ao reiniciar, o sistema deve resetar o cronômetro e garantir o envio imediato dos dados
+          do percurso anterior para o banco de dados.} \\
+    \rf[on_temp_ web]{Iniciar temporidazador ao iniciar percurso}{
+         Ao iniciar o percurso, o temporizador deve ser ativado automaticamente. } \\
+    \rf[reset_temp_ web]{Reiniciar temporidazador ao reiniciar percurso}{
+         Ao reiniciar o percurso, o sistema deve resetar o cronômetro. } \\
+    \rf[dados_bd_web]{Envio de dados ao finalizar percurso}{
+         Ao finalizar o percurso, o sistema deve enviar os dados do percurso anterior para o banco de dados.} \\
+    \rf[salvar_bd]{Persistência por tipo de labirinto}{
+        Após a conclusão do desafio, os dados finais devem ser armazenados em um banco de dados, categorizados de acordo com o tipo de labirinto.} \\
+    \rf[consulta_bd]{Consulta de trajetos históricos}{
+        O sistema deve permitir a consulta e exibição de dados de qualquer trajeto específico armazenado, independentemente do tipo de labirinto.} \\
+    \rf[obstaculos_web]{Processamento de obstáculos}{
+        O sistema web deve processar os dados recebidos do micromouse em tempo real para identificar a presença de paredes.} \\
+    \rf[obstaculos_id_web]{Identificação de obstáculos}{
+         Ao detectar um obstáculo, o software deve atualizar a estrutura de dados do labirinto na interface web.} \\
+    \rf[map_lab_web]{Mapeamento do labirinto}{
+        O sistema web deve realizar a construção progressiva de uma representação lógica (matriz ou grafo) do ambiente conforme o Micromouse explora o labirinto.} \\
+    \rf[websocket]{Comunicação via WebSocket}{
+        A troca de informações entre o Micromouse e o sistema web deve ser estabelecida através do protocolo WebSockets.} \\
+
+\end{longtable}
+
+\begin{longtable}{l l p{8cm}}
+    \caption{Requisitos Não Funcionais} \\
+    \toprule
+    ID & Nome & Descrição \\
+    \midrule
+    \endfirsthead
+    \endhead
+    \endfoot
+    \bottomrule
+    \endlastfoot
+
+    \rnf[vel_alg]{Tempo de execução do algoritmo}{
+        O algoritmo de navegação deve processar a tomada de decisão em um tempo inferior a 5 ms.} \\
+    \rnf[prec_parede]{Precisão na detecção de paredes}{
+        A atualização da estrutura do labirinto deve ocorrer em menos de 10 ms após a leitura do sensor.} \\
+    \rnf[temp_tipo]{Atualização em tempo real do tipo de labirinto}{
+        O sistema web deve ajustar automaticamente a escala visual do mapeamento para os três tipos de labirinto (4x4, 8x8 e 16x16).} \\
+    \rnf[temp_localização]{Atualização em tempo real da localização do micromouse}{
+        O sistema web deve receber, processar e exibir na interface os dados de localização do micromouse com uma latência máxima de 200 ms.} \\
+    \rnf[temp_velocidade]{Atualização em tempo real da velocidade}{
+        O sistema web deve receber, processar e exibir na interface os dados de velocidade com uma latência máxima de 200 ms.} \\
+    \rnf[temp_bateria]{Atualização em tempo real da bateria do micromouse}{
+        O sistema web deve receber, processar e exibir na interface os dados de bateria do micromouse com uma latência máxima de 200 ms.} \\
+    \rnf[temp_conclusao]{Atualização em tempo real da conclusão do labirinto}{
+        O sistema web deve receber, processar e exibir na interface os dados de conclusão do labirinto com uma latência máxima de 200 ms.} \\
+    \rnf[intg_bd_web]{Integridade dos dados}{
+        O sistema web deve garantir que todos os dados de telemetria recebidos sejam persistidos no banco de dados sem perda de informação.} \\
+    \rnf[desempenho_bd]{Tempo de resposta para consultas históricas}{
+        O sistema web deve ser capaz de exibir os dados de qualquer trajeto histórico armazenado no banco de dados em um tempo máximo de 1 segundo após a solicitação do usuário.} \\
+    \rnf[recon_websocket]{Tolerância a falhas na comunicação}{
+        Em caso de perda de conexão WebSocket durante um percurso, o sistema web deve tentar a reconexão automática a cada 1 segundo, sem perder o estado atual dos dados de telemetria na interface.} \\
+    \rnf[debounce_comandos]{Prevenção de comandos conflitantes}{
+        A interface web deve aplicar um mecanismo de bloqueio nos botões de controle remoto (iniciar/reiniciar), impedindo o envio de comandos duplicados em um intervalo menor que 500 ms.} \\
+    \rnf[responsividade_web]{Responsividade da interface}{
+        A interface web deve adaptar-se automaticamente a diferentes resoluções, garantindo a ausência de elementos cortados ou sobrepostos.} \\
+    \rnf[compatibilidade_browser]{Compatibilidade de navegadores}{
+        O sistema web deve ser totalmente funcional e manter a integridade visual nos navegadores baseados nas engines Chromium (Chrome, Brave, Opera, Edge) e WebKit (Safari), em suas versões estáveis mais recentes.} \\
+    \end{longtable}
+
+\section{Justificativa}
+
+\textcolor{red}{Informar o problema ou a oportunidade (necessidade) que justifica o porquê de o projeto ser realizado. Por exemplo: atende uma demanda específica do consumidor final; supre uma necessidade do mercado comercializador; é um diferencial X para o órgão regulamentador.}
+
+\section{Indicadores}
+
+\textcolor{red}{Listar até 10 indicadores que determinam o mercado consumidor do produto desenvolvido: exemplo: 1) n\textdegree de alunos da FGA que utilizam ônibus às 18:00; 2) n\textdegree de usuários do restaurante universitários, 3) número de idosos classificados como público-alvo no DF e no estado de Goiás, 4) n\textdegree de empresas de segurança registradas no DF etc.}
+% \section{Aprovações}
+
+% \begin{tabular}{ l l }
+%   \textbf{Patrocinador:} & \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ \\
+%   & \\
+%   \textbf{CEO:} & \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ \\
+%   & \\
+%   \textbf{Gerente:} & \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ \\
+% \end{tabular}
