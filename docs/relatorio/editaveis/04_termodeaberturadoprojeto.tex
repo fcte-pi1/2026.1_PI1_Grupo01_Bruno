@@ -174,36 +174,64 @@ De forma mais ampla, o projeto apresenta relevância indireta para o setor tecno
         O sistema web deve realizar a construção progressiva de uma representação lógica (matriz ou grafo) do ambiente conforme o Micromouse explora o labirinto.} \\
     \rf[websocket]{Comunicação via WebSocket}{
         A troca de informações entre o Micromouse e o sistema web deve ser estabelecida através do protocolo WebSockets.} \\
-
+    \rf[display-local]{Visualização de energia no hardware}{ O micromouse deve possuir um indicador visual local (como LEDs de estado ou display OLED) para exibir o nível de carga da bateria sem a necessidade de dispositivos externos.} \\
+    \rf[bat-log]{Registro de consumo energético}{ O sistema deve registrar o consumo de energia durante cada percurso para posterior análise no sistema web.}
+    \rf[chave-geral]{Interruptor de potência}{ O sistema deve possuir um interruptor físico (Chave On/Off) capaz de seccionar a alimentação da bateria, interrompendo completamente o consumo de energia do dispositivo.} \\
+    \rf[power-throttling]{(Power Throttling)}{ O sistema deve monitorar a tensão da bateria e, ao atingir um limiar crítico pré-definido, deve transitar automaticamente para o modo de economia de energia para estender a autonomia operacional.} \\
+    \rf[bat-proteção]{Proteção contra descarga profunda}{ O sistema deve interromper automaticamente o funcionamento quando a bateria atingir um nível crítico mínimo, evitando danos permanentes à bateria.}
 \end{longtable}
 
- \begin{table}[htpb]
- \begin{center}
- \caption{Requisitos Não Funcionais.}
- \begin{tabular}{l l p{8cm}}
-     \toprule
-     ID & Nome & Descrição \\
-     \midrule
-     \rnf[autonomia_operacao]{Autonomia de operação}{Garantir funcionamento ininterrupto do sistema por, no mínimo, 20 minutos.} \\
-     \rnf[ciclo_missao]{Ciclo de missão}{Suportar o mapeamento completo no labirinto 16x16 sem recarga..} \\
-     \rnf[eficiencia_conversao]{Eficiência de conversão}{Utilizar reguladores de tensão com rendimento energético mínimo de 85%.
-     } \\
-     \rnf[consumo_standby]{Consumo em standby}{Limitar a corrente consumida em modo de espera a um máximo de 50mA.} \\
-     \rnf[monitorar_carga]{Monitoramento de carga}{Implementar detecção de baixa tensão para alertar quando a célula atingir 3,2V.} \\
-     \rnf[peso_bateria]{Peso do sistema de alimentação}{O sistema de alimentação não deve exceder 25\% do peso total do micromouse.} \\
-     \rnf[acessibilidade_bateria]{Acessibilidade}{Permitir o carregamento das baterias sem a necessidade de desmontagem.} \\
-     \rnf[estabilidade_tensao]{Estabilidade de tensão}{ Manter a variação de tensão nos sensores dentro de uma margem de +/- 5\% durante a aceleração dos motores.} \\
-     \rnf[massa]{Massa do sistema}{A massa total deve ser minimizada para reduzir a inércia e melhorar a resposta dinâmica.} \\
-     \rnf[fixacao]{Fixação Firme}{Os componentes devem ser fixados sem folgas, evitando vibrações e ruídos.} \\
-     \rnf[modularidade]{Modularidade do Sistema}{O sistema deve permitir substituição e atualização de módulos de forma independente.} \\
-     \rnf[eficiencia]{Eficiência Energética}{A estrutura deve minimizar o consumo energético, reduzindo atrito e massa excessiva.} \\
-     \rnf[estabilidade]{Estabilidade Estrutural}{O sistema deve manter estabilidade estática e dinâmica, evitando tombamento e oscilações durante a operação.} \\
- 
-     \bottomrule
- \end{tabular}
- \end{center}
- \end{table}
 
+\begin{longtable}{l l p{8cm}}
+    \caption{Requisitos Não Funcionais} \\
+    \toprule
+    ID & Nome & Descrição \\
+    \midrule
+    \endfirsthead
+    \endhead
+    \endfoot
+    \bottomrule
+    \endlastfoot
+    \rnf[autonomia_operacao]{Autonomia de operação}{Garantir funcionamento ininterrupto do sistema por, no mínimo, 20 minutos.} \\
+    \rnf[ciclo_missao]{Ciclo de missão}{Suportar o mapeamento completo no labirinto 16x16 sem recarga..} \\
+    \rnf[eficiencia_conversao]{Eficiência de conversão}{Utilizar reguladores de tensão com rendimento energético mínimo de 85\%.} \\
+    \rnf[consumo_standby]{Consumo em standby}{Limitar a corrente consumida em modo de espera a um máximo de 50mA.} \\
+    \rnf[monitorar_carga]{Monitoramento de carga}{Implementar detecção de baixa tensão para alertar quando a célula atingir 3,2V.} \\
+    \rnf[peso_bateria]{Peso do sistema de alimentação}{O sistema de alimentação não deve exceder 25\% do peso total do micromouse.} \\
+    \rnf[acessibilidade_bateria]{Acessibilidade}{Permitir o carregamento das baterias sem a necessidade de desmontagem.} \\
+    \rnf[estabilidade_tensao]{Estabilidade de tensão}{ Manter a variação de tensão nos sensores dentro de uma margem de +/- 5\% durante a aceleração dos motores.} \\
+    \rnf[massa]{Massa do sistema}{A massa total deve ser minimizada para reduzir a inércia e melhorar a resposta dinâmica.} \\
+    \rnf[fixacao]{Fixação Firme}{Os componentes devem ser fixados sem folgas, evitando vibrações e ruídos.} \\
+    \rnf[modularidade]{Modularidade do Sistema}{O sistema deve permitir substituição e atualização de módulos de forma independente.} \\
+    \rnf[eficiencia]{Eficiência Energética}{A estrutura deve minimizar o consumo energético, reduzindo atrito e massa excessiva.} \\
+    \rnf[estabilidade_dinamica]{Estabilidade Estrutural}{O sistema deve manter estabilidade estática e dinâmica, evitando tombamento e oscilações durante a operação.} \\
+    \rnf[vel_alg]{Tempo de execução do algoritmo}{
+        O algoritmo de navegação deve processar a tomada de decisão em um tempo inferior a 5 ms.} \\
+    \rnf[prec_parede]{Precisão na detecção de paredes}{
+        A atualização da estrutura do labirinto deve ocorrer em menos de 10 ms após a leitura do sensor.} \\
+    \rnf[temp_tipo]{Atualização em tempo real do tipo de labirinto}{
+        O sistema web deve ajustar automaticamente a escala visual do mapeamento para os três tipos de labirinto (4x4, 8x8 e 16x16).} \\
+    \rnf[temp_localização]{Atualização em tempo real da localização do micromouse}{
+        O sistema web deve receber, processar e exibir na interface os dados de localização do micromouse com uma latência máxima de 200 ms.} \\
+    \rnf[temp_velocidade]{Atualização em tempo real da velocidade}{
+        O sistema web deve receber, processar e exibir na interface os dados de velocidade com uma latência máxima de 200 ms.} \\
+    \rnf[temp_bateria]{Atualização em tempo real da bateria do micromouse}{
+        O sistema web deve receber, processar e exibir na interface os dados de bateria do micromouse com uma latência máxima de 200 ms.} \\
+    \rnf[temp_conclusao]{Atualização em tempo real da conclusão do labirinto}{
+        O sistema web deve receber, processar e exibir na interface os dados de conclusão do labirinto com uma latência máxima de 200 ms.} \\
+    \rnf[intg_bd_web]{Integridade dos dados}{
+        O sistema web deve garantir que todos os dados de telemetria recebidos sejam persistidos no banco de dados sem perda de informação.} \\
+    \rnf[desempenho_bd]{Tempo de resposta para consultas históricas}{
+        O sistema web deve ser capaz de exibir os dados de qualquer trajeto histórico armazenado no banco de dados em um tempo máximo de 1 segundo após a solicitação do usuário.} \\
+    \rnf[recon_websocket]{Tolerância a falhas na comunicação}{
+        Em caso de perda de conexão WebSocket durante um percurso, o sistema web deve tentar a reconexão automática a cada 1 segundo, sem perder o estado atual dos dados de telemetria na interface.} \\
+    \rnf[debounce_comandos]{Prevenção de comandos conflitantes}{
+        A interface web deve aplicar um mecanismo de bloqueio nos botões de controle remoto (iniciar/reiniciar), impedindo o envio de comandos duplicados em um intervalo menor que 500 ms.} \\
+    \rnf[responsividade_web]{Responsividade da interface}{
+        A interface web deve adaptar-se automaticamente a diferentes resoluções, garantindo a ausência de elementos cortados ou sobrepostos.} \\
+    \rnf[compatibilidade_browser]{Compatibilidade de navegadores}{
+        O sistema web deve ser totalmente funcional e manter a integridade visual nos navegadores baseados nas engines Chromium (Chrome, Brave, Opera, Edge) e WebKit (Safari), em suas versões estáveis mais recentes.} \\
+\end{longtable}
 
 \section{Justificativa}
 
