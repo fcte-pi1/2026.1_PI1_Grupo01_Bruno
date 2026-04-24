@@ -53,10 +53,29 @@
 
 \begin{itemize}
     \item \textcolor{red}{ \textbf{Diagrama BPMN para entender o \textit{software} proposto:} deve deixar claro os principais atores do sistema, suas atividades (de negócios), insumos e resultados.}
-    \item \textcolor{red}{\textbf{\textit{Backlog} funcional do \textit{software}:}}
+    \item \textbf{\textit{Backlog} funcional do \textit{software}:}
+    
+    Para garantir a rastreabilidade e o cumprimento dos requisitos funcionais definidos, os casos de uso foram consolidados conforme a Tabela \ref{tab:casos_uso_resumo}.
+
+    \begin{table}[htpb]
+    \centering
+    \caption{Resumo dos Casos de Uso e Rastreabilidade de RFs.}
+    \label{tab:casos_uso_resumo}
+    \begin{tabular}{|l|p{5cm}|p{6cm}|}
+    \hline
+    \textbf{ID} & \textbf{Caso de Uso} & \textbf{Requisitos Vinculados (RF)} \\ \hline
+    UC01 & Resolver Labirinto Autonomamente & \cref{rf:tof-paredes,rf:motor-pwm,rf:motor-direcao,rf:linha-reta,rf:curva,rf:botao,rf:buzzer,rf:disposição,rf:tamanho,rf:proteção,rf:modularidade,rf:chave-geral} \\ \hline
+    UC02 & Monitorar Telemetria Web & \cref{rf:wifi-telemetria,rf:mapeamento_trajeto_web,rf:tipo_labirinto_web,rf:resto_bateria_web,rf:bateria_consumida_web,rf:tempo_web,rf:status_web,rf:vmedia_web,rf:obstaculos_web,rf:obstaculos_id_web,rf:map_lab_web,rf:websocket,rf:display-local} \\ \hline
+    UC03 & Gerenciar Operação Remota & \cref{rf:on_off_web,rf:on_temp_web,rf:reset_temp_web,rf:dados_bd_web,rf:bat-log} \\ \hline
+    UC04 & Analisar Histórico e Energia & \cref{rf:salvar_bd,rf:consulta_bd,rf:bat-alerta,rf:power-throttling,rf:bat-proteção} \\ \hline
+    \end{tabular}
+    \end{table}
+
+    \textbf{Priorização MoSCoW:} 
     \begin{itemize}
-        \item \textcolor{red}{ Escrito no formato de histórias de usuário ou casos de uso (decisão da equipe);}
-        \item \textcolor{red}{ Ao declarar o \textit{backlog} de requisitos funcionais, usar a  classificação de MoSCoW (\textit{Must have}, \textit{Should have} e \textit{Could have}),  para um melhor entendimento do próprio \textit{backlog}.}
+        \item \textbf{Must Have:} Navegação autônoma, sensoriamento e transmissão WebSocket.
+        \item \textbf{Should Have:} Persistência em banco de dados e controle remoto web.
+        \item \textbf{Could Have:} Sinalização sonora e modos de economia de energia.
     \end{itemize}
     \item \textcolor{red}{\textbf{ \textit{Backlog} não-funcional do \textit{software}:}}
     \begin{itemize}
