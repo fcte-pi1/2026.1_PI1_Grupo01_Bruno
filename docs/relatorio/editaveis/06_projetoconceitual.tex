@@ -55,28 +55,35 @@
     \item \textcolor{red}{ \textbf{Diagrama BPMN para entender o \textit{software} proposto:} deve deixar claro os principais atores do sistema, suas atividades (de negócios), insumos e resultados.}
     \item \textbf{\textit{Backlog} funcional do \textit{software}:}
     
-    Para garantir a rastreabilidade e o cumprimento dos requisitos funcionais definidos, os casos de uso foram consolidados conforme a Tabela \ref{tab:casos_uso_resumo}.
+    Para garantir a rastreabilidade e o cumprimento dos 35 requisitos funcionais definidos, os casos de uso foram detalhados e consolidados conforme a Tabela \ref{tab:casos_uso_resumo}.
 
     \begin{table}[htpb]
     \centering
-    \caption{Resumo dos Casos de Uso e Rastreabilidade de RFs.}
+    \caption{Especificação Detalhada e Rastreabilidade dos Casos de Uso.}
     \label{tab:casos_uso_resumo}
-    \begin{tabular}{|l|p{5cm}|p{6cm}|}
+    \renewcommand{\arraystretch}{1.5} % Aumenta o espaçamento das linhas para a tabela ficar mais alta
+    \footnotesize % Ajusta o tamanho da fonte para caber mais informação
+    \begin{tabular}{|c|p{2.5cm}|p{2cm}|p{4.2cm}|p{4.2cm}|}
     \hline
-    \textbf{ID} & \textbf{Caso de Uso} & \textbf{Requisitos Vinculados (RF)} \\ \hline
-    UC01 & Resolver Labirinto Autonomamente & \cref{rf:tof-paredes,rf:motor-pwm,rf:motor-direcao,rf:linha-reta,rf:curva,rf:botao,rf:buzzer,rf:disposição,rf:tamanho,rf:proteção,rf:modularidade,rf:chave-geral} \\ \hline
-    UC02 & Monitorar Telemetria Web & \cref{rf:wifi-telemetria,rf:mapeamento_trajeto_web,rf:tipo_labirinto_web,rf:resto_bateria_web,rf:bateria_consumida_web,rf:tempo_web,rf:status_web,rf:vmedia_web,rf:obstaculos_web,rf:obstaculos_id_web,rf:map_lab_web,rf:websocket,rf:display-local} \\ \hline
-    UC03 & Gerenciar Operação Remota & \cref{rf:on_off_web,rf:on_temp_web,rf:reset_temp_web,rf:dados_bd_web,rf:bat-log} \\ \hline
-    UC04 & Analisar Histórico e Energia & \cref{rf:salvar_bd,rf:consulta_bd,rf:bat-alerta,rf:power-throttling,rf:bat-proteção} \\ \hline
+    \textbf{ID} & \textbf{Caso de Uso} & \textbf{Ator(es)} & \textbf{Descrição do Fluxo Principal} & \textbf{Requisitos Vinculados (RFs)} \\ \hline
+    
+    \textbf{UC01} & Resolver Labirinto Autonomamente & Micromouse & O robô inicia a navegação, detecta paredes via ToF, calcula a rota, controla o PWM dos motores e aciona o buzzer ao chegar no centro. & [tof-paredes], [motor-pwm], [motor-direcao], [linha-reta], [curva], [botao], [buzzer], [disposição], [tamanho], [proteção], [modularidade], [chave-geral] \\ \hline
+    
+    \textbf{UC02} & Monitorar Telemetria Web & Usuário, Micromouse & O sistema web estabelece conexão via WebSocket e exibe o mapa dinâmico, trajeto, velocidade e o consumo atualizado de bateria. & [wifi-telemetria], [mapeamento\_trajeto\_web], [tipo\_labirinto\_web], [resto\_bateria\_web], [bateria\_consumida\_web], [tempo\_web], [status\_web], [vmedia\_web], [obstaculos\_web], [obstaculos\_id\_web], [map\_lab\_web], [websocket], [display-local] \\ \hline
+    
+    \textbf{UC03} & Gerenciar Operação Remota & Usuário & Através da web, o usuário aciona o robô, inicia o temporizador, reseta o sistema e envia logs de energia para persistência. & [on\_off\_web], [on\_temp\_web], [reset\_temp\_web], [dados\_bd\_web], [bat-log] \\ \hline
+    
+    \textbf{UC04} & Analisar Histórico e Energia & Usuário & O usuário consulta o banco de dados para avaliar trajetos passados, velocidade média e atuação dos mecanismos de proteção de bateria. & [salvar\_bd], [consulta\_bd], [bat-alerta], [power-throttling], [bat-proteção] \\ \hline
     \end{tabular}
     \end{table}
 
     \textbf{Priorização MoSCoW:} 
     \begin{itemize}
-        \item \textbf{Must Have:} Navegação autônoma, sensoriamento e transmissão WebSocket.
-        \item \textbf{Should Have:} Persistência em banco de dados e controle remoto web.
-        \item \textbf{Could Have:} Sinalização sonora e modos de economia de energia.
+        \item \textbf{Must Have:} Navegação autônoma, mapeamento lógico, sensoriamento de paredes e transmissão de dados via WebSocket.
+        \item \textbf{Should Have:} Persistência em banco de dados, dashboard de visualização web e controle remoto de operação.
+        \item \textbf{Could Have:} Sinalização sonora ao atingir objetivo e transição para modo de economia de energia (Power Throttling).
     \end{itemize}
+
     \item \textcolor{red}{\textbf{ \textit{Backlog} não-funcional do \textit{software}:}}
     \begin{itemize}
         \item \textcolor{red}{ Descrever os requisitos não-funcionais de forma objetiva;}
