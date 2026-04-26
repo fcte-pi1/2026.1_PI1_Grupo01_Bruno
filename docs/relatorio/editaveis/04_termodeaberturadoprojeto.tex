@@ -87,17 +87,16 @@ De forma mais ampla, o projeto apresenta relevância indireta para o setor tecno
 
 % Exemplo de referência a um requisito: \cref{req:login}.
 
-\begin{longtable}{l l p{8cm}}
+\begin{longtable}{l p{3cm} p{11cm}}
     \caption{Requisitos Funcionais} \\
     \toprule
     ID & Nome & Descrição \\
     \midrule
     \endfirsthead
+    \toprule
+    ID & Nome & Descrição \\
+    \midrule
     \endhead
-    \endfoot
-    \bottomrule
-    \endlastfoot
-
     \rf[tof-paredes]{Detecção de paredes do labirinto}{
         O sistema deve detectar a presença ou ausência de paredes
         nas direções frontal, lateral esquerda e lateral direita
@@ -179,17 +178,16 @@ De forma mais ampla, o projeto apresenta relevância indireta para o setor tecno
     \rf[bat-proteção]{Proteção contra descarga profunda}{ O sistema deve interromper automaticamente o funcionamento quando a bateria atingir um nível crítico mínimo, evitando danos permanentes à bateria.}
 \end{longtable}
 
-
-\begin{longtable}{l l p{8cm}}
+\begin{longtable}{l p{3cm} p{11cm}}
     \caption{Requisitos Não Funcionais} \\
     \toprule
     ID & Nome & Descrição \\
     \midrule
     \endfirsthead
+    \toprule
+    ID & Nome & Descrição \\
+    \midrule
     \endhead
-    \endfoot
-    \bottomrule
-    \endlastfoot
     \rnf[autonomia_operacao]{Autonomia de operação}{Garantir funcionamento ininterrupto do sistema por, no mínimo, 20 minutos.} \\
     \rnf[ciclo_missao]{Ciclo de missão}{Suportar o mapeamento completo no labirinto 16x16 sem recarga..} \\
     \rnf[eficiencia_conversao]{Eficiência de conversão}{Utilizar reguladores de tensão com rendimento energético mínimo de 85\%.} \\
@@ -243,7 +241,7 @@ De forma mais ampla, o projeto apresenta relevância indireta para o setor tecno
     \rnf[responsividade_web]{Responsividade da interface}{
         A interface web deve adaptar-se automaticamente a diferentes resoluções, garantindo a ausência de elementos cortados ou sobrepostos.} \\
     \rnf[compatibilidade_browser]{Compatibilidade de navegadores}{
-        O sistema web deve ser totalmente funcional e manter a integridade visual nos navegadores baseados nas engines Chromium (Chrome, Brave, Opera, Edge) e WebKit (Safari), em suas versões estáveis mais recentes.} \\
+        O sistema web deve ser totalmente funcional e manter a integridade visual nos navegadores baseados nas engines Chromium (Chrome, Brave, Opera, Edge) e WebKit (Safari), em suas versões estáveis mais recentes.}
 \end{longtable}
 
 \section{Justificativa}
