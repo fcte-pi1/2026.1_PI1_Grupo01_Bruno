@@ -52,36 +52,47 @@
 \textcolor{red}{Itens fundamentais:}
 
 \begin{itemize}
-    \item \textcolor{red}{ \textbf{Diagrama BPMN para entender o \textit{software} proposto:} deve deixar claro os principais atores do sistema, suas atividades (de negócios), insumos e resultados.}
-    \item \textbf{\textit{Backlog} funcional do \textit{software}:}
+    \item \textcolor{red}{\textbf{Diagrama BPMN para entender o \textit{software} proposto:} deve deixar claro os principais atores do sistema, suas atividades (de negócios), insumos e resultados.}
     
-    Para garantir a rastreabilidade e o cumprimento dos 35 requisitos funcionais definidos, os casos de uso foram detalhados e consolidados conforme a Tabela \ref{tab:casos_uso_resumo}.
+   \item \textbf{\textit{Backlog} funcional do \textit{software}:}
+    
+    A modelagem funcional do sistema foi elaborada através do Diagrama de Casos de Uso, ilustrando as interações diretas entre os atores (Usuário e Micromouse) e a fronteira do Sistema XAROPi. 
+    
+    Para garantir a rastreabilidade e o entendimento completo das ramificações do sistema, a Tabela \ref{tab:casos_uso_resumo} detalha cada caso de uso principal do diagrama, mapeando seus relacionamentos de inclusão (\textit{include}) e extensão (\textit{extend}), juntamente com os requisitos funcionais (RFs) que os fundamentam.
 
-    \begin{table}[htpb]
+    \begin{table}[h!] 
     \centering
-    \caption{Especificação Detalhada e Rastreabilidade dos Casos de Uso.}
+    \caption{Detalhamento e Rastreabilidade dos Casos de Uso (Sistema Web).}
     \label{tab:casos_uso_resumo}
-    \renewcommand{\arraystretch}{1.5} % Aumenta o espaçamento das linhas para a tabela ficar mais alta
-    \footnotesize % Ajusta o tamanho da fonte para caber mais informação
-    \begin{tabular}{|c|p{2.5cm}|p{2cm}|p{4.2cm}|p{4.2cm}|}
+    \renewcommand{\arraystretch}{1.5}
+    \footnotesize
+    \begin{tabular}{|c|p{2.8cm}|p{1.5cm}|p{4cm}|p{3.5cm}|}
     \hline
-    \textbf{ID} & \textbf{Caso de Uso} & \textbf{Ator(es)} & \textbf{Descrição do Fluxo Principal} & \textbf{Requisitos Vinculados (RFs)} \\ \hline
+    \textbf{ID} & \textbf{Caso de Uso Principal} & \textbf{Ator(es)} & \textbf{Relacionamentos (\textit{Includes / Extends})} & \textbf{Requisitos (RFs)} \\ \hline
     
-    \textbf{UC01} & Resolver Labirinto Autonomamente & Micromouse & O robô inicia a navegação, detecta paredes via ToF, calcula a rota, controla o PWM dos motores e aciona o buzzer ao chegar no centro. & [tof-paredes], [motor-pwm], [motor-direcao], [linha-reta], [curva], [botao], [buzzer], [disposição], [tamanho], [proteção], [modularidade], [chave-geral] \\ \hline
+    \textbf{UC01} & Iniciar Novo Trajeto & Usuário & \textit{Includes:} Enviar Comando, Selecionar Tipo de Labirinto, Monitorar Execução & [on\textunderscore{}off\textunderscore{}web], [on\textunderscore{}temp\textunderscore{}web], [tipo\textunderscore{}labirinto\textunderscore{}web] \\ \hline
     
-    \textbf{UC02} & Monitorar Telemetria Web & Usuário, Micromouse & O sistema web estabelece conexão via WebSocket e exibe o mapa dinâmico, trajeto, velocidade e o consumo atualizado de bateria. & [wifi-telemetria], [mapeamento\_trajeto\_web], [tipo\_labirinto\_web], [resto\_bateria\_web], [bateria\_consumida\_web], [tempo\_web], [status\_web], [vmedia\_web], [obstaculos\_web], [obstaculos\_id\_web], [map\_lab\_web], [websocket], [display-local] \\ \hline
+    \textbf{UC02} & Reiniciar Trajeto & Usuário & \textit{Includes:} Resetar Dados de Execução, Enviar Comando & [on\textunderscore{}off\textunderscore{}web], [reset\textunderscore{}temp\textunderscore{}web] \\ \hline
     
-    \textbf{UC03} & Gerenciar Operação Remota & Usuário & Através da web, o usuário aciona o robô, inicia o temporizador, reseta o sistema e envia logs de energia para persistência. & [on\_off\_web], [on\_temp\_web], [reset\_temp\_web], [dados\_bd\_web], [bat-log] \\ \hline
+    \textbf{UC03} & Abortar Trajeto & Usuário & \textit{Includes:} Enviar Comando & [on\textunderscore{}off\textunderscore{}web] \\ \hline
     
-    \textbf{UC04} & Analisar Histórico e Energia & Usuário & O usuário consulta o banco de dados para avaliar trajetos passados, velocidade média e atuação dos mecanismos de proteção de bateria. & [salvar\_bd], [consulta\_bd], [bat-alerta], [power-throttling], [bat-proteção] \\ \hline
+    \textbf{UC04} & Consultar Status da Bateria & Usuário & - & [resto\textunderscore{}bateria\textunderscore{}web] \\ \hline
+    
+    \textbf{UC05} & Monitorar Execução & Usuário, Micromouse & \textit{Includes:} Acompanhar Mapeamento do Labirinto, Receber Telemetria & [websocket], [map\textunderscore{}lab\textunderscore{}web], [mapeamento\textunderscore{}trajeto\textunderscore{}web], [obstaculos\textunderscore{}web], [obstaculos\textunderscore{}id\textunderscore{}web], [tempo\textunderscore{}web], [bateria\textunderscore{}consumida\textunderscore{}web] \\ \hline
+
+    \textbf{UC06} & Consultar Histórico & Usuário & \textit{Extends:} Visualizar Detalhes, Filtrar Trajetos, Excluir Trajeto & [consulta\textunderscore{}bd] \\ \hline
+    
+    \textbf{UC07} & Detectar Conclusão do Trajeto & Micromouse & \textit{Includes:} Armazenar Dados do Trajeto, Atualizar Status do Trajeto & [status\textunderscore{}web], [vmedia\textunderscore{}web], [dados\textunderscore{}bd\textunderscore{}web], [salvar\textunderscore{}bd] \\ \hline
     \end{tabular}
     \end{table}
 
+    \newpage 
+
     \textbf{Priorização MoSCoW:} 
     \begin{itemize}
-        \item \textbf{Must Have:} Navegação autônoma, mapeamento lógico, sensoriamento de paredes e transmissão de dados via WebSocket.
-        \item \textbf{Should Have:} Persistência em banco de dados, dashboard de visualização web e controle remoto de operação.
-        \item \textbf{Could Have:} Sinalização sonora ao atingir objetivo e transição para modo de economia de energia (Power Throttling).
+        \item \textbf{Must Have:} Comunicação WebSocket estável [websocket], mapeamento lógico do labirinto [map\textunderscore{}lab\textunderscore{}web] e envio de comandos de controle (início/reset/abortar) [on\textunderscore{}off\textunderscore{}web].
+        \item \textbf{Should Have:} Persistência de dados [salvar\textunderscore{}bd] e rotinas de acompanhamento de telemetria e bateria [tempo\textunderscore{}web, resto\textunderscore{}bateria\textunderscore{}web].
+        \item \textbf{Could Have:} Filtros avançados no histórico de trajetos [consulta\textunderscore{}bd] e exibição de velocidade média calculada [vmedia\textunderscore{}web].
     \end{itemize}
 
     \item \textcolor{red}{\textbf{ \textit{Backlog} não-funcional do \textit{software}:}}
