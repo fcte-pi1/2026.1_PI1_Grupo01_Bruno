@@ -12,19 +12,54 @@
 
 \section{Descrição de \textit{hardware}}
 
-\textcolor{red}{A descrição de \textit{hardware} no documento deve permitir que outras pessoas repliquem o produto proposto neste documento. Para isso, deve-se explicar de forma textual os principais sub-sistemas e as escolhas de projeto, além de indicar:}
+A presente seção detalha a arquitetura de hardware desenvolvida para o micromouse XAROPi. A descrição a seguir permite a compreensão e a plena replicação do produto proposto neste documento. Para isso, os subsistemas principais e as escolhas de projeto são explicados de forma textual, acompanhados da lista completa de componentes, do diagrama de blocos e, por fim, do esquema elétrico das conexões. \\
 
-\begin{itemize}
-    \item \textcolor{red}{ O diagrama de blocos \cite{blockdiagram}, que oferece uma visão geral do hardware, com as principais partes do sistema e as ligações entre elas.}
-    %\item A lista de materiais \cite{bom}, que facilita a montagem do sistema, indicando tudo que deve ser adquirido. Aproveitem a lista de materiais para apresentarem o orçamento dos mesmos.
-    \item \textcolor{red}{ O esquemático \cite{esquematico}, que mostra as conexões elétricas entre os componentes. Deve-se indicar os componentes por nomes e símbolos, e as conexões entre eles, incluindo a pinagem dos componentes. Se o esquemático ficar muito grande, pode-se separa-lo em vários esquemáticos. A ligação em \textit{protoboard} não é considerada um esquemático adequado.}
-\end{itemize}
+Para a concretização do projeto físico, foram selecionados componentes que equilibram custo, disponibilidade e desempenho para os requisitos de navegação autônoma. A Tabela \ref{tab:lista_materiais} apresenta a lista de materiais principal utilizada no chassi do robô.
+
+\begin{table}[H]
+    \centering
+    \caption{Lista de materiais do Micromouse.}
+    \label{tab:lista_materiais}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|l|l|c|p{5cm}|}
+        \hline
+        \textbf{Componente} & \textbf{Modelo} & \textbf{Qtd.} & \textbf{Descrição} \\
+        \hline
+        Microcontrolador & ESP32-S3-WROOM-1-N16R8 & 1 & Responsável pelo processamento do algoritmo de navegação e telemetria. \\
+        \hline
+        Sensor de Distância (ToF) & VL53L0X & 3 & Mapeamento frontal e lateral das paredes do labirinto. \\
+        \hline
+        Sensor Inercial & MPU-6000 & 1 & Acelerômetro e giroscópio de 6 eixos para controle de orientação. \\
+        \hline
+        Micro Motor DC com Encoder & 6V-750RPM & 2 & Motores com caixas de redução e encoders de quadratura integrados. \\
+        \hline
+        Driver de Potência (Ponte H) & L298N & 1 & Módulo Ponte H baseado no CI L298N. \\
+        \hline
+        BMS & BMS-20A-3S-S & 1 & Módulo BMS (Battery Management System). \\
+        \hline
+        Regulador de Tensão (Step-down) & LM2596 & 1 & Fornece a tensão lógica adequada aos periféricos e ao microcontrolador. \\
+        \hline
+    \end{tabular}}
+\end{table}
+A Figura \ref{fig:diagrama_componentes}  apresenta o diagrama de blocos do sistema, ilustrando o fluxo de energia e a troca de dados entre os componentes. A arquitetura do robô é dividida logicamente em dois domínios principais: o subsistema de potência e o subsistema de controle e comunicação.
+
+No subsistema de alimentação, a energia fornecida pela bateria passa inicialmente pelo módulo BMS, responsável por proteger e garantir a integridade das células de lítio. Em seguida, o circuito é dividido em duas vias principais: uma linha de alta potência conectada diretamente à Ponte H, capaz de suprir a corrente exigida pelos motores, e uma linha secundária regulada pelo módulo LM2596. Este regulador reduz e estabiliza a tensão para alimentar de forma segura o microcontrolador ESP32-S3 e os sensores periféricos.
+
+O gerenciamento de todo o sistema é centralizado no ESP32-S3. Ele opera como o dispositivo mestre, realizando a leitura contínua dos dados do módulo inercial e dos sensores ToF por meio de um barramento de comunicação digital. A movimentação do robô ocorre sob um controle em malha fechada: o microcontrolador envia os comandos de atuação (PWM e direção) para a Ponte H e, simultaneamente, recebe o feedback odométrico por meio das interrupções geradas pelos encoders dos motores. Esse ciclo permite que o sistema calcule o deslocamento e ajuste a trajetória em tempo real.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figuras/diagrama_componentesFinal.png}
+    \captionsetup{font=footnotesize}
+    \caption{Diagrama de componentes do Micromouse. As linhas contínuas pretas representam conexões físicas via protocolo I2C. As linhas verdes representam alimentação em baixa tensão (3,3V). As linhas vermelhas representam alimentação em alta tensão (6V). As linhas tracejadas representam comunicação sem fio.}
+    \label{fig:diagrama_componentes}
+\end{figure}
+
 
 \textcolor{red}{A Fig. \ref{fig:diagrama_blocos_e_esquematico} apresenta o diagrama de blocos e o esquemático de um circuito conversor de corrente alternada para corrente direta, a título de exemplo. Repare que o diagrama de blocos indica os subsistemas do circuito completo apresentado no esquemático.
 % Comecem com o diagrama de blocos, que é mais genérico, e depois indiquem os detalhes com a lista de materiais e os esquemáticos.
 }
 
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.5\linewidth]{figuras/Exemplo-diagrama-de-blocos.png}
     \includegraphics[width=0.5\linewidth]{figuras/Esquematico.png}
