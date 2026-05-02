@@ -10,6 +10,8 @@
 \usepackage{hyperref} 
 \usepackage{xparse}
 \usepackage{cleveref}
+\usepackage{longtable}
+\usepackage{booktabs}
 
 \newcounter{rfcounter}
 \newcounter{rnfcounter}
@@ -33,7 +35,7 @@
     \checkduplicatelabel{#1}%
     \label{req:#1}%
   }%
-  RF\therfcounter & #2 & #3  \\
+  RF\therfcounter & #2 & #3 \\
 }
 
 \NewDocumentCommand{\rnf}{O{} m m}{%
@@ -42,7 +44,7 @@
     \checkduplicatelabel{#1}%
     \label{req:#1}%
   }%
-  RNF\thernfcounter & #2 & #3  \\
+  RNF\thernfcounter & #2 & #3 \\
 }
 
 \begin{document}
