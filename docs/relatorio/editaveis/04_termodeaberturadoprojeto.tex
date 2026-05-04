@@ -49,13 +49,13 @@ De forma mais ampla, o projeto apresenta relevância indireta para o setor tecno
     % \toprule
     \hline
     \rowcolor{gray!30}
-    \textbf{ID} & \textbf{Descrição} & \textbf{Prioridade} \\ \hline
+    \textbf{ID} & \textbf{Descrição} & \textbf{Classificação} \\ \hline
     % \midrule
     \endfirsthead
     % \toprule
     \hline
     \rowcolor{gray!30}
-    \textbf{ID} & \textbf{Descrição} & \textbf{Prioridade} \\ \hline
+    \textbf{ID} & \textbf{Descrição} & \textbf{Classificação} \\ \hline
     % \midrule
     \endhead
     \rowcolor{gray!10}
@@ -110,39 +110,39 @@ De forma mais ampla, o projeto apresenta relevância indireta para o setor tecno
 
     \rowcolor{gray!10}
     \multicolumn{3}{|c|}{Software} \\ \hline
-    \rf[mapeamento_trajeto_web]{Indefinido}{
+    \rf[mapeamento_trajeto_web]{Must}{
         Em relação ao percurso atual, o sistema web deve exibir e atualizar em tempo real o mapeamento da localização e o trajeto do Micromouse no labirinto.} \\ \hline  
-    \rf[tipo_labirinto_web]{Indefinido}{
+    \rf[tipo_labirinto_web]{Must}{
         O sistema web deve identificar e exibir o tipo de labirinto para o percurso atual.} \\ \hline
-    \rf[resto_bateria_web]{Indefinido}{
+    \rf[resto_bateria_web]{Must}{
         O sistema web deve exibir e atualizar em tempo real a porcentagem de bateria disponível do Micromouse.} \\ \hline
-    \rf[bateria_consumida_web]{Indefinido}{
+    \rf[bateria_consumida_web]{Could}{
         O sistema web deve exibir e atualizar em tempo real a porcentagem de bateria consumida pelo Micromouse durante o trajeto.} \\ \hline
-    \rf[tempo_web]{Indefinido}{
+    \rf[tempo_web]{Must}{
         O sistema web deve exibir e atualizar em tempo real um temporizador indicando o tempo decorrido até a conclusão ou interrupção do desafio.} \\ \hline
-    \rf[status_web]{Indefinido}{
+    \rf[status_web]{Must}{
         Após a conclusão do percurso, o sistema web deve exibir se o desafio foi cumprido com sucesso ou não.} \\ \hline
-    \rf[vmedia_web]{Indefinido}{
+    \rf[vmedia_web]{Must}{
         Após a conclusão do percurso, o sistema web deve exibir a velocidade média mantida pelo Micromouse.} \\ \hline
-    \rf[on_off_web]{Indefinido}{
+    \rf[on_off_web]{Should}{
         O sistema web deve possuir um botão que envia comandos para iniciar e reiniciar percursos remotamente.} \\ \hline
-    \rf[on_temp_ web]{Indefinido}{
+    \rf[on_temp_ web]{Must}{
         Ao iniciar o percurso, o temporizador deve ser ativado automaticamente. } \\ \hline
-    \rf[reset_temp_ web]{Indefinido}{
+    \rf[reset_temp_ web]{Should}{
         Ao reiniciar o percurso, o sistema deve resetar o cronômetro. } \\ \hline
-    \rf[dados_bd_web]{Indefinido}{
+    \rf[dados_bd_web]{Must}{
         Ao finalizar o percurso, o sistema deve enviar os dados do percurso anterior para o banco de dados.} \\ \hline
-    \rf[salvar_bd]{Indefinido}{
+    \rf[salvar_bd]{Must}{
         Após a conclusão do desafio, os dados finais devem ser armazenados em um banco de dados, categorizados de acordo com o tipo de labirinto.} \\ \hline
-    \rf[consulta_bd]{Indefinido}{
+    \rf[consulta_bd]{Must}{
         O sistema deve permitir a consulta e exibição de dados de qualquer trajeto específico armazenado, independentemente do tipo de labirinto.} \\ \hline
-    \rf[obstaculos_web]{Indefinido}{
+    \rf[obstaculos_web]{Must}{
         O sistema web deve processar os dados recebidos do micromouse em tempo real para identificar a presença de paredes.} \\ \hline
-    \rf[obstaculos_id_web]{Indefinido}{
+    \rf[obstaculos_id_web]{Must}{
         Ao detectar um obstáculo, o software deve atualizar a estrutura de dados do labirinto na interface web.} \\ \hline
-    \rf[map_lab_web]{Indefinido}{
+    \rf[map_lab_web]{Could}{
         O sistema web deve realizar a construção progressiva de uma representação lógica (matriz ou grafo) do ambiente conforme o Micromouse explora o labirinto.} \\ \hline
-    \rf[websocket]{Indefinido}{
+    \rf[websocket]{Could}{
         A troca de informações entre o Micromouse e o sistema web deve ser estabelecida através do protocolo WebSockets.} \\ \hline
 
     \rowcolor{gray!10}
@@ -167,13 +167,13 @@ De forma mais ampla, o projeto apresenta relevância indireta para o setor tecno
     % \toprule
     \hline
     \rowcolor{gray!30}
-    \textbf{ID} & \textbf{Descrição} & \textbf{Prioridade} \\ \hline
+    \textbf{ID} & \textbf{Descrição} & \textbf{Classificação} \\ \hline
     % \midrule
     \endfirsthead
     % \toprule
     \hline
     \rowcolor{gray!30}
-    \textbf{ID} & \textbf{Descrição} & \textbf{Prioridade} \\ \hline
+    \textbf{ID} & \textbf{Descrição} & \textbf{Classificação} \\ \hline
     % \midrule
     \endhead
     \rowcolor{gray!10}
@@ -231,27 +231,27 @@ De forma mais ampla, o projeto apresenta relevância indireta para o setor tecno
 
     \rowcolor{gray!10}
     \multicolumn{3}{|c|}{Software} \\ \hline
-    \rnf[temp_tipo]{Indefinido}{
+    \rnf[temp_tipo]{Should}{
         O sistema web deve ajustar automaticamente a escala visual do mapeamento para os três tipos de labirinto (4x4, 8x8 e 16x16).} \\ \hline
-    \rnf[temp_localização]{Indefinido}{
+    \rnf[temp_localização]{Should}{
         O sistema web deve receber, processar e exibir na interface os dados de localização do micromouse com uma latência máxima de 200 ms.} \\ \hline
-    \rnf[temp_velocidade]{Indefinido}{
+    \rnf[temp_velocidade]{Could}{
         O sistema web deve receber, processar e exibir na interface os dados de velocidade com uma latência máxima de 200 ms.} \\ \hline
-    \rnf[temp_bateria]{Indefinido}{
+    \rnf[temp_bateria]{Must}{
         O sistema web deve receber, processar e exibir na interface os dados de bateria do micromouse com uma latência máxima de 200 ms.} \\ \hline
-    \rnf[temp_conclusao]{Indefinido}{
+    \rnf[temp_conclusao]{Could}{
         O sistema web deve receber, processar e exibir na interface os dados de conclusão do labirinto com uma latência máxima de 200 ms.} \\ \hline
-    \rnf[intg_bd_web]{Indefinido}{
+    \rnf[intg_bd_web]{Must}{
         O sistema web deve garantir que todos os dados de telemetria recebidos sejam persistidos no banco de dados sem perda de informação.} \\ \hline
-    \rnf[desempenho_bd]{Indefinido}{
+    \rnf[desempenho_bd]{Could}{
         O sistema web deve ser capaz de exibir os dados de qualquer trajeto histórico armazenado no banco de dados em um tempo máximo de 1 segundo após a solicitação do usuário.} \\ \hline
-    \rnf[recon_websocket]{Indefinido}{
+    \rnf[recon_websocket]{Must}{
         Em caso de perda de conexão WebSocket durante um percurso, o sistema web deve tentar a reconexão automática a cada 1 segundo, sem perder o estado atual dos dados de telemetria na interface.} \\ \hline
-    \rnf[debounce_comandos]{Indefinido}{
+    \rnf[debounce_comandos]{Should}{
         A interface web deve aplicar um mecanismo de bloqueio nos botões de controle remoto (iniciar/reiniciar), impedindo o envio de comandos duplicados em um intervalo menor que 500 ms.} \\ \hline
-    \rnf[responsividade_web]{Indefinido}{
+    \rnf[responsividade_web]{Could}{
         A interface web deve adaptar-se automaticamente a diferentes resoluções, garantindo a ausência de elementos cortados ou sobrepostos.} \\ \hline
-    \rnf[compatibilidade_browser]{Indefinido}{
+    \rnf[compatibilidade_browser]{Should}{
         O sistema web deve ser totalmente funcional e manter a integridade visual nos navegadores baseados nas engines Chromium (Chrome, Brave, Opera, Edge) e WebKit (Safari), em suas versões estáveis mais recentes.} \\ \hline
 \end{longtable}
 
