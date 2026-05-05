@@ -60,41 +60,41 @@ De forma mais ampla, o projeto apresenta relevância indireta para o setor tecno
     \endhead
     \rowcolor{gray!10}
     \multicolumn{3}{|c|}{Hardware} \\ \hline
-    \rf[tof-paredes]{Indefinido}{
+    \rf[tof-paredes]{Must}{
         O sistema deve detectar a presença ou ausência de paredes
         nas direções frontal, lateral esquerda e lateral direita
         do micromouse, compatível com as dimensões das células de
         18~cm × 18~cm e paredes de 5~cm de altura.} \\ \hline
-    \rf[motor-pwm]{Indefinido}{
+    \rf[motor-pwm]{Must}{
         O sistema deve controlar individualmente a velocidade de
         cada motor DC por meio de sinal PWM enviado ao driver
         de motor.} \\ \hline
-    \rf[motor-direcao]{Indefinido}{
+    \rf[motor-direcao]{Must}{
         O sistema deve controlar o sentido de rotação de cada motor
         DC de forma independente, permitindo movimentos de avanço,
         recuo e curvas.} \\ \hline
-    \rf[linha-reta]{Indefinido}{
+    \rf[linha-reta]{Must}{
         O sistema deve mover o micromouse em linha reta dentro dos
         corredores do labirinto, mantendo trajetória centralizada
         entre as paredes.} \\ \hline
-    \rf[curva]{Indefinido}{
+    \rf[curva]{Must}{
         O sistema deve executar curvas de 90° e 180° de forma
         precisa, compatível com as dimensões das células de
         18~cm × 18~cm do labirinto.} \\ \hline
-    \rf[botao]{Indefinido}{
+    \rf[botao]{Should}{
         O sistema deve iniciar e interromper a navegação por meio
         de um botão físico acessível externamente no micromouse} \\ \hline
-    \rf[bat-alerta]{Indefinido}{
+    \rf[bat-alerta]{Should}{
         O sistema deve detectar e sinalizar quando a tensão da
         bateria atingir nível insuficiente para continuidade
         segura da navegação.} \\ \hline
-    \rf[buzzer]{Indefinido}{
+    \rf[buzzer]{Could}{
         O sistema deve acionar um buzzer ao detectar que o micromouse
         atingiu a sala objetivo do labirinto.} \\ \hline
-    \rf[wifi-telemetria]{Indefinido}{
+    \rf[wifi-telemetria]{Must}{
         O sistema deve transmitir dados de telemetria ao sistema
         web em tempo real.} \\ \hline
-    \rf[disposição]{Indefinido}{
+    \rf[disposição]{Must}{
         O micromouse deve suportar e integrar todos os componentes necessários 
         (bateria, sensores e controle), garantindo seu funcionamento adequado durante a operação.} \\ \hline
     
@@ -208,25 +208,25 @@ De forma mais ampla, o projeto apresenta relevância indireta para o setor tecno
 
     \rowcolor{gray!10}
     \multicolumn{3}{|c|}{Hardware} \\ \hline
-    \rnf[isolam_dominios]{Indefinido}{
+    \rnf[isolam_dominios]{Should}{
         A fonte de alimentação do microcontrolador e dos sensores deve ser eletricamente isolada (ou fortemente desacoplada) da alimentação dos motores.} \\ \hline
-    \rnf[reg_tensao]{Indefinido}{
+    \rnf[reg_tensao]{Should}{
         O circuito lógico deve manter uma tensão estável, mesmo quando os motores exigirem o pico máximo de corrente, no momento da partida.} \\ \hline
-    \rnf[sinais_analogicos]{Indefinido}{
+    \rnf[sinais_analogicos]{Should}{
         Sinais analógicos (como o retorno de sensores infravermelhos de distância) devem possuir filtros passa-baixa (filtros RC) no hardware para atenuar ruídos de alta frequência do ambiente e do próprio circuito antes de chegarem ao devkit (ESP32).} \\ \hline
-    \rnf[aterramento]{Indefinido}{
+    \rnf[aterramento]{Must}{
         A placa perfurada (ou, se for o caso, PCB) deve possuir um nó comum bem definido, evitando ground loops que possam interferir nas leituras.} \\ \hline
-    \rnf[pontos_teste]{Indefinido}{
+    \rnf[pontos_teste]{Could}{
         A placa deve expor pinos ou ilhas de fácil acesso para testes via multímetro (e, se necessário, osciloscópio), especificamente para: VCC, GND, sinais de saída dos sensores e PWM dos motores.} \\ \hline
-    \rnf[feedback_visual]{Indefinido}{
+    \rnf[feedback_visual]{Won't}{
         O circuito deve incluir LEDs de status integrados que não afetem a lógica para indicar condições vitais, como "Alimentação OK", "Bateria Fraca" ou para debuggar a ativação individual de sensores sem precisar olhar para o terminal do computador.} \\ \hline
-    \rnf[acoplamento_cis]{Indefinido}{
+    \rnf[acoplamento_cis]{Should}{
         Componentes de alto risco ou alto custo (como a placa do microcontrolador e a ponte H) não devem ser soldados diretamente na placa principal. Eles devem utilizar soquetes para permitir a substituição em, no máximo, 5 minutos em caso de queima.} \\ \hline
-    \rnf[protecao_polaridade]{Indefinido}{
+    \rnf[protecao_polaridade]{Must}{
         O circuito de entrada da bateria deve incluir um componente ou circuito para proteção contra inversão de polaridade.} \\ \hline
-    \rnf[vel_alg]{Indefinido}{
+    \rnf[vel_alg]{Could}{
         O algoritmo de navegação deve processar a tomada de decisão em um tempo inferior a 5 ms.} \\ \hline
-    \rnf[prec_parede]{Indefinido}{
+    \rnf[prec_parede]{Could}{
         A atualização da estrutura do labirinto deve ocorrer em menos de 10 ms após a leitura do sensor.} \\ \hline
 
     \rowcolor{gray!10}
