@@ -7,6 +7,7 @@ hide:
 
 <link rel="stylesheet" href="assets/css/index.css">
 <link rel="stylesheet" href="assets/css/team.css">
+<link rel="stylesheet" href="assets/css/telemetry.css">
 <link rel="stylesheet" href="assets/css/fases.css">
 
 <div class="page">
@@ -17,11 +18,124 @@ hide:
         <p>UNB · PROJETO INTEGRADOR · 2026.1</p>
       </div>
       <div class="hero-content">
-        <h1>MICROMOUSE <br><span class="highlight-orange">DE COMPETIÇÃO</span></h1>
+        <h1>MICROMOUSE <br><span class="highlight-orange">DE COMPETIÇÃO.</span></h1>
         <p>Este projeto, desenvolvido na disciplina <span class="highlight-bold">Projeto Integrador de Engenharia</span> da Universidade de Brasília, tem como objetivo construir um minirrobô autônomo capaz de percorrer e encontrar a saída de labirintos.</p>
         <div class="btn-containers">
           <a href="https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno" class="btn-repo1" target="_blank">REPOSITÓRIO DO PROJETO</a>
           <a href="#team-section-start" class="btn-repo2">SOBRE A EQUIPE </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="telemetry-section-custom">
+    <div class="telemetry-header-custom">
+      <div class="telemetry-line-header">
+        <p class="telemetry-subtitle">INTERFACE WEB</p>
+        <p class="telemetry-line"></p>
+      </div>
+    </div>
+    <div class="telemetry-content-custom">
+      <div class="telemetry-left">
+        <h1>
+          TELEMETRIA<br>
+          <span class="highlight-orange"> EM TEMPO REAL. </span>
+        </h1>
+        <p class="telemetry-def">
+          O sistema web exibe, via WebSocket e em tempo real, o mapeamento do labirinto, a identificação do tipo de percurso, a posição do micromouse, o nível de bateria, a velocidade média e o status da execução, com atualização contínua e baixa latência.
+        </p>
+      </div>
+      <div class="telemetry-example">
+        <div class="telemetry-row-1">
+          <p>XAROPI · LIVE</p>
+          <div class="status-connected">
+            <span class="status-dot"></span>
+            <span class="highlight-orange">CONNECTED</span>
+          </div>
+        </div>
+        <div class="telemetry-divider"></div>
+      <div class="maze-grid">
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell path"></div>
+        <div class="maze-cell path"></div>
+        <div class="maze-cell path"></div>
+        <div class="maze-cell path"></div>
+        <div class="maze-cell path"></div>
+        <div class="maze-cell path"></div>
+        <div class="maze-cell path"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell path"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell empty"></div>
+        <div class="maze-cell path"></div>
+        <div class="maze-cell path"></div>
+        <div class="maze-cell path"></div>
+        <div class="maze-cell path"></div>
+        <div class="maze-cell path"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell empty"></div>
+        <div class="maze-cell path"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell empty"></div>
+        <div class="maze-cell path"></div>
+        <div class="maze-cell path"></div>
+        <div class="maze-cell active"></div>
+        <div class="maze-cell empty"></div>
+        <div class="maze-cell empty"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell empty"></div>
+        <div class="maze-cell empty"></div>
+        <div class="maze-cell empty"></div>
+        <div class="maze-cell empty"></div>
+        <div class="maze-cell empty"></div>
+        <div class="maze-cell empty"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell wall"></div>
+        <div class="maze-cell wall"></div>
+      </div>
+        <div class="telemetry-stats">
+          <div class="telemetry-stat-card">
+            <h2>73<span>%</span></h2>
+            <p>BATERIA</p>
+            <div class="stat-bar">
+              <div class="stat-fill"></div>
+            </div>
+          </div>
+          <div class="telemetry-stat-card">
+            <h2>0.42<span>m/s</span></h2>
+            <p>VELOCIDADE</p>
+          </div>
+          <div class="telemetry-stat-card">
+            <h2>1:47</h2>
+            <p>TEMPO</p>
+          </div>
         </div>
       </div>
     </div>
@@ -34,7 +148,7 @@ hide:
         <p class="line"> </p>
       </div>
       <h1>
-          TRÊS FASES.<br>
+          TRÊS FASES,<br>
           <span class="highlight"> UM CAMINHO. </span>
       <h1>
     </div>
@@ -103,7 +217,7 @@ hide:
         <p class="line"> </p>
       </div>
       <h1>
-          QUATRO FRENTES.<br>
+          QUATRO FRENTES,<br>
           <span class="highlight"> UM OBJETIVO. </span>
       </h1>
     </div>

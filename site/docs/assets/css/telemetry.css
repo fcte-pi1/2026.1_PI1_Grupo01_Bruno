@@ -1,0 +1,175 @@
+.telemetry-section-custom {
+    width: 100%;
+}
+
+.telemetry-header-custom {
+    margin-bottom: 30px;
+}
+
+.telemetry-line-header {
+    display: flex;
+    align-items: center;
+}
+
+.telemetry-subtitle {
+    color: var(--orange);
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+}
+
+.telemetry-line {
+    height: 1px;
+    width: 200px;
+    background-color: #333;
+}
+
+.telemetry-content-custom {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch; /* ESSENCIAL */
+    
+}
+
+.telemetry-left {
+    display: flex;
+    flex-direction: column;
+    margin-top: -10px;
+}
+
+.telemetry-left h1 {
+    font-size: 3rem;
+    line-height: 1.1;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 0; 
+}
+
+.telemetry-def {
+    color: #888;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    max-width: 700px;
+}
+
+.telemetry-example {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 30px;
+    background-color: #1A1B17;
+    height: auto;
+    border: 1px solid grey;
+    gap:10px;
+}
+
+.telemetry-example p{
+    margin: 0;
+}
+
+.telemetry-header-custom {
+    margin-bottom: 10px;
+}
+
+.telemetry-row-1 {
+     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #888;
+    font-size: 0.95rem;
+}
+
+.status-connected{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+
+.telemetry-divider{
+    width: 100%;
+    height: 1px;
+    background: #2A2A2A;
+}
+
+.maze-grid{
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(8, 50px);
+    gap: 4px;
+    margin-top: 10px;
+}
+
+.maze-cell{
+    aspect-ratio: 1/1;
+    border: 1px solid #FF6B0020;
+    background: #050505;
+}
+
+.maze-cell.wall{
+    background: #2B1608;
+    border: 1px solid #FF6B00;
+}
+
+.maze-cell.path{
+    background: #1B1B16;
+    border: 1px solid #333;
+}
+
+.maze-cell.empty{
+    background: #000;
+    border: 1px solid #1A1A1A;
+}
+
+.maze-cell.active{
+    background: #FF6B00;
+    border: 1px solid #FF8C42;
+    box-shadow: 0 0 10px rgba(255,107,0,0.45);
+}
+
+.telemetry-stats{
+    display: flex;
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.telemetry-stat-card{
+    flex: 1;
+    background: #050505;
+    border: 1px solid #3b3b3b;
+    padding: 16px;
+}
+
+.telemetry-stat-card h2{
+    margin: 0;
+    color: white;
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.telemetry-stat-card h2 span{
+    font-size: 1rem;
+    color: #777;
+    margin-left: 2px;
+}
+
+.telemetry-stat-card p{
+    margin-top: 8px;
+    margin-bottom: 10px;
+    color: #666;
+    letter-spacing: 2px;
+    font-size: 0.72rem;
+}
+
+.stat-bar{
+    width: 100%;
+    height: 8px;
+    background: #1A1A1A;
+}
+
+.stat-fill{
+    width: 73%;
+    height: 100%;
+    background: #FF6B00;
+     border-radius: 5px;
+}
