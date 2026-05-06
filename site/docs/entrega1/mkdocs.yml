@@ -1,0 +1,30 @@
+site_name: XAROPi
+
+theme:
+  name: material
+  language: pt
+  logo: assets/images/logo-xaropi.svg # Caminho para a logo do ratinho
+  palette:
+    scheme: slate # Fundo preto/escuro
+    primary: black # Cabeçalho preto
+    accent: deep orange # Destaque em laranja
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.instant
+    - toc.follow
+
+plugins:
+  - search:
+      enabled: false
+
+nav:
+  - HOME: index.md
+  - ENTREGA 1: 
+      - Introdução: entrega1/introducao.md
+      - Requisitos: entrega1/requisitos.md # Onde você usará o Arithmatex
+  - EQUIPE: equipe.md
+  - CONTATO: contato.md
+
+extra_css:
+  - assets/css/extra.css
