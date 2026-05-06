@@ -6,10 +6,16 @@ hide:
 ---
 
 <link rel="stylesheet" href="assets/css/index.css">
+<link rel="stylesheet" href="assets/css/team.css">
+<link rel="stylesheet" href="assets/css/fases.css">
 
 <div class="page">
   <section class="hero">
     <div class="hero-container">
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        <p>UNB · PROJETO INTEGRADOR · 2026.1</p>
+      </div>
       <div class="hero-content">
         <h1>MICROMOUSE <br><span class="highlight-orange">DE COMPETIÇÃO</span></h1>
         <p>Este projeto, desenvolvido na disciplina <span class="highlight-bold">Projeto Integrador de Engenharia</span> da Universidade de Brasília, tem como objetivo construir um minirrobô autônomo capaz de percorrer e encontrar a saída de labirintos.</p>
@@ -21,72 +27,275 @@ hide:
     </div>
   </section>
 
- <section class="system">
-  <div class="system-header">
-    <p class="subtitle">COMO FUNCIONA</p>
-    <h1>
-        TRÊS FASES.<br>
-        <span class="highlight"> UM CAMINHO. </span>
-    <h1>
-  </div>
-  <div class="system-container">
-    <div class="system-card-1">
-      <div class="card-visual">
-        <div class="system-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        </div>
-        <span class="card-number">01</span>
+  <section class="system">
+    <div class="system-header">
+      <div class="line-header">
+        <p class="subtitle">COMO FUNCIONA</p>
+        <p class="line"> </p>
       </div>
-      <p class="card-tag">SENSORES · HARDWARE · RESPOSTA</p>
-      <div class="system-info">
-        <h3>EXPLORA</h3>
-         <ul>
-          <li>Sensores infravermelhos</li>
-          <li>Detecção de paredes </li>
-          <li>Atualização < 10ms</li>
-        </ul>
-      </div>
+      <h1>
+          TRÊS FASES.<br>
+          <span class="highlight"> UM CAMINHO. </span>
+      <h1>
     </div>
-    <div class="system-card-2">
-      <div class="card-visual">
-        <div class="system-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#FF5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="15" x2="23" y2="15"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="15" x2="4" y2="15"></line></svg>
+    <div class="system-container">
+      <div class="system-card-1">
+        <div class="card-visual">
+          <div class="system-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </div>
+          <span class="card-number">01</span>
         </div>
-        <span class="card-number">02</span>
-      </div>
-      <p class="card-tag">ALGORITMO · GRAFOS · WEBSOCKET</p>
-      <div class="system-info">
-        <h3>CALCULA</h3>
-      <ul>
-          <li>Algoritmo de navegação que explora o labirinto</li>
-          <li>Identificação do tipo de labirinto</li>
-          <li>Construção Progressiva do grafo</li>
-          <li>Dados de mapeamento transmitidos via WebSocket</li>
-        </ul>
-      </div>
-    </div>
-    <div class="system-card-3">
-      <div class="card-visual">
-        <div class="system-icon">
-         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+        <p class="card-tag">SENSORES · HARDWARE · RESPOSTA</p>
+        <div class="system-info">
+          <h3>EXPLORA</h3>
+          <ul>
+            <li>Sensores infravermelhos</li>
+            <li>Detecção de paredes </li>
+            <li>Atualização < 10ms</li>
+          </ul>
         </div>
-        <span class="card-number">03</span>
       </div>
-      <p class="card-tag">OUTPUT · MOVIMENTO · PRECISÃO</p>
-      <div class="system-info">
-        <h3>EXECUTA</h3>
+      <div class="system-card-2">
+        <div class="card-visual">
+          <div class="system-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#FF5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="15" x2="23" y2="15"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="15" x2="4" y2="15"></line></svg>
+          </div>
+          <span class="card-number">02</span>
+        </div>
+        <p class="card-tag">ALGORITMO · GRAFOS · WEBSOCKET</p>
+        <div class="system-info">
+          <h3>CALCULA</h3>
         <ul>
-          <li>Motores DC </li>
-          <li>Controle por PWM independente</li>
-          <li>Curvas de 90° e 180°</li>
-          <li>Centralização no corredor</li>
-        </ul>
+            <li>Algoritmo de navegação que explora o labirinto</li>
+            <li>Identificação do tipo de labirinto</li>
+            <li>Construção Progressiva do grafo</li>
+            <li>Dados de mapeamento transmitidos via WebSocket</li>
+          </ul>
+        </div>
+      </div>
+      <div class="system-card-3">
+        <div class="card-visual">
+          <div class="system-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          </div>
+          <span class="card-number">03</span>
+        </div>
+        <p class="card-tag">OUTPUT · MOVIMENTO · PRECISÃO</p>
+        <div class="system-info">
+          <h3>EXECUTA</h3>
+          <ul>
+            <li>Motores DC </li>
+            <li>Controle por PWM independente</li>
+            <li>Curvas de 90° e 180°</li>
+            <li>Centralização no corredor</li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
   
 
-
+  <section class="system team-section">
+      <div class="system-header">
+        <div class="line-header">
+          <p class="subtitle">EQUIPE</p>
+          <p class="line"> </p>
+        </div>
+        <h1>
+            QUATRO FRENTES.<br>
+            <span class="highlight"> UM OBJETIVO. </span>
+        </h1>
+      </div>
+      <!-- ESTRUTURAS -->
+      <div class="team-row-1">
+          <div class="teams-header">
+            <svg class="team-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#FF5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <polyline points="9 6 3 12 9 18"/><polyline points="15 6 21 12 15 18"/></svg>
+            <h2 class="team-title">// 01. <br> Estruturas</h2>
+          </div>
+          <div class="team-members">
+              <div class="member-card">
+                  <img src="https://github.com/DaviMarques.png" alt="Davi Marques" onerror="this.src='https://github.com/ghost.png'">
+                  <div class="member-info">
+                      <h3>Davi Marques</h3>
+                      <p class="role">Líder do Projeto</p>
+                      <p class="matricula">23/1030421</p>
+                      <a href="https://github.com/DaviMarques" target="_blank">@DaviMarques</a>
+                  </div>
+              </div>
+              <div class="member-card">
+                  <img src="https://github.com/sardinhasamara-png.png" alt="Samara Sardinha">
+                  <div class="member-info">
+                      <h3>Samara Sardinha</h3>
+                      <p class="role">Líder da Equipe</p>
+                      <p class="matricula">23/1011829</p>
+                      <a href="https://github.com/sardinhasamara-png" target="_blank">@sardinhasamara-png</a>
+                  </div>
+              </div>
+              <div class="member-card">
+                  <img src="https://github.com/gabfreitasss.png" alt="Gabriela Assis">
+                  <div class="member-info">
+                      <h3>Gabriela Assis</h3>
+                      <p class="role">Tesoureira</p>
+                      <p class="matricula">24/2015192</p>
+                      <a href="https://github.com/gabfreitasss" target="_blank">@gabfreitasss</a>
+                  </div>
+              </div>
+              <div class="member-card">
+                  <img src="https://github.com/Donnk61.png" alt="Luís Henrique">
+                  <div class="member-info">
+                      <h3>Luís Henrique</h3>
+                      <p class="role">Membro</p>
+                      <p class="matricula">24/2004869</p>
+                      <a href="https://github.com/Donnk61" target="_blank">@Donnk61</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- ENERGIA -->
+      <div class="team-row">
+         <div class="teams-header">
+            <svg class="team-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#FF5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 11 14 9 22 21 9 13 9 13 2"/></svg>
+            <h2 class="team-title">// 02. <br> Energia</h2>
+          </div>
+          <div class="team-members">
+              <div class="member-card">
+                  <img src="https://github.com/leticiacarvalho-lg.png" alt="Letícia Geovana">
+                  <div class="member-info">
+                      <h3>Letícia Geovana</h3>
+                      <p class="role">Líder da Equipe</p>
+                      <p class="matricula">23/1026868</p>
+                      <a href="https://github.com/leticiacarvalho-lg" target="_blank">@leticiacarvalho-lg</a>
+                  </div>
+              </div>
+              <div class="member-card">
+                  <img src="https://github.com/Felipej3ds.png" alt="Felipe Júnior">
+                  <div class="member-info">
+                      <h3>Felipe Júnior</h3>
+                      <p class="role">Membro</p>
+                      <p class="matricula">23/1012192</p>
+                      <a href="https://github.com/Felipej3ds" target="_blank">@Felipej3ds</a>
+                  </div>
+              </div>
+              <div class="member-card">
+                  <img src="https://github.com/Laisczt.png" alt="Laís Cecília">
+                  <div class="member-info">
+                      <h3>Laís Cecília</h3>
+                      <p class="role">Membro</p>
+                      <p class="matricula">21/1029512</p>
+                      <a href="https://github.com/Laisczt" target="_blank">@Laisczt</a>
+                  </div>
+              </div>
+              <div class="member-card">
+                  <img src="https://github.com/TerminaKng05.png" alt="Samuel Felipe">
+                  <div class="member-info">
+                      <h3>Samuel Felipe</h3>
+                      <p class="role">Membro</p>
+                      <p class="matricula">23/2022148</p>
+                      <a href="https://github.com/TerminaKng05" target="_blank">@TerminaKng05</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- HARDWARE -->
+      <div class="team-row">
+          <div class="teams-header">
+            <svg class="team-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#FF5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="1"/><line x1="3" y1="9" x2="7" y2="9"/><line x1="3" y1="12" x2="7" y2="12"/><line x1="3" y1="15" x2="7" y2="15"/><line x1="17" y1="9" x2="21" y2="9"/><line x1="17" y1="12" x2="21" y2="12"/><line x1="17" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="7"/><line x1="12" y1="3" x2="12" y2="7"/><line x1="15" y1="3" x2="15" y2="7"/><line x1="9" y1="17" x2="9" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="15" y1="17" x2="15" y2="21"/></svg>
+            <h2 class="team-title">// 03. <br> Hardware</h2>
+          </div>
+          <div class="team-members">
+              <div class="member-card">
+                  <img src="https://github.com/Gabreeles.png" alt="Gabriel Celestino">
+                  <div class="member-info">
+                      <h3>Gabriel Celestino</h3>
+                      <p class="role">Líder da Equipe</p>
+                      <p class="matricula">23/1027079</p>
+                      <a href="https://github.com/Gabreeles" target="_blank">@Gabreeles</a>
+                  </div>
+              </div>
+              <div class="member-card">
+                  <img src="https://github.com/RafaelSchadt.png" alt="Rafael Welz">
+                  <div class="member-info">
+                      <h3>Rafael Welz</h3>
+                      <p class="role">Gestão de Pessoas</p>
+                      <p class="matricula">23/1011800</p>
+                      <a href="https://github.com/RafaelSchadt" target="_blank">@RafaelSchadt</a>
+                  </div>
+              </div>
+              <div class="member-card">
+                  <img src="https://github.com/JtAires.png" alt="João Victor">
+                  <div class="member-info">
+                      <h3>João Victor</h3>
+                      <p class="role">Membro</p>
+                      <p class="matricula">23/1011560</p>
+                      <a href="https://github.com/JtAires" target="_blank">@JtAires</a>
+                  </div>
+              </div>
+              <div class="member-card">
+                  <img src="https://github.com/SirJorgito.png" alt="Jorge Henrique">
+                  <div class="member-info">
+                      <h3>Jorge Henrique</h3>
+                      <p class="role">Membro</p>
+                      <p class="matricula">23/1011570</p>
+                      <a href="https://github.com/SirJorgito" target="_blank">@SirJorgito</a>
+                  </div>
+              </div>
+              <div class="member-card">
+                  <img src="https://github.com/luanaa2005.png" alt="Luana Carvalho">
+                  <div class="member-info">
+                      <h3>Luana Carvalho</h3>
+                      <p class="role">Membro</p>
+                      <p class="matricula">24/2004840</p>
+                      <a href="https://github.com/luanaa2005" target="_blank">@luanaa2005</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!--  SOFTWARE -->
+      <div class="team-row">
+          <div class="teams-header">
+            <svg class="team-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#FF5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 11 14 9 22 21 9 13 9 13 2"/></svg>
+            <h2 class="team-title">// 04. <br> Software</h2>
+          </div>
+          <div class="team-members">
+              <div class="member-card">
+                  <img src="https://github.com/ludmilaaysha.png" alt="Ludmila Aysha">
+                  <div class="member-info">
+                      <h3>Ludmila Aysha</h3>
+                      <p class="role">Líder da Equipe</p>
+                      <p class="matricula">23/1026750</p>
+                      <a href="https://github.com/ludmilaaysha" target="_blank">@ludmilaaysha</a>
+                  </div>
+              </div>
+              <div class="member-card">
+                  <img src="https://github.com/Isaqzin.png" alt="Isaque Camargos">
+                  <div class="member-info">
+                      <h3>Isaque Camargos</h3>
+                      <p class="role">Vice-Líder do Projeto</p>
+                      <p class="matricula">23/1011515</p>
+                      <a href="https://github.com/Isaqzin" target="_blank">@Isaqzin</a>
+                  </div>
+              </div>
+              <div class="member-card">
+                  <img src="https://github.com/Marjoriemitzi.png" alt="Marjorie Mitzi">
+                  <div class="member-info">
+                      <h3>Marjorie Mitzi</h3>
+                      <p class="role">Membro</p>
+                      <p class="matricula">23/1039140</p>
+                      <a href="https://github.com/Marjoriemitzi" target="_blank">@Marjoriemitzi</a>
+                  </div>
+              </div>
+              <div class="member-card">
+                  <img src="https://github.com/bolzanMGB.png" alt="Othavio Araújo">
+                  <div class="member-info">
+                      <h3>Othavio Araújo</h3>
+                      <p class="role">Membro</p>
+                      <p class="matricula">23/1039150</p>
+                      <a href="https://github.com/bolzanMGB" target="_blank">@bolzanMGB</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
 <div>
 

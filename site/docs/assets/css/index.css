@@ -17,8 +17,7 @@
     background-position: center right;
     background-repeat: no-repeat;
     background-color: #000;
-
-    margin-top: -6rem;
+    margin-top: -10rem;
 }
 
 .hero::before {
@@ -122,6 +121,64 @@
     gap: 8rem;
 }
 
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 20px;
+  border: 1px solid #FF572244; /* Laranja com transparência */
+  background-color: rgba(255, 87, 34, 0.05);
+  border-radius: 4px; /* Levemente arredondado como no print */
+  margin-bottom: -30px;
+  width: 500px;
+  height: 30px;
+}
+
+.status-badge p {
+  color: #FF5722;
+  font-family: 'Courier New', Courier, monospace; /* Fonte mono para ar técnico */
+  font-size: 0.75rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+/* A bolinha */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #FF5722;
+  border-radius: 50%;
+  position: relative;
+}
+
+/* O efeito de piscar/pulsação */
+.status-dot::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #FF5722;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(2.5); /* Aumenta a aura */
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
 
 .system {
   background-color: black;
@@ -139,6 +196,19 @@
   margin-bottom: 10px;
 }
 
+
+.line-header{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.line{
+  height: 1px;         /* Espessura da linha */
+  background-color: #333; /* Cor cinza escuro do design */
+  width: 200px;
+  margin-bottom: 8px;
+}
 .system-header h1 {
   font-size: 3rem;
   line-height: 1.1;
@@ -231,3 +301,5 @@
     border-top: 1px solid #333;
   }
 }
+
+
