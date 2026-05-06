@@ -147,15 +147,15 @@ De forma mais ampla, o projeto apresenta relevância indireta para o setor tecno
 
     \rowcolor{gray!10}
     \multicolumn{3}{|c|}{Consumo Energético} \\ \hline
-    \rf[display-local]{Indefinido}{
+    \rf[display-local]{Could}{
         O micromouse deve possuir um indicador visual local (como LEDs de estado ou display OLED) 
         para exibir o nível de carga da bateria sem a necessidade de dispositivos externos.} \\ \hline
-    \rf[bat-log]{Indefinido}{
+    \rf[bat-log]{Must}{
         O sistema deve registrar o consumo de energia durante cada percurso para posterior análise no sistema web.} \\ \hline
-    \rf[chave-geral]{Indefinido}{
+    \rf[chave-geral]{Must}{
         O sistema deve possuir um interruptor físico (Chave On/Off) capaz de seccionar a
         alimentação da bateria, interrompendo completamente o consumo de energia do dispositivo.} \\ \hline
-    \rf[power-throttling]{Indefinido}{
+    \rf[power-throttling]{Should}{
         O sistema deve monitorar a tensão da bateria e, ao atingir um limiar crítico pré-definido,
         deve transitar automaticamente para o modo de economia de energia para estender a autonomia operacional.} \\ \hline
 \end{longtable}
@@ -178,21 +178,21 @@ De forma mais ampla, o projeto apresenta relevância indireta para o setor tecno
     \endhead
     \rowcolor{gray!10}
     \multicolumn{3}{|c|}{Consumo Energético} \\ \hline
-    \rnf[autonomia_operacao]{Indefinido}{
+    \rnf[autonomia_operacao]{Must}{
         Garantir funcionamento ininterrupto do sistema por, no mínimo, 20 minutos.} \\ \hline
-    \rnf[ciclo_missao]{Indefinido}{
+    \rnf[ciclo_missao]{Must}{
         Suportar o mapeamento completo no labirinto 16x16 sem recarga..} \\ \hline
-    \rnf[eficiencia_conversao]{Indefinido}{
+    \rnf[eficiencia_conversao]{Should}{
         Utilizar reguladores de tensão com rendimento energético mínimo de 85\%.} \\ \hline
-    \rnf[consumo_standby]{Indefinido}{
+    \rnf[consumo_standby]{Should}{
         Limitar a corrente consumida em modo de espera a um máximo de 50mA.} \\ \hline
-    \rnf[monitorar_carga]{Indefinido}{
+    \rnf[monitorar_carga]{Must}{
         Implementar detecção de baixa tensão para alertar quando a célula atingir 3,2V.} \\ \hline
-    \rnf[peso_bateria]{Indefinido}{
+    \rnf[peso_bateria]{Must}{
         O sistema de alimentação não deve exceder 25\% do peso total do micromouse.} \\ \hline
-    \rnf[acessibilidade_bateria]{Indefinido}{
+    \rnf[acessibilidade_bateria]{Must}{
         Permitir o carregamento das baterias sem a necessidade de desmontagem.} \\ \hline
-    \rnf[estabilidade_tensao]{Indefinido}{ 
+    \rnf[estabilidade_tensao]{Should}{ 
         Manter a variação de tensão nos sensores dentro de uma margem de +/- 5\% durante a aceleração dos motores.} \\ \hline
 
     \rowcolor{gray!10}
