@@ -9,6 +9,7 @@ hide:
 <link rel="stylesheet" href="assets/css/team.css">
 <link rel="stylesheet" href="assets/css/telemetry.css">
 <link rel="stylesheet" href="assets/css/fases.css">
+<link rel="stylesheet" href="assets/css/lab-size.css">
 
 <div class="page">
   <section class="hero">
@@ -25,6 +26,47 @@ hide:
           <a href="#team-section-start" class="btn-repo2">SOBRE A EQUIPE </a>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="system lab-size-section">
+    <div style="display:flex; flex-direction:column; text-align:center;">
+      <div class="system-header">
+        <div class="line-header">
+          <p class="subtitle">TAMANHOS DE LABIRINTO</p>
+          <p class="line"> </p>
+        </div>
+        <h1 style="display: align-items: center;text-align: center;">
+          OS TRÊS TIPOS <span class="highlight"> DE LABIRINTO. </span>
+        </h1>
+      </div>
+      <div class="lab-cards-container">
+        <div class="lab-card">
+          <div class="lab-card-content">
+            <p class="lab-level">// NÍVEL 01</p>
+            <h2>LABIRINTO 4×4</h2>
+          </div>
+          <div class="maze-visual grid-4x4"></div>
+          <p class="lab-desc">16 células. O ponto de entrada para calibração de sensores e validação do algoritmo de busca.</p>
+        </div>
+        <div class="lab-card">
+          <div class="lab-card-content">
+            <p class="lab-level">// NÍVEL 02</p>
+            <h2>LABIRINTO 8×8</h2>
+          </div>
+          <div class="maze-visual grid-8x8"></div>
+          <p class="lab-desc">64 células. Exige mapeamento progressivo e otimização de rota durante o percurso.</p>
+        </div>
+        <div class="lab-card border-none">
+          <div class="lab-card-content">
+            <p class="lab-level">// NÍVEL 03</p>
+            <h2>LABIRINTO 16×16</h2>
+          </div>
+          <div class="maze-visual grid-16x16"></div>
+          <p class="lab-desc">256 células. Padrão de competição internacional. </p>
+        </div>
+      </div>
+      <p class="lab-size-obs"> *Um ponto muito importante é que o ratinho não sabe de antemão o tipo de labirinto, ele precisa descobrir enquanto o explora.</p>
     </div>
   </section>
 

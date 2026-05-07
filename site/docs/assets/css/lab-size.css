@@ -1,0 +1,102 @@
+.lab-cards-container {
+    display: flex;
+    align-items: start;
+    width: 100%;
+    gap: 50px;
+}
+
+.lab-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;     
+    justify-content: flex-start; 
+    padding: 40px;
+    background-color: #111;
+    height: auto;
+}
+.lab-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;     
+    justify-content: center;   
+    text-align: center;       
+    
+    height: 140px;            
+    width: 100%;
+    margin-bottom: 20px;
+}
+.lab-level {
+    color: #FF5722; 
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    font-family: monospace; 
+    margin: 0;
+}
+.lab-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; 
+    padding: 30px;
+    background-color: #161617; 
+    height: 580px;
+}
+.lab-card h2 {
+    color: #FFFFFF;
+    font-size: 2.5rem;
+    line-height: 1.1;
+    font-weight: 700;
+    margin: 0;
+}
+
+.lab-desc {
+    color: #888888;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.maze-visual {
+    width: 250px;
+    height: 250px; 
+    aspect-ratio: 1 / 1;
+    background-color: #1A1A1A;
+    border: 1px solid #333;
+    margin-bottom: 10px; 
+    background-image: 
+        linear-gradient(to right, #333 1px, transparent 1px),
+        linear-gradient(to bottom, #333 1px, transparent 1px);
+    background-position: top left;
+}
+.grid-4x4 {
+    background-size: 25% 25%;
+}
+
+.grid-8x8 {
+    background-size: 12.5% 12.5%;
+}
+
+.grid-16x16 {
+    background-size: 6.25% 6.25%;
+}
+
+@media (max-width: 900px) {
+    .lab-cards-container {
+        flex-direction: column;
+    }
+    .lab-card.border-none {
+        border-bottom: none;
+    }
+    .maze-visual {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+}
+
+.lab-size-obs{
+    color: #888;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
