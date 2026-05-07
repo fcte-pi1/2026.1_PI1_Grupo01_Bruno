@@ -11,6 +11,7 @@ hide:
 <link rel="stylesheet" href="assets/css/fases.css">
 <link rel="stylesheet" href="assets/css/lab-size.css">
 <link rel="stylesheet" href="assets/css/algorithm.css">
+<link rel="stylesheet" href="assets/css/footer.css">
 
 <div class="page">
   <section class="hero">
@@ -127,18 +128,13 @@ hide:
     </div>
   </section>
 
-<script>
-  function changeActiveStep(clickedCard) {
-    // Pega todos os cards
-    const cards = document.querySelectorAll('.step-card');
-    
-    // Remove a classe 'active' de todos
-    cards.forEach(card => card.classList.remove('active'));
-    
-    // Adiciona a classe 'active' apenas no card clicado
-    clickedCard.classList.add('active');
-  }
-</script>
+  <script>
+    function changeActiveStep(clickedCard) {
+      const cards = document.querySelectorAll('.step-card');
+      cards.forEach(card => card.classList.remove('active'));
+      clickedCard.classList.add('active');
+    }
+  </script>
 
   <section class="telemetry-section-custom">
     <div class="telemetry-header-custom">
@@ -526,5 +522,19 @@ hide:
         </div>
     </div>
   </section>
+
+
 <div>
 
+<footer class="terminal-footer">
+    <div class="terminal-footer-container">
+      <div class="footer-left">
+        <h2 class="footer-logo">XARO<span class="highlight-orange">Pi</span></h2>
+        <p class="footer-mono">Micromouse · Projeto Integrador de Engenharia · UnB · FCTE · 2026.1</p>
+      </div>
+      <div class="footer-right">
+        <p class="footer-highlight">Universidade de Brasília</p>
+        <p class="footer-highlight">Faculdade do Gama</p>
+      </div>  
+    </div>
+  </footer>
