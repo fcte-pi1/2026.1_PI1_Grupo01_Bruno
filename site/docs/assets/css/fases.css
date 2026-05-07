@@ -23,8 +23,8 @@
 }
 
 .line{
-  height: 1px;         /* Espessura da linha */
-  background-color: #333; /* Cor cinza escuro do design */
+  height: 1px;        
+  background-color: #333; 
   width: 200px;
   margin-bottom: 8px;
 }

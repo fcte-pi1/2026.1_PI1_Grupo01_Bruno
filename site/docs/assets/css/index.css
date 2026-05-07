@@ -102,16 +102,12 @@
 }
 
 .btn-repo1:hover {
-    filter: brightness(1.06); 
-    box-shadow: 0 4px 12px rgba(255, 107, 0, 0.2);
-    color: var(--white) !important;
+
+    background-color: #ff6a3d;
 }
 
 .btn-repo2:hover {
     background-color: #e8e8e8 !important; 
-    border-color: #e8e8e8 !important;
-    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
-    color: black !important;
 }
 
 .page{
@@ -126,9 +122,9 @@
   align-items: center;
   gap: 12px;
   padding: 8px 20px;
-  border: 1px solid #FF572244; /* Laranja com transparência */
+  border: 1px solid #FF572244; 
   background-color: rgba(255, 87, 34, 0.05);
-  border-radius: 4px; /* Levemente arredondado como no print */
+  border-radius: 4px; 
   margin-bottom: -30px;
   width: 500px;
   height: 30px;
@@ -136,7 +132,7 @@
 
 .status-badge p {
   color: #FF5722;
-  font-family: 'Courier New', Courier, monospace; /* Fonte mono para ar técnico */
+  font-family: 'Courier New', Courier, monospace; 
   font-size: 0.75rem;
   font-weight: bold;
   letter-spacing: 2px;
@@ -173,7 +169,7 @@
     opacity: 0.8;
   }
   70% {
-    transform: scale(2.5); /* Aumenta a aura */
+    transform: scale(2.5); 
     opacity: 0;
   }
   100% {
@@ -206,8 +202,8 @@
 }
 
 .line{
-  height: 1px;         /* Espessura da linha */
-  background-color: #333; /* Cor cinza escuro do design */
+  height: 1px;         
+  background-color: #333; 
   width: 200px;
   margin-bottom: 8px;
 }

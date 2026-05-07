@@ -523,13 +523,37 @@ hide:
     </div>
   </section>
 
-
 <div>
+
+<section class="cta-section">
+  <div class="cta-container">
+    <div class="cta-content">
+      <h1>
+        PRONTO PARA <br>
+        <span class="highlight-italic">EXPLORAR ?</span>
+      </h1>
+      <p class="cta-description">
+        Acesse o repositório oficial no GitHub para conferir a
+        documentação técnica, implementação da interface web e o firmware
+        do nosso projeto.
+      </p>
+    </div>
+    <div class="cta-actions">
+      <a href="https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno"
+         class="cta-btn-primary" target="_blank">
+         REPOSITÓRIO GITHUB
+      </a>
+      <a href="#top" class="cta-btn-secondary">
+        VOLTAR AO TOPO
+      </a>
+    </div>
+  </div>
+</section>
 
 <footer class="terminal-footer">
     <div class="terminal-footer-container">
       <div class="footer-left">
-        <h2 class="footer-logo">XARO<span class="highlight-orange">Pi</span></h2>
+        <img src="assets/images/logo-xaropi.svg" alt="Logo XAROPi" width="200" height="150">
         <p class="footer-mono">Micromouse · Projeto Integrador de Engenharia · UnB · FCTE · 2026.1</p>
       </div>
       <div class="footer-right">
@@ -537,4 +561,4 @@ hide:
         <p class="footer-highlight">Faculdade do Gama</p>
       </div>  
     </div>
-  </footer>
+</footer>
