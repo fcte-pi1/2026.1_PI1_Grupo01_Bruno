@@ -1,12 +1,11 @@
 
 .team-section {
-    padding: 60px 20px;
-    max-width: 1200px;
-    margin: 0 auto;
     width: 100%;
+    max-width: 61rem;
+    padding: 60px 0;
 }
 
-.team-row1, .team-row {
+.team-row-1, .team-row {
     margin-top: 60px;
     padding-top: 40px;
 }
