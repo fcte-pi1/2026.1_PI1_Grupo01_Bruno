@@ -10,6 +10,7 @@ hide:
 <link rel="stylesheet" href="assets/css/telemetry.css">
 <link rel="stylesheet" href="assets/css/fases.css">
 <link rel="stylesheet" href="assets/css/lab-size.css">
+<link rel="stylesheet" href="assets/css/algorithm.css">
 
 <div class="page">
   <section class="hero">
@@ -19,7 +20,7 @@ hide:
         <p>UNB · PROJETO INTEGRADOR · 2026.1</p>
       </div>
       <div class="hero-content">
-        <h1>MICROMOUSE <br><span class="highlight-orange">DE COMPETIÇÃO.</span></h1>
+        <h1>MICROMOUSE <br> <span class="highlight-orange">DE COMPETIÇÃO.</span></h1>
         <p>Este projeto, desenvolvido na disciplina <span class="highlight-bold">Projeto Integrador de Engenharia</span> da Universidade de Brasília, tem como objetivo construir um minirrobô autônomo capaz de percorrer e encontrar a saída de labirintos.</p>
         <div class="btn-containers">
           <a href="https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno" class="btn-repo1" target="_blank">REPOSITÓRIO DO PROJETO</a>
@@ -33,7 +34,7 @@ hide:
     <div style="display:flex; flex-direction:column; text-align:center;">
       <div class="system-header">
         <div class="line-header">
-          <p class="subtitle">TAMANHOS DE LABIRINTO</p>
+          <p class="subtitle">// TAMANHOS DE LABIRINTO</p>
           <p class="line"> </p>
         </div>
         <h1 style="display: align-items: center;text-align: center;">
@@ -69,11 +70,80 @@ hide:
       <p class="lab-size-obs"> *Um ponto muito importante é que o ratinho não sabe de antemão o tipo de labirinto, ele precisa descobrir enquanto o explora.</p>
     </div>
   </section>
+  
+  <section class="system algorithm-section">
+    <div class="system-header" style="margin-bottom:0;">
+      <div class="line-header">
+        <p class="subtitle">// ALGORITMO</p>
+        <p class="line"> </p>
+      </div>
+      <h1>
+          FLOOD FILL,<br>
+          <span class="highlight"> A MELHOR ROTA. </span>
+      </h1>
+    </div>
+    <div class="flood-container">
+      <div class="flood-content">
+        <p class="flood-description">
+          O flood fill atribui a cada célula um valor que representa a distância até o objetivo. O micromouse sempre se move para a célula vizinha com o menor valor.
+        </p>
+        <div class="steps-container">
+          <div class="step-card active" onclick="changeActiveStep(this)">
+            <div class="step-number">1</div>
+            <div class="step-text">
+              <h3>Inicialização</h3>
+              <p>O objetivo recebe valor 0, enquanto as demais células começam com 
+        distâncias altas. </p>
+            </div>
+          </div>
+          <div class="step-card" onclick="changeActiveStep(this)">
+            <div class="step-number">2</div>
+            <div class="step-text">
+              <h3>Propagação</h3>
+              <p>Os valores se propagam em ondas a partir do objetivo.</p>
+            </div>
+          </div>
+          <div class="step-card" onclick="changeActiveStep(this)">
+            <div class="step-number">3</div>
+            <div class="step-text">
+              <h3>Navegação</h3>
+              <p>O micromouse segue o gradiente decrescente até chegar ao objetivo.</p>
+            </div>
+          </div>
+          <div class="step-card" onclick="changeActiveStep(this)">
+            <div class="step-number">4</div>
+            <div class="step-text">
+              <h3>Atualização dinâmica</h3>
+              <p>Ao descobrir nova parede, o mapa é recalculado em tempo real.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flood-visual">
+        <div class="gif-placeholder">
+          <img src="assets/gifs/flood-fill.gif" alt="Animação do algoritmo Flood Fill">
+        </div>
+      </div>
+    </div>
+  </section>
+
+<script>
+  function changeActiveStep(clickedCard) {
+    // Pega todos os cards
+    const cards = document.querySelectorAll('.step-card');
+    
+    // Remove a classe 'active' de todos
+    cards.forEach(card => card.classList.remove('active'));
+    
+    // Adiciona a classe 'active' apenas no card clicado
+    clickedCard.classList.add('active');
+  }
+</script>
 
   <section class="telemetry-section-custom">
     <div class="telemetry-header-custom">
       <div class="telemetry-line-header">
-        <p class="telemetry-subtitle">INTERFACE WEB</p>
+        <p class="telemetry-subtitle">// INTERFACE WEB</p>
         <p class="telemetry-line"></p>
       </div>
     </div>
@@ -189,7 +259,7 @@ hide:
   <section class="system">
     <div class="system-header">
       <div class="line-header">
-        <p class="subtitle">COMO FUNCIONA</p>
+        <p class="subtitle">// COMO FUNCIONA</p>
         <p class="line"> </p>
       </div>
       <h1>
@@ -258,7 +328,7 @@ hide:
   <section class="system team-section" >
     <div class="system-header" >
       <div class="line-header">
-        <p class="subtitle">EQUIPE</p>
+        <p class="subtitle">// EQUIPE</p>
         <p class="line"> </p>
       </div>
       <h1>
