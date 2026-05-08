@@ -62,3 +62,22 @@ html {
 .md-tabs__item--active {
   border-bottom: 3px solid #ff6600 !important; 
 }
+
+@media (max-width: 768px) {
+
+  .md-tabs {
+    position: static;
+    transform: none;
+    left: auto;
+
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .md-tabs__list {
+    gap: 1rem;
+    justify-content: flex-start;
+    padding: 0 1rem;
+  }
+
+}

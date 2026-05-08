@@ -12,6 +12,7 @@ hide:
 <link rel="stylesheet" href="assets/css/lab-size.css">
 <link rel="stylesheet" href="assets/css/algorithm.css">
 <link rel="stylesheet" href="assets/css/footer.css">
+<link rel="stylesheet" href="assets/css/pre-footer.css">
 
 <div class="page">
   <section class="hero">
@@ -288,7 +289,7 @@ hide:
           </div>
           <span  class="card-number" >02</span>
         </div>
-        <p id="team-section-start" class="card-tag">ALGORITMO · GRAFOS · WEBSOCKET</p>
+        <p class="card-tag">ALGORITMO · GRAFOS · WEBSOCKET</p>
         <div class="system-info">
           <h3>CALCULA</h3>
         <ul>
@@ -321,7 +322,7 @@ hide:
   </section>
   
 
-  <section class="system team-section" >
+  <section class="system team-section" id="team-section-start" >
     <div class="system-header" >
       <div class="line-header">
         <p class="subtitle">// EQUIPE</p>
@@ -514,6 +515,7 @@ hide:
                 <img src="https://github.com/bolzanMGB.png" alt="Othavio Araújo">
                 <div class="member-info">
                     <h3>Othavio Araújo</h3>
+                    <p class="role">Membro</p>
                     <p class="role">Membro</p>
                     <p class="matricula">23/1039150</p>
                     <a href="https://github.com/bolzanMGB" target="_blank">@bolzanMGB</a>

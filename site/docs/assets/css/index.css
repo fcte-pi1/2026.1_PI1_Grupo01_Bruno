@@ -235,7 +235,6 @@
 
 .system-card-2, .system-card-3{
   border-left: 1px solid #333; 
-  height: 550px;
 }
 .card-number {
   position: static; 
@@ -290,7 +289,7 @@
 }
 
 
-@media (max-width: 1024px)  {
+@media (max-width: 768px)  {
  .status-badge {
     display: inline-flex;
     align-items: center;
@@ -358,3 +357,6 @@
 }
 
 
+#team-section-start {
+  scroll-margin-top: 100px;
+}

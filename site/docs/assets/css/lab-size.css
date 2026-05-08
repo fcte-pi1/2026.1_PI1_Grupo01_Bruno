@@ -66,7 +66,7 @@
 .grid-4x4   { background-size: 25% 25%; }
 .grid-8x8   { background-size: 12.5% 12.5%; }
 .grid-16x16 { background-size: 6.25% 6.25%; }
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
     .line-header {
         display: flex !important;
         flex-direction: row !important;

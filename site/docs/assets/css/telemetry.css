@@ -196,7 +196,7 @@
     border-radius: 5px;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
     .telemetry-line-header {
         align-items: center;
     }
@@ -211,7 +211,7 @@
     }
 
     .telemetry-left h1 {
-        font-size: 2.2rem;
+        font-size: 1.8rem;
     }
 
     .telemetry-example {
