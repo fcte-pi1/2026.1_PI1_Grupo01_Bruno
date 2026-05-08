@@ -16,11 +16,11 @@ hide:
 <div class="page">
   <section class="hero">
     <div class="hero-container">
-      <div class="status-badge">
-        <span class="status-dot"></span>
-        <p>UNB · PROJETO INTEGRADOR · 2026.1</p>
-      </div>
       <div class="hero-content">
+        <div class="status-badge">
+          <span class="status-dot"></span>
+          <p>UNB · PROJETO INTEGRADOR · 2026.1</p>
+        </div>
         <h1>MICROMOUSE <br> <span class="highlight-orange">DE COMPETIÇÃO.</span></h1>
         <p>Este projeto, desenvolvido na disciplina <span class="highlight-bold">Projeto Integrador de Engenharia</span> da Universidade de Brasília, tem como objetivo construir um minirrobô autônomo capaz de percorrer e encontrar a saída de labirintos.</p>
         <div class="btn-containers">
@@ -38,7 +38,7 @@ hide:
           <p class="subtitle">// TAMANHOS DE LABIRINTO</p>
           <p class="line"> </p>
         </div>
-        <h1 style="display: align-items: center;text-align: center;">
+        <h1 style="display: flex; align-items: center;text-align: center;">
           OS TRÊS TIPOS <span class="highlight"> DE LABIRINTO. </span>
         </h1>
       </div>
@@ -286,9 +286,9 @@ hide:
           <div class="system-icon"  >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#FF5722" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="15" x2="23" y2="15"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="15" x2="4" y2="15"></line></svg>
           </div>
-          <span id="team-section-start" class="card-number" >02</span>
+          <span  class="card-number" >02</span>
         </div>
-        <p class="card-tag">ALGORITMO · GRAFOS · WEBSOCKET</p>
+        <p id="team-section-start" class="card-tag">ALGORITMO · GRAFOS · WEBSOCKET</p>
         <div class="system-info">
           <h3>CALCULA</h3>
         <ul>
@@ -522,8 +522,7 @@ hide:
         </div>
     </div>
   </section>
-
-<div>
+</div>
 
 <section class="cta-section">
   <div class="cta-container">

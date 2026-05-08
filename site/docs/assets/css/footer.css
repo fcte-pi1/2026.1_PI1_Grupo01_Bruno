@@ -33,7 +33,7 @@
 }
 
 .cta-content .highlight-italic {
-  color: #FF5722;
+  color: var(--orange);
   font-style: italic;
   text-transform: uppercase;
 }
@@ -54,7 +54,7 @@
 }
 
 .cta-btn-primary {
-  background-color: #FF5722;
+  background-color: var(--orange);
   color: white !important;
   text-decoration: none;
   padding: 18px 30px;
@@ -179,7 +179,7 @@
 }
 
 .footer-logo .highlight-orange {
-  color: var(--orange, #FF5722);
+  color: var(--orange);
 }
 
 .footer-right {
@@ -200,7 +200,7 @@
 }
 
 .footer-highlight {
-  color: var(--orange, #FF5722);
+  color: var(--orange);
 }
 
 @media (max-width: 768px) {

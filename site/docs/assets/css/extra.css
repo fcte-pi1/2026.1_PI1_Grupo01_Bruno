@@ -1,7 +1,10 @@
+* {
+    box-sizing: border-box;
+}
 :root [data-md-color-scheme="slate"] {
   --md-typeset-a-color: #ff6600;
-  
   --md-typeset-a-color--hover: #ff8533;
+  --md-default-bg-color: #1A1B17;
 }
 .md-footer-meta {
     display: none !important;

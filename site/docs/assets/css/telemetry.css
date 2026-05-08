@@ -26,7 +26,7 @@
 .telemetry-content-custom {
     display: flex;
     flex-direction: row;
-    align-items: stretch; /* ESSENCIAL */
+    align-items: stretch; 
     
 }
 

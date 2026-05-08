@@ -27,7 +27,7 @@
     margin-bottom: 20px;
 }
 .lab-level {
-    color: #FF5722; 
+    color: var(--orange);
     font-size: 0.85rem;
     letter-spacing: 2px;
     font-family: monospace; 
