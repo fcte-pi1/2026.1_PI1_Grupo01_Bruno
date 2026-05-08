@@ -86,15 +86,21 @@ O gerenciamento de todo o sistema é centralizado no ESP32-S3. Ele opera como o 
 
 \subsection{Visão de implantação}
 
-A Fig.~\ref{fig:diagrama_implantacao} demonstra a arquitetura do sistema, caminhos de comunicação entre o \textit{Micromouse}, o sistema web, e o banco de dados, e como esses subsistemas se dispõem entre o rato físico, o dispositivo do usuário, e o serviço de banco de dados.
-
-\begin{figure}[H]
+\begin{figure}[th]
     \centering
     \includegraphics[width=0.8\textwidth]{figuras/diagrama_implantacao.png}
     \captionsetup{font=footnotesize}
     \caption{Diagrama de implantação do sistema.}
     \label{fig:diagrama_implantacao}
 \end{figure}
+
+A Fig.~\ref{fig:diagrama_implantacao} demonstra a arquitetura do sistema, caminhos de comunicação entre o \textit{Micromouse}, o sistema web, e o banco de dados, e como esses subsistemas se dispõem entre o rato físico, o dispositivo do usuário, e o serviço de banco de dados.
+
+A comunicação entre os subsistemas acontece principalmente através de \textit{WebSocket} a fim de possibilitar o acompanhamento em tempo real da navegação do \textit{micromouse}; essa mesma razão justifica a escolha do \textbf{Firebase Realtime Database} como serviço de banco de dados. No \textit{micromouse} e back-end do servidor web, essa conexão é facilitada por módulo incluso na \textbf{ESP32} e a framework \textbf{NestJS}, respectivamente.
+
+Como espera-se que o back-end e o front-end do servidor web sejam executados na mesma máquina (dispositivo do usuário), a conexão por \textit{HTTPS} foi determinada como suficiente para o funcionamento da interface de usuário.
+
+O diagrama mostra também a relação de dependência entre o back-end e o \textit{micromouse} — indicando que o rato é capaz de operar independentemente — e entre o front-end e o back-end. 
 
 
 \textcolor{red}{Itens fundamentais:}
