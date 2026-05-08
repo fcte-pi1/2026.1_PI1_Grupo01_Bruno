@@ -86,17 +86,27 @@ O gerenciamento de todo o sistema é centralizado no ESP32-S3. Ele opera como o 
 
 \textcolor{red}{Itens fundamentais:}
 
-\begin{itemize}
-    \item \textcolor{red}{ \textbf{Diagrama Atividades UML:}  descrever e explicar o fluxo do comportamento funcional do produto proposto, evidenciando, de forma clara e estruturada, como as atividades são executadas, em que ordem e sob quais condições. Esse diagrama permite compreender o funcionamento dinâmico do sistema, destacando:}
+\subsection{Diagrama de Atividades do Software}
 
-    \begin{itemize}
-        \item \textcolor{red}{ os principais atores (usuários ou sistemas externos) envolvidos no processo;
-        \item as atividades de negócio realizadas por cada ator ou pelo próprio sistema;
-        \item os insumos (entradas) necessários para a execução das atividades;
-        \item os resultados (saídas) gerados ao longo do fluxo;
-        \item os pontos de decisão, paralelismo e sincronização das atividades;
-        \item Entre as notações mais relevantes, destacam-se o estado iniciail e final, atividades, nós de decisão e junção, barras de bifurcação, Raias (\textit{swimlanes}) e Fluxos de controle. }
-        \end{itemize}
+O Diagrama de Atividades (Figura \ref{fig:diagrama_atividades_sw}) descreve o comportamento funcional do sistema web do projeto XAROPi, mapeando a ordem de execução do monitoramento de telemetria em tempo real. A modelagem utiliza o particionamento por raias (\textit{swimlanes}) para estruturar o fluxo e evidenciar a fronteira entre os subsistemas da arquitetura.
+
+Com base na notação UML, o fluxo destaca os seguintes elementos funcionais:
+\begin{itemize}
+    \item \textbf{Atores envolvidos:} O Estudante (usuário) e o sistema físico do Micromouse (ESP32).
+    \item \textbf{Atividades de negócio:} Emissão de comandos de controle direcional, processamento da matriz lógica e renderização do trajeto.
+    \item \textbf{Insumos (Entradas):} Ações diretas na interface pelo usuário e pacotes de telemetria (sensores) transmitidos pelo ESP32 via protocolo WebSocket.
+    \item \textbf{Resultados (Saídas):} Atualização dinâmica do mapa lógico na tela e a gravação final (documento NoSQL) do histórico do percurso no Firebase.
+    \item \textbf{Pontos de decisão:} O diagrama apresenta nós de verificação condicionais, especificamente na validação prévia de conexão estabelecida e na condição de parada automática (quando o robô identifica o quadrante 2x2).
+\end{itemize}
+
+O fluxo de controle se desenvolve a partir do nó de estado inicial, transitando pelas atividades assíncronas do \textit{loop} de atualização e permitindo sinais de interrupção manual pelo usuário, até o armazenamento dos dados e o atingimento do estado final.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figuras/software/diagrama_atividades.png}
+    \caption{Diagrama de Atividades do Software XAROPi.}
+    \label{fig:diagrama_atividades_sw}
+\end{figure}
 
     \item \textcolor{red}{\textbf{\textit{Backlog} do Produto}}
     \begin{itemize}
