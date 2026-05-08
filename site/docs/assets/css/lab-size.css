@@ -36,7 +36,7 @@
 
 .lab-card h2 {
     color: #FFFFFF;
-    font-size: clamp(1.4rem, 3vw, 2.2rem); 
+    font-size: clamp(1.4rem, 3vw, 1.8rem); 
     line-height: 1.1;
     font-weight: 700;
     margin: 0;
@@ -52,7 +52,7 @@
 
 .maze-visual {
     width: 100%;         
-    max-width: 220px;
+    max-width: 150px;
     aspect-ratio: 1 / 1; 
     background-color: #1A1A1A;
     border: 1px solid #333;
