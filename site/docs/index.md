@@ -38,7 +38,7 @@ hide:
           <p class="subtitle">// TAMANHOS DE LABIRINTO</p>
           <p class="line"> </p>
         </div>
-        <h1 style="display: flex; align-items: center;text-align: center;">
+        <h1 >
           OS TRÊS TIPOS <span class="highlight"> DE LABIRINTO. </span>
         </h1>
       </div>
@@ -135,7 +135,7 @@ hide:
       clickedCard.classList.add('active');
     }
   </script>
-
+  
   <section class="telemetry-section-custom">
     <div class="telemetry-header-custom">
       <div class="telemetry-line-header">
@@ -152,8 +152,8 @@ hide:
         <p class="telemetry-def">
           O sistema web exibe, via WebSocket e em tempo real, o mapeamento do labirinto, a identificação do tipo de percurso, a posição do micromouse, o nível de bateria, a velocidade média e o status da execução, com atualização contínua e baixa latência.
         </p>
-        <div style="display:flex; justify-content:center; margin-top:50px;">
-          <img src="assets/images/logo-xaropi-cropped.svg" alt="Logo XAROPi" width="600" height="500">
+        <div class="telemetry-logo-container">
+          <img src="assets/images/logo-xaropi-cropped.svg" alt="Logo XAROPi">
         </div>
       </div>
       <div class="telemetry-example">
@@ -165,72 +165,72 @@ hide:
           </div>
         </div>
         <div class="telemetry-divider"></div>
-      <div class="maze-grid">
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell path"></div>
-        <div class="maze-cell path"></div>
-        <div class="maze-cell path"></div>
-        <div class="maze-cell path"></div>
-        <div class="maze-cell path"></div>
-        <div class="maze-cell path"></div>
-        <div class="maze-cell path"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell path"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell empty"></div>
-        <div class="maze-cell path"></div>
-        <div class="maze-cell path"></div>
-        <div class="maze-cell path"></div>
-        <div class="maze-cell path"></div>
-        <div class="maze-cell path"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell empty"></div>
-        <div class="maze-cell path"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell empty"></div>
-        <div class="maze-cell path"></div>
-        <div class="maze-cell path"></div>
-        <div class="maze-cell active"></div>
-        <div class="maze-cell empty"></div>
-        <div class="maze-cell empty"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell empty"></div>
-        <div class="maze-cell empty"></div>
-        <div class="maze-cell empty"></div>
-        <div class="maze-cell empty"></div>
-        <div class="maze-cell empty"></div>
-        <div class="maze-cell empty"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell wall"></div>
-        <div class="maze-cell wall"></div>
-      </div>
+        <div class="maze-grid">
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell path"></div>
+          <div class="maze-cell path"></div>
+          <div class="maze-cell path"></div>
+          <div class="maze-cell path"></div>
+          <div class="maze-cell path"></div>
+          <div class="maze-cell path"></div>
+          <div class="maze-cell path"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell path"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell empty"></div>
+          <div class="maze-cell path"></div>
+          <div class="maze-cell path"></div>
+          <div class="maze-cell path"></div>
+          <div class="maze-cell path"></div>
+          <div class="maze-cell path"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell empty"></div>
+          <div class="maze-cell path"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell empty"></div>
+          <div class="maze-cell path"></div>
+          <div class="maze-cell path"></div>
+          <div class="maze-cell active"></div>
+          <div class="maze-cell empty"></div>
+          <div class="maze-cell empty"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell empty"></div>
+          <div class="maze-cell empty"></div>
+          <div class="maze-cell empty"></div>
+          <div class="maze-cell empty"></div>
+          <div class="maze-cell empty"></div>
+          <div class="maze-cell empty"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell wall"></div>
+          <div class="maze-cell wall"></div>
+        </div>
         <div class="telemetry-stats">
           <div class="telemetry-stat-card">
             <h2>73<span>%</span></h2>

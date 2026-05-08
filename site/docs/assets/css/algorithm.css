@@ -1,14 +1,39 @@
+/* --- ALGORITMO SECTION --- */
+
 .system-header {
     margin-bottom: 20px;
 }
 
+.line-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.subtitle {
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin: 0;
+    /* Mantendo suas cores e fontes originais */
+    color: var(--orange); 
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+}
+
+.line {
+    height: 1px;
+    background-color: #333;
+    flex-grow: 1;
+    margin: 0;
+}
 
 .system-header h1 {
     font-size: 3rem;
     line-height: 1.1;
     font-weight: 800;
     color: white;
-    margin: 0; 
+    margin: 10px 0 0 0; 
 }
 
 .flood-container {
@@ -20,32 +45,25 @@
     align-items: flex-start;
 }
 
-
-
 .flood-content {
     flex: 1;
-    max-width: 480px;
-    margin-top: 0px;
+    max-width: 700px; /* Ajustado para comportar os cards de 700px */
 }
-
-
 
 .flood-description {
     color: #a3a3a3;
     font-size: 1rem;
     line-height: 1.6;
     margin-bottom: 32px;
-    width: 700px;
+    width: 100%;
+    max-width: 700px; /* Era width fixo, agora é flexível */
 }
-
-
 
 .steps-container {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
-
 
 .step-card {
     background-color: #0a0a0a; 
@@ -57,20 +75,18 @@
     align-items: center;
     transition: all 0.3s ease;
     cursor: pointer; 
-    width: 700px;
+    width: 100%;
+    max-width: 700px; /* Era width fixo, agora é flexível */
 }
-
 
 .step-card:hover {
     border-color: #444;
 }
 
-
 .step-card.active {
     border-color: var(--orange);
     background-color: #111;
 }
-
 
 .step-number {
     background-color: #222;
@@ -87,24 +103,20 @@
     transition: all 0.3s ease;
 }
 
-
 .step-card.active .step-number {
     background-color: var(--orange);
     color: #000;
 }
 
 .step-text {
-    margin: -10px;
+    margin: 0; /* Removido o margin negativo que pode causar desalinhamento */
 }
 
-
 .step-text h3 {
-    color: var(--white);
+    color: white;
     font-size: 1rem;
     margin: 0 0 4px 0;
 }
-
-
 
 .step-text p {
     color: #888;
@@ -113,27 +125,25 @@
     margin: 0;
 }
 
-
 .flood-visual {
     flex: 1;
     display: flex;
     justify-content: flex-end;
 }
 
-
-
 .gif-placeholder {
     background-color: #0a0a0a;
     border: 1px dashed #333;
     border-radius: 12px;
-    width: 70%;
+    width: 100%;
+    max-width: 450px; /* Controla o tamanho no desktop */
     aspect-ratio: 1 / 1;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #555;
+    overflow: hidden;
 }
-
 
 .gif-placeholder img {
     width: 100%;
@@ -142,9 +152,29 @@
     border-radius: 12px;
 }
 
+/* --- AJUSTES MOBILE --- */
 
-
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .flood-container {
-    flex-direction: column;
-}}
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .system-header h1 {
+        font-size: 2.2rem;
+    }
+
+    .flood-visual {
+        width: 100%;
+        justify-content: center;
+        order: -1; /* Coloca o GIF acima do texto no mobile se preferir */
+    }
+
+    .gif-placeholder {
+        max-width: 100%;
+    }
+
+    .step-card {
+        padding: 12px 15px;
+    }
+}

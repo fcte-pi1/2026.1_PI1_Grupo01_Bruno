@@ -203,7 +203,8 @@
 .line{
   height: 1px;         
   background-color: #333; 
-  width: 200px;
+  width: 100%;
+  max-width: 200px;
   margin-bottom: 8px;
 }
 .system-header h1 {
