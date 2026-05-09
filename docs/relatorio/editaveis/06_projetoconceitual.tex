@@ -101,14 +101,14 @@ Como espera-se que o back-end e o front-end do servidor web sejam executados na 
 O diagrama mostra também a relação de dependência entre o back-end e o \textit{micromouse} — indicando que o rato é capaz de operar independentemente — e entre o front-end e o back-end. 
 
 
-\textcolor{red}{Itens fundamentais:}
+
 
 \subsection{Diagrama de Atividades do Software}
 
 O Diagrama de Atividades (Figura \ref{fig:diagrama_atividades_sw}) descreve o comportamento funcional do sistema web do projeto XAROPi. A modelagem utiliza o particionamento por raias (\textit{swimlanes}) para estruturar o fluxo e evidenciar a fronteira entre os subsistemas da arquitetura.
-
-Com base na notação UML, o fluxo destaca os seguintes elementos funcionais:
 \begin{itemize}
+Com base na notação UML, o fluxo destaca os seguintes elementos funcionais:
+
     \item \textbf{Atores envolvidos:} O Estudante e o sistema físico do Micromouse.
     \item \textbf{Atividades de negócio:} Emissão de comandos de controle direcional, processamento da matriz lógica e renderização do trajeto.
     \item \textbf{Insumos (Entradas):} Ações diretas na interface pelo usuário e pacotes de telemetria transmitidos pelo ESP32 via protocolo WebSocket.
@@ -118,7 +118,6 @@ Com base na notação UML, o fluxo destaca os seguintes elementos funcionais:
 
 O fluxo de controle se desenvolve a partir do nó de estado inicial, transitando pelas atividades assíncronas do \textit{loop} de atualização e permitindo sinais de interrupção manual pelo usuário, até o armazenamento dos dados e o atingimento do estado final.
 
-\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figuras/software/diagrama_atividades.png}
     \caption{Diagrama de Atividades do Software XAROPi.}
