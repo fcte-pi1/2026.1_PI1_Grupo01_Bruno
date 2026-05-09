@@ -69,7 +69,10 @@ O gerenciamento de todo o sistema é centralizado no ESP32-S3. Ele opera como o 
 
 \section{Análise de consumo energético}
 
-\textcolor{red}{Com relação ao consumo energético do produto desenvolvido, será necessário apresentar cálculos de consumo dos diversos componentes utilizados e explicar as decisões de projeto para atender a estas demandas.}
+O consumo energético do Micromouse XAROPi foi analisado com o objetivo de verificar a viabilidade do sistema de alimentação e garantir autonomia suficiente para a execução das provas. Para isso, realizou-se o levantamento dos principais subsistemas elétricos do robô, considerando a tensão de operação, a corrente média consumida e o tempo estimado de funcionamento de cada componente.
+
+A partir desses dados, foram efetuados os cálculos de potência e energia consumida, permitindo estimar a demanda energética total do sistema. Com base nessa estimativa, foram definidas as estratégias de alimentação, incluindo a escolha da bateria, do circuito de gerenciamento de energia e dos reguladores de tensão utilizados no projeto.
+
 
 \subsection{Identificação dos Subsistemas Elétricos}
 
@@ -106,7 +109,7 @@ Nesta subseção são apresentados os principais componentes responsáveis pelo 
 
 A energia consumida por cada componente foi estimada utilizando a seguinte equação:
 
-:contentReference[oaicite:0]{index=0}
+$$E = V \cdot I \cdot t$$
 
 onde:
 
@@ -223,55 +226,69 @@ Essa estimativa foi utilizada como base para o dimensionamento do sistema de ali
 
 \subsection{Escolha da Fonte de Alimentação}
 
-Com base no consumo energético total estimado de $16.981,68\,J$, realizou-se a conversão para watt-hora ($Wh$) para fins de dimensionamento comercial:
+Com base no consumo energético total estimado de $16.981,68\,J$, realizou-se a conversão para watt-hora ($Wh$), unidade normalmente utilizada no dimensionamento de sistemas de alimentação embarcados:
 
 \[
 E_{total} = \frac{16.981,68\,J}{3600} \approx 4,72\,Wh
 \]
 
-Considerando a utilização do módulo \textbf{BMS-20A-3S-S}, o sistema foi projetado para operar com uma bateria de polímero de lítio (LiPo) de três células em série (\textbf{3S}), apresentando uma tensão nominal de $11,1\,V$.
+Considerando as perdas elétricas associadas aos reguladores de tensão, variações de carga durante a movimentação do robô e oscilações decorrentes da aceleração dos motores DC, foi adotada uma margem de segurança de $30\%$, valor usualmente empregado em sistemas robóticos embarcados de pequeno porte.
 
-Para garantir a confiabilidade operacional e compensar as perdas por comutação e dissipação de calor no regulador chaveado \textbf{LM2596}, aplicou-se uma margem de segurança de 30\% ($1,3$), resultando em uma demanda real estimada de:
+Assim, a demanda energética corrigida do sistema é dada por:
 
 \[
 E_{seguro} = 4,72\,Wh \cdot 1,3 \approx 6,13\,Wh
 \]
 
-A capacidade mínima teórica ($C_{min}$) para atender aos $1200\,s$ de operação é calculada por:
+Para suprir essa demanda energética, foi selecionada uma bateria do tipo Li-Po 2S1P, composta por células modelo 903048, com tensão nominal de $7,4\,V$ e capacidade de $1100\,mAh$.
+
+A energia total disponível na bateria pode ser estimada por:
 
 \[
-C_{min} = \frac{6,13\,Wh}{11,1\,V} \approx 0,55\,Ah
+E_{bateria} = V \cdot Ah
 \]
-
-ou:
 
 \[
-C_{min} \approx 550\,mAh
+E_{bateria} = 7,4\,V \cdot 1,1\,Ah \approx 8,14\,Wh
 \]
 
-Embora o cálculo aponte para aproximadamente $550\,mAh$, a escolha final da fonte de alimentação deve considerar os regimes dinâmicos de aceleração dos motores DC, que podem gerar picos de corrente elevados.
 
-Conforme o datasheet do BMS utilizado, o sistema suporta correntes de descarga contínua de até $20\,A$ e correntes de partida de motor de até $60\,A$.
 
-Dessa forma, optou-se pela utilização de uma bateria LiPo comercial de $1000\,mAh$, garantindo que o Micromouse XAROPi possua autonomia suficiente para concluir a prova sem atingir níveis críticos de descarga e mantendo a estabilidade de tensão necessária para evitar reinicializações indesejadas (\textit{brownouts}) no microcontrolador ESP32-S3.
+
+Como a capacidade energética da bateria ($8,14\,Wh$) é superior à demanda corrigida do sistema ($6,13\,Wh$), conclui-se que a fonte de alimentação selecionada é adequada para alimentar o robô com margem suficiente de segurança operacional.
+
+\subsection{Planejamento do Circuito de Alimentação}
+
+O circuito de alimentação do Micromouse XAROPi foi planejado considerando as tensões e correntes de operação dos componentes eletrônicos utilizados no sistema.
+
+O sistema utiliza o módulo \textbf{BMS 20A-3S-S\_SGT} como elemento de gerenciamento e proteção da alimentação principal. Conforme especificado no datasheet, o módulo é compatível com baterias em configuração \textbf{3S}, permitindo uma tensão nominal de aproximadamente $11,1\,V$.
+
+Como os componentes do robô operam em diferentes níveis de tensão, torna-se necessária a utilização de conversão e distribuição adequada da alimentação elétrica. Os motores DC operam em aproximadamente $8\,V$, enquanto os sensores, o microcontrolador ESP32-S3 e os demais circuitos eletrônicos utilizam tensões inferiores, variando entre $3,3\,V$ e $5\,V$.
+
+Para adequação dessas tensões, foi previsto o uso do regulador de tensão \textbf{LM2596}, responsável pela conversão da tensão principal para níveis compatíveis com os demais subsistemas eletrônicos.
+
+Além do fornecimento energético, o sistema de alimentação também deve suportar as variações de corrente associadas ao acionamento dos motores. Conforme o datasheet do módulo \textbf{BMS 20A-3S-S\_SGT}, o circuito suporta correntes contínuas de descarga de até $20\,A$ e correntes transitórias de partida inferiores a $60\,A$, características adequadas para a aplicação proposta.
+
+\subsection{Cálculo de Autonomia da Bateria}
+
+A autonomia do sistema é determinada pela relação entre a energia disponível na bateria e a demanda de potência dos componentes. A autonomia teórica total é definida pela seguinte expressão:
+
+\[
+A = \frac{E_{bat}}{P}
+\]
+
+onde:
 
 \begin{itemize}
-
-    \item \textcolor{red}{ \textbf{Identificação dos Subsistemas Elétricos:} liste todos os componentes que consumirão energia, como sensores, microcontroladores, atuadores e módulos de armazenamento de dados. Para cada componente, registre a tensão de operação (V), corrente média (mA) e tempo estimado de uso (s).}
-
-    \item \textcolor{red}{ \textbf{Cálculo da Energia Consumida por Componente:} utilize a fórmula: $E = V I t$, onde $E$ é a energia em joules, $V$ é a tensão em volts, $I$ a corrente em ampères e $t$ o tempo em segundos. Realize esse cálculo para cada componente do sistema.}
-
-    \item \textcolor{red}{ \textbf{Estimativa do Consumo Total de Energia:} some as energias de todos os componentes para obter o consumo energético total estimado do sistema por lançamento.}
-
-    \item \textcolor{red}{ \textbf{Escolha da Fonte de Alimentação:} com base no consumo total, converta para watt-hora: 1 Wh = 3600 J. Adicione e justifique uma margem de segurança (pesquisar o que é usual para este tipo de sistema) e selecione uma bateria ou fonte que supra a demanda.}
-
-    \item \textcolor{red}{ \textbf{Planejamento do Circuito de Alimentação:} analise a necessidade de inclusão de reguladores de tensão, proteções contra sobrecorrente, e isolamento para atuadores. Como as oscilações de tensão serão controladas?}
-
-    \item \textcolor{red}{ \textbf{Monitoramento via \textit{software}:} implemente, no \textit{software} embarcado, rotinas para medir a tensão da bateria e registrar dados de tempo de operação. Colete os dados para análise.}
-
-    \item \textcolor{red}{ \textbf{Validação com Testes Reais:} realize testes de campo para comparar o consumo estimado com o real. Ajuste a capacidade da fonte se necessário e refine o software de coleta de dados. Justifique a diferença de resultados (real x teórica), de acordo com a literatura.}
-
+    \item $A$ representa a autonomia do sistema (em horas ou minutos);
+    \item $E_{bat}$ representa a energia armazenada na bateria (em Wh);
+    \item $P$ representa a potência média consumida pelo sistema (em W).
 \end{itemize}
+
+Considerando a capacidade da bateria de $8,14\,Wh$ e a potência média de consumo de $14,15\,W$, obtém-se uma autonomia teórica de aproximadamente $34$ minutos.
+
+Na prática, no entanto, a autonomia real apresenta uma divergência em relação à teórica, sendo geralmente cerca de $30\%$ menor em função de perdas de carga no hardware. Entre os principais fatores estão o limite de descarga (DoD) de $80\%$, adotado para preservação das células da bateria, a eficiência de conversão do regulador LM2596, que opera em torno de $85\%$, e a dissipação térmica por efeito Joule na ponte H. Esses fatores, somados aos picos de corrente durante as manobras do protótipo, reduzem o tempo de operação segura para aproximadamente $24$ minutos, o que se mostra suficiente para cobrir $20$ minutos de percurso da prova.
+
 
 \section{Descrição de \textit{software}}
 
