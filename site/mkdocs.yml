@@ -1,5 +1,5 @@
 site_name: XAROPi
-
+site_url: https://fcte-pi1.github.io/2026.1_PI1_Grupo01_Bruno/
 theme:
   name: material
   language: pt
@@ -24,9 +24,9 @@ nav:
       - Introdução: entrega1/introducao.md
       - Requisitos: entrega1/requisitos.md 
   - ENTREGA 2: 
-      - Introdução: entrega2/introducao.md
+      - Em breve: entrega2/introducao.md
   - ENTREGA 3: 
-      - Introdução: entrega3/introducao.md
+      - Em breve: entrega3/introducao.md
 
 
 extra_css:
