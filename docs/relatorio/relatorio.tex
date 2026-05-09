@@ -12,6 +12,7 @@
 \usepackage{cleveref}
 \usepackage{longtable}
 \usepackage{booktabs}
+\usepackage[table]{xcolor}
 
 \newcounter{rfcounter}
 \newcounter{rnfcounter}
@@ -35,7 +36,7 @@
     \checkduplicatelabel{#1}%
     \label{req:#1}%
   }%
-  RF\therfcounter & #3
+  RF\therfcounter & #3 & #2
 }
 
 \NewDocumentCommand{\rnf}{O{} m m}{%
@@ -44,7 +45,7 @@
     \checkduplicatelabel{#1}%
     \label{req:#1}%
   }%
-  RNF\thernfcounter & #3
+  RNF\thernfcounter & #3 & #2
 }
 
 \begin{document}
