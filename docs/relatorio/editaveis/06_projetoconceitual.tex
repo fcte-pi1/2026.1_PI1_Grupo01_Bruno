@@ -82,6 +82,25 @@ A Figura \ref{fig:diagrama_esquematico} apresenta o diagrama esquemático do cir
 
 \section{Descrição de \textit{software}}
 
+\subsection{Visão de implantação}
+
+\begin{figure}[th]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figuras/diagrama_implantacao.png}
+    \captionsetup{font=footnotesize}
+    \caption{Diagrama de implantação do sistema.}
+    \label{fig:diagrama_implantacao}
+\end{figure}
+
+A Fig.~\ref{fig:diagrama_implantacao} demonstra a arquitetura do sistema, caminhos de comunicação entre o \textit{Micromouse}, o sistema web, e o banco de dados, e como esses subsistemas se dispõem entre o rato físico, o dispositivo do usuário, e o serviço de banco de dados.
+
+A comunicação entre os subsistemas acontece principalmente através de \textit{WebSocket} a fim de possibilitar o acompanhamento em tempo real da navegação do \textit{micromouse}; essa mesma razão justifica a escolha do \textbf{Firebase Realtime Database} como serviço de banco de dados. No \textit{micromouse} e back-end do servidor web, essa conexão é facilitada por módulo incluso na \textbf{ESP32} e a framework \textbf{NestJS}, respectivamente.
+
+Como espera-se que o back-end e o front-end do servidor web sejam executados na mesma máquina (dispositivo do usuário), a conexão por \textit{HTTPS} foi determinada como suficiente para o funcionamento da interface de usuário.
+
+O diagrama mostra também a relação de dependência entre o back-end e o \textit{micromouse} — indicando que o rato é capaz de operar independentemente — e entre o front-end e o back-end. 
+
+
 \textcolor{red}{Itens fundamentais:}
 
 \subsection{Diagrama de Atividades do Software}
@@ -118,27 +137,69 @@ O fluxo de controle se desenvolve a partir do nó de estado inicial, transitando
 
         \end{itemize}
 
+    \subsection{Visão de Dados do Software} 
+
+    A Visão de Dados descreve a forma como as informações geradas, processadas e consumidas pelo sistema são estruturadas e armazenadas. Tendo em vista as características do projeto, que exige alta taxa de transferência e armazenamento de dados de telemetria em tempo real, optou-se pela utilização do Firebase, um banco de dados NoSQL orientado a documentos que armazena os dados em coleções, as quais contêm documentos que podem abrigar subcoleções.
+
+    Na Figura \ref{fig:diagrama_estrutura_documentos}, temos o Diagrama de Estrutura de Documentos que reflete a modelagem escolhida para otimizar as consultas do sistema web. A base de dados está dividida em duas coleções principais:
+
+    \begin{itemize}
+        \item \textbf{Coleção Labirinto:} Responsável por armazenar a estrutura física e lógica do labirinto percorrido. Cada documento representa um labirinto específico e possui atributos como \textit{id} e \textit{status}, além de uma subcoleção \textit{Nos} e uma subcoleção de metadados para dimensionamento.
+        
+        \item \textbf{Coleção Tentativa:} Responsável por armazenar o registro de telemetria do Micromouse. Cada vez que o robô inicia um percurso, um novo documento é criado nesta coleção, contendo atributos da tentativa e subcoleções específicas para os dados de velocidade e de bateria.
+    \end{itemize}
+
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{figuras/software/diagrama_estrutura_documentos.png}
+        \caption{Diagrama de Estrutura de Documentos.}
+        \label{fig:diagrama_atividades_sw}
+    \end{figure}
+
     \item \textcolor{red}{ \textbf{Descrição da arquitetura da solução de \textit{software} proposta:}}
     \begin{itemize}
     
         \item \textcolor{red}{ Esta subseção deve contemplar o documento de arquitetura do sistema e deve ser estruturado segundo as visões (4+1) previstas no processo unificado (UP): lógica, de processos;  implementação, implantação e dados (substuirá a visão de casos de uso).}
         
         \item \textcolor{red}{ Propósito do \textit{software} (qual o seu papel no sistema);}
-        \item \textcolor{red}{ Padrão adotado: MVC, MVP, Microsserviços, Monolítico, etc (Justificar);}
+        \item \textcolor{red}{ Padrão adotado : MVC, MVP, Microsserviços, Monolítico, etc (Justificar);}
         \item \textcolor{red}{ Linguagens de programação: Java, Python, C\#, JavaScript, etc.}
         \item \textcolor{red}{ \textit{Frameworks} e bibliotecas: Spring Boot, .NET Core, React, Angular, Django, etc.}
             \item \textcolor{red}{ Banco de dados: Relacional (PostgreSQL, MySQL, etc) X NãoSQL (MongoDB,etc). }
         \item \textcolor{red}{Persistência de dados: Modelo Entidade‑Relacionamento (MER) e seu respectivo Diagrama Entidade‑Relacionamento (DER), aplicáveis quando a solução utiliza banco de dados relacional; alternativamente, diagrama de estrutura de documentos, empregado nos casos em que a arquitetura adota banco de dados não relacional.}
          \end{itemize}     
     
-    \item \textcolor{red}{\textbf{ Roteiro de testes funcionais:} }
-    \begin{itemize}
-        \item \textcolor{red}{Código do caso de teste;}
-        \item \textcolor{red}{Nome do caso de teste;}
-        \item \textcolor{red}{ Objetivo do caso de teste;}
-        \item \textcolor{red}{ Pré-condições do sistema para o teste ser realizado, quando se aplicar;}
-        \item \textcolor{red}{ Descrição dos procedimentos a serem executados para o teste;}
-        \item \textcolor{red}{ Resultado esperado para o teste ser aprovado (pós-condição após realizado o teste);}
-    \end{itemize}
+
+    \subsection{Roteiro de testes funcionais}
+
+    Os roteiro de testes funcionais pode ser observado na Tabela \ref{tab:roteiro_testes_funcionais}
+
+    \begin{table}[H]
+        \centering
+        \caption{Caos de testes funcionais}
+        \label{tab:roteiro_testes_funcionais}
+        \footnotesize
+        \begin{tabular}{|p{0.9cm}|p{2.3cm}|p{2.3cm}|p{3cm}|p{3cm}|p{3.2cm}|}
+        \hline
+        Id   & Nome                                & Objetivo                                                               & Pré-condições                                                                                                                                                            & Procedimentos                                                                                                                                                              & Pós-condições                                                                                                                                                                      \\ \hline
+        CT01 & Monitoramento do percurso           & Validar a exibição e recebimento dos dados de telemetria do micromouse & Micromouse navegando no labirinto, servidor aberto e rodando a aplicação Web e micromouse conectado ao servidor via websocket & Iniciar o percurso e e Observar a interface web durante a execução                                                               & A interface web deve atualizar em tempo real as informações: posição no labirinto, amperagem da bateria, voltagem da bateria, velocidade, tempo da execução e status da tentativa. \\ \hline
+        CT02 & Comandos remotos                    & Validar comandos remotos para o micromouse                             & Servidor aberto e rodando a aplicação Web e micromouse conectado ao servidor via websocket                                      & Apertar botão de “iniciar”, confirmar início da execução, apertar botão de “reiniciar”, confirmar reinício da execução & O sistema deve iniciar a tentativa no labirinto e o cronômetro, resetá-lo ao reiniciar.                                                                                           \\ \hline
+        CT03 & Finalização e métricas da tentativa & Validar processamento dos dados ao término da tentativa                & Servidor aberto e rodando a aplicação Web, micromouse conectado ao servidor via websockete e tentativa em andamento.            & Executar a tentativa até a finalização, interrupção ou falhae e observar tela final                                              & A interface web deve informar falha/sucesso e exibir as informações médias da tentativa                                                                                           \\ \hline
+        CT04 & Armazenamento de dados              & Validar o salvamento de informações após o término da tentativa.       & Servidor aberto e rodando a aplicação Web, micromouse conectado ao servidor via websockete e tentativa finalizada               & Finalizar a tentativae e consultar a tentativa no banco                                                                          & Os dados devem ser armazenados no banco de dados sem nenhuma perda de informação                                                                                                   \\ \hline
+        CT05 & Consulta de histórico               & Validar consulta de tentativas anteriores.                             & Servidor aberto e rodando a aplicação Web e existência de registros salvos no banco.                                            & Pesquisar uma tentativa e clicar para visualização                                                                             & Os dados devem ser apresentados em tela sem nenhuma perda de informação para qualquer tipo de labirinto \\ \hline
+        \end{tabular}
+    \end{table}
+
+
+    % \item \textcolor{red}{\textbf{ Roteiro de testes funcionais:} }
+    % \begin{itemize}
+    %     \item \textcolor{red}{Código do caso de teste;}
+    %     \item \textcolor{red}{Nome do caso de teste;}
+    %     \item \textcolor{red}{ Objetivo do caso de teste;}
+    %     \item \textcolor{red}{ Pré-condições do sistema para o teste ser realizado, quando se aplicar;}
+    %     \item \textcolor{red}{ Descrição dos procedimentos a serem executados para o teste;}
+    %     \item \textcolor{red}{ Resultado esperado para o teste ser aprovado (pós-condição após realizado o teste);}
+    % \end{itemize}
 \end{itemize}
 
