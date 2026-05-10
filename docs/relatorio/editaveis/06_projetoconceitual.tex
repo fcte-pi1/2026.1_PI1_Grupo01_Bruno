@@ -84,6 +84,17 @@ O gerenciamento de todo o sistema é centralizado no ESP32-S3. Ele opera como o 
 
 \section{Descrição de \textit{software}}
 
+\subsection{Visão lógica do sistema}
+
+A figura \ref{fig:diagrama_classes} apresenta o diagrama de classes do sistema, entre elas, classes para acesso ao banco de dados, para interpretação dos dados de telemetria para o frontend e para o recebimento e envio de dados com websocket. 
+\begin{figure}[th]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figuras/diagrama_classes.png}
+    \captionsetup{font=footnotesize}
+    \caption{Diagrama de implantação do sistema.}
+    \label{fig:diagrama_classes}
+\end{figure}
+
 \subsection{Visão de implantação}
 
 \begin{figure}[th]
@@ -208,7 +219,7 @@ Por fim, o \textbf{Cenário de Consulta ao Histórico} (Figura \ref{fig:seq_hist
 
     \begin{table}[H]
         \centering
-        \caption{Caos de testes funcionais}
+        \caption{Casos de testes funcionais}
         \label{tab:roteiro_testes_funcionais}
         \footnotesize
         \begin{tabular}{|p{0.9cm}|p{2.3cm}|p{2.3cm}|p{3cm}|p{3cm}|p{3.2cm}|}
