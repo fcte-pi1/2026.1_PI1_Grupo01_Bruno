@@ -50,37 +50,248 @@ O gerenciamento de todo o sistema é centralizado no ESP32-S3. Ele opera como o 
     \centering
     \includegraphics[width=0.8\textwidth]{figuras/diagrama_componentesFinal.png}
     \captionsetup{font=footnotesize}
-    \caption{Diagrama de componentes do Micromouse. As linhas contínuas pretas representam conexões físicas via protocolo I2C. As linhas verdes representam alimentação em baixa tensão (3,3V). As linhas vermelhas representam alimentação em alta tensão (6V). As linhas tracejadas representam comunicação sem fio.}
+    \caption{Diagrama de componentes do Micromouse. As linhas contínuas pretas representam conexões físicas via protocolo I2C. As linhas verdes representam alimentação de (3,3V). As linhas vermelhas representam alimentação de (6V).}
     \label{fig:diagrama_componentes}
 \end{figure}
 
 
-\textcolor{red}{A Fig. \ref{fig:diagrama_blocos_e_esquematico} apresenta o diagrama de blocos e o esquemático de um circuito conversor de corrente alternada para corrente direta, a título de exemplo. Repare que o diagrama de blocos indica os subsistemas do circuito completo apresentado no esquemático.
-% Comecem com o diagrama de blocos, que é mais genérico, e depois indiquem os detalhes com a lista de materiais e os esquemáticos.
-}
+A Figura \ref{fig:diagrama_esquematico} apresenta o diagrama esquemático do circuito, incluindo os componentes selecionados e suas ligações elétricas. Para melhorar a organização e a legibilidade do projeto, os componentes foram agrupados em blocos de acordo com suas funções, enquanto as conexões compartilhadas entre múltiplos blocos foram representadas por meio de \textit{net ports}.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\linewidth]{figuras/Exemplo-diagrama-de-blocos.png}
-    \includegraphics[width=0.5\linewidth]{figuras/Esquematico.png}
-    \caption{\textcolor{red}{Diagrama de blocos e esquemático de um circuito conversor de corrente alternada para corrente direta. Extraído de \cite{block_n_schematic}.}}
-    \label{fig:diagrama_blocos_e_esquematico}
+    \includegraphics[width=0.8\textwidth]{figuras/esquematico_micromouse_pi1.pdf}
+    \captionsetup{font=footnotesize}
+    \caption{Diagrama esquemático do circuito proposto para a construção do micromouse.}
+    \label{fig:diagrama_esquematico}
 \end{figure}
 
 \section{Análise de consumo energético}
 
-\textcolor{red}{Com relação ao consumo energético do produto desenvolvido, será necessário apresentar cálculos de consumo dos diversos componentes utilizados e explicar as decisões de projeto para atender a estas demandas.}
+O consumo energético do Micromouse XAROPi foi analisado com o objetivo de verificar a viabilidade do sistema de alimentação e garantir autonomia suficiente para a execução das provas. Para isso, realizou-se o levantamento dos principais subsistemas elétricos do robô, considerando a tensão de operação, a corrente média consumida e o tempo estimado de funcionamento de cada componente.
 
+A partir desses dados, foram efetuados os cálculos de potência e energia consumida, permitindo estimar a demanda energética total do sistema. Com base nessa estimativa, foram definidas as estratégias de alimentação, incluindo a escolha da bateria, do circuito de gerenciamento de energia e dos reguladores de tensão utilizados no projeto.
+
+
+\subsection{Identificação dos Subsistemas Elétricos}
+
+Nesta subseção são apresentados os principais componentes responsáveis pelo consumo energético do Micromouse XAROPi. Para cada subsistema, foram considerados a quantidade utilizada, a tensão nominal de operação, a corrente média consumida e o tempo estimado de funcionamento durante a execução da prova.
+
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{|l|c|c|c|c|}
+        \hline
+        \textbf{Componente} & \textbf{Quantidade} & \textbf{Tensão (V)} & \textbf{Corrente (mA)} & \textbf{Tempo (s)} \\ \hline
+        
+        BMS 20A-3S-S\_SGT & 1 & 7,4 & 1 & 1200 \\ \hline
+        
+        Motores DC com Encoder & 2 & 8,0 & 800 & 1200 \\ \hline
+        
+        Ponte H L298N & 1 & 5,0 & 50 & 1200 \\ \hline
+        
+        Sensor ToF VL53L0X & 3 & 3,5 & 20 & 1200 \\ \hline
+        
+        MPU-6000 & 1 & 3,5 & 4 & 1200 \\ \hline
+        
+        Regulador de Tensão LM2596 & 1 & 7,5 & 50 & 1200 \\ \hline
+        
+        Microcontrolador ESP32-S3 & 1 & 3,3 & 150 & 1200 \\ \hline
+        
+    \end{tabular}
+    
+    \caption{Levantamento de consumo dos subsistemas elétricos.}
+    \label{tab:consumo_energia}
+\end{table}
+
+\subsection{Cálculo da Energia Consumida por Componente}
+
+A energia consumida por cada componente foi estimada utilizando a seguinte equação:
+
+$$E = V \cdot I \cdot t$$
+
+onde:
 
 \begin{itemize}
-    \item \textcolor{red}{ \textbf{Identificação dos Subsistemas Elétricos:} liste todos os componentes que consumirão energia, como sensores, microcontroladores, atuadores e módulos de armazenamento de dados. Para cada componente, registre a tensão de operação (V), corrente média (mA) e tempo estimado de uso (s).}
-    \item \textcolor{red}{ \textbf{Cálculo da Energia Consumida por Componente:} utilize a fórmula: $E = V I t$, onde $E$ é a energia em joules, $V$ é a tensão em volts, $I$ a corrente em ampères e $t$ o tempo em segundos. Realize esse cálculo para cada componente do sistema.}
-    \item \textcolor{red}{ \textbf{Estimativa do Consumo Total de Energia:} some as energias de todos os componentes para obter o consumo energético total estimado do sistema por lançamento.}
-    \item \textcolor{red}{ \textbf{Escolha da Fonte de Alimentação:} com base no consumo total, converta para watt-hora: 1 Wh = 3600 J. Adicione e justifique uma margem de segurança (pesquisar o que é usual para este tipo de sistema) e selecione uma bateria ou fonte que supra a demanda.}
-    \item \textcolor{red}{ \textbf{Planejamento do Circuito de Alimentação:} analise a necessidade de inclusão de reguladores de tensão, proteções contra sobrecorrente, e isolamento para atuadores. Como as oscilações de tensão serão controladas?}
-    \item \textcolor{red}{ \textbf{Monitoramento via \textit{software}:} implemente, no \textit{software} embarcado, rotinas para medir a tensão da bateria e registrar dados de tempo de operação. Colete os dados para análise.}
-    \item \textcolor{red}{ \textbf{Validação com Testes Reais:} realize testes de campo para comparar o consumo estimado com o real. Ajuste a capacidade da fonte se necessário e refine o software de coleta de dados. Justifique a diferença de resultados (real x teórica), de acordo com a literatura.}
+    \item $E$ representa a energia consumida em joules (J);
+    \item $V$ representa a tensão elétrica em volts (V);
+    \item $I$ representa a corrente elétrica em ampères (A);
+    \item $t$ representa o tempo de operação em segundos (s).
 \end{itemize}
+
+Considerando um tempo de operação de $1200\,s$, foram obtidos os seguintes valores de consumo energético:
+
+\begin{itemize}
+
+    \item \textbf{BMS 20A-3S-S\_SGT:}
+    
+    $E = 7,4V \cdot 0,001A \cdot 1200s = 8,88\,J$
+
+    \item \textbf{Motores DC com Encoder (2 unidades):}
+    
+    $E = 2 \cdot (8V \cdot 0,8A \cdot 1200s) = 15.360,00\,J$
+
+    \item \textbf{Ponte H L298N:}
+    
+    $E = 5V \cdot 0,05A \cdot 1200s = 300,00\,J$
+
+    \item \textbf{Sensores ToF VL53L0X (3 unidades):}
+    
+    $E = 3 \cdot (3,5V \cdot 0,02A \cdot 1200s) = 252,00\,J$
+
+    \item \textbf{MPU-6000:}
+    
+    $E = 3,5V \cdot 0,004A \cdot 1200s = 16,80\,J$
+
+    \item \textbf{Regulador de Tensão LM2596:}
+    
+    $E = 7,5V \cdot 0,05A \cdot 1200s = 450,00\,J$
+
+    \item \textbf{Microcontrolador ESP32-S3:}
+    
+    $E = 3,3V \cdot 0,15A \cdot 1200s = 594,00\,J$
+
+\end{itemize}
+
+\vspace{0.5cm}
+
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{|l|c|c|c|c|}
+        \hline
+        
+        \textbf{Componente} & \textbf{Tensão (V)} & \textbf{Corrente (A)} & \textbf{Tempo (s)} & \textbf{Energia (J)} \\ \hline
+        
+        BMS 20A-3S-S\_SGT & 7,4 & 0,001 & 1200 & 8,88 \\ \hline
+        
+        Motores DC com Encoder (2x) & 8,0 & 0,800 & 1200 & 15.360,00 \\ \hline
+        
+        Ponte H L298N & 5,0 & 0,050 & 1200 & 300,00 \\ \hline
+        
+        Sensores ToF VL53L0X (3x) & 3,5 & 0,020 & 1200 & 252,00 \\ \hline
+        
+        MPU-6000 & 3,5 & 0,004 & 1200 & 16,80 \\ \hline
+        
+        Regulador LM2596 & 7,5 & 0,050 & 1200 & 450,00 \\ \hline
+        
+        ESP32-S3 & 3,3 & 0,150 & 1200 & 594,00 \\ \hline
+        
+        \textbf{Total} & \multicolumn{3}{c|}{-} & \textbf{16.981,68} \\ \hline
+        
+    \end{tabular}
+    
+    \caption{Resumo do consumo energético por componente.}
+    \label{tab:energia_componentes}
+\end{table}
+
+\subsection{Estimativa do Consumo Total de Energia}
+
+A estimativa do consumo energético total do sistema foi realizada a partir da soma das energias consumidas individualmente por cada subsistema elétrico do Micromouse XAROPi. Essa análise permite verificar a viabilidade energética do projeto e auxilia no dimensionamento adequado da bateria utilizada no robô.
+
+O consumo energético total do sistema pode ser obtido pela seguinte expressão:
+
+\[
+E_{total} = \sum_{i=1}^{n} E_i
+\]
+
+onde:
+
+\begin{itemize}
+    \item $E_{total}$ representa a energia total consumida pelo sistema;
+    \item $E_i$ representa a energia consumida individualmente por cada componente;
+    \item $n$ representa o número total de subsistemas analisados.
+\end{itemize}
+
+Substituindo os valores calculados anteriormente:
+
+\[
+E_{total} = 8,88 + 15.360,00 + 300,00 + 252,00 + 16,80 + 450,00 + 594,00
+\]
+
+\[
+E_{total} = 16.981,68\,J
+\]
+
+Portanto, o consumo energético total estimado para uma operação contínua de $1200\,s$ é de aproximadamente:
+
+\[
+\fbox{16.981,68\,J}
+\]
+
+Observa-se que os motores DC representam a maior parcela do consumo energético total do sistema, correspondendo à principal carga elétrica do robô. Em contrapartida, os sensores e o microcontrolador apresentam consumo significativamente inferior, contribuindo de forma reduzida para a demanda total de energia.
+
+Essa estimativa foi utilizada como base para o dimensionamento do sistema de alimentação, garantindo que a bateria selecionada seja capaz de suprir a corrente e a energia necessárias durante toda a operação do robô em ambiente de competição.
+
+\subsection{Escolha da Fonte de Alimentação}
+
+Com base no consumo energético total estimado de $16.981,68\,J$, realizou-se a conversão para watt-hora ($Wh$), unidade normalmente utilizada no dimensionamento de sistemas de alimentação embarcados:
+
+\[
+E_{total} = \frac{16.981,68\,J}{3600} \approx 4,72\,Wh
+\]
+
+Considerando as perdas elétricas associadas aos reguladores de tensão, variações de carga durante a movimentação do robô e oscilações decorrentes da aceleração dos motores DC, foi adotada uma margem de segurança de $30\%$, valor usualmente empregado em sistemas robóticos embarcados de pequeno porte.
+
+Assim, a demanda energética corrigida do sistema é dada por:
+
+\[
+E_{seguro} = 4,72\,Wh \cdot 1,3 \approx 6,13\,Wh
+\]
+
+Para suprir essa demanda energética, foi selecionada uma bateria do tipo Li-Po 2S1P, composta por células modelo 903048, com tensão nominal de $7,4\,V$ e capacidade de $1100\,mAh$.
+
+A energia total disponível na bateria pode ser estimada por:
+
+\[
+E_{bateria} = V \cdot Ah
+\]
+
+\[
+E_{bateria} = 7,4\,V \cdot 1,1\,Ah \approx 8,14\,Wh
+\]
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figuras/imagembateria.png}
+    \captionsetup{font=footnotesize}
+    \caption{Imagem ilustrativa da bateria selecionada.}
+\end{figure}
+
+
+Como a capacidade energética da bateria ($8,14\,Wh$) é superior à demanda corrigida do sistema ($6,13\,Wh$), conclui-se que a fonte de alimentação selecionada é adequada para alimentar o robô com margem suficiente de segurança operacional.
+
+\subsection{Planejamento do Circuito de Alimentação}
+
+O circuito de alimentação do Micromouse XAROPi foi planejado considerando as tensões e correntes de operação dos componentes eletrônicos utilizados no sistema.
+
+O sistema utiliza o módulo \textbf{BMS 20A-3S-S\_SGT} como elemento de gerenciamento e proteção da alimentação principal. Conforme especificado no datasheet, o módulo é compatível com baterias em configuração \textbf{3S}, permitindo uma tensão nominal de aproximadamente $11,1\,V$.
+
+Como os componentes do robô operam em diferentes níveis de tensão, torna-se necessária a utilização de conversão e distribuição adequada da alimentação elétrica. Os motores DC operam em aproximadamente $8\,V$, enquanto os sensores, o microcontrolador ESP32-S3 e os demais circuitos eletrônicos utilizam tensões inferiores, variando entre $3,3\,V$ e $5\,V$.
+
+Para adequação dessas tensões, foi previsto o uso do regulador de tensão \textbf{LM2596}, responsável pela conversão da tensão principal para níveis compatíveis com os demais subsistemas eletrônicos.
+
+Além do fornecimento energético, o sistema de alimentação também deve suportar as variações de corrente associadas ao acionamento dos motores. Conforme o datasheet do módulo \textbf{BMS 20A-3S-S\_SGT}, o circuito suporta correntes contínuas de descarga de até $20\,A$ e correntes transitórias de partida inferiores a $60\,A$, características adequadas para a aplicação proposta.
+
+\subsection{Cálculo de Autonomia da Bateria}
+
+A autonomia do sistema é determinada pela relação entre a energia disponível na bateria e a demanda de potência dos componentes. A autonomia teórica total é definida pela seguinte expressão:
+
+\[
+A = \frac{E_{bat}}{P}
+\]
+
+onde:
+
+\begin{itemize}
+    \item $A$ representa a autonomia do sistema (em horas ou minutos);
+    \item $E_{bat}$ representa a energia armazenada na bateria (em Wh);
+    \item $P$ representa a potência média consumida pelo sistema (em W).
+\end{itemize}
+
+Considerando a capacidade da bateria de $8,14\,Wh$ e a potência média de consumo de $14,15\,W$, obtém-se uma autonomia teórica de aproximadamente $34$ minutos.
+
+Na prática, no entanto, a autonomia real apresenta uma divergência em relação à teórica, sendo geralmente cerca de $30\%$ menor em função de perdas de carga no hardware. Entre os principais fatores estão o limite de descarga (DoD) de $80\%$, adotado para preservação das células da bateria, a eficiência de conversão do regulador LM2596, que opera em torno de $85\%$, e a dissipação térmica por efeito Joule na ponte H. Esses fatores, somados aos picos de corrente durante as manobras do protótipo, reduzem o tempo de operação segura para aproximadamente $24$ minutos, o que se mostra suficiente para cobrir $20$ minutos de percurso da prova.
+
 
 \section{Descrição de \textit{software}}
 
