@@ -125,6 +125,39 @@ O fluxo de controle se desenvolve a partir do nó de estado inicial, transitando
     \label{fig:diagrama_atividades_sw}
 \end{figure}
 
+\subsection{Diagramas de Sequência do Software}
+
+Os Diagramas de Sequência detalham as interações temporais entre os componentes do sistema web e os agentes externos. A modelagem foca na troca de mensagens via protocolos WebSocket (tempo real) e HTTP/REST (histórico), cobrindo os fluxos críticos de operação do XAROPi.
+
+O \textbf{Cenário de Execução Principal} (Figura \ref{fig:seq_execucao}) descreve o fluxo nominal de uma corrida. Ele demonstra a sincronização entre a interface do estudante e o hardware (ESP32), evidenciando o processamento das mensagens de telemetria e a persistência automática dos dados no Firebase ao atingir o objetivo.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figuras/software/seq_execucao.png}
+    \caption{Diagrama de Sequência: Fluxo de Execução Principal.}
+    \label{fig:seq_execucao}
+\end{figure}
+
+O \textbf{Cenário de Interrupções} (Figura \ref{fig:seq_interrupcao}) mapeia a resiliência do software diante de eventos assíncronos. O diagrama ilustra o tratamento de comandos de parada manual e reinicialização enviados pelo usuário, garantindo que o estado da aplicação permaneça consistente mesmo em abortos inesperados de trajeto.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figuras/software/seq_interrupcao.png}
+    \caption{Diagrama de Sequência: Fluxo de Interrupções e Resets.}
+    \label{fig:seq_interrupcao}
+\end{figure}
+
+Por fim, o \textbf{Cenário de Consulta ao Histórico} (Figura \ref{fig:seq_historico}) detalha a recuperação de dados persistidos. O fluxo demonstra a comunicação entre o \textit{frontend} e o banco de dados para a renderização de trajetos passados, permitindo a análise de desempenho do robô após as corridas.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figuras/software/seq_historico.png}
+    \caption{Diagrama de Sequência: Recuperação de Histórico.}
+    \label{fig:seq_historico}
+\end{figure}
+
+
+
 \textcolor{red}{Itens fundamentais:}
 \begin{itemize}
     \item \textcolor{red}{\textbf{\textit{Backlog} do Produto}}
@@ -144,7 +177,6 @@ O fluxo de controle se desenvolve a partir do nó de estado inicial, transitando
 
     \begin{itemize}
         \item \textbf{Coleção Labirinto:} Responsável por armazenar a estrutura física e lógica do labirinto percorrido. Cada documento representa um labirinto específico e possui atributos como \textit{id} e \textit{status}, além de uma subcoleção \textit{Nos} e uma subcoleção de metadados para dimensionamento.
-        
         \item \textbf{Coleção Tentativa:} Responsável por armazenar o registro de telemetria do Micromouse. Cada vez que o robô inicia um percurso, um novo documento é criado nesta coleção, contendo atributos da tentativa e subcoleções específicas para os dados de velocidade e de bateria.
     \end{itemize}
 
@@ -156,8 +188,8 @@ O fluxo de controle se desenvolve a partir do nó de estado inicial, transitando
         \label{fig:diagrama_atividades_sw}
     \end{figure}
 
-    \item \textcolor{red}{ \textbf{Descrição da arquitetura da solução de \textit{software} proposta:}}
     \begin{itemize}
+    \item \textcolor{red}{ \textbf{Descrição da arquitetura da solução de \textit{software} proposta:}}
     
         \item \textcolor{red}{ Esta subseção deve contemplar o documento de arquitetura do sistema e deve ser estruturado segundo as visões (4+1) previstas no processo unificado (UP): lógica, de processos;  implementação, implantação e dados (substuirá a visão de casos de uso).}
         
@@ -200,5 +232,5 @@ O fluxo de controle se desenvolve a partir do nó de estado inicial, transitando
     %     \item \textcolor{red}{ Descrição dos procedimentos a serem executados para o teste;}
     %     \item \textcolor{red}{ Resultado esperado para o teste ser aprovado (pós-condição após realizado o teste);}
     % \end{itemize}
-\end{itemize}
+% \end{itemize}
 
