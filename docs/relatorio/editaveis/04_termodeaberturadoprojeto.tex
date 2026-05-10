@@ -14,275 +14,131 @@
 
 \section{Objetivos}
 
-O objetivo central deste projeto é o desenvolvimento de um robô móvel autônomo Micromouse, denominado XAROPi, capaz de navegar e resolver três diferentes configurações de labirintos: 4x4, 8x8 e 16x16 células com áreas de 72 cm, 144 cm e 288 cm de lado, respectivamente, de forma totalmente independente e sem auxílio humano.
+O objetivo central deste projeto é o desenvolvimento de um robô móvel autônomo (Micromouse), denominado XAROPi, capaz de navegar e resolver três diferentes configurações de labirintos (4x4, 8x8 e 4x4 células com áreas de 72 cm, 144 cm e 288 cm de lado, respectivamente) de forma totalmente independente e sem auxílio humano.
 
 Para garantir que o objetivo seja SMART, o projeto compromete-se a:
 \begin{itemize}
     \item \textbf{Específico:} Implementar um sistema embarcado capaz de realizar sensoriamento de paredes, mapeamento simultâneo e tomada de decisão autônoma para alcançar a área de objetivo central.
-    \item \textbf{Mensurável:} O sucesso será medido pela conclusão dos três labirintos propostos, com a transmissão de telemetria de posição, velocidade e consumo exibida em uma interface web com perda de dados inferior a 5\%.
-    \item \textbf{Acordado:} O projeto segue as diretrizes e especificações técnicas estabelecidas pelos docentes das disciplinas de Projeto Integrador 1 da Faculdade UnB Gama.
-    \item \textbf{Realista:} O desenvolvimento utilizará metodologias de engenharia simultânea e algoritmos de busca como Flood Fill ou Partition-Central compatíveis com o hardware e o cronograma do semestre letivo 2026/1.
-    \item \textbf{Limitado no tempo:} O protótipo funcional e a documentação final deverão ser entregues e validados até o encerramento do semestre, conforme os marcos estabelecidos nos pontos de controle.
+    \item \textbf{Mensurável:} O sucesso será medido pela conclusão dos três labirintos propostos, com a transmissão de telemetria (posição, velocidade e consumo) exibida em uma interface web com perda de dados inferior a 5\%.
+    \item \textbf{Acordado:} O projeto segue as diretrizes e especificações técnicas estabelecidas pelos docentes das disciplinas de Projeto Integrador 1 da Faculdade UnB Gama (FGA).
+    \item \textbf{Realista:} O desenvolvimento utilizará metodologias de engenharia simultânea e algoritmos de busca (como Flood Fill ou Partition-Central) compatíveis com o hardware e o cronograma do semestre letivo 2026/1.
+    \item \textbf{Limitado no Tempo:} O protótipo funcional e a documentação final deverão ser entregues e validados até o encerramento do semestre, conforme os marcos estabelecidos nos Pontos de Controle.
 \end{itemize}
 
 \section{Mercado-alvo}
 
-% \textcolor{red}{Pessoas, empresas, instituições etc. que usufruirão dos produtos, serviços e resultados gerados pelo projeto, cujos requisitos (tópico abaixo) devem atender as suas necessidades. Podem ser internas ou externas à organização, mas, merecem destaque especial, pois, o projeto está sendo feito para atendê-los de forma direta ou indireta.}
-
-O público-alvo mais direto deste projeto é composto por instituições de ensino e estudantes das áreas de robótica, engenharias e computação. A natureza multidisciplinar da solução \cite{jabuti2022} possibilita que discentes, sob orientação docente, desenvolvam competências em diferentes domínios, como eletrônica, eficiência energética, desenvolvimento de software e estruturas.
-
-Além do contexto acadêmico, o projeto também atende participantes de competições de micromouse e equipes de robótica, ao oferecer uma solução completa que permite a coleta, visualização e monitoramento de dados em tempo real. Essa capacidade contribui diretamente para a depuração, análise de desempenho e melhoria contínua dos robôs, apoiando decisões mais precisas no desenvolvimento de estratégias de navegação.
-
-De forma mais ampla, o projeto apresenta relevância indireta para o setor tecnológico, especialmente na área de robótica móvel. Os conceitos e técnicas empregados de IoT e sistemas embarcados constituem a base de aplicações mais complexas de automação, tanto em contextos industriais quanto domésticos, como em robôs autônomos utilizados para limpeza e logística \cite{simulacao2024}.
-
-% \begin{landscape}
+\textcolor{red}{Pessoas, empresas, instituições etc. que usufruirão dos produtos, serviços e resultados gerados pelo projeto, cujos requisitos (tópico abaixo) devem atender as suas necessidades. Podem ser internas ou externas à organização, mas, merecem destaque especial, pois, o projeto está sendo feito para atendê-los de forma direta ou indireta.}
 
 \section{Requisitos}
 
-% \textcolor{red}{Listar os fatos que são essenciais para o consumidor adquirir o produto, exemplo: cor, tamanho, material, tempo de vida-útil, dispositivo de segurança \textbf{x}, entre outros.}
+\textcolor{red}{Listar os fatos que são essenciais para o consumidor adquirir o produto, exemplo: cor, tamanho, material, tempo de vida-útil, dispositivo de segurança \textbf{x}, entre outros.}
 
-% Exemplo de referência a um requisito: \cref{req:login}.
-{\scriptsize
 
-\begin{longtable}{| p{1cm} | p{12cm} | p{2.2cm} |}
+\paragraph*{Instruções do Grupo}
+Ao escrever requisitos, atentem-se às seguintes recomendações:
+\begin{itemize}
+    \item Atomicidade: cada requisito deve ser indivisível. Caso descreva mais de uma funcionalidade (ex.: "o sistema deve fazer A e B"), ele deve ser separado em dois ou mais requisitos independentes;
+    \item Mensurabilidade: os requisitos devem ser objetivos e verificáveis. Evitem termos vagos ou subjetivos (como "rápido" ou "eficiente"). Prefiram descrições quantificáveis, como "latência máxima de 600 ms";
+    \item Classificação:
+    \begin{itemize}
+        \item Requisitos funcionais descrevem comportamentos ou funcionalidades do sistema (ex.: autenticação de usuário, exibição de dados);
+        \item Requisitos não funcionais definem restrições ou atributos de qualidade (ex.: desempenho, confiabilidade, usabilidade, consumo de energia);
+    \end{itemize}
+    \item Padronização: todos os requisitos devem seguir a estrutura definida no projeto, utilizando os comandos:
+    \begin{itemize}
+        \item \texttt{\textbackslash rf\{<título>\}\{<descrição>\}};
+        \item \texttt{\textbackslash rnf[<rótulo>]\{<título>\}\{<descrição>\}}.
+    \end{itemize}
+\end{itemize}
+
+
+\begin{table}[htpb]
+\begin{center}
+\caption{Requisitos Funcionais.}
+\begin{tabular}{l l p{8cm}}
+    \toprule
+    ID & Nome & Descrição \\
+    \midrule
+    \rf[cadastro]{Cadastro de produtos}{O sistema deve permitir cadastro de produtos com nome, SKU e preço unitário.} \\   
+    \rf[login]{Autenticação de usuário}{O sistema deve autenticar o usuário via e-mail e senha, com bloqueio após 5 tentativas falhas.} \\
+    \bottomrule
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[htpb]
+\begin{center}
+\caption{Requisitos Não Funcionais.}
+\begin{tabular}{l l p{8cm}}
+    \toprule
+    ID & Nome & Descrição \\
+    \midrule
+    \rnf[usabilidade_feedback]{Feedback do sistema}{O sistema deve fornecer feedback visual imediato (em até 200 ms) após cada interação do usuário.} \\
+    \bottomrule
+\end{tabular}
+\end{center}
+\end{table}
+
+Exemplo de referência a um requisito: \cref{req:login}.
+
+\begin{longtable}{l l p{8cm}}
     \caption{Requisitos Funcionais} \\
-    % \toprule
-    \hline
-    \rowcolor{gray!30}
-    \textbf{ID} & \textbf{Descrição} & \textbf{Classificação} \\ \hline
-    % \midrule
+    \toprule
+    ID & Nome & Descrição \\
+    \midrule
     \endfirsthead
-    % \toprule
-    \hline
-    \rowcolor{gray!30}
-    \textbf{ID} & \textbf{Descrição} & \textbf{Classificação} \\ \hline
-    % \midrule
     \endhead
-    \rowcolor{gray!10}
-    \multicolumn{3}{|c|}{Hardware} \\ \hline
-    \rf[tof-paredes]{Must}{
+    \endfoot
+    \bottomrule
+    \endlastfoot
+
+    \rf[tof-paredes]{Detecção de paredes do labirinto}{
         O sistema deve detectar a presença ou ausência de paredes
         nas direções frontal, lateral esquerda e lateral direita
         do micromouse, compatível com as dimensões das células de
-        18~cm × 18~cm e paredes de 5~cm de altura.} \\ \hline
-    \rf[motor-pwm]{Must}{
+        18~cm × 18~cm e paredes de 5~cm de altura.} \\
+    \rf[motor-pwm]{Controle de velocidade dos motores}{
         O sistema deve controlar individualmente a velocidade de
         cada motor DC por meio de sinal PWM enviado ao driver
-        de motor.} \\ \hline
-    \rf[motor-direcao]{Must}{
+        de motor.} \\
+    \rf[motor-direcao]{Controle de direção dos motores}{
         O sistema deve controlar o sentido de rotação de cada motor
         DC de forma independente, permitindo movimentos de avanço,
-        recuo e curvas.} \\ \hline
-    \rf[linha-reta]{Must}{
+        recuo e curvas.} \\
+    \rf[linha-reta]{Deslocamento em linha reta}{
         O sistema deve mover o micromouse em linha reta dentro dos
         corredores do labirinto, mantendo trajetória centralizada
-        entre as paredes.} \\ \hline
-    \rf[curva]{Must}{
+        entre as paredes.} \\
+    \rf[curva]{Execução de curvas}{
         O sistema deve executar curvas de 90° e 180° de forma
         precisa, compatível com as dimensões das células de
-        18~cm × 18~cm do labirinto.} \\ \hline
-    \rf[botao]{Should}{
+        18~cm × 18~cm do labirinto.} \\
+    \rf[botao]{Acionamento por botão}{
         O sistema deve iniciar e interromper a navegação por meio
-        de um botão físico acessível externamente no micromouse} \\ \hline
-    \rf[bat-alerta]{Should}{
+        de um botão físico acessível externamente no micromouse} \\
+    \rf[bat-alerta]{Alerta de bateria baixa}{
         O sistema deve detectar e sinalizar quando a tensão da
         bateria atingir nível insuficiente para continuidade
-        segura da navegação.} \\ \hline
-    \rf[buzzer]{Could}{
+        segura da navegação.} \\
+    \rf[buzzer]{Sinalização sonora ao atingir objetivo}{
         O sistema deve acionar um buzzer ao detectar que o micromouse
-        atingiu a sala objetivo do labirinto.} \\ \hline
-    \rf[wifi-telemetria]{Must}{
+        atingiu a sala objetivo do labirinto.} \\
+    \rf[wifi-telemetria]{Transmissão de telemetria}{
         O sistema deve transmitir dados de telemetria ao sistema
-        web em tempo real.} \\ \hline
-    \rf[disposição]{Must}{
-        O micromouse deve suportar e integrar todos os componentes necessários 
-        (bateria, sensores e controle), garantindo seu funcionamento adequado durante a operação.} \\ \hline
-    
-    \rowcolor{gray!10}
-    \multicolumn{3}{|c|}{Estruturas} \\ \hline
-    \rf[tamanho]{Must}{
-        A estrutura deve permitir que o micromouse percorra o labirinto sem interferências, 
-        respeitando limites de altura, largura e mobilidade.} \\ \hline
-    \rf[proteção]{Should}{
-        A estrutura deve proteger os componentes eletrônicos contra choques mecânicos e possíveis danos durante o percurso.}\\ \hline
-    \rf[modularidade]{Must}{
-        A estrutura do micromouse deve permitir a substituição e atualização de módulos de forma independente.}\\ \hline
-
-    \rowcolor{gray!10}
-    \multicolumn{3}{|c|}{Software} \\ \hline
-    \rf[mapeamento_trajeto_web]{Must}{
-        Em relação ao percurso atual, o sistema web deve exibir e atualizar em tempo real o mapeamento da localização e o trajeto do Micromouse no labirinto.} \\ \hline  
-    \rf[tipo_labirinto_web]{Must}{
-        O sistema web deve identificar e exibir o tipo de labirinto para o percurso atual.} \\ \hline
-    \rf[resto_bateria_web]{Must}{
-        O sistema web deve exibir e atualizar em tempo real a porcentagem de bateria disponível do Micromouse.} \\ \hline
-    \rf[bateria_consumida_web]{Could}{
-        O sistema web deve exibir e atualizar em tempo real a porcentagem de bateria consumida pelo Micromouse durante o trajeto.} \\ \hline
-    \rf[tempo_web]{Must}{
-        O sistema web deve exibir e atualizar em tempo real um temporizador indicando o tempo decorrido até a conclusão ou interrupção do desafio.} \\ \hline
-    \rf[status_web]{Must}{
-        Após a conclusão do percurso, o sistema web deve exibir se o desafio foi cumprido com sucesso ou não.} \\ \hline
-    \rf[vmedia_web]{Must}{
-        Após a conclusão do percurso, o sistema web deve exibir a velocidade média mantida pelo Micromouse.} \\ \hline
-    \rf[on_off_web]{Should}{
-        O sistema web deve possuir um botão que envia comandos para iniciar e reiniciar percursos remotamente.} \\ \hline
-    \rf[on_temp_ web]{Must}{
-        Ao iniciar o percurso, o temporizador deve ser ativado automaticamente. } \\ \hline
-    \rf[reset_temp_ web]{Should}{
-        Ao reiniciar o percurso, o sistema deve resetar o cronômetro. } \\ \hline
-    \rf[dados_bd_web]{Must}{
-        Ao finalizar o percurso, o sistema deve enviar os dados do percurso anterior para o banco de dados.} \\ \hline
-    \rf[salvar_bd]{Must}{
-        Após a conclusão do desafio, os dados finais devem ser armazenados em um banco de dados, categorizados de acordo com o tipo de labirinto.} \\ \hline
-    \rf[consulta_bd]{Must}{
-        O sistema deve permitir a consulta e exibição de dados de qualquer trajeto específico armazenado, independentemente do tipo de labirinto.} \\ \hline
-    \rf[obstaculos_web]{Must}{
-        O sistema web deve processar os dados recebidos do micromouse em tempo real para identificar a presença de paredes.} \\ \hline
-    \rf[obstaculos_id_web]{Must}{
-        Ao detectar um obstáculo, o software deve atualizar a estrutura de dados do labirinto na interface web.} \\ \hline
-    \rf[map_lab_web]{Could}{
-        O sistema web deve realizar a construção progressiva de uma representação lógica (matriz ou grafo) do ambiente conforme o Micromouse explora o labirinto.} \\ \hline
-    \rf[websocket]{Could}{
-        A troca de informações entre o Micromouse e o sistema web deve ser estabelecida através do protocolo WebSockets.} \\ \hline
-
-    \rowcolor{gray!10}
-    \multicolumn{3}{|c|}{Consumo Energético} \\ \hline
-    \rf[display-local]{Could}{
-        O micromouse deve possuir um indicador visual local (como LEDs de estado ou display OLED) 
-        para exibir o nível de carga da bateria sem a necessidade de dispositivos externos.} \\ \hline
-    \rf[bat-log]{Must}{
-        O sistema deve registrar o consumo de energia durante cada percurso para posterior análise no sistema web.} \\ \hline
-    \rf[chave-geral]{Must}{
-        O sistema deve possuir um interruptor físico (Chave On/Off) capaz de seccionar a
-        alimentação da bateria, interrompendo completamente o consumo de energia do dispositivo.} \\ \hline
-    \rf[power-throttling]{Should}{
-        O sistema deve monitorar a tensão da bateria e, ao atingir um limiar crítico pré-definido,
-        deve transitar automaticamente para o modo de economia de energia para estender a autonomia operacional.} \\ \hline
+        web em tempo real.} \\
+    \rf[estabilidade]{Estabilidade estrutural}{O firmware deve manter estabilidade durante o movimento, garantindo deslocamento contínuo sem tombamentos.}\\
+    \rf[disposição]{Suporte dos componentes}{O micromouse deve suportar e integrar todos os componentes necessários (bateria, sensores e controle), garantindo seu funcionamento adequado durante a operação.} \\
+    \rf[manutenção]{Manutenção da estrutura}{A estrutura deve permitir montagem, desmontagem e substituição de componentes sem comprometer seu funcionamento.} \\
+    \rf[proteção]{Proteção estrutural}{A estrutura deve proteger os componentes eletrônicos contra choques mecânicos e possíveis danos durante o percurso.}\\
+    \rf[vibracao]{Resistência à vibrações}{A estrutura deve ser capaz de minimizar vibrações geradas pelos motores, evitando prejuízo ao desempenho dos sensores.}\\
 \end{longtable}
-}
-
-{\scriptsize
-\begin{longtable}{| p{1cm} | p{12cm} | p{2.2cm} |}
-    \caption{Requisitos Não Funcionais} \\
-    % \toprule
-    \hline
-    \rowcolor{gray!30}
-    \textbf{ID} & \textbf{Descrição} & \textbf{Classificação} \\ \hline
-    % \midrule
-    \endfirsthead
-    % \toprule
-    \hline
-    \rowcolor{gray!30}
-    \textbf{ID} & \textbf{Descrição} & \textbf{Classificação} \\ \hline
-    % \midrule
-    \endhead
-    \rowcolor{gray!10}
-    \multicolumn{3}{|c|}{Consumo Energético} \\ \hline
-    \rnf[autonomia_operacao]{Must}{
-        Garantir funcionamento ininterrupto do sistema por, no mínimo, 20 minutos.} \\ \hline
-    \rnf[ciclo_missao]{Must}{
-        Suportar o mapeamento completo no labirinto 16x16 sem recarga..} \\ \hline
-    \rnf[eficiencia_conversao]{Should}{
-        Utilizar reguladores de tensão com rendimento energético mínimo de 85\%.} \\ \hline
-    \rnf[consumo_standby]{Should}{
-        Limitar a corrente consumida em modo de espera a um máximo de 50mA.} \\ \hline
-    \rnf[monitorar_carga]{Must}{
-        Implementar detecção de baixa tensão para alertar quando a célula atingir 3,2V.} \\ \hline
-    \rnf[peso_bateria]{Must}{
-        O sistema de alimentação não deve exceder 25\% do peso total do micromouse.} \\ \hline
-    \rnf[acessibilidade_bateria]{Must}{
-        Permitir o carregamento das baterias sem a necessidade de desmontagem.} \\ \hline
-    \rnf[estabilidade_tensao]{Should}{ 
-        Manter a variação de tensão nos sensores dentro de uma margem de +/- 5\% durante a aceleração dos motores.} \\ \hline
-
-    \rowcolor{gray!10}
-    \multicolumn{3}{|c|}{Estruturas} \\ \hline
-    \rnf[estabilidade_estrutural]{Must}{
-        A estrutura do micromouse deve garantir estabilidade estática e dinâmica, evitando tombamento e oscilações durante a operação.}\\ \hline
-    \rnf[massa]{Should}{
-        A massa total do micromouse deve ser minimizada, de modo a reduzir a inércia e melhorar a resposta dinâmica.}\\ \hline
-    \rnf[fixacao]{Should}{
-        Os componentes do micromouse devem ser fixados sem folgas, evitando vibrações e ruídos durante a operação.}\\ \hline
-    \rnf[eficiencia]{Could}{
-        A estrutura do micromouse deve contribuir para a eficiência energética, minimizando perdas por atrito e massa excessiva.}\\ \hline
-
-    \rowcolor{gray!10}
-    \multicolumn{3}{|c|}{Hardware} \\ \hline
-    \rnf[isolam_dominios]{Should}{
-        A fonte de alimentação do microcontrolador e dos sensores deve ser eletricamente isolada (ou fortemente desacoplada) da alimentação dos motores.} \\ \hline
-    \rnf[reg_tensao]{Should}{
-        O circuito lógico deve manter uma tensão estável, mesmo quando os motores exigirem o pico máximo de corrente, no momento da partida.} \\ \hline
-    \rnf[sinais_analogicos]{Should}{
-        Sinais analógicos (como o retorno de sensores infravermelhos de distância) devem possuir filtros passa-baixa (filtros RC) no hardware para atenuar ruídos de alta frequência do ambiente e do próprio circuito antes de chegarem ao devkit (ESP32).} \\ \hline
-    \rnf[aterramento]{Must}{
-        A placa perfurada (ou, se for o caso, PCB) deve possuir um nó comum bem definido, evitando ground loops que possam interferir nas leituras.} \\ \hline
-    \rnf[pontos_teste]{Could}{
-        A placa deve expor pinos ou ilhas de fácil acesso para testes via multímetro (e, se necessário, osciloscópio), especificamente para: VCC, GND, sinais de saída dos sensores e PWM dos motores.} \\ \hline
-    \rnf[feedback_visual]{Won't}{
-        O circuito deve incluir LEDs de status integrados que não afetem a lógica para indicar condições vitais, como "Alimentação OK", "Bateria Fraca" ou para debuggar a ativação individual de sensores sem precisar olhar para o terminal do computador.} \\ \hline
-    \rnf[acoplamento_cis]{Should}{
-        Componentes de alto risco ou alto custo (como a placa do microcontrolador e a ponte H) não devem ser soldados diretamente na placa principal. Eles devem utilizar soquetes para permitir a substituição em, no máximo, 5 minutos em caso de queima.} \\ \hline
-    \rnf[protecao_polaridade]{Must}{
-        O circuito de entrada da bateria deve incluir um componente ou circuito para proteção contra inversão de polaridade.} \\ \hline
-    \rnf[vel_alg]{Could}{
-        O algoritmo de navegação deve processar a tomada de decisão em um tempo inferior a 5 ms.} \\ \hline
-    \rnf[prec_parede]{Could}{
-        A atualização da estrutura do labirinto deve ocorrer em menos de 10 ms após a leitura do sensor.} \\ \hline
-
-    \rowcolor{gray!10}
-    \multicolumn{3}{|c|}{Software} \\ \hline
-    \rnf[temp_tipo]{Should}{
-        O sistema web deve ajustar automaticamente a escala visual do mapeamento para os três tipos de labirinto (4x4, 8x8 e 16x16).} \\ \hline
-    \rnf[temp_localização]{Should}{
-        O sistema web deve receber, processar e exibir na interface os dados de localização do micromouse com uma latência máxima de 200 ms.} \\ \hline
-    \rnf[temp_velocidade]{Could}{
-        O sistema web deve receber, processar e exibir na interface os dados de velocidade com uma latência máxima de 200 ms.} \\ \hline
-    \rnf[temp_bateria]{Must}{
-        O sistema web deve receber, processar e exibir na interface os dados de bateria do micromouse com uma latência máxima de 200 ms.} \\ \hline
-    \rnf[temp_conclusao]{Could}{
-        O sistema web deve receber, processar e exibir na interface os dados de conclusão do labirinto com uma latência máxima de 200 ms.} \\ \hline
-    \rnf[intg_bd_web]{Must}{
-        O sistema web deve garantir que todos os dados de telemetria recebidos sejam persistidos no banco de dados sem perda de informação.} \\ \hline
-    \rnf[desempenho_bd]{Could}{
-        O sistema web deve ser capaz de exibir os dados de qualquer trajeto histórico armazenado no banco de dados em um tempo máximo de 1 segundo após a solicitação do usuário.} \\ \hline
-    \rnf[recon_websocket]{Must}{
-        Em caso de perda de conexão WebSocket durante um percurso, o sistema web deve tentar a reconexão automática a cada 1 segundo, sem perder o estado atual dos dados de telemetria na interface.} \\ \hline
-    \rnf[debounce_comandos]{Should}{
-        A interface web deve aplicar um mecanismo de bloqueio nos botões de controle remoto (iniciar/reiniciar), impedindo o envio de comandos duplicados em um intervalo menor que 500 ms.} \\ \hline
-    \rnf[responsividade_web]{Could}{
-        A interface web deve adaptar-se automaticamente a diferentes resoluções, garantindo a ausência de elementos cortados ou sobrepostos.} \\ \hline
-    \rnf[compatibilidade_browser]{Should}{
-        O sistema web deve ser totalmente funcional e manter a integridade visual nos navegadores baseados nas engines Chromium (Chrome, Brave, Opera, Edge) e WebKit (Safari), em suas versões estáveis mais recentes.} \\ \hline
-\end{longtable}
-
-}
-
-% \end{landscape}
-
 \section{Justificativa}
 
-% \textcolor{red}{Informar o problema ou a oportunidade (necessidade) que justifica o porquê de o projeto ser realizado. Por exemplo: atende uma demanda específica do consumidor final; supre uma necessidade do mercado comercializador; é um diferencial X para o órgão regulamentador.}
-O desenvolvimento do projeto XAROPi surge da oportunidade de aplicar de forma prática e integrada as diversas áreas da engenharia, consolidando conhecimentos de Hardware, Estruturas, Software e Consumo Energético. Há uma lacuna frequente entre o conhecimento acadêmico isolado e os desafios multidisciplinares exigidos pelo mercado. A construção de um robô móvel autônomo soluciona essa questão ao atuar como uma plataforma educacional prática, permitindo o desenvolvimento de competências aplicadas e o fortalecimento do currículo dos discentes frente ao setor de tecnologia e automação.
-
-Por fim, a relevância da iniciativa estende-se às suas diversas possibilidades de aplicação comercial. A base tecnológica desenvolvida no XAROPi, que integra mapeamento de ambientes, sensoriamento e tomada de decisão autônoma, atua como uma arquitetura versátil e escalável para múltiplos setores. Esses mesmos conceitos embarcados formam o núcleo de funcionamento de brinquedos inteligentes, robôs educacionais, sistemas de entretenimento interativo e eletrodomésticos autônomos, evidenciando o amplo potencial do projeto como alicerce para inovações práticas no mercado de produtos de consumo.
+\textcolor{red}{Informar o problema ou a oportunidade (necessidade) que justifica o porquê de o projeto ser realizado. Por exemplo: atende uma demanda específica do consumidor final; supre uma necessidade do mercado comercializador; é um diferencial X para o órgão regulamentador.}
 
 \section{Indicadores}
 
-Ao analizar a situação atual de competições micromouse, e do mercado de robótica no geral, foram identificados os seguintes indicadores que apoiam o desenvolvimento de um \textit{micromouse} para uso educativo:
-
-\begin{enumerate}
-    \item O Micromouse possui um histórico de mais de 30 anos de competições realizadas em todo o mundo, seguindo regras padronizadas pelo IEEE \cite{cai2010};
-    \item O mercado global de robôs móveis autônomos (AMR) deve atingir um valor de US\$ 29,66 bilhões até 2034, com uma taxa de crescimento anual composta (CAGR) de 22,31\% \cite{precedence2023};
-    \item O mercado global de robótica educativa deve saltar de US\$ 1,54 bilhões em 2025 para US\$ 10,39 bilhões até 2033, apresentando um CAGR de 26,87\% \cite{cognitive2026};
-    \item O mercado global de IoT tem previsão de crescimento de US\$ 245 bilhões em 2020 para US\$ 8,13 trilhões em 2030, apresentando um CAGR de 39\%. \cite{alsarawi2020};
-    \item O mercado global de robôs de limpeza foi avaliado em US\$ 8,3 bilhões em 2021, com uma projeção de crescimento acelerado e constante até 2030 \cite{cleaningrobots2022};
-    \item Após a exposição a competições de robótica, 95\% dos estudantes manifestam interesse em seguir carreiras em STEM (Ciência, Tecnologia, Engenharia e Matemática) \cite{chung2021};
-    \item O Brasil ocupa o 2º lugar mundial em número de publicações científicas sobre a formação de professores para o ensino de robótica, indicando um mercado acadêmico e institucional altamente receptivo \cite{dutra2025};
-    \item A viabilidade de plataformas de telemetria e monitoramento web foi comprovada pela participação de 153 equipes e 360 estudantes competindo de forma sincronizada e remota em campeonatos mundiais online \cite{chung2021}.
-\end{enumerate}
-
-
-%\textcolor{red}{Listar até 10 indicadores que determinam o mercado consumidor do produto desenvolvido: exemplo: 1) n\textdegree de alunos da FGA que utilizam ônibus às 18:00; 2) n\textdegree de usuários do restaurante universitários, 3) número de idosos classificados como público-alvo no DF e no estado de Goiás, 4) n\textdegree de empresas de segurança registradas no DF etc.}
+\textcolor{red}{Listar até 10 indicadores que determinam o mercado consumidor do produto desenvolvido: exemplo: 1) n\textdegree de alunos da FGA que utilizam ônibus às 18:00; 2) n\textdegree de usuários do restaurante universitários, 3) número de idosos classificados como público-alvo no DF e no estado de Goiás, 4) n\textdegree de empresas de segurança registradas no DF etc.}
 % \section{Aprovações}
 
 % \begin{tabular}{ l l }
