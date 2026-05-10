@@ -84,48 +84,7 @@ O gerenciamento de todo o sistema é centralizado no ESP32-S3. Ele opera como o 
 
 \section{Descrição de \textit{software}}
 
-\subsection{Visão lógica do sistema}
-
-A figura \ref{fig:diagrama_classes} apresenta o diagrama de classes do sistema, entre elas, classes para acesso ao banco de dados, para interpretação dos dados de telemetria para o frontend e para o recebimento e envio de dados com websocket. 
-\begin{figure}[th]
-    \centering
-    \includegraphics[width=0.8\textwidth]{figuras/diagrama_classes.png}
-    \captionsetup{font=footnotesize}
-    \caption{Diagrama de implantação do sistema.}
-    \label{fig:diagrama_classes}
-\end{figure}
-
-\subsection{Visão de implantação}
-
-    \subsubsection{Diagrama de pacotes}
-    O diagrama de pacotes (Figura \ref{fig:diagrama_pacotes_sw}) descreve os relacionamentos de dependência entre um pacote para outro, mostrado a disposição de cada elemento de modelo e esclarecer a estrutura hierárquia dos elementos.
-
-    A estrutura é dividida em Frontend, representa a aplicação da interface, dividida em módulos como de componentes, lógica e comunicação, Backend, representa a comunicação entre esses dados, dividida em módulos como de telemetria e controle, EPS32, detalha o software que roda no \textit{micromouse}, dividido em módulos como de Navegação e serviço WiFi, e Firebase, que é uma camada externa utilizada para guardar os dados.
-    \begin{figure}
-        \centering
-        \includegraphics[width=\textwidth]{figuras/software/diagrama-de-pacotes.png}
-        \caption{Diagrama de Pacotes.}
-        \label{fig:diagrama_pacotes_sw}
-    \end{figure}
-
-\begin{figure}[th]
-    \centering
-    \includegraphics[width=0.8\textwidth]{figuras/diagrama_implantacao.png}
-    \captionsetup{font=footnotesize}
-    \caption{Diagrama de implantação do sistema.}
-    \label{fig:diagrama_implantacao}
-\end{figure}
-
-A Fig.~\ref{fig:diagrama_implantacao} demonstra a arquitetura do sistema, caminhos de comunicação entre o \textit{Micromouse}, o sistema web, e o banco de dados, e como esses subsistemas se dispõem entre o rato físico, o dispositivo do usuário, e o serviço de banco de dados.
-
-A comunicação entre os subsistemas acontece principalmente através de \textit{WebSocket} a fim de possibilitar o acompanhamento em tempo real da navegação do \textit{micromouse}; essa mesma razão justifica a escolha do \textbf{Firebase Realtime Database} como serviço de banco de dados. No \textit{micromouse} e back-end do servidor web, essa conexão é facilitada por módulo incluso na \textbf{ESP32} e a framework \textbf{NestJS}, respectivamente.
-
-Como espera-se que o back-end e o front-end do servidor web sejam executados na mesma máquina (dispositivo do usuário), a conexão por \textit{HTTPS} foi determinada como suficiente para o funcionamento da interface de usuário.
-
-O diagrama mostra também a relação de dependência entre o back-end e o \textit{micromouse} — indicando que o rato é capaz de operar independentemente — e entre o front-end e o back-end. 
-
-
-\subsection{Diagrama de Atividades de Software}
+\subsection{Diagrama de Atividades}
 
 O Diagrama de Atividades (Figura \ref{fig:diagrama_atividades_sw}) descreve o comportamento funcional do sistema web do projeto XAROPi. A modelagem utiliza o particionamento por raias (\textit{swimlanes}) para estruturar o fluxo e evidenciar a fronteira entre os subsistemas da arquitetura.
 
@@ -142,12 +101,34 @@ O fluxo de controle se desenvolve a partir do nó de estado inicial, transitando
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{figuras/software/diagrama_atividades.png}
+    \includegraphics[height=15cm]{figuras/software/diagrama_atividades.png}
     \caption{Diagrama de Atividades de Software XAROPi.}
     \label{fig:diagrama_atividades_sw}
 \end{figure}
 
-\subsection{Diagramas de Sequência do Software}
+\subsection{Backlog do Produto}
+
+\subsection{Descrição de Arquitetura}
+\subsubsection{Propósito do Software}
+\subsubsection{Padrão adotado}
+\subsubsection{Tecnologias escolhidas}
+
+\subsection{Visão Lógica do Software}
+\subsubsection{Diagrama de Classes}
+
+A figura \ref{fig:diagrama_classes} apresenta o diagrama de classes do sistema, entre elas, classes para acesso ao banco de dados, para interpretação dos dados de telemetria para o frontend e para o recebimento e envio de dados com websocket. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=15cm]{figuras/diagrama_classes.png}
+    \captionsetup{font=footnotesize}
+    \caption{Diagrama de Classes do Sistema.}
+    \label{fig:diagrama_classes}
+\end{figure}
+
+\subsection{Visão de Processos do Software}
+
+\subsubsection{Diagramas de Sequência}
 
 Os Diagramas de Sequência detalham as interações temporais entre os componentes do sistema web e os agentes externos. A modelagem foca na troca de mensagens via protocolos WebSocket (tempo real) e HTTP/REST (histórico), cobrindo os fluxos críticos de operação do XAROPi.
 
@@ -178,23 +159,45 @@ Por fim, o \textbf{Cenário de Consulta ao Histórico} (Figura \ref{fig:seq_hist
     \label{fig:seq_historico}
 \end{figure}
 
+\subsection{Visão de Implementação do Software}
 
+\subsubsection{Diagrama de Componentes}
 
-\textcolor{red}{Itens fundamentais:}
-\begin{itemize}
-    \item \textcolor{red}{\textbf{\textit{Backlog} do Produto}}
-    \begin{itemize}
-        \item \textcolor{red}{ Descrever os requisitos funcionais (RF) com a técnica de documentação e especificação de história de usuário (HU);}
-        \item \textcolor{red}{ Descrever os requisitos não-funcionais (RNF) de forma objetiva; Mais facilmente, mais rapidamente, mais responsivo, de fácil uso, são descrições subjetivas não-válidas. Um exemplo de requisito não-funcional de desempenho: ``a página deve carregar em até 5s quando em conexão 4G''.}
-        \item \textcolor{red}{ Ao descrever os requisitos (RF e RNF), usar a classificação MoSCoW (\textit{Must have}, \textit{Should have} e \textit{Could have}), para auxiliar a priorização dos itens do backlog.}
-        \item \textcolor{red}{ Protótipos de interface gráfica do \textit{software} em alta fidelidade.}
-    \end{itemize}
-\end{itemize}
+\subsubsection{Diagrama de Pacotes}
+    O diagrama de pacotes (Figura \ref{fig:diagrama_pacotes_sw}) descreve os relacionamentos de dependência entre um pacote para outro, mostrado a disposição de cada elemento de modelo e esclarecer a estrutura hierárquia dos elementos.
 
-    \subsection{Visão de Dados do Software} 
+    A estrutura é dividida em Frontend, representa a aplicação da interface, dividida em módulos como de componentes, lógica e comunicação, Backend, representa a comunicação entre esses dados, dividida em módulos como de telemetria e controle, EPS32, detalha o software que roda no \textit{micromouse}, dividido em módulos como de Navegação e serviço WiFi, e Firebase, que é uma camada externa utilizada para guardar os dados.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{figuras/software/diagrama-de-pacotes.png}
+        \caption{Diagrama de Pacotes.}
+        \label{fig:diagrama_pacotes_sw}
+    \end{figure}
 
-    A Visão de Dados descreve a forma como as informações geradas, processadas e consumidas pelo sistema são estruturadas e armazenadas. Tendo em vista as características do projeto, que exige alta taxa de transferência e armazenamento de dados de telemetria em tempo real, optou-se pela utilização do Firebase, um banco de dados NoSQL orientado a documentos que armazena os dados em coleções, as quais contêm documentos que podem abrigar subcoleções.
+\subsection{Visão de Implantação do Software}
+\subsubsection{Diagrama de Implantação}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figuras/diagrama_implantacao.png}
+    \captionsetup{font=footnotesize}
+    \caption{Diagrama de implantação do sistema.}
+    \label{fig:diagrama_implantacao}
+\end{figure}
+
+A Fig.~\ref{fig:diagrama_implantacao} demonstra a arquitetura do sistema, caminhos de comunicação entre o \textit{Micromouse}, o sistema web, e o banco de dados, e como esses subsistemas se dispõem entre o rato físico, o dispositivo do usuário, e o serviço de banco de dados.
+
+A comunicação entre os subsistemas acontece principalmente através de \textit{WebSocket} a fim de possibilitar o acompanhamento em tempo real da navegação do \textit{micromouse}; essa mesma razão justifica a escolha do \textbf{Firebase Realtime Database} como serviço de banco de dados. No \textit{micromouse} e back-end do servidor web, essa conexão é facilitada por módulo incluso na \textbf{ESP32} e a framework \textbf{NestJS}, respectivamente.
+
+Como espera-se que o back-end e o front-end do servidor web sejam executados na mesma máquina (dispositivo do usuário), a conexão por \textit{HTTPS} foi determinada como suficiente para o funcionamento da interface de usuário.
+
+O diagrama mostra também a relação de dependência entre o back-end e o \textit{micromouse} — indicando que o rato é capaz de operar independentemente — e entre o front-end e o back-end. 
+
+\subsection{Visão de Dados do Software} 
+
+A Visão de Dados descreve a forma como as informações geradas, processadas e consumidas pelo sistema são estruturadas e armazenadas. Tendo em vista as características do projeto, que exige alta taxa de transferência e armazenamento de dados de telemetria em tempo real, optou-se pela utilização do Firebase, um banco de dados NoSQL orientado a documentos que armazena os dados em coleções, as quais contêm documentos que podem abrigar subcoleções.
+
+\subsubsection{Diagrama de Estrutura de Documentos} 
     Na Figura \ref{fig:diagrama_estrutura_documentos}, temos o Diagrama de Estrutura de Documentos que reflete a modelagem escolhida para otimizar as consultas do sistema web. A base de dados está dividida em duas coleções principais:
 
     \begin{itemize}
@@ -207,22 +210,8 @@ Por fim, o \textbf{Cenário de Consulta ao Histórico} (Figura \ref{fig:seq_hist
         \centering
         \includegraphics[width=\textwidth]{figuras/software/diagrama_estrutura_documentos.png}
         \caption{Diagrama de Estrutura de Documentos.}
-        \label{fig:diagrama_atividades_sw}
+        \label{fig:diagrama_estrutura_documentos}
     \end{figure}
-
-    \begin{itemize}
-    \item \textcolor{red}{ \textbf{Descrição da arquitetura da solução de \textit{software} proposta:}}
-    
-        \item \textcolor{red}{ Esta subseção deve contemplar o documento de arquitetura do sistema e deve ser estruturado segundo as visões (4+1) previstas no processo unificado (UP): lógica, de processos;  implementação, implantação e dados (substuirá a visão de casos de uso).}
-        
-        \item \textcolor{red}{ Propósito do \textit{software} (qual o seu papel no sistema);}
-        \item \textcolor{red}{ Padrão adotado : MVC, MVP, Microsserviços, Monolítico, etc (Justificar);}
-        \item \textcolor{red}{ Linguagens de programação: Java, Python, C\#, JavaScript, etc.}
-        \item \textcolor{red}{ \textit{Frameworks} e bibliotecas: Spring Boot, .NET Core, React, Angular, Django, etc.}
-            \item \textcolor{red}{ Banco de dados: Relacional (PostgreSQL, MySQL, etc) X NãoSQL (MongoDB,etc). }
-        \item \textcolor{red}{Persistência de dados: Modelo Entidade‑Relacionamento (MER) e seu respectivo Diagrama Entidade‑Relacionamento (DER), aplicáveis quando a solução utiliza banco de dados relacional; alternativamente, diagrama de estrutura de documentos, empregado nos casos em que a arquitetura adota banco de dados não relacional.}
-         \end{itemize}     
-    
 
     \subsection{Roteiro de testes funcionais}
 
@@ -244,15 +233,39 @@ Por fim, o \textbf{Cenário de Consulta ao Histórico} (Figura \ref{fig:seq_hist
         \end{tabular}
     \end{table}
 
+    
+    \textcolor{red}{Itens fundamentais:}
+    \begin{itemize}
+        \item \textcolor{red}{\textbf{\textit{Backlog} do Produto}}
+        \begin{itemize}
+            \item \textcolor{red}{ Descrever os requisitos funcionais (RF) com a técnica de documentação e especificação de história de usuário (HU);}
+            \item \textcolor{red}{ Descrever os requisitos não-funcionais (RNF) de forma objetiva; Mais facilmente, mais rapidamente, mais responsivo, de fácil uso, são descrições subjetivas não-válidas. Um exemplo de requisito não-funcional de desempenho: ``a página deve carregar em até 5s quando em conexão 4G''.}
+            \item \textcolor{red}{ Ao descrever os requisitos (RF e RNF), usar a classificação MoSCoW (\textit{Must have}, \textit{Should have} e \textit{Could have}), para auxiliar a priorização dos itens do backlog.}
+            \item \textcolor{red}{ Protótipos de interface gráfica do \textit{software} em alta fidelidade.}
+        \end{itemize}
+    \end{itemize}
 
-    % \item \textcolor{red}{\textbf{ Roteiro de testes funcionais:} }
-    % \begin{itemize}
-    %     \item \textcolor{red}{Código do caso de teste;}
-    %     \item \textcolor{red}{Nome do caso de teste;}
-    %     \item \textcolor{red}{ Objetivo do caso de teste;}
-    %     \item \textcolor{red}{ Pré-condições do sistema para o teste ser realizado, quando se aplicar;}
-    %     \item \textcolor{red}{ Descrição dos procedimentos a serem executados para o teste;}
-    %     \item \textcolor{red}{ Resultado esperado para o teste ser aprovado (pós-condição após realizado o teste);}
-    % \end{itemize}
+    \begin{itemize}
+    \item \textcolor{red}{ \textbf{Descrição da arquitetura da solução de \textit{software} proposta:}}
+    
+        \item \textcolor{red}{ Esta subseção deve contemplar o documento de arquitetura do sistema e deve ser estruturado segundo as visões (4+1) previstas no processo unificado (UP): lógica, de processos;  implementação, implantação e dados (substuirá a visão de casos de uso).}
+        
+        \item \textcolor{red}{ Propósito do \textit{software} (qual o seu papel no sistema);}
+        \item \textcolor{red}{ Padrão adotado : MVC, MVP, Microsserviços, Monolítico, etc (Justificar);}
+        \item \textcolor{red}{ Linguagens de programação: Java, Python, C\#, JavaScript, etc.}
+        \item \textcolor{red}{ \textit{Frameworks} e bibliotecas: Spring Boot, .NET Core, React, Angular, Django, etc.}
+        \item \textcolor{red}{ Banco de dados: Relacional (PostgreSQL, MySQL, etc) X NãoSQL (MongoDB,etc). }
+        \item \textcolor{red}{Persistência de dados: Modelo Entidade‑Relacionamento (MER) e seu respectivo Diagrama Entidade‑Relacionamento (DER), aplicáveis quando a solução utiliza banco de dados relacional; alternativamente, diagrama de estrutura de documentos, empregado nos casos em que a arquitetura adota banco de dados não relacional.}
+    \end{itemize}  
+
+    \begin{itemize}
+    \item \textcolor{red}{\textbf{ Roteiro de testes funcionais:} }
+        \item \textcolor{red}{Código do caso de teste;}
+        \item \textcolor{red}{Nome do caso de teste;}
+        \item \textcolor{red}{ Objetivo do caso de teste;}
+        \item \textcolor{red}{ Pré-condições do sistema para o teste ser realizado, quando se aplicar;}
+        \item \textcolor{red}{ Descrição dos procedimentos a serem executados para o teste;}
+        \item \textcolor{red}{ Resultado esperado para o teste ser aprovado (pós-condição após realizado o teste);}
+    \end{itemize}
 % \end{itemize}
 
