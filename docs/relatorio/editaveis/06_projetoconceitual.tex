@@ -97,6 +97,17 @@ A figura \ref{fig:diagrama_classes} apresenta o diagrama de classes do sistema, 
 
 \subsection{Visão de implantação}
 
+    \subsubsection{Diagrama de pacotes}
+    O diagrama de pacotes (Figura \ref{fig:diagrama_pacotes_sw}) descreve os relacionamentos de dependência entre um pacote para outro, mostrado a disposição de cada elemento de modelo e esclarecer a estrutura hierárquia dos elementos.
+
+    A estrutura é dividida em Frontend, representa a aplicação da interface, dividida em módulos como de componentes, lógica e comunicação, Backend, representa a comunicação entre esses dados, dividida em módulos como de telemetria e controle, EPS32, detalha o software que roda no \textit{micromouse}, dividido em módulos como de Navegação e serviço WiFi, e Firebase, que é uma camada externa utilizada para guardar os dados.
+    \begin{figure}
+        \centering
+        \includegraphics[width=\textwidth]{figuras/software/diagrama-de-pacotes.png}
+        \caption{Diagrama de Pacotes.}
+        \label{fig:diagrama_pacotes_sw}
+    \end{figure}
+
 \begin{figure}[th]
     \centering
     \includegraphics[width=0.8\textwidth]{figuras/diagrama_implantacao.png}
