@@ -26,16 +26,6 @@
     \PackageError{requisitos}{Label duplicado: #1}{Cada requisito deve ter um label unico.}%
   }{%
     \global\csdef{labelused@#1}{}%\item \textbf{Visão de Dados do Software}
-
-A Visão de Dados descreve a forma como as informações geradas, processadas e consumidas pelo sistema são estruturadas e armazenadas. Tendo em vista as características do projeto, que exige alta taxa de transferência e armazenamento de dados de telemetria em tempo real, optou-se pela utilização do Firebase, um banco de dados NoSQL orientado a documentos que armazena os dados em coleções, as quais contêm documentos que podem abrigar subcoleções.
-
-O Diagrama de Estrutura de Documentos (Figura \ref{fig:diagrama_estrutura_documentos_sw}) reflete a modelagem escolhida para otimizar as consultas do sistema web. A base de dados está dividida em duas coleções principais:
-
-\begin{itemize}
-    \item \textbf{Coleção Labirinto:} Responsável por armazenar a estrutura física e lógica do labirinto percorrido. Cada documento representa um labirinto específico e possui atributos como \textit{id} e \textit{status}, além de uma subcoleção \textit{Nos} e uma subcoleção de metadados para dimensionamento.
-    
-    \item \textbf{Coleção Tentativa:} Responsável por armazenar o registro de telemetria do Micromouse. Cada vez que o robô inicia um percurso, um novo documento é criado nesta coleção, contendo atributos da tentativa e subcoleções específicas para os dados de velocidade e de bateria.
-\end{itemize}
   }%
 }
 
