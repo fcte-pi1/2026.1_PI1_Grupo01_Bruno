@@ -19,7 +19,7 @@ Fim do projeto          & 08/07/2026        & 08/07/2026*         \\ \hline
 \small 
 
 % --- TABELA 2: CRONOGRAMA POR ATIVIDADE ---
-\begin{longtable}{|p{4.5cm}|c|c|c|c|c|p{3.5cm}|}
+\begin{longtable}{|p{4.5cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2.5cm}|p{3cm}|}
     \caption{Cronograma detalhado por atividade.} \label{tab:cronograma_longa} \\
     \hline
     \textbf{\begin{tabular}[c]{@{}l@{}}Atividade\end{tabular}} & 
@@ -30,9 +30,7 @@ Fim do projeto          & 08/07/2026        & 08/07/2026*         \\ \hline
     \textbf{\begin{tabular}[c]{@{}c@{}}Atividades\\ Predecessoras\end{tabular}} & 
     \textbf{\begin{tabular}[c]{@{}l@{}}Responsáveis\end{tabular}} \\ \hline
     \endfirsthead
-
-    \caption*{Tabela \ref{tab:cronograma_longa} -- Continuação} \\
-    \hline
+    \bottomrule
     \textbf{\begin{tabular}[c]{@{}l@{}}Atividade\end{tabular}} & 
     \textbf{\begin{tabular}[c]{@{}c@{}}Início\\ Previsto\end{tabular}} & 
     \textbf{\begin{tabular}[c]{@{}c@{}}Início\\ Realizado\end{tabular}} & 
@@ -49,38 +47,64 @@ Fim do projeto          & 08/07/2026        & 08/07/2026*         \\ \hline
     \endlastfoot
 
     % --- DADOS DA TABELA ---
-     - Criação do template inicial        & 09/04/2026 & 09/04/2026 & 09/04/2026 & 09/04/2026 & ---    & Davi \\ \hline  
-     - Pesquisa e capacitação de firmware        & 13/04/2026 & 13/04/2026 & 17/04/2026 & 16/04/2026 & ---    & João Victor \\ \hline
-     - Pesquisa dos componentes eletrônicos      & 16/04/2026 & 16/04/2026 & 24/04/2026 & 24/04/2026 & ---    & João Victor e Gabriel \\ \hline
-     - Pesquisa bibliográfica para a estrutura do micromouse & 16/04/2026 & 16/04/2026 & 22/04/2026 & 22/04/2026 & --- & Davi, Gabriela, Luís Henrique e Samara \\ \hline
-     - Criação de fluxograma com as áreas em que estrutras depende & 16/04/2026 & 16/04/2026 & 22/04/2026 & 22/04/2026 & --- & Samara \\ \hline 
-     - Escolha de IDE                            & 17/04/2026 & 17/04/2026 & 25/04/2026 & 25/04/2026 & ---    & Luana   \\ \hline
-     - Escolha das rodas com tamanho e material & 22/04/2026 & 22/04/2026 & 29/04/2026 & 29/04/2026 & --- & Luís Henrique \\ \hline
-     - Análise de dimensões do micromouse & 22/04/2026 & 22/04/2026 & 29/04/2026 & 29/04/2026 & --- & Davi, Gabriela, Luís Henrique e Samara \\ \hline
-     - Pesquisa de bibliotecas utilizadas        & 27/04/2026 & 27/04/2026 & 03/05/2026 & 03/05/2026 & 2      & Jorge   \\ \hline
-     - Definição do conceito e primeiro modelo do chassi em grupo        & 27/04/2026 & 27/04/2026 & 06/05/2026 & 06/05/2026 & 2      & Davi, Gabriela, Luís Henrique e Samara   \\ \hline
-     - Sketch do veículo e do labirinto        & 27/04/2026 & 27/04/2026 & 09/05/2026 & 09/05/2026 & 2      & Gabriela e Samara   \\ \hline 
-     - Orçamento dos componentes                 & 27/04/2026 & 27/04/2026 & 28/04/2026 & 28/04/2026 & 1      & Gabriela \\ \hline          
-     - Diagrama de blocos                        & 27/04/2026 & 27/04/2026 & 03/05/2026 & 03/05/2026 & 1      & Rafael  \\ \hline
-     - Realização dos cálculos de dimensionamento energético & 02/05/2026 & 02/05/2026 & 03/05/2026 & 03/05/2026 & 1      & Letícia   \\ \hline
-     - Esquemático do circuito                   & 03/05/2026 & 03/05/2026 & 09/05/2025 & 09/05/2025 & 1, 3   & João Victor \\ \hline
-     - Entrega do artefato de consumo energético  & 05/05/2026 & 05/05/2026 & 08/05/2026 & 09/05/2026 & 5    & Letícia e Felipe  \\ \hline
-     - Validação dos componentes                 & 11/05/2026 & 11/05/2026* & 18/05/2026 & 18/05/2026* & 1, 2   & João Victor e Gabriel \\ \hline
-     - Desenvolvimento do algoritmo de navegação & 11/05/2026 & 11/05/2026* & 18/05/2026 & 18/05/2026* & 2, 3   & Rafael e Luana \\ \hline
-     - Montagem do labirinto                    & 13/05/2026 & 13/05/2026* & 18/05/2026 & 18/05/2026* & 8      & Isaque \\ \hline
-     - Montagem dos componentes na placa        & 18/05/2026 & 18/05/2026* & 27/05/2026 & 27/05/2026* & 8      & João Victor \\ \hline
-     - Firmware de leitura dos sensores         & 18/05/2026 & 18/05/2026* & 25/05/2026 & 25/05/2026* & 2, 3 e 4 & Jorge \\ \hline
-     - Firmware do controle dos motores         & 25/05/2026 & 25/05/2026* & 01/06/2026 & 01/06/2026* & 2, 3 e 4 & Gabriel \\ \hline
-     - Montagem do veículo        & 25/05/2026 & 25/05/2026* & 27/05/2026 & 27/05/2026* & 8      & Davi, Gabriela, Luís Henrique e Samara \\ \hline
-     - Testes no veículo                         & 27/05/2026 & 27/05/2026* & 24/06/2026 & 24/06/2026* & 10, 8  & Gabriel, Samara e Gabriela \\ \hline
-     - Refinamento do veículo                         & 27/05/2026 & 27/05/2026* & 08/07/2026 & 08/07/2026* & 10, 8  & Gabriela e Samara \\ \hline
-     - Desenvolvimento da comunicação via Websocket & 01/06/2026 & 01/06/2026* & 08/06/2026 & 08/06/2026* & 9, 11 e 12 & Rafael, Luana e Jorge \\ \hline
-     - Validação do consumo energético             & 01/06/2026 & 01/06/2026* & 04/06/2026 & 04/06/2026* & 15 & Letícia e Felipe \\ \hline
-     - Escrita do relatório PC2                 & 03/06/2026 & 03/06/2026* & 08/06/2026 & 08/06/2026* & 13, 14 e 17 &  Todos \\ \hline
-     - Testes em ambientes controlados          & 10/06/2026 & 10/06/2026* & 15/06/2026 & 15/06/2026* & ---    & Rafael e Gabriel \\ \hline
-     - Testes em labirinto                       & 17/06/2026 & 17/06/2026* & 24/06/2026 & 24/06/2026* & ---    & Jorge, João Victor e Luana \\ \hline
-     - Ajuste para a entrega final              & 01/07/2026 & 01/07/2026* & 07/07/2026 & 07/07/2026* & 4, 5   & João Victor e Rafael \\ \hline
-
+    - Criação do template inicial        & 09/04/2026 & 09/04/2026 & 09/04/2026 & 09/04/2026 & ---    & Davi \\ \hline  
+    - Pesquisa e capacitação de firmware        & 13/04/2026 & 13/04/2026 & 17/04/2026 & 16/04/2026 & ---    & João Victor \\ \hline
+    - Pesquisa dos componentes eletrônicos      & 16/04/2026 & 16/04/2026 & 24/04/2026 & 24/04/2026 & ---    & João Victor e Gabriel \\ \hline
+    - Pesquisa bibliográfica para a estrutura do micromouse & 16/04/2026 & 16/04/2026 & 22/04/2026 & 22/04/2026 & --- & Davi, Gabriela, Luís Henrique e Samara \\ \hline
+    - Criação de fluxograma com as áreas em que estrutras depende & 16/04/2026 & 16/04/2026 & 22/04/2026 & 22/04/2026 & --- & Samara \\ \hline 
+    - Escolha de IDE                            & 17/04/2026 & 17/04/2026 & 25/04/2026 & 25/04/2026 & ---    & Luana   \\ \hline
+    - Escolha das rodas com tamanho e material & 22/04/2026 & 22/04/2026 & 29/04/2026 & 29/04/2026 & --- & Luís Henrique \\ \hline
+    - Análise de dimensões do micromouse & 22/04/2026 & 22/04/2026 & 29/04/2026 & 29/04/2026 & --- & Davi, Gabriela, Luís Henrique e Samara \\ \hline
+    - Pesquisa de bibliotecas utilizadas        & 27/04/2026 & 27/04/2026 & 03/05/2026 & 03/05/2026 & 2      & Jorge   \\ \hline
+    - Definição do conceito e primeiro modelo do chassi em grupo        & 27/04/2026 & 27/04/2026 & 06/05/2026 & 06/05/2026 & 2      & Davi, Gabriela, Luís Henrique e Samara   \\ \hline
+    - Sketch do veículo e do labirinto        & 27/04/2026 & 27/04/2026 & 09/05/2026 & 09/05/2026 & 2      & Gabriela e Samara   \\ \hline 
+    - Orçamento dos componentes                 & 27/04/2026 & 27/04/2026 & 28/04/2026 & 28/04/2026 & 1      & Gabriela \\ \hline          
+    - Diagrama de blocos                        & 27/04/2026 & 27/04/2026 & 03/05/2026 & 03/05/2026 & 1      & Rafael  \\ \hline
+    - Realização dos cálculos de dimensionamento energético & 02/05/2026 & 02/05/2026 & 03/05/2026 & 03/05/2026 & 1      & Letícia   \\ \hline
+    - Esquemático do circuito                   & 03/05/2026 & 03/05/2026 & 09/05/2025 & 09/05/2025 & 1, 3   & João Victor \\ \hline
+    - Entrega do artefato de consumo energético  & 05/05/2026 & 05/05/2026 & 08/05/2026 & 09/05/2026 & 5    & Letícia e Felipe  \\ \hline
+    - Validação dos componentes                 & 11/05/2026 & 11/05/2026* & 18/05/2026 & 18/05/2026* & 1, 2   & João Victor e Gabriel \\ \hline
+    - Desenvolvimento do algoritmo de navegação & 11/05/2026 & 11/05/2026* & 18/05/2026 & 18/05/2026* & 2, 3   & Rafael e Luana \\ \hline
+    - Montagem do labirinto                    & 13/05/2026 & 13/05/2026* & 18/05/2026 & 18/05/2026* & 8      & Isaque \\ \hline
+    - Montagem dos componentes na placa        & 18/05/2026 & 18/05/2026* & 27/05/2026 & 27/05/2026* & 8      & João Victor \\ \hline
+    - Firmware de leitura dos sensores         & 18/05/2026 & 18/05/2026* & 25/05/2026 & 25/05/2026* & 2, 3 e 4 & Jorge \\ \hline
+    - Firmware do controle dos motores         & 25/05/2026 & 25/05/2026* & 01/06/2026 & 01/06/2026* & 2, 3 e 4 & Gabriel \\ \hline
+    - Montagem do veículo        & 25/05/2026 & 25/05/2026* & 27/05/2026 & 27/05/2026* & 8      & Davi, Gabriela, Luís Henrique e Samara \\ \hline
+    - Testes no veículo                         & 27/05/2026 & 27/05/2026* & 24/06/2026 & 24/06/2026* & 10, 8  & Gabriel, Samara e Gabriela \\ \hline
+    - Refinamento do veículo                         & 27/05/2026 & 27/05/2026* & 08/07/2026 & 08/07/2026* & 10, 8  & Gabriela e Samara \\ \hline
+    - Desenvolvimento da comunicação via Websocket & 01/06/2026 & 01/06/2026* & 08/06/2026 & 08/06/2026* & 9, 11 e 12 & Rafael, Luana e Jorge \\ \hline
+    - Validação do consumo energético             & 01/06/2026 & 01/06/2026* & 04/06/2026 & 04/06/2026* & 15 & Letícia e Felipe \\ \hline
+    - Escrita do relatório PC2                 & 03/06/2026 & 03/06/2026* & 08/06/2026 & 08/06/2026* & 13, 14 e 17 &  Todos \\ \hline
+    - Testes em ambientes controlados          & 10/06/2026 & 10/06/2026* & 15/06/2026 & 15/06/2026* & ---    & Rafael e Gabriel \\ \hline
+    - Testes em labirinto                       & 17/06/2026 & 17/06/2026* & 24/06/2026 & 24/06/2026* & ---    & Jorge, João Victor e Luana \\ \hline
+    - Ajuste para a entrega final              & 01/07/2026 & 01/07/2026* & 07/07/2026 & 07/07/2026* & 4, 5   & João Victor e Rafael \\ \hline
+    - Backlog do produto & 27/04/2026 & 27/04/2026 & 08/05/2026 & 09/05/2026 & ~ & Isaque/Ludmila \\ \hline
+    - HUs & 27/04/2026 & 27/04/2026 & 05/05/2026 & 05/05/2026 & ~ & Laís/Samuel \\ \hline
+    - Épicos & 27/04/2026 & 27/04/2026 & 04/05/2026 & 04/05/2026 & ~ & Ludmila \\ \hline
+    - Protótipo & 27/04/2026 & 27/04/2026 & 06/05/2026 & 06/05/2026 & ~ & Ludmila \\ \hline
+    - Priorização dos requisitos e HUs & 04/05/2026 & 04/05/2026 & 04/05/2026 & 04/05/2026 & ~ & Todos de software \\ \hline
+    - Definição das tecnologias & 16/04/2026 & 16/04/2026 & 20/04/2026 & 20/04/2026 & ~ & Todos de software \\ \hline
+    - Roteiro de testes & 04/05/2026 & 04/05/2026 & 06/05/2026 & 06/05/2026 & ~ & Isaque \\ \hline
+    - Diagrama de classes & 04/05/2026 & 09/05/2026 & 06/05/2026 & 06/05/2026 & ~ & Isaque \\ \hline
+    - Diagrama de atividades & 24/04/2026 & 24/04/2026 & 07/05/2026 & 06/05/2026 & ~ & Marjorie \\ \hline
+    - Diagrama de sequencia & 04/05/2026 & 04/05/2026 & 04/05/2026 & 09/05/2026 & ~ & Marjorie \\ \hline
+    - Diagrama de componentes & 04/05/2026 & 04/05/2026 & 07/05/2026 & 09/05/2026 & ~ & Othavio \\ \hline
+    - Diagrama de pacotes & 04/05/2026 & 04/05/2026 & 09/05/2026 & 09/05/2026 & ~ & Samuel \\ \hline
+    - Diagrama de implantação & 04/05/2026 & 04/05/2026 & 06/05/2026 & 06/05/2026 & ~ & Laís \\ \hline
+    - Diagrama de estrutura de arquivos & 27/04/2026 & 27/04/2026 & 02/05/2026 & 02/05/2026 & ~ & Othavio \\ \hline
+    - Mkdocs & 29/04/2026 & 29/04/2026 & 11/05/2026 & --- & ~ & Othavio \\ \hline
+    - Definição das tecnologias para realização dos testes unitário, integração e e2e & 13/05/2026 & --- & 13/05/2026 & --- & ~ & Todos de Software \\ \hline
+    - Switch de teste automatizados & 24/05/2026 & --- & 30/05/2026 & --- & ~ & Isaque \\ \hline
+    - Comunicação via websocket & 13/05/2026 & --- & 19/05/2026 & --- & ~ & Laís \\ \hline
+    - Processamento de sinais no software & 13/05/2026 & --- & 19/05/2026 & --- & ~ & Ludmila \\ \hline
+    - Consumo da bateria no software & 20/05/2026 & --- & 26/05/2026 & --- & ~ & Marjorie \\ \hline
+    - Mapeamento em tempo real no software & 20/05/2026 & --- & 26/05/2026 & --- & ~ & Othavio \\ \hline
+    - Visualização da trajetória no software & 20/05/2026 & --- & 26/05/2026 & --- & ~ & Samuel \\ \hline
+    - Monitoramento de falhas operacionais no software & 20/05/2026 & --- & 26/05/2026 & --- & ~ & Isaque \\ \hline
+    - Banco de dados no software & 27/05/2026 & --- & 31/05/2026 & --- & ~ & Laís \\ \hline
+    - Armazenamento de trajetos no software & 27/05/2026 & --- & 31/05/2026 & --- & ~ & Ludmila \\ \hline
+    - Consulta de históricos no software & 27/05/2026 & --- & 31/05/2026 & --- & ~ & Marjorie \\ \hline
+    - Organização por tipo de labirintos no software & 27/05/2026 & --- & 31/05/2026 & --- & ~ & Othavio \\ \hline
 \end{longtable}
 
 \vspace{1cm}
