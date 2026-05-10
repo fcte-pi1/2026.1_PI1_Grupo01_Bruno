@@ -153,7 +153,21 @@ O protótipo funcional foi desenvolvido com base nos requisitos funcionais que r
 \end{figure}
 
 \href{https://www.figma.com/proto/2ZyxT13T50XnVaUs51JKeb/XAROPi---Prot%C3%B3tipo-Funcional?page-id=0%3A1&node-id=46-1543&viewport=-1443%2C185%2C0.37&t=nvLNuJQbUXyazppG-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=46%3A1543}{Link para acessar o protótipo navegável.}
-\subsection{Descrição de Arquitetura}
+
+\subsection{Descrição da Arquitetura do Software}
+
+O propósito do software no projeto XAROPi é apresentar em um ambiente web e em tempo real os dados de telemetria do micromouse. Além disso, o sistema deve armazenar os dados das tentativas de resolução do labirinto e permitir consultas posteriores à finalização dos trajetos.
+
+Para a viabilização dessas tarefas, optou-se por um modelo \textbf{monolítico em camadas}, com separação estrita entre a interface de usuário (\textit{frontend}), as lógicas de negócio (\textit{backend}) e a persistência de informações (banco de dados). A escolha pela arquitetura monolítica no lado do servidor justifica-se pela simplicidade de desenvolvimento e implantação, alinhando-se à curva de adaptação da equipe. A divisão lógica em camadas, por sua vez, garante a organização do código e facilita a manutenção.
+
+O ecossistema do software é unificado pelo uso de \textit{JavaScript/TypeScript} e estruturado nas seguintes tecnologias e padrões:
+
+\begin{itemize}
+    \item \textbf{Interface (\textit{Frontend}):} Desenvolvida utilizando a biblioteca \textit{React}, operando com uma arquitetura orientada a componentes. A interface consome os dados do servidor e atualiza a visualização dinamicamente, separando a lógica de apresentação da lógica de processamento pesado.
+    \item \textbf{Servidor (\textit{Backend}):} Construído em \textit{Node.js} com o \textit{framework} \textit{NestJS}. O \textit{backend} adota uma \textbf{Arquitetura Modular} (Controladores e Serviços), atuando como uma API que fornece dados via HTTP/REST e mantém comunicação de baixa latência com o robô via protocolo \textit{WebSocket}.
+    \item \textbf{Banco de Dados:} Para o armazenamento das execuções, utiliza-se o \textit{Firebase}, um banco de dados \textit{NoSQL} orientado a documentos. Esta tecnologia permite gravar as matrizes do labirinto e tempos de percurso com alta flexibilidade e velocidade de consulta.
+\end{itemize}
+
 \subsubsection{Propósito do Software}
 \subsubsection{Padrão adotado}
 \subsubsection{Tecnologias escolhidas}
