@@ -108,6 +108,51 @@ O fluxo de controle se desenvolve a partir do nó de estado inicial, transitando
 
 \subsection{Backlog do Produto}
 
+O backlog do produto é uma lista priorizada de requisitos e funcionalidades que guia o desenvolvimento do produto. Ele foi estruturado com base na EAP do projeto, (add numero da figura), e classificado utilizando a técnica MoSCoW para priorizar os requisitos e histórias de usuário. 
+O backlog foi todo estruturado no github e pode ser acessado através deste \href{https://github.com/orgs/fcte-pi1/projects/8/views/1?visibleFields=%5B%22Title%22%2C274081113%2C274081114%2C%22Labels%22%2C%22Milestone%22%2C%22Assignees%22%2C%22Sub-issues+progress%22%2C%22Status%22%2C274081112%2C274081111%2C%22Linked+pull+requests%22%2C274111004%5D&hierarchy=true}{link}, onde é possivel observar com mais detalhes e compreender na sua totalidade o backlog do produto.
+
+Na figura \ref{fig:backlog_produto} é possível observar um recorte do backlog do produto onde é possivel observar as releases, épicos, histórias de usuário e a prioriação. Além disto, cada HU está relacionada há uma parte do protótipo, ao acessar a issue específica de cada HU é possível observar na descrição. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figuras/software/backlog.png}
+    \captionsetup{font=footnotesize}
+    \caption{Backlog do Produto (GitHub).}
+    \label{fig:backlog_produto}
+\end{figure}
+
+\subsubsection{Protótipo Funcional}
+O protótipo funcional foi desenvolvido com base nos requisitos funcionais que requerem apresentação e interação na interface, representados pelas Histórias do Usuário. Inicialmente, o protótipo possui duas páginas principais:
+\begin{enumerate}
+    \item \textbf{Página de Visão Geral:} Concentra as informações gerais de todos os testes, fornecendo métricas e gráficos importantes para uma visão holística dos testes executados. A implementação dessas funcionalidades serão essenciais para o monitoramento da evolução do projeto em uma perspectiva mais ampla Além disso, essa página também fornece uma tabela para consulta histórica dos dados de trajetos anteriores. Isso permitirá escolher quais recuperar informações de testes executados recuperar com uma visualização rápida. As HUs relacionadas a essa tela incluem: 
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/232}{HU03},  
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/233}{HU04}, 
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/248}{HU11}, 
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/249}{HU12}, 
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/250}{HU13}.
+    \item \textbf{Página de Monitoramento em Tempo Real:} É a página a ser utilizada durante a execução de cada caso de teste. Ela exibe informações em tempo real enviadas pelo robô, como distância percorrida, obstáculos encontrados, gasto da bateria, bem como renderiza o mapa em tempo real conforme o \textit{Micromouse} o explora. Por fim, essa página também constrói e exibe gráficos como de velocidade e consumo energético. As HUs relacionadas incluem: 
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/230}{HU01}, 
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/231}{HU02}, 
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/234}{HU05},  
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/235}{HU06},  
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/236}{HU07}, 
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/237}{HU08}, 
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/246}{HU09},  
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/247}{HU10},  
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/251}{HU14},  
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/252}{HU15},  
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/253}{HU16};  
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figuras/software/prototipo.png}
+    \captionsetup{font=footnotesize}
+    \caption{Protótipo Funcional do Sistema.}
+    \label{fig:prototipo_funcional}
+\end{figure}
+
+\href{https://www.figma.com/proto/2ZyxT13T50XnVaUs51JKeb/XAROPi---Prot%C3%B3tipo-Funcional?page-id=0%3A1&node-id=46-1543&viewport=-1443%2C185%2C0.37&t=nvLNuJQbUXyazppG-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=46%3A1543}{Link para acessar o protótipo navegável.}
 \subsection{Descrição de Arquitetura}
 \subsubsection{Propósito do Software}
 \subsubsection{Padrão adotado}
@@ -120,7 +165,7 @@ A figura \ref{fig:diagrama_classes} apresenta o diagrama de classes do sistema, 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[height=15cm]{figuras/diagrama_classes.png}
+    \includegraphics[height=15cm]{figuras/software/diagrama_classes.png}
     \captionsetup{font=footnotesize}
     \caption{Diagrama de Classes do Sistema.}
     \label{fig:diagrama_classes}
@@ -179,7 +224,7 @@ Por fim, o \textbf{Cenário de Consulta ao Histórico} (Figura \ref{fig:seq_hist
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{figuras/diagrama_implantacao.png}
+    \includegraphics[width=0.8\textwidth]{figuras/software/diagrama_implantacao.png}
     \captionsetup{font=footnotesize}
     \caption{Diagrama de implantação do sistema.}
     \label{fig:diagrama_implantacao}
@@ -234,38 +279,38 @@ A Visão de Dados descreve a forma como as informações geradas, processadas e 
     \end{table}
 
     
-    \textcolor{red}{Itens fundamentais:}
-    \begin{itemize}
-        \item \textcolor{red}{\textbf{\textit{Backlog} do Produto}}
-        \begin{itemize}
-            \item \textcolor{red}{ Descrever os requisitos funcionais (RF) com a técnica de documentação e especificação de história de usuário (HU);}
-            \item \textcolor{red}{ Descrever os requisitos não-funcionais (RNF) de forma objetiva; Mais facilmente, mais rapidamente, mais responsivo, de fácil uso, são descrições subjetivas não-válidas. Um exemplo de requisito não-funcional de desempenho: ``a página deve carregar em até 5s quando em conexão 4G''.}
-            \item \textcolor{red}{ Ao descrever os requisitos (RF e RNF), usar a classificação MoSCoW (\textit{Must have}, \textit{Should have} e \textit{Could have}), para auxiliar a priorização dos itens do backlog.}
-            \item \textcolor{red}{ Protótipos de interface gráfica do \textit{software} em alta fidelidade.}
-        \end{itemize}
-    \end{itemize}
+    % \textcolor{red}{Itens fundamentais:}
+    % \begin{itemize}
+    %     \item \textcolor{red}{\textbf{\textit{Backlog} do Produto}}
+    %     \begin{itemize}
+    %         \item \textcolor{red}{ Descrever os requisitos funcionais (RF) com a técnica de documentação e especificação de história de usuário (HU);}
+    %         \item \textcolor{red}{ Descrever os requisitos não-funcionais (RNF) de forma objetiva; Mais facilmente, mais rapidamente, mais responsivo, de fácil uso, são descrições subjetivas não-válidas. Um exemplo de requisito não-funcional de desempenho: ``a página deve carregar em até 5s quando em conexão 4G''.}
+    %         \item \textcolor{red}{ Ao descrever os requisitos (RF e RNF), usar a classificação MoSCoW (\textit{Must have}, \textit{Should have} e \textit{Could have}), para auxiliar a priorização dos itens do backlog.}
+    %         \item \textcolor{red}{ Protótipos de interface gráfica do \textit{software} em alta fidelidade.}
+    %     \end{itemize}
+    % \end{itemize}
 
-    \begin{itemize}
-    \item \textcolor{red}{ \textbf{Descrição da arquitetura da solução de \textit{software} proposta:}}
+    % \begin{itemize}
+    % \item \textcolor{red}{ \textbf{Descrição da arquitetura da solução de \textit{software} proposta:}}
     
-        \item \textcolor{red}{ Esta subseção deve contemplar o documento de arquitetura do sistema e deve ser estruturado segundo as visões (4+1) previstas no processo unificado (UP): lógica, de processos;  implementação, implantação e dados (substuirá a visão de casos de uso).}
+    %     \item \textcolor{red}{ Esta subseção deve contemplar o documento de arquitetura do sistema e deve ser estruturado segundo as visões (4+1) previstas no processo unificado (UP): lógica, de processos;  implementação, implantação e dados (substuirá a visão de casos de uso).}
         
-        \item \textcolor{red}{ Propósito do \textit{software} (qual o seu papel no sistema);}
-        \item \textcolor{red}{ Padrão adotado : MVC, MVP, Microsserviços, Monolítico, etc (Justificar);}
-        \item \textcolor{red}{ Linguagens de programação: Java, Python, C\#, JavaScript, etc.}
-        \item \textcolor{red}{ \textit{Frameworks} e bibliotecas: Spring Boot, .NET Core, React, Angular, Django, etc.}
-        \item \textcolor{red}{ Banco de dados: Relacional (PostgreSQL, MySQL, etc) X NãoSQL (MongoDB,etc). }
-        \item \textcolor{red}{Persistência de dados: Modelo Entidade‑Relacionamento (MER) e seu respectivo Diagrama Entidade‑Relacionamento (DER), aplicáveis quando a solução utiliza banco de dados relacional; alternativamente, diagrama de estrutura de documentos, empregado nos casos em que a arquitetura adota banco de dados não relacional.}
-    \end{itemize}  
+    %     \item \textcolor{red}{ Propósito do \textit{software} (qual o seu papel no sistema);}
+    %     \item \textcolor{red}{ Padrão adotado : MVC, MVP, Microsserviços, Monolítico, etc (Justificar);}
+    %     \item \textcolor{red}{ Linguagens de programação: Java, Python, C\#, JavaScript, etc.}
+    %     \item \textcolor{red}{ \textit{Frameworks} e bibliotecas: Spring Boot, .NET Core, React, Angular, Django, etc.}
+    %     \item \textcolor{red}{ Banco de dados: Relacional (PostgreSQL, MySQL, etc) X NãoSQL (MongoDB,etc). }
+    %     \item \textcolor{red}{Persistência de dados: Modelo Entidade‑Relacionamento (MER) e seu respectivo Diagrama Entidade‑Relacionamento (DER), aplicáveis quando a solução utiliza banco de dados relacional; alternativamente, diagrama de estrutura de documentos, empregado nos casos em que a arquitetura adota banco de dados não relacional.}
+    % \end{itemize}  
 
-    \begin{itemize}
-    \item \textcolor{red}{\textbf{ Roteiro de testes funcionais:} }
-        \item \textcolor{red}{Código do caso de teste;}
-        \item \textcolor{red}{Nome do caso de teste;}
-        \item \textcolor{red}{ Objetivo do caso de teste;}
-        \item \textcolor{red}{ Pré-condições do sistema para o teste ser realizado, quando se aplicar;}
-        \item \textcolor{red}{ Descrição dos procedimentos a serem executados para o teste;}
-        \item \textcolor{red}{ Resultado esperado para o teste ser aprovado (pós-condição após realizado o teste);}
-    \end{itemize}
+    % \begin{itemize}
+    % \item \textcolor{red}{\textbf{ Roteiro de testes funcionais:} }
+    %     \item \textcolor{red}{Código do caso de teste;}
+    %     \item \textcolor{red}{Nome do caso de teste;}
+    %     \item \textcolor{red}{ Objetivo do caso de teste;}
+    %     \item \textcolor{red}{ Pré-condições do sistema para o teste ser realizado, quando se aplicar;}
+    %     \item \textcolor{red}{ Descrição dos procedimentos a serem executados para o teste;}
+    %     \item \textcolor{red}{ Resultado esperado para o teste ser aprovado (pós-condição após realizado o teste);}
+    % \end{itemize}
 % \end{itemize}
 
