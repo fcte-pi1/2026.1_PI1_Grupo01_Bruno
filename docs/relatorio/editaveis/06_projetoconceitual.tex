@@ -30,8 +30,48 @@ Outro fator relevante para sua escolha é a boa adesão entre camadas durante o 
 
 Por fim, a escolha do PETG também foi motivada por sua ampla disponibilidade comercial, baixo custo relativo e facilidade de manufatura, fatores que favorecem futuros ajustes na prototipagem.
 
+\subsection{Memorial de cálculo}
+
+O memorial de cálculo tem o intuito de dar clareza à parte estrutural do veículo. Afinal, é esperado que ele consiga completar o percurso sem tombamentos e oscilações. Desta forma, faz-se necessário o cálculo da massa e centro de gravidade para se evitar problemas no deslocamento. 
+
+Ademais, é necessário também uma distribuição de peso de componentes adequada para evitar tombamentos e falta de estabilidade, mas também se levando em conta questões como potencial aquecimento, interferências e ruídos. Todos esses fatores foram considerados para a distribuição dos componentes pelo veículo. 
+
+Primeiramente, fez-se uma pesquisa acerca do peso dos componentes de maneira individual tal como consta na \ref{tab:peso_componentes}. 
+
+\begin{table}[H]
+    \centering
+    \caption{Pesagem dos componentes}
+    \label{tab:peso_componentes}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|l|l|c|p{5cm}|}
+        \hline
+        \textbf{Componente} & \textbf{Peso unitário em gramas} & \textbf{Quantidade} & \textbf{Total} \\
+        \hline
+        Microcontrolador ESP32-S3-WROOM-1-N16R8 & 16 & 1 & Responsável pelo processamento do algoritmo de navegação e telemetria. \\
+        \hline
+        Sensor de Distância (ToF) VL53L0X & 1,5 & 3 & Mapeamento frontal e lateral das paredes do labirinto. \\
+        \hline
+        Sensor Inercial MPU-6000 & 2 & 1 & Acelerômetro e giroscópio de 6 eixos para controle de orientação. \\
+        \hline
+        Micro Motor DC com Encoder 6V-750RPM & 20 & 2 & Motores com caixas de redução e encoders de quadratura integrados. \\
+        \hline
+        Driver de Potência (Ponte H) L298N & 30 & 1 & Módulo Ponte H baseado no CI L298N. \\
+        \hline
+        BMS-20A-3S-S & 18 & 1 & Módulo BMS (Battery Management System). \\
+        \hline
+        Regulador de Tensão (Step-down) LM2596 & 12 & 1 & Fornece a tensão lógica adequada aos periféricos e ao microcontrolador. \\
+        \hline
+        Roda S20 32mm & 23 & 2 & Responsável por suportar o peso total do veículo e permitir o deslocamento.  \\
+        \hline
+        Chassi & 158,7 & 1 & Será a estrutura que dará suporte aos componentes do veículo.
+    \end{tabular}}
+\end{table}
+
+O peso final do veículo é de aproximadamente 327,2 gramas, sendo o peso do chassi estimado pelo programa no qual o CAD foi realizado.
+
 \subsection{Labirinto de teste}
 No desenvolvimento do projeto conceitual do micromouse, foi proposta a construção de um labirinto de testes que atende aos requisitos estabelecidos, buscando reproduzir em menor escala as condições do ambiente de avaliação final. Com o objetivo de simplificar a fabricação e reduzir custos, foi definido um arranjo de 4x4 células, cujo destino final está em uma área 2x2 no centro do labirinto. Cada célula do labirinto possui dimensões de 18x18 cm, com paredes de 5 cm de altura. Inicialmente, foi especificado uma espessura de 1,2 cm para cada divisória, porém, para fins de fabricação e levando em conta a padronização comercial de chapas de MDF, adotou-se a espessura de 1,5 cm, valor mais próximo disponível no mercado. 
+
 O material selecionado para a construção foi o MDF, devido à sua versatilidade, facilidade de usinagem e custo acessível, tornando-o propício para os testes. Para manter similaridade com o padrão do labirinto oficial, o piso será na cor preta e as paredes brancas, com os topos pintados em vermelho, facilitando a identificação visual pelos sensores do robô. Quanto à montagem, optou-se pela fixação das paredes ao piso por meio de parafusos. Essa solução permite a desmontagem e reconfiguração do labirinto caso seja necessário, possibilitando diferentes cenários de teste.  O desenho técnico do labirinto se encontra na imagem \ref{fig:labirinto}.
 \begin{figure}[H]
     \centering
