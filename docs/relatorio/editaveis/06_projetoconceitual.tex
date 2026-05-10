@@ -84,6 +84,13 @@ O gerenciamento de todo o sistema é centralizado no ESP32-S3. Ele opera como o 
 
 \section{Descrição de \textit{software}}
 
+O sistema web do projeto XAROPi atua como a interface de monitoramento e controle do Micromouse. Seu propósito principal é fornecer um ambiente gráfico focado no acompanhamento em tempo real da navegação do robô no labirinto.
+
+A partir dos dados de telemetria enviados continuamente pelo hardware, a aplicação renderiza dinamicamente a matriz do labirinto. A interface atualiza a posição do micromouse na tela, exibe as paredes detectadas pelos sensores e mapeia o trajeto percorrido. Além da visualização ao vivo, o sistema dispõe de comandos de intervenção manual, permitindo ao usuário abortar ou reiniciar a execução remotamente.
+
+Adicionalmente, o software funciona como um repositório para as corridas concluídas. O registro do histórico consolida métricas de desempenho, como os tempos de resolução e as rotas efetivadas, viabilizando a consulta e a análise dos testes para auxiliar no aprimoramento da lógica de controle físico do robô.
+
+
 \subsection{Diagrama de Atividades}
 
 O Diagrama de Atividades (Figura \ref{fig:diagrama_atividades_sw}) descreve o comportamento funcional do sistema web do projeto XAROPi. A modelagem utiliza o particionamento por raias (\textit{swimlanes}) para estruturar o fluxo e evidenciar a fronteira entre os subsistemas da arquitetura.
