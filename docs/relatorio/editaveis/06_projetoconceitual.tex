@@ -159,9 +159,34 @@ Por fim, o \textbf{Cenário de Consulta ao Histórico} (Figura \ref{fig:seq_hist
     \label{fig:seq_historico}
 \end{figure}
 
-\subsection{Visão de Implementação do Software}
 
-\subsubsection{Diagrama de Componentes}
+\subsection{Visão de Implementação de Software} 
+
+    A Visão de Implementação descreve o sistema através de modulos que representam as tecnologias que serão utilizadas para implementar os requisitos elicitados em código real. Deste modo, o software foi estruturado em três camadas principais: \textit{Firmware}, \textit{Backend} e \textit{Frontend}.
+
+\subsubsection{Diagrama de Componentes} 
+
+Na Figura \ref{fig:diagrama_componentes}, temos o Diagrama de Componentes que decompõe o sistema em quatro partes que interagem entre si para realizar as funções de navegação, telemetria e registro/acesso ao banco de dados:
+
+    \begin{itemize}
+
+        \item \textbf{Device ESP32:} É o núcleo de hardware, contendo o \textit{NavigationEngine} para processar o algoritmo de labirinto, \textit{SensorController} para leitura das paredes, o \textit{BatteryMonitor} e por último o \textit{WifiClient} para estabelecer a pone de dados com o servidor 
+
+        \item \textbf{Subsistema Backend em NestJS:} É o núcleo do backend. O \textit{WSGateway} gerencia as conexões em tempo real com o Firmware e o Frontend. O \textit{TelemetryProcessor} filtra e trata os dados brutos recebidos da ESP32. O \textit{DatabaseAccess} faz a comunicação direta com o banco de dados. Por último, o \textit{TryService} gerencia a corrida atual e o \textit{HistoryController} e \textit{HistoryService:} são responsáveis pelo fluxo de dados do histórico.
+
+        \item \textbf{Subsistema Frontend em React.js:} É o núcleo das interfaces frontend. O \textit{TelemetryService} recebe a telemetria do backend e a distribui no front. O \textit{MazeMapView} renderiza o labirinto dinamicamente conforme o micromouse explora. O \textit{ControlService} inicia e para o micromouse remotamente. Por último, o \textit{TelemetryDashboard} exibe a telemetria, como a velocidade e bateria, em formato de widgets e o \textit{HistoryViewer} permite a busca de percursos no banco de  dados.
+
+        \item \textbf{Subsistema Frontend em React.js:} É o núcleo das interfaces frontend. O \textit{TelemetryService} recebe a telemetria do backend e a distribui no front. O \textit{MazeMapView} renderiza o labirinto dinamicamente conforme o micromouse explora. O \textit{ControlService} inicia e para o micromouse remotamente. Por último, o \textit{TelemetryDashboard} exibe a telemetria, como a velocidade e bateria, em formato de widgets e o \textit{HistoryViewer} permite a busca de percursos no banco de  dados.
+
+        \item \textbf{Database Firebase:} Represeta o banco de dados do sistema através do \textit{RealtimeDatabase}. O  TelemetryProcessor alimenta o banco, o TelemetryService faz requisições de leitura e o ControlService realiza operações de escrita.
+
+    \end{itemize}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{figuras/software/diagrama_componentes.png}
+        \caption{Diagrama de Componentes.}
+        \label{fig:diagrama_componentes}
+    \end{figure}
 
 \subsubsection{Diagrama de Pacotes}
     O diagrama de pacotes (Figura \ref{fig:diagrama_pacotes_sw}) descreve os relacionamentos de dependência entre um pacote para outro, mostrado a disposição de cada elemento de modelo e esclarecer a estrutura hierárquia dos elementos.
@@ -204,7 +229,6 @@ A Visão de Dados descreve a forma como as informações geradas, processadas e 
         \item \textbf{Coleção Labirinto:} Responsável por armazenar a estrutura física e lógica do labirinto percorrido. Cada documento representa um labirinto específico e possui atributos como \textit{id} e \textit{status}, além de uma subcoleção \textit{Nos} e uma subcoleção de metadados para dimensionamento.
         \item \textbf{Coleção Tentativa:} Responsável por armazenar o registro de telemetria do Micromouse. Cada vez que o robô inicia um percurso, um novo documento é criado nesta coleção, contendo atributos da tentativa e subcoleções específicas para os dados de velocidade e de bateria.
     \end{itemize}
-
 
     \begin{figure}[H]
         \centering
