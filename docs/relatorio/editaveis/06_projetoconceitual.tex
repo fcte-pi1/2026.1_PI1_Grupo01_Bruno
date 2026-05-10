@@ -162,7 +162,7 @@ Por fim, o \textbf{Cenário de Consulta ao Histórico} (Figura \ref{fig:seq_hist
 
 \subsection{Visão de Implementação de Software} 
 
-    A Visão de Implementação descreve o sistema através de modulos que representam as tecnologias que serão utilizadas para implementar os requisitos elicitados em código real. Deste modo, o software foi estruturado em três camadas principais: \textit{Firmware}, \textit{Backend} e \textit{Frontend}.
+    A Visão de Implementação descreve o sistema através de modulos que representam as tecnologias que serão utilizadas para implementar os requisitos elicitados em código real. Deste modo, o software foi estruturado em quatro camadas principais: \textit{Firmware}, \textit{Backend}, \textit{Frontend} e \textit{Banco de Dados}.
 
 \subsubsection{Diagrama de Componentes} 
 
@@ -173,8 +173,6 @@ Na Figura \ref{fig:diagrama_componentes}, temos o Diagrama de Componentes que de
         \item \textbf{Device ESP32:} É o núcleo de hardware, contendo o \textit{NavigationEngine} para processar o algoritmo de labirinto, \textit{SensorController} para leitura das paredes, o \textit{BatteryMonitor} e por último o \textit{WifiClient} para estabelecer a pone de dados com o servidor 
 
         \item \textbf{Subsistema Backend em NestJS:} É o núcleo do backend. O \textit{WSGateway} gerencia as conexões em tempo real com o Firmware e o Frontend. O \textit{TelemetryProcessor} filtra e trata os dados brutos recebidos da ESP32. O \textit{DatabaseAccess} faz a comunicação direta com o banco de dados. Por último, o \textit{TryService} gerencia a corrida atual e o \textit{HistoryController} e \textit{HistoryService:} são responsáveis pelo fluxo de dados do histórico.
-
-        \item \textbf{Subsistema Frontend em React.js:} É o núcleo das interfaces frontend. O \textit{TelemetryService} recebe a telemetria do backend e a distribui no front. O \textit{MazeMapView} renderiza o labirinto dinamicamente conforme o micromouse explora. O \textit{ControlService} inicia e para o micromouse remotamente. Por último, o \textit{TelemetryDashboard} exibe a telemetria, como a velocidade e bateria, em formato de widgets e o \textit{HistoryViewer} permite a busca de percursos no banco de  dados.
 
         \item \textbf{Subsistema Frontend em React.js:} É o núcleo das interfaces frontend. O \textit{TelemetryService} recebe a telemetria do backend e a distribui no front. O \textit{MazeMapView} renderiza o labirinto dinamicamente conforme o micromouse explora. O \textit{ControlService} inicia e para o micromouse remotamente. Por último, o \textit{TelemetryDashboard} exibe a telemetria, como a velocidade e bateria, em formato de widgets e o \textit{HistoryViewer} permite a busca de percursos no banco de  dados.
 
