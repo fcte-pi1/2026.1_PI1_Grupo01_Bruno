@@ -71,7 +71,7 @@ evidências de conformidade coletadas ao longo do projeto.
 
 \subsection{Projeto Mecânico do Chassi}
 
-O projeto mecânico do chassi do micromouse foi desenvolvido com foco em otimização do espaço interno, facilidade de manutenção, distribuição equilibrada de massa e integração eficiente entre os subsistemas mecânico, eletrônico e energético. A estrutura apresenta dimensões aproximadas de 130\,mm de comprimento, 100\,mm de largura e 50\,mm de altura.
+O projeto mecânico do chassi do micromouse foi desenvolvido com foco em otimização do espaço interno, facilidade de manutenção, distribuição equilibrada de massa e integração eficiente entre os subsistemas mecânico, eletrônico e energético.
 
 O chassi foi concebido com geometria parcialmente oca, visando reduzir o peso total da estrutura sem comprometer significativamente sua rigidez mecânica. Para isso, foram incorporadas regiões internas vazadas e paredes estruturais otimizadas, permitindo uma melhor relação entre massa e resistência estrutural.
 
@@ -80,6 +80,8 @@ O compartimento da bateria foi posicionado na região inferior do chassi, contri
 A placa principal de controle foi posicionada na região superior central do chassi, permitindo uma integração simplificada entre sensores, módulos eletrônicos e sistema de alimentação, além de facilitar o acesso para manutenção e futuras modificações no sistema.
 
 O sistema de tração é composto por dois motores DC com encoder, fixados simetricamente nas laterais do chassi por meio de suportes estruturais integrados. As rodas laterais possuem 32\,mm de diâmetro, e o apoio frontal é realizado por uma roda boba, conferindo estabilidade à estrutura em três pontos de contato com o solo.
+
+O desenho técnico com as dimensões do modelo desenvolvido pode ser observado no Apêndice A.
 
 \subsection{Seleção do Material do Chassi}
 
@@ -136,7 +138,7 @@ No desenvolvimento do projeto conceitual do micromouse, foi proposta a construç
 O material selecionado para a construção foi o MDF, devido à sua versatilidade, facilidade de usinagem e custo acessível, tornando-o propício para os testes. Para manter similaridade com o padrão do labirinto oficial, o piso será na cor preta e as paredes brancas, com os topos pintados em vermelho, facilitando a identificação visual pelos sensores do robô. Quanto à montagem, optou-se pela fixação das paredes ao piso por meio de parafusos. Essa solução permite a desmontagem e reconfiguração do labirinto caso seja necessário, possibilitando diferentes cenários de teste.  O desenho técnico do labirinto se encontra na imagem \ref{fig:labirinto}.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\linewidth]{figuras/mont_lab.pdf}
+    \includegraphics[width=1\linewidth]{figuras/labirinto.jpeg}
     \caption{{Desenho técnico do labirinto de teste}}
     \label{fig:labirinto}
 \end{figure}
@@ -157,6 +159,17 @@ As rodas menores favorecem o projeto devido aos seguintes fatores técnicos:
 \end{itemize}
 
 Dessa forma, a escolha por rodas de menor diâmetro consolida-se como a alternativa mais apropriada para aplicações de micromouse, onde a precisão e a estabilidade do movimento são priorizadas em detrimento da capacidade de transposição de irregularidades no terreno[cite: 33].
+
+\subsection{Assembly}
+A disposição final do projeto XAROPi é ilustrada abaixo na figura com a distribuição dos componentes. A estrutura apresenta dimensões aproximadas de 130 mm de comprimento, 100 mm de largura e 50 mm de altura. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{figuras/MontagemXAROPi.pdf}
+    \caption{{\textit{Assembly} do projeto XAROPi}}
+    \label{fig:montagemxaropi}
+\end{figure}
+
 
 \section{Descrição de \textit{hardware}}
 
