@@ -22,7 +22,7 @@ nav:
   - HOME: index.md
   - ENTREGA 1: 
       - Requisitos: entrega1/requisitos.md 
-      - Visão Lógica de Software: entrega1/visao_log_software.md 
+      - Descrição de Software: entrega1/descricao_software.md 
   - ENTREGA 2: 
       - Em breve: entrega2/introducao.md
   - ENTREGA 3: 
