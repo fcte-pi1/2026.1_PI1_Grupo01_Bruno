@@ -104,7 +104,7 @@ Para a concretização do projeto físico, foram selecionados componentes que eq
     \end{tabular}}
 \end{table}
 \subsection{Diagrama de blocos}
-A Figura \ref{fig:diagrama_componentes}  apresenta o diagrama de blocos do sistema, ilustrando o fluxo de energia e a troca de dados entre os componentes. A arquitetura do robô é dividida logicamente em dois domínios principais: o subsistema de potência e o subsistema de controle e comunicação.
+A Figura \ref{fig:diagrama_blocos} apresenta o diagrama de blocos do sistema, ilustrando o fluxo de energia e a troca de dados entre os componentes. A arquitetura do robô é dividida logicamente em dois domínios principais: o subsistema de potência e o subsistema de controle e comunicação.
 
 No subsistema de alimentação, a energia fornecida pela bateria passa inicialmente pelo módulo BMS, responsável por proteger e garantir a integridade das células de lítio. Em seguida, o circuito é dividido em duas vias principais: uma linha de alta potência conectada diretamente à Ponte H, capaz de suprir a corrente exigida pelos motores, e uma linha secundária regulada pelo módulo LM2596. Este regulador reduz e estabiliza a tensão para alimentar de forma segura o microcontrolador ESP32-S3 e os sensores periféricos.
 
@@ -113,8 +113,8 @@ O gerenciamento de todo o sistema é centralizado no ESP32-S3. Ele opera como o 
     \centering
     \includegraphics[width=0.8\textwidth]{figuras/diagrama_componentesFinal.png}
     \captionsetup{font=footnotesize}
-    \caption{Diagrama de componentes do Micromouse. As linhas contínuas pretas representam conexões físicas via protocolo I2C. As linhas verdes representam alimentação de (3,3V). As linhas vermelhas representam alimentação de (6V).}
-    \label{fig:diagrama_componentes}
+    \caption{Diagrama de cblocos do Micromouse. As linhas contínuas pretas representam conexões físicas via protocolo I2C. As linhas verdes representam alimentação de (3,3V). As linhas vermelhas representam alimentação de (6V).}
+    \label{fig:diagrama_blocos}
 \end{figure}
 
 \subsection{Diagrama esquemático}
