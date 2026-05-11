@@ -21,8 +21,8 @@ plugins:
 nav:
   - HOME: index.md
   - ENTREGA 1: 
-      - Introdução: entrega1/introducao.md
       - Requisitos: entrega1/requisitos.md 
+      - Visão Lógica de Software: entrega1/visao_log_software.md 
   - ENTREGA 2: 
       - Em breve: entrega2/introducao.md
   - ENTREGA 3: 
