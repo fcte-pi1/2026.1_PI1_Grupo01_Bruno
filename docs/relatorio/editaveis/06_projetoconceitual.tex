@@ -175,34 +175,8 @@ A disposição final do projeto XAROPi é ilustrada abaixo na figura com a distr
 
 A presente seção detalha a arquitetura de hardware desenvolvida para o micromouse XAROPi. A descrição a seguir permite a compreensão e a plena replicação do produto proposto neste documento. Para isso, os subsistemas principais e as escolhas de projeto são explicados de forma textual, acompanhados da lista completa de componentes, do diagrama de blocos e, por fim, do esquema elétrico das conexões. \\
 
-Para a concretização do projeto físico, foram selecionados componentes que equilibram custo, disponibilidade e desempenho para os requisitos de navegação autônoma. A Tabela \ref{tab:lista_materiais} apresenta a lista de materiais principal utilizada no chassi do robô.
+Para a concretização do projeto físico, foram selecionados componentes que equilibram custo, disponibilidade e desempenho para os requisitos de navegação autônoma. A Tabela \ref{tab:peso_componentes} apresenta a lista de componentes eletrônicos (item 1 ao 7) utilizada no robô.
 
-\subsection{Componentes eletrônicos presentes no projeto XAROPi}
-\begin{table}[H]
-    \centering
-    \caption{Lista de materiais do Micromouse.}
-    \label{tab:lista_materiais}
-    \resizebox{\textwidth}{!}{%
-    \begin{tabular}{|l|l|c|p{5cm}|}
-        \hline
-        \textbf{Componente} & \textbf{Modelo} & \textbf{Qtd.} & \textbf{Descrição} \\
-        \hline
-        Microcontrolador & ESP32-S3-WROOM-1-N16R8 & 1 & Responsável pelo processamento do algoritmo de navegação e telemetria. \\
-        \hline
-        Sensor de Distância (ToF) & VL53L0X & 3 & Mapeamento frontal e lateral das paredes do labirinto. \\
-        \hline
-        Sensor Inercial & MPU-6000 & 1 & Acelerômetro e giroscópio de 6 eixos para controle de orientação. \\
-        \hline
-        Micro Motor DC com Encoder & 6V-750RPM & 2 & Motores com caixas de redução e encoders de quadratura integrados. \\
-        \hline
-        Driver de Potência (Ponte H) & L298N & 1 & Módulo Ponte H baseado no CI L298N. \\
-        \hline
-        BMS & BMS-20A-3S-S & 1 & Módulo BMS (Battery Management System). \\
-        \hline
-        Regulador de Tensão (Step-down) & LM2596 & 1 & Fornece a tensão lógica adequada aos periféricos e ao microcontrolador. \\
-        \hline
-    \end{tabular}}
-\end{table}
 \subsection{Diagrama de blocos}
 A Figura \ref{fig:diagrama_blocos} apresenta o diagrama de blocos do sistema, ilustrando o fluxo de energia e a troca de dados entre os componentes. A arquitetura do robô é dividida logicamente em dois domínios principais: o subsistema de potência e o subsistema de controle e comunicação.
 
@@ -211,7 +185,7 @@ No subsistema de alimentação, a energia fornecida pela bateria passa inicialme
 O gerenciamento de todo o sistema é centralizado no ESP32-S3. Ele opera como o dispositivo mestre, realizando a leitura contínua dos dados do módulo inercial e dos sensores ToF por meio de um barramento de comunicação digital. A movimentação do robô ocorre sob um controle em malha fechada: o microcontrolador envia os comandos de atuação (PWM e direção) para a Ponte H e, simultaneamente, recebe o feedback odométrico por meio das interrupções geradas pelos encoders dos motores. Esse ciclo permite que o sistema calcule o deslocamento e ajuste a trajetória em tempo real.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{figuras/diagrama_componentesFinal.png}
+    \includegraphics[width=0.75\textwidth]{figuras/diagrama_componentesFinal.png}
     \captionsetup{font=footnotesize}
     \caption{Diagrama de cblocos do Micromouse. As linhas contínuas pretas representam conexões físicas via protocolo I2C. As linhas verdes representam alimentação de (3,3V). As linhas vermelhas representam alimentação de (6V).}
     \label{fig:diagrama_blocos}
@@ -235,38 +209,9 @@ O consumo energético do Micromouse XAROPi foi analisado com o objetivo de verif
 A partir desses dados, foram efetuados os cálculos de potência e energia consumida, permitindo estimar a demanda energética total do sistema. Com base nessa estimativa, foram definidas as estratégias de alimentação, incluindo a escolha da bateria, do circuito de gerenciamento de energia e dos reguladores de tensão utilizados no projeto.
 
 
-\subsection{Identificação dos Subsistemas Elétricos}
+\subsection{Identificação e Cálculo dos Subsistemas Elétricos}
 
 Nesta subseção são apresentados os principais componentes responsáveis pelo consumo energético do Micromouse XAROPi. Para cada subsistema, foram considerados a quantidade utilizada, a tensão nominal de operação, a corrente média consumida e o tempo estimado de funcionamento durante a execução da prova.
-
-\begin{table}[H]
-    \centering
-    \small
-    \begin{tabular}{|l|c|c|c|c|}
-        \hline
-        \textbf{Componente} & \textbf{Quantidade} & \textbf{Tensão (V)} & \textbf{Corrente (mA)} & \textbf{Tempo (s)} \\ \hline
-        
-        BMS 20A-3S-S\_SGT & 1 & 7,4 & 1 & 1200 \\ \hline
-        
-        Motores DC com Encoder & 2 & 8,0 & 800 & 1200 \\ \hline
-        
-        Ponte H L298N & 1 & 5,0 & 50 & 1200 \\ \hline
-        
-        Sensor ToF VL53L0X & 3 & 3,5 & 20 & 1200 \\ \hline
-        
-        MPU-6000 & 1 & 3,5 & 4 & 1200 \\ \hline
-        
-        Regulador de Tensão LM2596 & 1 & 7,5 & 50 & 1200 \\ \hline
-        
-        Microcontrolador ESP32-S3 & 1 & 3,3 & 150 & 1200 \\ \hline
-        
-    \end{tabular}
-    
-    \caption{Levantamento de consumo dos subsistemas elétricos.}
-    \label{tab:consumo_energia}
-\end{table}
-
-\subsection{Cálculo da Energia Consumida por Componente}
 
 A energia consumida por cada componente foi estimada utilizando a seguinte equação:
 
@@ -282,40 +227,6 @@ onde:
 \end{itemize}
 
 Considerando um tempo de operação de $1200\,s$, foram obtidos os seguintes valores de consumo energético:
-
-\begin{itemize}
-
-    \item \textbf{BMS 20A-3S-S\_SGT:}
-    
-    $E = 7,4V \cdot 0,001A \cdot 1200s = 8,88\,J$
-
-    \item \textbf{Motores DC com Encoder (2 unidades):}
-    
-    $E = 2 \cdot (8V \cdot 0,8A \cdot 1200s) = 15.360,00\,J$
-
-    \item \textbf{Ponte H L298N:}
-    
-    $E = 5V \cdot 0,05A \cdot 1200s = 300,00\,J$
-
-    \item \textbf{Sensores ToF VL53L0X (3 unidades):}
-    
-    $E = 3 \cdot (3,5V \cdot 0,02A \cdot 1200s) = 252,00\,J$
-
-    \item \textbf{MPU-6000:}
-    
-    $E = 3,5V \cdot 0,004A \cdot 1200s = 16,80\,J$
-
-    \item \textbf{Regulador de Tensão LM2596:}
-    
-    $E = 7,5V \cdot 0,05A \cdot 1200s = 450,00\,J$
-
-    \item \textbf{Microcontrolador ESP32-S3:}
-    
-    $E = 3,3V \cdot 0,15A \cdot 1200s = 594,00\,J$
-
-\end{itemize}
-
-\vspace{0.5cm}
 
 \begin{table}[H]
     \centering
