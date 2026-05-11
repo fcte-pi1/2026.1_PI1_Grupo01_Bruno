@@ -213,7 +213,7 @@ A partir desses dados, foram efetuados os cálculos de potência e energia consu
 
 Nesta subseção são apresentados os principais componentes responsáveis pelo consumo energético do Micromouse XAROPi. Para cada subsistema, foram considerados a quantidade utilizada, a tensão nominal de operação, a corrente média consumida e o tempo estimado de funcionamento durante a execução da prova.
 
-A energia consumida por cada componente foi estimada utilizando a seguinte equação:
+A energia consumida por cada componente foi estimada utilizando a equação:
 
 $$E = V \cdot I \cdot t$$
 
@@ -276,29 +276,14 @@ onde:
     \item $n$ representa o número total de subsistemas analisados.
 \end{itemize}
 
-Substituindo os valores calculados anteriormente:
+Substituindo na fórmula, o consumo energético total estimado para uma operação contínua de $1200\,s$ é de aproximadamente
+\textbf{16.981,68\,J}
 
-\[
-E_{total} = 8,88 + 15.360,00 + 300,00 + 252,00 + 16,80 + 450,00 + 594,00
-\]
-
-\[
-E_{total} = 16.981,68\,J
-\]
-
-Portanto, o consumo energético total estimado para uma operação contínua de $1200\,s$ é de aproximadamente:
-
-\[
-\fbox{16.981,68\,J}
-\]
-
-Observa-se que os motores DC representam a maior parcela do consumo energético total do sistema, correspondendo à principal carga elétrica do robô. Em contrapartida, os sensores e o microcontrolador apresentam consumo significativamente inferior, contribuindo de forma reduzida para a demanda total de energia.
-
-Essa estimativa foi utilizada como base para o dimensionamento do sistema de alimentação, garantindo que a bateria selecionada seja capaz de suprir a corrente e a energia necessárias durante toda a operação do robô em ambiente de competição.
+Os motores DC representam a maior parcela do consumo energético total do sistema, correspondendo à principal carga elétrica do robô. Essa estimativa foi utilizada como base para o dimensionamento do sistema de alimentação, garantindo que a bateria selecionada seja capaz de suprir a corrente e a energia necessárias durante a operação do robô.
 
 \subsection{Escolha da Fonte de Alimentação}
 
-Com base no consumo energético total estimado de $16.981,68\,J$, realizou-se a conversão para watt-hora ($Wh$), unidade normalmente utilizada no dimensionamento de sistemas de alimentação embarcados:
+Com base no consumo energético total estimado de $16.981,68\,J$, realizou-se a conversão para watt-hora ($Wh$):
 
 \[
 E_{total} = \frac{16.981,68\,J}{3600} \approx 4,72\,Wh
@@ -323,15 +308,6 @@ E_{bateria} = V \cdot Ah
 \[
 E_{bateria} = 7,4\,V \cdot 1,1\,Ah \approx 8,14\,Wh
 \]
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{figuras/imagembateria.png}
-    \captionsetup{font=footnotesize}
-    \caption{Imagem ilustrativa da bateria selecionada.}
-\end{figure}
-
-
 Como a capacidade energética da bateria ($8,14\,Wh$) é superior à demanda corrigida do sistema ($6,13\,Wh$), conclui-se que a fonte de alimentação selecionada é adequada para alimentar o robô com margem suficiente de segurança operacional.
 
 \subsection{Planejamento do Circuito de Alimentação}
@@ -339,12 +315,11 @@ Como a capacidade energética da bateria ($8,14\,Wh$) é superior à demanda cor
 O circuito de alimentação do Micromouse XAROPi foi planejado considerando as tensões e correntes de operação dos componentes eletrônicos utilizados no sistema.
 
 O sistema utiliza o módulo \textbf{BMS 20A-3S-S\_SGT} como elemento de gerenciamento e proteção da alimentação principal. Conforme especificado no datasheet, o módulo é compatível com baterias em configuração \textbf{3S}, permitindo uma tensão nominal de aproximadamente $11,1\,V$.
-
-Como os componentes do robô operam em diferentes níveis de tensão, torna-se necessária a utilização de conversão e distribuição adequada da alimentação elétrica. Os motores DC operam em aproximadamente $8\,V$, enquanto os sensores, o microcontrolador ESP32-S3 e os demais circuitos eletrônicos utilizam tensões inferiores, variando entre $3,3\,V$ e $5\,V$.
+Como os componentes do robô operam em diferentes níveis de tensão, torna-se necessária a utilização de conversão e distribuição adequada da alimentação elétrica. 
 
 Para adequação dessas tensões, foi previsto o uso do regulador de tensão \textbf{LM2596}, responsável pela conversão da tensão principal para níveis compatíveis com os demais subsistemas eletrônicos.
 
-Além do fornecimento energético, o sistema de alimentação também deve suportar as variações de corrente associadas ao acionamento dos motores. Conforme o datasheet do módulo \textbf{BMS 20A-3S-S\_SGT}, o circuito suporta correntes contínuas de descarga de até $20\,A$ e correntes transitórias de partida inferiores a $60\,A$, características adequadas para a aplicação proposta.
+Além do fornecimento energético, o sistema de alimentação também deve suportar as variações de corrente associadas ao acionamento dos motores. O módulo \textbf{BMS 20A-3S-S\_SGT} suporta correntes contínuas de descarga de até $20\,A$ e correntes transitórias de partida inferiores a $60\,A$, características adequadas para a aplicação proposta.
 
 \subsection{Cálculo de Autonomia da Bateria}
 
