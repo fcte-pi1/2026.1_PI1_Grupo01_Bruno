@@ -48,15 +48,15 @@ abrange a estrutura física do robô, decomposta em rodas, posicionamento dos
 sensores, chassi, estrutura de suporte à alimentação e montagem final. Essa
 separação evidencia que cada decisão construtiva, como o posicionamento dos
 sensores e a fixação da bateria, impacta diretamente o desempenho da navegação.
-O nó \textbf{4. Alimentação} trata do dimensionamento energético, do sistema de
-alimentação e de sua validação de forma isolada, o que é justificado pela criticidade desse subsistema para a estabilidade geral do robô.
 
-O nó \textbf{5. Hardware} foi subdividido em dois ramos distintos: 5.1.
+O nó \textbf{4. Alimentação} trata do dimensionamento energético, do sistema de
+alimentação e de sua validação de forma isolada, o que é justificado pela criticidade desse subsistema para a estabilidade geral do robô. O nó \textbf{5. Hardware} foi subdividido em dois ramos distintos: 5.1.
 Circuito Eletrônico e 5.2. Firmware. Essa separação reflete a diferença técnica entre os dois subsistemas: um físico e o outro lógico, e permite
 que a equipe trabalhe em paralelo com interfaces bem definidas entre si.
 O Circuito Eletrônico desdobra-se em seleção de componentes, modelagem do
 circuito, validação e montagem na placa, o firmware cobre o controle dos motores,
 a leitura dos sensores, o algoritmo de navegação e a comunicação via WebSocket.
+
 O nó \textbf{6. Sistemas} organiza o desenvolvimento do sistema web em três
 \textit{releases} incrementais: R1 (Comunicação e Controle), R2 (Telemetria em
 Tempo Real) e R3 (Persistência e Histórico). Essa estrutura em \textit{releases}
