@@ -2,117 +2,649 @@
 
 \section{Características gerais}
 
-\textcolor{red}{Descrever produto de forma geral. Apresentar itens teóricos sobre o projeto a serem aprofundados ou detalhados oportunamente.}
+O XAROPi é um robô móvel autônomo projetado para explorar
+e resolver três labirintos de configurações distintas: 4×4, 8×8 e 16×16.
+O desafio consiste em partir de uma posição inicial conhecida, mapear
+progressivamente o ambiente e alcançar a região central do labirinto. Para isso, o projeto é organizado em quatro domínios principais: estrutura, hardware, software e consumo energético, cujo escopo, organização
+e interdependências são descritos a seguir.
 
-\textcolor{red}{Apresentar e explicar a Estrutura Analítica do Projeto (EAP), tomando cuidado com a legibilidade da imagem. Se necessário, coloque a EAP dentro do comando ``\textsf{\textbackslash begin\{landscape\} \textbackslash end\{landscape\}}'' para que ela seja apresentada em uma página deitada.}
+A Estrutura Analítica do Projeto
+(EAP) é uma ferramenta de gerenciamento de escopo que decompõe hierarquicamente
+o trabalho total do projeto em entregas menores e mais gerenciáveis.
+Cada nível da hierarquia representa um detalhamento progressivo do trabalho: o nível
+superior identifica as grandes entregas do projeto, os níveis intermediários agrupam
+pacotes de trabalho relacionados e o nível mais baixo corresponde às atividades
+concretas a serem executadas pela equipe. Essa decomposição serve de base para o
+planejamento de cronograma, orçamento e responsabilidades, além de garantir que
+nenhum entregável relevante seja omitido do escopo. A EAP do XAROPi é apresentada
+na Figura~\ref{fig:eap}.
+
+\begin{landscape}
+    \clearpage 
+    \thispagestyle{empty} 
+    \begin{figure}[p]
+        \centering
+        \makebox[\linewidth][c]{
+            \includegraphics[width=1\linewidth]{figuras/eap.jpeg}
+        }
+        \vspace{0.2cm} 
+        \caption{Estrutura Analítica do Projeto (EAP) do XAROPi.}
+        \label{fig:eap}
+    \end{figure}
+    \thispagestyle{empty} 
+\end{landscape}
+
+
+
+O projeto é organizado em sete nós de primeiro nível, cuja decomposição
+reflete as decisões de escopo da equipe. O nó \textbf{1. Documentação} agrupa
+os artefatos de gestão do projeto: cronograma, orçamento, plano de testes e o
+próprio relatório. Sua presença como nó independente reforça que a documentação
+é um produto do projeto tão relevante quanto o robô físico. O nó \textbf{2.
+Labirinto} cobre a concepção e fabricação da arena de competição, incluindo o
+dimensionamento das paredes, a escolha do material do piso, o processo de
+fabricação e o ambiente de testes. O nó \textbf{3. Veículo}
+abrange a estrutura física do robô, decomposta em rodas, posicionamento dos
+sensores, chassi, estrutura de suporte à alimentação e montagem final. Essa
+separação evidencia que cada decisão construtiva, como o posicionamento dos
+sensores e a fixação da bateria, impacta diretamente o desempenho da navegação.
+
+O nó \textbf{4. Alimentação} trata do dimensionamento energético, do sistema de
+alimentação e de sua validação de forma isolada, o que é justificado pela criticidade desse subsistema para a estabilidade geral do robô. O nó \textbf{5. Hardware} foi subdividido em dois ramos distintos: 5.1.
+Circuito Eletrônico e 5.2. Firmware. Essa separação reflete a diferença técnica entre os dois subsistemas: um físico e o outro lógico, e permite
+que a equipe trabalhe em paralelo com interfaces bem definidas entre si.
+O Circuito Eletrônico desdobra-se em seleção de componentes, modelagem do
+circuito, validação e montagem na placa, o firmware cobre o controle dos motores,
+a leitura dos sensores, o algoritmo de navegação e a comunicação via WebSocket.
+
+O nó \textbf{6. Sistemas} organiza o desenvolvimento do sistema web em três
+\textit{releases} incrementais: R1 (Comunicação e Controle), R2 (Telemetria em
+Tempo Real) e R3 (Persistência e Histórico). Essa estrutura em \textit{releases}
+reflete uma estratégia de entrega incremental, na qual cada versão agrega
+funcionalidades sobre a anterior e permite validações intermediárias ao longo do
+desenvolvimento. Por fim, o nó \textbf{7. Verificação e Validação} consolida os testes
+de estrutura, energia, hardware e software como uma entrega formal e independente,
+garantindo rastreabilidade entre os requisitos levantados e as
+evidências de conformidade coletadas ao longo do projeto.
 
 \section{Estrutura}
 
 \textcolor{red}{Apresentar desenho em CAD, indicar dimensões por lado/aresta/cota, indicar materiais utilizados e explicar o desenho e as decisões de projeto.}
 
+\subsection{Explicação sobre a escolha das rodas}
 
-\subsection{Explicação da escolha das rodas}
+No estudo e desenvolvimento de robôs móveis, o diâmetro da roda constitui um dos parâmetros geométricos mais relevantes para o desempenho locomotor do sistema[cite: 9]. Sua influência se manifesta diretamente na capacidade de transposição de obstáculos, na estabilidade estrutural, na distribuição das forças de contato e na exigência de torque dos atuadores[cite: 10]. 
 
-No estudo e desenvolvimento de robôs móveis, o diâmetro da roda é um parâmetro geométrico fundamental que influencia diretamente o desempenho do sistema. Para o projeto específico do micromouse, recomenda-se a utilização de rodas de menor diâmetro, pois estas apresentam uma compatibilidade superior com os requisitos funcionais do robô. 
-Como o ambiente de operação do micromouse consiste em um labirinto plano, estruturado e com dimensões restritas, a principal necessidade do projeto não é a superação de obstáculos, mas sim a execução de movimentos que sejam simultaneamente rápidos, precisos e bem controlados. As rodas menores se destacam nesse cenário por proporcionarem maior precisão de movimento, um benefício direto do menor deslocamento linear que geram a cada rotação. 
-Esta redução no deslocamento linear aumenta a resolução do sistema de controle da plataforma. Com isso, o robô ganha a capacidade de realizar ajustes mais finos em sua trajetória, o que favorece correções precisas ao longo do percurso e minimiza o impacto de erros acumulados durante a navegação. Adicionalmente, as rodas de menor diâmetro possuem menor inércia, o que resulta em exigências menores de torque para o motor e garante respostas mais rápidas nos momentos de aceleração e desaceleração.
-Dessa forma, conclui-se que as rodas menores oferecem o melhor controle para as correções de trajetória e se adequam perfeitamente às severas limitações dimensionais do labirinto. Para uma aplicação como o micromouse, essas características de precisão e estabilidade de movimento provam ser consideravelmente mais relevantes do que a capacidade de transpor irregularidades no terreno.
+Para o projeto específico do micromouse, recomenda-se a utilização de rodas de menor diâmetro, pois estas apresentam maior compatibilidade com os requisitos funcionais deste tipo de robô[cite: 28]. Como o ambiente de operação é um labirinto plano, estruturado e composto por dimensões reduzidas, a principal exigência do projeto não reside na superação de obstáculos, mas na execução de movimentos rápidos, precisos e bem controlados ao longo do percurso[cite: 29].
+
+As rodas menores favorecem o projeto devido aos seguintes fatores técnicos:
+
+\begin{itemize}
+    \item \textbf{Precisão de Movimento:} Proporcionam maior controle fino em razão do menor deslocamento linear gerado a cada rotação[cite: 24, 30]. Isso aumenta a resolução do sistema de controle, permitindo ajustes de trajetória mais rigorosos[cite: 31].
+    \item \textbf{Resposta Dinâmica:} A utilização de diâmetros reduzidos diminui a inércia do sistema, o que favorece respostas mais rápidas em aceleração e desaceleração[cite: 24, 32].
+    \item \textbf{Torque e Eficiência:} Exigem menor esforço dos motores para atingir a aceleração desejada, otimizando o consumo e a resposta dos atuadores[cite: 24].
+    \item \textbf{Estabilidade e Erros Acumulados:} Contribuem para reduzir o impacto de erros acumulados durante a navegação, garantindo maior estabilidade no movimento em ambientes estreitos[cite: 32, 33].
+\end{itemize}
+
+Dessa forma, a escolha por rodas de menor diâmetro consolida-se como a alternativa mais apropriada para aplicações de micromouse, onde a precisão e a estabilidade do movimento são priorizadas em detrimento da capacidade de transposição de irregularidades no terreno[cite: 33].
 
 \section{Descrição de \textit{hardware}}
 
-\textcolor{red}{A descrição de \textit{hardware} no documento deve permitir que outras pessoas repliquem o produto proposto neste documento. Para isso, deve-se explicar de forma textual os principais sub-sistemas e as escolhas de projeto, além de indicar:}
+A presente seção detalha a arquitetura de hardware desenvolvida para o micromouse XAROPi. A descrição a seguir permite a compreensão e a plena replicação do produto proposto neste documento. Para isso, os subsistemas principais e as escolhas de projeto são explicados de forma textual, acompanhados da lista completa de componentes, do diagrama de blocos e, por fim, do esquema elétrico das conexões. \\
 
-\begin{itemize}
-    \item \textcolor{red}{ O diagrama de blocos \cite{blockdiagram}, que oferece uma visão geral do hardware, com as principais partes do sistema e as ligações entre elas.}
-    %\item A lista de materiais \cite{bom}, que facilita a montagem do sistema, indicando tudo que deve ser adquirido. Aproveitem a lista de materiais para apresentarem o orçamento dos mesmos.
-    \item \textcolor{red}{ O esquemático \cite{esquematico}, que mostra as conexões elétricas entre os componentes. Deve-se indicar os componentes por nomes e símbolos, e as conexões entre eles, incluindo a pinagem dos componentes. Se o esquemático ficar muito grande, pode-se separa-lo em vários esquemáticos. A ligação em \textit{protoboard} não é considerada um esquemático adequado.}
-\end{itemize}
+Para a concretização do projeto físico, foram selecionados componentes que equilibram custo, disponibilidade e desempenho para os requisitos de navegação autônoma. A Tabela \ref{tab:lista_materiais} apresenta a lista de materiais principal utilizada no chassi do robô.
 
-\textcolor{red}{A Fig. \ref{fig:diagrama_blocos_e_esquematico} apresenta o diagrama de blocos e o esquemático de um circuito conversor de corrente alternada para corrente direta, a título de exemplo. Repare que o diagrama de blocos indica os subsistemas do circuito completo apresentado no esquemático.
-% Comecem com o diagrama de blocos, que é mais genérico, e depois indiquem os detalhes com a lista de materiais e os esquemáticos.
-}
-
-\begin{figure}
+\subsection{Componentes eletrônicos presentes no projeto XAROPi}
+\begin{table}[H]
     \centering
-    \includegraphics[width=0.5\linewidth]{figuras/Exemplo-diagrama-de-blocos.png}
-    \includegraphics[width=0.5\linewidth]{figuras/Esquematico.png}
-    \caption{\textcolor{red}{Diagrama de blocos e esquemático de um circuito conversor de corrente alternada para corrente direta. Extraído de \cite{block_n_schematic}.}}
-    \label{fig:diagrama_blocos_e_esquematico}
+    \caption{Lista de materiais do Micromouse.}
+    \label{tab:lista_materiais}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|l|l|c|p{5cm}|}
+        \hline
+        \textbf{Componente} & \textbf{Modelo} & \textbf{Qtd.} & \textbf{Descrição} \\
+        \hline
+        Microcontrolador & ESP32-S3-WROOM-1-N16R8 & 1 & Responsável pelo processamento do algoritmo de navegação e telemetria. \\
+        \hline
+        Sensor de Distância (ToF) & VL53L0X & 3 & Mapeamento frontal e lateral das paredes do labirinto. \\
+        \hline
+        Sensor Inercial & MPU-6000 & 1 & Acelerômetro e giroscópio de 6 eixos para controle de orientação. \\
+        \hline
+        Micro Motor DC com Encoder & 6V-750RPM & 2 & Motores com caixas de redução e encoders de quadratura integrados. \\
+        \hline
+        Driver de Potência (Ponte H) & L298N & 1 & Módulo Ponte H baseado no CI L298N. \\
+        \hline
+        BMS & BMS-20A-3S-S & 1 & Módulo BMS (Battery Management System). \\
+        \hline
+        Regulador de Tensão (Step-down) & LM2596 & 1 & Fornece a tensão lógica adequada aos periféricos e ao microcontrolador. \\
+        \hline
+    \end{tabular}}
+\end{table}
+\subsection{Diagrama de blocos}
+A Figura \ref{fig:diagrama_blocos} apresenta o diagrama de blocos do sistema, ilustrando o fluxo de energia e a troca de dados entre os componentes. A arquitetura do robô é dividida logicamente em dois domínios principais: o subsistema de potência e o subsistema de controle e comunicação.
+
+No subsistema de alimentação, a energia fornecida pela bateria passa inicialmente pelo módulo BMS, responsável por proteger e garantir a integridade das células de lítio. Em seguida, o circuito é dividido em duas vias principais: uma linha de alta potência conectada diretamente à Ponte H, capaz de suprir a corrente exigida pelos motores, e uma linha secundária regulada pelo módulo LM2596. Este regulador reduz e estabiliza a tensão para alimentar de forma segura o microcontrolador ESP32-S3 e os sensores periféricos.
+
+O gerenciamento de todo o sistema é centralizado no ESP32-S3. Ele opera como o dispositivo mestre, realizando a leitura contínua dos dados do módulo inercial e dos sensores ToF por meio de um barramento de comunicação digital. A movimentação do robô ocorre sob um controle em malha fechada: o microcontrolador envia os comandos de atuação (PWM e direção) para a Ponte H e, simultaneamente, recebe o feedback odométrico por meio das interrupções geradas pelos encoders dos motores. Esse ciclo permite que o sistema calcule o deslocamento e ajuste a trajetória em tempo real.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figuras/diagrama_componentesFinal.png}
+    \captionsetup{font=footnotesize}
+    \caption{Diagrama de cblocos do Micromouse. As linhas contínuas pretas representam conexões físicas via protocolo I2C. As linhas verdes representam alimentação de (3,3V). As linhas vermelhas representam alimentação de (6V).}
+    \label{fig:diagrama_blocos}
+\end{figure}
+
+\subsection{Diagrama esquemático}
+A Figura \ref{fig:diagrama_esquematico} apresenta o diagrama esquemático do circuito, incluindo os componentes selecionados e suas ligações elétricas. Para melhorar a organização e a legibilidade do projeto, os componentes foram agrupados em blocos de acordo com suas funções, enquanto as conexões compartilhadas entre múltiplos blocos foram representadas por meio de \textit{net ports}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figuras/esquematico_micromouse_pi1.pdf}
+    \captionsetup{font=footnotesize}
+    \caption{Diagrama esquemático do circuito proposto para a construção do micromouse.}
+    \label{fig:diagrama_esquematico}
 \end{figure}
 
 \section{Análise de consumo energético}
 
-\textcolor{red}{Com relação ao consumo energético do produto desenvolvido, será necessário apresentar cálculos de consumo dos diversos componentes utilizados e explicar as decisões de projeto para atender a estas demandas.}
+O consumo energético do Micromouse XAROPi foi analisado com o objetivo de verificar a viabilidade do sistema de alimentação e garantir autonomia suficiente para a execução das provas. Para isso, realizou-se o levantamento dos principais subsistemas elétricos do robô, considerando a tensão de operação, a corrente média consumida e o tempo estimado de funcionamento de cada componente.
 
+A partir desses dados, foram efetuados os cálculos de potência e energia consumida, permitindo estimar a demanda energética total do sistema. Com base nessa estimativa, foram definidas as estratégias de alimentação, incluindo a escolha da bateria, do circuito de gerenciamento de energia e dos reguladores de tensão utilizados no projeto.
+
+
+\subsection{Identificação dos Subsistemas Elétricos}
+
+Nesta subseção são apresentados os principais componentes responsáveis pelo consumo energético do Micromouse XAROPi. Para cada subsistema, foram considerados a quantidade utilizada, a tensão nominal de operação, a corrente média consumida e o tempo estimado de funcionamento durante a execução da prova.
+
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{|l|c|c|c|c|}
+        \hline
+        \textbf{Componente} & \textbf{Quantidade} & \textbf{Tensão (V)} & \textbf{Corrente (mA)} & \textbf{Tempo (s)} \\ \hline
+        
+        BMS 20A-3S-S\_SGT & 1 & 7,4 & 1 & 1200 \\ \hline
+        
+        Motores DC com Encoder & 2 & 8,0 & 800 & 1200 \\ \hline
+        
+        Ponte H L298N & 1 & 5,0 & 50 & 1200 \\ \hline
+        
+        Sensor ToF VL53L0X & 3 & 3,5 & 20 & 1200 \\ \hline
+        
+        MPU-6000 & 1 & 3,5 & 4 & 1200 \\ \hline
+        
+        Regulador de Tensão LM2596 & 1 & 7,5 & 50 & 1200 \\ \hline
+        
+        Microcontrolador ESP32-S3 & 1 & 3,3 & 150 & 1200 \\ \hline
+        
+    \end{tabular}
+    
+    \caption{Levantamento de consumo dos subsistemas elétricos.}
+    \label{tab:consumo_energia}
+\end{table}
+
+\subsection{Cálculo da Energia Consumida por Componente}
+
+A energia consumida por cada componente foi estimada utilizando a seguinte equação:
+
+$$E = V \cdot I \cdot t$$
+
+onde:
 
 \begin{itemize}
-    \item \textcolor{red}{ \textbf{Identificação dos Subsistemas Elétricos:} liste todos os componentes que consumirão energia, como sensores, microcontroladores, atuadores e módulos de armazenamento de dados. Para cada componente, registre a tensão de operação (V), corrente média (mA) e tempo estimado de uso (s).}
-    \item \textcolor{red}{ \textbf{Cálculo da Energia Consumida por Componente:} utilize a fórmula: $E = V I t$, onde $E$ é a energia em joules, $V$ é a tensão em volts, $I$ a corrente em ampères e $t$ o tempo em segundos. Realize esse cálculo para cada componente do sistema.}
-    \item \textcolor{red}{ \textbf{Estimativa do Consumo Total de Energia:} some as energias de todos os componentes para obter o consumo energético total estimado do sistema por lançamento.}
-    \item \textcolor{red}{ \textbf{Escolha da Fonte de Alimentação:} com base no consumo total, converta para watt-hora: 1 Wh = 3600 J. Adicione e justifique uma margem de segurança (pesquisar o que é usual para este tipo de sistema) e selecione uma bateria ou fonte que supra a demanda.}
-    \item \textcolor{red}{ \textbf{Planejamento do Circuito de Alimentação:} analise a necessidade de inclusão de reguladores de tensão, proteções contra sobrecorrente, e isolamento para atuadores. Como as oscilações de tensão serão controladas?}
-    \item \textcolor{red}{ \textbf{Monitoramento via \textit{software}:} implemente, no \textit{software} embarcado, rotinas para medir a tensão da bateria e registrar dados de tempo de operação. Colete os dados para análise.}
-    \item \textcolor{red}{ \textbf{Validação com Testes Reais:} realize testes de campo para comparar o consumo estimado com o real. Ajuste a capacidade da fonte se necessário e refine o software de coleta de dados. Justifique a diferença de resultados (real x teórica), de acordo com a literatura.}
+    \item $E$ representa a energia consumida em joules (J);
+    \item $V$ representa a tensão elétrica em volts (V);
+    \item $I$ representa a corrente elétrica em ampères (A);
+    \item $t$ representa o tempo de operação em segundos (s).
 \end{itemize}
+
+Considerando um tempo de operação de $1200\,s$, foram obtidos os seguintes valores de consumo energético:
+
+\begin{itemize}
+
+    \item \textbf{BMS 20A-3S-S\_SGT:}
+    
+    $E = 7,4V \cdot 0,001A \cdot 1200s = 8,88\,J$
+
+    \item \textbf{Motores DC com Encoder (2 unidades):}
+    
+    $E = 2 \cdot (8V \cdot 0,8A \cdot 1200s) = 15.360,00\,J$
+
+    \item \textbf{Ponte H L298N:}
+    
+    $E = 5V \cdot 0,05A \cdot 1200s = 300,00\,J$
+
+    \item \textbf{Sensores ToF VL53L0X (3 unidades):}
+    
+    $E = 3 \cdot (3,5V \cdot 0,02A \cdot 1200s) = 252,00\,J$
+
+    \item \textbf{MPU-6000:}
+    
+    $E = 3,5V \cdot 0,004A \cdot 1200s = 16,80\,J$
+
+    \item \textbf{Regulador de Tensão LM2596:}
+    
+    $E = 7,5V \cdot 0,05A \cdot 1200s = 450,00\,J$
+
+    \item \textbf{Microcontrolador ESP32-S3:}
+    
+    $E = 3,3V \cdot 0,15A \cdot 1200s = 594,00\,J$
+
+\end{itemize}
+
+\vspace{0.5cm}
+
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{|l|c|c|c|c|}
+        \hline
+        
+        \textbf{Componente} & \textbf{Tensão (V)} & \textbf{Corrente (A)} & \textbf{Tempo (s)} & \textbf{Energia (J)} \\ \hline
+        
+        BMS 20A-3S-S\_SGT & 7,4 & 0,001 & 1200 & 8,88 \\ \hline
+        
+        Motores DC com Encoder (2x) & 8,0 & 0,800 & 1200 & 15.360,00 \\ \hline
+        
+        Ponte H L298N & 5,0 & 0,050 & 1200 & 300,00 \\ \hline
+        
+        Sensores ToF VL53L0X (3x) & 3,5 & 0,020 & 1200 & 252,00 \\ \hline
+        
+        MPU-6000 & 3,5 & 0,004 & 1200 & 16,80 \\ \hline
+        
+        Regulador LM2596 & 7,5 & 0,050 & 1200 & 450,00 \\ \hline
+        
+        ESP32-S3 & 3,3 & 0,150 & 1200 & 594,00 \\ \hline
+        
+        \textbf{Total} & \multicolumn{3}{c|}{-} & \textbf{16.981,68} \\ \hline
+        
+    \end{tabular}
+    
+    \caption{Resumo do consumo energético por componente.}
+    \label{tab:energia_componentes}
+\end{table}
+
+\subsection{Estimativa do Consumo Total de Energia}
+
+A estimativa do consumo energético total do sistema foi realizada a partir da soma das energias consumidas individualmente por cada subsistema elétrico do Micromouse XAROPi. Essa análise permite verificar a viabilidade energética do projeto e auxilia no dimensionamento adequado da bateria utilizada no robô.
+
+O consumo energético total do sistema pode ser obtido pela seguinte expressão:
+
+\[
+E_{total} = \sum_{i=1}^{n} E_i
+\]
+
+onde:
+
+\begin{itemize}
+    \item $E_{total}$ representa a energia total consumida pelo sistema;
+    \item $E_i$ representa a energia consumida individualmente por cada componente;
+    \item $n$ representa o número total de subsistemas analisados.
+\end{itemize}
+
+Substituindo os valores calculados anteriormente:
+
+\[
+E_{total} = 8,88 + 15.360,00 + 300,00 + 252,00 + 16,80 + 450,00 + 594,00
+\]
+
+\[
+E_{total} = 16.981,68\,J
+\]
+
+Portanto, o consumo energético total estimado para uma operação contínua de $1200\,s$ é de aproximadamente:
+
+\[
+\fbox{16.981,68\,J}
+\]
+
+Observa-se que os motores DC representam a maior parcela do consumo energético total do sistema, correspondendo à principal carga elétrica do robô. Em contrapartida, os sensores e o microcontrolador apresentam consumo significativamente inferior, contribuindo de forma reduzida para a demanda total de energia.
+
+Essa estimativa foi utilizada como base para o dimensionamento do sistema de alimentação, garantindo que a bateria selecionada seja capaz de suprir a corrente e a energia necessárias durante toda a operação do robô em ambiente de competição.
+
+\subsection{Escolha da Fonte de Alimentação}
+
+Com base no consumo energético total estimado de $16.981,68\,J$, realizou-se a conversão para watt-hora ($Wh$), unidade normalmente utilizada no dimensionamento de sistemas de alimentação embarcados:
+
+\[
+E_{total} = \frac{16.981,68\,J}{3600} \approx 4,72\,Wh
+\]
+
+Considerando as perdas elétricas associadas aos reguladores de tensão, variações de carga durante a movimentação do robô e oscilações decorrentes da aceleração dos motores DC, foi adotada uma margem de segurança de $30\%$, valor usualmente empregado em sistemas robóticos embarcados de pequeno porte.
+
+Assim, a demanda energética corrigida do sistema é dada por:
+
+\[
+E_{seguro} = 4,72\,Wh \cdot 1,3 \approx 6,13\,Wh
+\]
+
+Para suprir essa demanda energética, foi selecionada uma bateria do tipo Li-Po 2S1P, composta por células modelo 903048, com tensão nominal de $7,4\,V$ e capacidade de $1100\,mAh$.
+
+A energia total disponível na bateria pode ser estimada por:
+
+\[
+E_{bateria} = V \cdot Ah
+\]
+
+\[
+E_{bateria} = 7,4\,V \cdot 1,1\,Ah \approx 8,14\,Wh
+\]
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figuras/imagembateria.png}
+    \captionsetup{font=footnotesize}
+    \caption{Imagem ilustrativa da bateria selecionada.}
+\end{figure}
+
+
+Como a capacidade energética da bateria ($8,14\,Wh$) é superior à demanda corrigida do sistema ($6,13\,Wh$), conclui-se que a fonte de alimentação selecionada é adequada para alimentar o robô com margem suficiente de segurança operacional.
+
+\subsection{Planejamento do Circuito de Alimentação}
+
+O circuito de alimentação do Micromouse XAROPi foi planejado considerando as tensões e correntes de operação dos componentes eletrônicos utilizados no sistema.
+
+O sistema utiliza o módulo \textbf{BMS 20A-3S-S\_SGT} como elemento de gerenciamento e proteção da alimentação principal. Conforme especificado no datasheet, o módulo é compatível com baterias em configuração \textbf{3S}, permitindo uma tensão nominal de aproximadamente $11,1\,V$.
+
+Como os componentes do robô operam em diferentes níveis de tensão, torna-se necessária a utilização de conversão e distribuição adequada da alimentação elétrica. Os motores DC operam em aproximadamente $8\,V$, enquanto os sensores, o microcontrolador ESP32-S3 e os demais circuitos eletrônicos utilizam tensões inferiores, variando entre $3,3\,V$ e $5\,V$.
+
+Para adequação dessas tensões, foi previsto o uso do regulador de tensão \textbf{LM2596}, responsável pela conversão da tensão principal para níveis compatíveis com os demais subsistemas eletrônicos.
+
+Além do fornecimento energético, o sistema de alimentação também deve suportar as variações de corrente associadas ao acionamento dos motores. Conforme o datasheet do módulo \textbf{BMS 20A-3S-S\_SGT}, o circuito suporta correntes contínuas de descarga de até $20\,A$ e correntes transitórias de partida inferiores a $60\,A$, características adequadas para a aplicação proposta.
+
+\subsection{Cálculo de Autonomia da Bateria}
+
+A autonomia do sistema é determinada pela relação entre a energia disponível na bateria e a demanda de potência dos componentes. A autonomia teórica total é definida pela seguinte expressão:
+
+\[
+A = \frac{E_{bat}}{P}
+\]
+
+onde:
+
+\begin{itemize}
+    \item $A$ representa a autonomia do sistema (em horas ou minutos);
+    \item $E_{bat}$ representa a energia armazenada na bateria (em Wh);
+    \item $P$ representa a potência média consumida pelo sistema (em W).
+\end{itemize}
+
+Considerando a capacidade da bateria de $8,14\,Wh$ e a potência média de consumo de $14,15\,W$, obtém-se uma autonomia teórica de aproximadamente $34$ minutos.
+
+Na prática, no entanto, a autonomia real apresenta uma divergência em relação à teórica, sendo geralmente cerca de $30\%$ menor em função de perdas de carga no hardware. Entre os principais fatores estão o limite de descarga (DoD) de $80\%$, adotado para preservação das células da bateria, a eficiência de conversão do regulador LM2596, que opera em torno de $85\%$, e a dissipação térmica por efeito Joule na ponte H. Esses fatores, somados aos picos de corrente durante as manobras do protótipo, reduzem o tempo de operação segura para aproximadamente $24$ minutos, o que se mostra suficiente para cobrir $20$ minutos de percurso da prova.
+
 
 \section{Descrição de \textit{software}}
 
-\textcolor{red}{Itens fundamentais:}
+O sistema web do projeto XAROPi atua como a interface de monitoramento e controle do Micromouse. Seu propósito principal é fornecer um ambiente gráfico focado no acompanhamento em tempo real da navegação do robô no labirinto.
 
+A partir dos dados de telemetria enviados continuamente pelo hardware, a aplicação renderiza dinamicamente a matriz do labirinto. A interface atualiza a posição do micromouse na tela, exibe as paredes detectadas pelos sensores e mapeia o trajeto percorrido. Além da visualização ao vivo, o sistema dispõe de comandos de intervenção manual, permitindo ao usuário abortar ou reiniciar a execução remotamente.
+
+Adicionalmente, o software funciona como um repositório para as corridas concluídas. O registro do histórico consolida métricas de desempenho, como os tempos de resolução e as rotas efetivadas, viabilizando a consulta e a análise dos testes para auxiliar no aprimoramento da lógica de controle físico do robô.
+
+
+\subsection{Diagrama de Atividades}
+
+O Diagrama de Atividades (Figura \ref{fig:diagrama_atividades_sw}) descreve o comportamento funcional do sistema web do projeto XAROPi. A modelagem utiliza o particionamento por raias (\textit{swimlanes}) para estruturar o fluxo e evidenciar a fronteira entre os subsistemas da arquitetura.
+
+Com base na notação UML, o fluxo destaca os seguintes elementos funcionais:
 \begin{itemize}
-    \item \textcolor{red}{ \textbf{Diagrama BPMN para entender o \textit{software} proposto:} deve deixar claro os principais atores do sistema, suas atividades (de negócios), insumos e resultados.}
-    \item \textcolor{red}{\textbf{\textit{Backlog} funcional do \textit{software}:}}
-    \begin{itemize}
-        \item \textcolor{red}{ Escrito no formato de histórias de usuário ou casos de uso (decisão da equipe);}
-        \item \textcolor{red}{ Ao declarar o \textit{backlog} de requisitos funcionais, usar a  classificação de MoSCoW (\textit{Must have}, \textit{Should have} e \textit{Could have}),  para um melhor entendimento do próprio \textit{backlog}.}
-    \end{itemize}
-    \item \textcolor{red}{\textbf{ \textit{Backlog} não-funcional do \textit{software}:}}
-    \begin{itemize}
-        \item \textcolor{red}{ Descrever os requisitos não-funcionais de forma objetiva;}
-        \item \textcolor{red}{ Mais facilmente, mais rapidamente, são descrições subjetivas não-válidas. Um exemplo de requisito não-funcional de desempenho: ``a página deve carregar em até 5s quando em conexão 4G''. }
-    \end{itemize}
-    \item \textcolor{red}{ \textbf{Diagrama de casos de uso,} contendo os atores do sistema, os requisitos com os quais eles interagem e os tipos de relacionamentos entre requisitos realizados por um mesmo ator (ex.: \textit{include}, \textit{extend}). Obs.: este é um diagrama sobre requisitos funcionais.}
-    \item \textcolor{red}{ \textbf{Descrição da arquitetura da solução de \textit{software} proposta:}}
-    \begin{itemize}
-        \item \textcolor{red}{ Propósito do \textit{software} (qual o seu papel no sistema);}
-        \item \textcolor{red}{ Estilo arquitetural contendo:}
-        \begin{itemize}
-            \item \textcolor{red}{ Padrão adotado: MVC, MVP, Microsserviços, Monolítico, etc (Justificar);}
-            \item \textcolor{red}{ Linguagens de programação: Java, Python, C\#, JavaScript, etc.}
-            \item \textcolor{red}{ \textit{Frameworks} e bibliotecas: Spring Boot, .NET Core, React, Angular, Django, etc.}
-            \item \textcolor{red}{ Banco de dados: Relacional (PostgreSQL, MySQL, etc) X NãoSQL (MongoDB,etc). }
-        \end{itemize}
-        \item \textcolor{red}{ Diagrama de alto nível: representação esquemática dos componentes da arquitetura, suas responsabilidades e comunicações, esclarecendo a composição do \textit{front-end} e do \textit{back-end}.}
-    \end{itemize}
-    \item \textcolor{red}{ \textbf{Persistência de dados:} diagrama de entidade relacionamento do banco de dados usado na solução proposta.}
-    \item \textcolor{red}{ \textbf{Análise de dados:} as variáveis definidas nos requisitos do projeto em abordagem numérica e gráfica.}
-    \item \textcolor{red}{ \textbf{Diagrama de estados} esclarecendo os estados assumidos pelo \textit{software} e os eventos que causam as mudanças de estado do \textit{software}.}
-    \item \textcolor{red}{ \textbf{Protótipo funcional do \textit{software}, navegável.}}
-    \item \textcolor{red}{\textbf{ Roteiro de testes funcionais:} }
-    \begin{itemize}
-        \item \textcolor{red}{Código do caso de teste;}
-        \item \textcolor{red}{Nome do caso de teste;}
-        \item \textcolor{red}{Tipo do caso de teste (unitário, integrado ou sistema);}
-        \item \textcolor{red}{ Objetivo do caso de teste;}
-        \item \textcolor{red}{ Pré-condições do sistema para o teste ser realizado;}
-        \item \textcolor{red}{ Descrição dos procedimentos a serem executados para o teste;}
-        \item \textcolor{red}{ Resultado esperado para o teste ser aprovado (pós-condição após realizado o teste);}
-        \item \textcolor{red}{ Especificação do reparo a ser executado (caso o teste não seja aprovado);}
-        \item \textcolor{red}{ Resultado após reparo (o caso do teste ser necessário de ser repetido após reparo).}
-    \end{itemize}
+    \item \textbf{Atores envolvidos:} O Estudante e o sistema físico do Micromouse.
+    \item \textbf{Atividades de negócio:} Emissão de comandos de controle direcional, processamento da matriz lógica e renderização do trajeto.
+    \item \textbf{Insumos (Entradas):} Ações diretas na interface pelo usuário e pacotes de telemetria transmitidos pelo ESP32 via protocolo WebSocket.
+    \item \textbf{Resultados (Saídas):} Atualização dinâmica do mapa lógico na tela e a gravação final do histórico do percurso no Firebase.
+    \item \textbf{Pontos de decisão:} O diagrama apresenta nós de verificação condicionais, especificamente na validação prévia de conexão estabelecida e na condição de parada automática.
+\end{itemize}
+
+O fluxo de controle se desenvolve a partir do nó de estado inicial, transitando pelas atividades assíncronas do \textit{loop} de atualização e permitindo sinais de interrupção manual pelo usuário, até o armazenamento dos dados e o atingimento do estado final.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=15cm]{figuras/software/diagrama_atividades.png}
+    \caption{Diagrama de Atividades de Software XAROPi.}
+    \label{fig:diagrama_atividades_sw}
+\end{figure}
+
+\subsection{Backlog do Produto}
+
+O backlog do produto é uma lista priorizada de requisitos e funcionalidades que guia o desenvolvimento do produto. Ele foi estruturado com base na EAP do projeto, (add numero da figura), e classificado utilizando a técnica MoSCoW para priorizar os requisitos e histórias de usuário. 
+O backlog foi todo estruturado no github e pode ser acessado através deste \href{https://github.com/orgs/fcte-pi1/projects/8/views/1?visibleFields=%5B%22Title%22%2C274081113%2C274081114%2C%22Labels%22%2C%22Milestone%22%2C%22Assignees%22%2C%22Sub-issues+progress%22%2C%22Status%22%2C274081112%2C274081111%2C%22Linked+pull+requests%22%2C274111004%5D&hierarchy=true}{link}, onde é possivel observar com mais detalhes e compreender na sua totalidade o backlog do produto.
+
+Na figura \ref{fig:backlog_produto} é possível observar um recorte do backlog do produto onde é possivel observar as releases, épicos, histórias de usuário e a prioriação. Além disto, cada HU está relacionada há uma parte do protótipo, ao acessar a issue específica de cada HU é possível observar na descrição. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figuras/software/backlog.png}
+    \captionsetup{font=footnotesize}
+    \caption{Backlog do Produto (GitHub).}
+    \label{fig:backlog_produto}
+\end{figure}
+
+\subsubsection{Protótipo Funcional}
+O protótipo funcional foi desenvolvido com base nos requisitos funcionais que requerem apresentação e interação na interface, representados pelas Histórias do Usuário. Inicialmente, o protótipo possui duas páginas principais:
+\begin{enumerate}
+    \item \textbf{Página de Visão Geral:} Concentra as informações gerais de todos os testes, fornecendo métricas e gráficos importantes para uma visão holística dos testes executados. A implementação dessas funcionalidades serão essenciais para o monitoramento da evolução do projeto em uma perspectiva mais ampla Além disso, essa página também fornece uma tabela para consulta histórica dos dados de trajetos anteriores. Isso permitirá escolher quais recuperar informações de testes executados recuperar com uma visualização rápida. As HUs relacionadas a essa tela incluem: 
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/232}{HU03},  
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/233}{HU04}, 
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/248}{HU11}, 
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/249}{HU12}, 
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/250}{HU13}.
+    \item \textbf{Página de Monitoramento em Tempo Real:} É a página a ser utilizada durante a execução de cada caso de teste. Ela exibe informações em tempo real enviadas pelo robô, como distância percorrida, obstáculos encontrados, gasto da bateria, bem como renderiza o mapa em tempo real conforme o \textit{Micromouse} o explora. Por fim, essa página também constrói e exibe gráficos como de velocidade e consumo energético. As HUs relacionadas incluem: 
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/230}{HU01}, 
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/231}{HU02}, 
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/234}{HU05},  
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/235}{HU06},  
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/236}{HU07}, 
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/237}{HU08}, 
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/246}{HU09},  
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/247}{HU10},  
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/251}{HU14},  
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/252}{HU15},  
+\href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/253}{HU16};  
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figuras/software/prototipo.png}
+    \captionsetup{font=footnotesize}
+    \caption{Protótipo Funcional do Sistema.}
+    \label{fig:prototipo_funcional}
+\end{figure}
+
+\href{https://www.figma.com/proto/2ZyxT13T50XnVaUs51JKeb/XAROPi---Prot%C3%B3tipo-Funcional?page-id=0%3A1&node-id=46-1543&viewport=-1443%2C185%2C0.37&t=nvLNuJQbUXyazppG-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=46%3A1543}{Link para acessar o protótipo navegável.}
+
+\subsection{Descrição da Arquitetura do Software}
+\subsubsection{Propósito do Software}
+O propósito do software no projeto XAROPi é apresentar em um ambiente web e em tempo real os dados de telemetria do micromouse. Além disso, o sistema deve armazenar os dados das tentativas de resolução do labirinto e permitir consultas posteriores à finalização dos trajetos.
+
+\subsubsection{Padrão adotado}
+Para a viabilização dessas tarefas, optou-se por um modelo \textbf{monolítico em camadas}, com separação estrita entre a interface de usuário (\textit{frontend}), as lógicas de negócio (\textit{backend}) e a persistência de informações (banco de dados). A escolha pela arquitetura monolítica no lado do servidor justifica-se pela simplicidade de desenvolvimento e implantação, alinhando-se à curva de adaptação da equipe. A divisão lógica em camadas, por sua vez, garante a organização do código e facilita a manutenção.
+
+O ecossistema do software é unificado pelo uso de \textit{JavaScript/TypeScript} e estruturado nas seguintes tecnologias e padrões:
+
+\subsubsection{Tecnologias escolhidas}
+\begin{itemize}
+    \item \textbf{Interface (\textit{Frontend}):} Desenvolvida utilizando a biblioteca \textit{React}, operando com uma arquitetura orientada a componentes. A interface consome os dados do servidor e atualiza a visualização dinamicamente, separando a lógica de apresentação da lógica de processamento pesado.
+    \item \textbf{Servidor (\textit{Backend}):} Construído em \textit{Node.js} com o \textit{framework} \textit{NestJS}. O \textit{backend} adota uma \textbf{Arquitetura Modular} (Controladores e Serviços), atuando como uma API que fornece dados via HTTP/REST e mantém comunicação de baixa latência com o robô via protocolo \textit{WebSocket}.
+    \item \textbf{Banco de Dados:} Para o armazenamento das execuções, utiliza-se o \textit{Firebase}, um banco de dados \textit{NoSQL} orientado a documentos. Esta tecnologia permite gravar as matrizes do labirinto e tempos de percurso com alta flexibilidade e velocidade de consulta.
 \end{itemize}
 
 
-% \textcolor{red}{Com relação ao \textit{software}, será necessário apresentar os seguintes itens: % pacotes de componentes de \textit{software}, suas funções e características, e explicar as decisões de projeto:
-% \begin{enumerate}
-%     \item Um diagrama do processo de negócio do problema que a máquina se propõe a resolver (BPNM) – não é UML, mas é fundamental para entender como o sistema se comporta como um todo, incluindo o usuário;
-%     \item Lista de casos de uso (backlog do sistema). Backlog funcional;
-%     \item Lista de requisitos não-funcionais a serem satisfeitos pelo sistema;
-%     \item Diagrama de casos de uso: mostrando os requisitos funcionais, seus atores e como eles interagem entre si;
-%     \item Diagrama de Classes: apresentando quais dados são manipulados pelo sistema (internamente e externamente – ex.: resultados de experimentos);
-%     \item Diagrama de arquitetura, identificando todos os componentes da máquina e suas iterações com o software;
-%     \item Diagrama de estados da máquina (sistema);
-%     \item Descrição dos testes dos componentes da máquina e dos testes funcionais que deveriam ser feitos para avaliar o funcionamento da máquina e identificar defeitos. São importantes os testes unitários (componentes) e de integração (conjunto de componentes) e o roteiro de testes.
-% \end{enumerate}
-% }
-%\textcolor{red}{Com relação ao \textit{software}, será necessário apresentar pacotes de componentes de \textit{software}, suas funções e características, e explicar as decisões de projeto.}
+
+\subsection{Visão Lógica do Software}
+\subsubsection{Diagrama de Classes}
+
+A figura \ref{fig:diagrama_classes} apresenta o diagrama de classes do sistema, entre elas, classes para acesso ao banco de dados, para interpretação dos dados de telemetria para o frontend e para o recebimento e envio de dados com websocket. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=15cm]{figuras/software/diagrama_classes.png}
+    \captionsetup{font=footnotesize}
+    \caption{Diagrama de Classes do Sistema.}
+    \label{fig:diagrama_classes}
+\end{figure}
+
+\subsection{Visão de Processos do Software}
+
+\subsubsection{Diagramas de Sequência}
+
+Os Diagramas de Sequência detalham as interações temporais entre os componentes do sistema web e os agentes externos. A modelagem foca na troca de mensagens via protocolos WebSocket (tempo real) e HTTP/REST (histórico), cobrindo os fluxos críticos de operação do XAROPi.
+
+O \textbf{Cenário de Execução Principal} (Figura \ref{fig:seq_execucao}) descreve o fluxo nominal de uma corrida. Ele demonstra a sincronização entre a interface do estudante e o hardware (ESP32), evidenciando o processamento das mensagens de telemetria e a persistência automática dos dados no Firebase ao atingir o objetivo.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figuras/software/seq_execucao.png}
+    \caption{Diagrama de Sequência: Fluxo de Execução Principal.}
+    \label{fig:seq_execucao}
+\end{figure}
+
+O \textbf{Cenário de Interrupções} (Figura \ref{fig:seq_interrupcao}) mapeia a resiliência do software diante de eventos assíncronos. O diagrama ilustra o tratamento de comandos de parada manual e reinicialização enviados pelo usuário, garantindo que o estado da aplicação permaneça consistente mesmo em abortos inesperados de trajeto.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figuras/software/seq_interrupcao.png}
+    \caption{Diagrama de Sequência: Fluxo de Interrupções e Resets.}
+    \label{fig:seq_interrupcao}
+\end{figure}
+
+Por fim, o \textbf{Cenário de Consulta ao Histórico} (Figura \ref{fig:seq_historico}) detalha a recuperação de dados persistidos. O fluxo demonstra a comunicação entre o \textit{frontend} e o banco de dados para a renderização de trajetos passados, permitindo a análise de desempenho do robô após as corridas.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figuras/software/seq_historico.png}
+    \caption{Diagrama de Sequência: Recuperação de Histórico.}
+    \label{fig:seq_historico}
+\end{figure}
+
+
+\subsection{Visão de Implementação de Software} 
+
+    A Visão de Implementação descreve o sistema através de modulos que representam as tecnologias que serão utilizadas para implementar os requisitos elicitados em código real. Deste modo, o software foi estruturado em quatro camadas principais: \textit{Firmware}, \textit{Backend}, \textit{Frontend} e \textit{Banco de Dados}.
+
+\subsubsection{Diagrama de Componentes} 
+
+Na Figura \ref{fig:diagrama_componentes}, temos o Diagrama de Componentes que decompõe o sistema em quatro partes que interagem entre si para realizar as funções de navegação, telemetria e registro/acesso ao banco de dados:
+
+    \begin{itemize}
+
+        \item \textbf{Device ESP32:} É o núcleo de hardware, contendo o \textit{NavigationEngine} para processar o algoritmo de labirinto, \textit{SensorController} para leitura das paredes, o \textit{BatteryMonitor} e por último o \textit{WifiClient} para estabelecer a pone de dados com o servidor 
+
+        \item \textbf{Subsistema Backend em NestJS:} É o núcleo do backend. O \textit{WSGateway} gerencia as conexões em tempo real com o Firmware e o Frontend. O \textit{TelemetryProcessor} filtra e trata os dados brutos recebidos da ESP32. O \textit{DatabaseAccess} faz a comunicação direta com o banco de dados. Por último, o \textit{TryService} gerencia a corrida atual e o \textit{HistoryController} e \textit{HistoryService:} são responsáveis pelo fluxo de dados do histórico.
+
+        \item \textbf{Subsistema Frontend em React.js:} É o núcleo das interfaces frontend. O \textit{TelemetryService} recebe a telemetria do backend e a distribui no front. O \textit{MazeMapView} renderiza o labirinto dinamicamente conforme o micromouse explora. O \textit{ControlService} inicia e para o micromouse remotamente. Por último, o \textit{TelemetryDashboard} exibe a telemetria, como a velocidade e bateria, em formato de widgets e o \textit{HistoryViewer} permite a busca de percursos no banco de  dados.
+
+        \item \textbf{Database Firebase:} Represeta o banco de dados do sistema através do \textit{RealtimeDatabase}. O  TelemetryProcessor alimenta o banco, o TelemetryService faz requisições de leitura e o ControlService realiza operações de escrita.
+
+    \end{itemize}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{figuras/software/diagrama_componentes.png}
+        \caption{Diagrama de Componentes.}
+        \label{fig:diagrama_componentes}
+    \end{figure}
+
+\subsubsection{Diagrama de Pacotes}
+    O diagrama de pacotes (Figura \ref{fig:diagrama_pacotes_sw}) descreve os relacionamentos de dependência entre um pacote para outro, mostrado a disposição de cada elemento de modelo e esclarecer a estrutura hierárquia dos elementos.
+
+    A estrutura é dividida em Frontend, representa a aplicação da interface, dividida em módulos como de componentes, lógica e comunicação, Backend, representa a comunicação entre esses dados, dividida em módulos como de telemetria e controle, EPS32, detalha o software que roda no \textit{micromouse}, dividido em módulos como de Navegação e serviço WiFi, e Firebase, que é uma camada externa utilizada para guardar os dados.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{figuras/software/diagrama-de-pacotes.png}
+        \caption{Diagrama de Pacotes.}
+        \label{fig:diagrama_pacotes_sw}
+    \end{figure}
+
+\subsection{Visão de Implantação do Software}
+\subsubsection{Diagrama de Implantação}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figuras/software/diagrama_implantacao.png}
+    \captionsetup{font=footnotesize}
+    \caption{Diagrama de implantação do sistema.}
+    \label{fig:diagrama_implantacao}
+\end{figure}
+
+A Fig.~\ref{fig:diagrama_implantacao} demonstra a arquitetura do sistema, caminhos de comunicação entre o \textit{Micromouse}, o sistema web, e o banco de dados, e como esses subsistemas se dispõem entre o rato físico, o dispositivo do usuário, e o serviço de banco de dados.
+
+A comunicação entre os subsistemas acontece principalmente através de \textit{WebSocket} a fim de possibilitar o acompanhamento em tempo real da navegação do \textit{micromouse}; essa mesma razão justifica a escolha do \textbf{Firebase Realtime Database} como serviço de banco de dados. No \textit{micromouse} e back-end do servidor web, essa conexão é facilitada por módulo incluso na \textbf{ESP32} e a framework \textbf{NestJS}, respectivamente.
+
+Como espera-se que o back-end e o front-end do servidor web sejam executados na mesma máquina (dispositivo do usuário), a conexão por \textit{HTTPS} foi determinada como suficiente para o funcionamento da interface de usuário.
+
+O diagrama mostra também a relação de dependência entre o back-end e o \textit{micromouse} — indicando que o rato é capaz de operar independentemente — e entre o front-end e o back-end. 
+
+\subsection{Visão de Dados do Software} 
+
+A Visão de Dados descreve a forma como as informações geradas, processadas e consumidas pelo sistema são estruturadas e armazenadas. Tendo em vista as características do projeto, que exige alta taxa de transferência e armazenamento de dados de telemetria em tempo real, optou-se pela utilização do Firebase, um banco de dados NoSQL orientado a documentos que armazena os dados em coleções, as quais contêm documentos que podem abrigar subcoleções.
+
+\subsubsection{Diagrama de Estrutura de Documentos} 
+    Na Figura \ref{fig:diagrama_estrutura_documentos}, temos o Diagrama de Estrutura de Documentos que reflete a modelagem escolhida para otimizar as consultas do sistema web. A base de dados está dividida em duas coleções principais:
+
+    \begin{itemize}
+        \item \textbf{Coleção Labirinto:} Responsável por armazenar a estrutura física e lógica do labirinto percorrido. Cada documento representa um labirinto específico e possui atributos como \textit{id} e \textit{status}, além de uma subcoleção \textit{Nos} e uma subcoleção de metadados para dimensionamento.
+        \item \textbf{Coleção Tentativa:} Responsável por armazenar o registro de telemetria do Micromouse. Cada vez que o robô inicia um percurso, um novo documento é criado nesta coleção, contendo atributos da tentativa e subcoleções específicas para os dados de velocidade e de bateria.
+    \end{itemize}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\textwidth]{figuras/software/diagrama_estrutura_documentos.png}
+        \caption{Diagrama de Estrutura de Documentos.}
+        \label{fig:diagrama_estrutura_documentos}
+    \end{figure}
+
+    \subsection{Roteiro de testes funcionais}
+
+    Os roteiro de testes funcionais pode ser observado na Tabela \ref{tab:roteiro_testes_funcionais}
+
+    \begin{table}[H]
+        \centering
+        \caption{Casos de testes funcionais}
+        \label{tab:roteiro_testes_funcionais}
+        \footnotesize
+        \begin{tabular}{|p{0.9cm}|p{2.3cm}|p{2.3cm}|p{3cm}|p{3cm}|p{3.2cm}|}
+        \hline
+        Id   & Nome                                & Objetivo                                                               & Pré-condições                                                                                                                                                            & Procedimentos                                                                                                                                                              & Pós-condições                                                                                                                                                                      \\ \hline
+        CT01 & Monitoramento do percurso           & Validar a exibição e recebimento dos dados de telemetria do micromouse & Micromouse navegando no labirinto, servidor aberto e rodando a aplicação Web e micromouse conectado ao servidor via websocket & Iniciar o percurso e e Observar a interface web durante a execução                                                               & A interface web deve atualizar em tempo real as informações: posição no labirinto, amperagem da bateria, voltagem da bateria, velocidade, tempo da execução e status da tentativa. \\ \hline
+        CT02 & Comandos remotos                    & Validar comandos remotos para o micromouse                             & Servidor aberto e rodando a aplicação Web e micromouse conectado ao servidor via websocket                                      & Apertar botão de “iniciar”, confirmar início da execução, apertar botão de “reiniciar”, confirmar reinício da execução & O sistema deve iniciar a tentativa no labirinto e o cronômetro, resetá-lo ao reiniciar.                                                                                           \\ \hline
+        CT03 & Finalização e métricas da tentativa & Validar processamento dos dados ao término da tentativa                & Servidor aberto e rodando a aplicação Web, micromouse conectado ao servidor via websockete e tentativa em andamento.            & Executar a tentativa até a finalização, interrupção ou falhae e observar tela final                                              & A interface web deve informar falha/sucesso e exibir as informações médias da tentativa                                                                                           \\ \hline
+        CT04 & Armazenamento de dados              & Validar o salvamento de informações após o término da tentativa.       & Servidor aberto e rodando a aplicação Web, micromouse conectado ao servidor via websockete e tentativa finalizada               & Finalizar a tentativae e consultar a tentativa no banco                                                                          & Os dados devem ser armazenados no banco de dados sem nenhuma perda de informação                                                                                                   \\ \hline
+        CT05 & Consulta de histórico               & Validar consulta de tentativas anteriores.                             & Servidor aberto e rodando a aplicação Web e existência de registros salvos no banco.                                            & Pesquisar uma tentativa e clicar para visualização                                                                             & Os dados devem ser apresentados em tela sem nenhuma perda de informação para qualquer tipo de labirinto \\ \hline
+        \end{tabular}
+    \end{table}
+
+    
+    % \textcolor{red}{Itens fundamentais:}
+    % \begin{itemize}
+    %     \item \textcolor{red}{\textbf{\textit{Backlog} do Produto}}
+    %     \begin{itemize}
+    %         \item \textcolor{red}{ Descrever os requisitos funcionais (RF) com a técnica de documentação e especificação de história de usuário (HU);}
+    %         \item \textcolor{red}{ Descrever os requisitos não-funcionais (RNF) de forma objetiva; Mais facilmente, mais rapidamente, mais responsivo, de fácil uso, são descrições subjetivas não-válidas. Um exemplo de requisito não-funcional de desempenho: ``a página deve carregar em até 5s quando em conexão 4G''.}
+    %         \item \textcolor{red}{ Ao descrever os requisitos (RF e RNF), usar a classificação MoSCoW (\textit{Must have}, \textit{Should have} e \textit{Could have}), para auxiliar a priorização dos itens do backlog.}
+    %         \item \textcolor{red}{ Protótipos de interface gráfica do \textit{software} em alta fidelidade.}
+    %     \end{itemize}
+    % \end{itemize}
+
+    % \begin{itemize}
+    % \item \textcolor{red}{ \textbf{Descrição da arquitetura da solução de \textit{software} proposta:}}
+    
+    %     \item \textcolor{red}{ Esta subseção deve contemplar o documento de arquitetura do sistema e deve ser estruturado segundo as visões (4+1) previstas no processo unificado (UP): lógica, de processos;  implementação, implantação e dados (substuirá a visão de casos de uso).}
+        
+    %     \item \textcolor{red}{ Propósito do \textit{software} (qual o seu papel no sistema);}
+    %     \item \textcolor{red}{ Padrão adotado : MVC, MVP, Microsserviços, Monolítico, etc (Justificar);}
+    %     \item \textcolor{red}{ Linguagens de programação: Java, Python, C\#, JavaScript, etc.}
+    %     \item \textcolor{red}{ \textit{Frameworks} e bibliotecas: Spring Boot, .NET Core, React, Angular, Django, etc.}
+    %     \item \textcolor{red}{ Banco de dados: Relacional (PostgreSQL, MySQL, etc) X NãoSQL (MongoDB,etc). }
+    %     \item \textcolor{red}{Persistência de dados: Modelo Entidade‑Relacionamento (MER) e seu respectivo Diagrama Entidade‑Relacionamento (DER), aplicáveis quando a solução utiliza banco de dados relacional; alternativamente, diagrama de estrutura de documentos, empregado nos casos em que a arquitetura adota banco de dados não relacional.}
+    % \end{itemize}  
+
+    % \begin{itemize}
+    % \item \textcolor{red}{\textbf{ Roteiro de testes funcionais:} }
+    %     \item \textcolor{red}{Código do caso de teste;}
+    %     \item \textcolor{red}{Nome do caso de teste;}
+    %     \item \textcolor{red}{ Objetivo do caso de teste;}
+    %     \item \textcolor{red}{ Pré-condições do sistema para o teste ser realizado, quando se aplicar;}
+    %     \item \textcolor{red}{ Descrição dos procedimentos a serem executados para o teste;}
+    %     \item \textcolor{red}{ Resultado esperado para o teste ser aprovado (pós-condição após realizado o teste);}
+    % \end{itemize}
+% \end{itemize}
+
