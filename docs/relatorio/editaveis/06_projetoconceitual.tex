@@ -105,6 +105,7 @@ Primeiramente, fez-se uma pesquisa acerca do peso dos componentes de maneira ind
     \centering
     \caption{Pesagem dos componentes}
     \label{tab:peso_componentes}
+    \scriptsize
     \resizebox{\textwidth}{!}{%
     \begin{tabular}{|l|l|c|p{5cm}|}
         \hline
@@ -385,7 +386,7 @@ O fluxo de controle se desenvolve a partir do nó de estado inicial, transitando
 
 \subsection{Backlog do Produto}
 
-O backlog do produto é uma lista priorizada de requisitos e funcionalidades que guia o desenvolvimento do produto. Ele foi estruturado com base na EAP do projeto, (add numero da figura), e classificado utilizando a técnica MoSCoW para priorizar os requisitos e histórias de usuário. 
+O backlog do produto é uma lista priorizada de requisitos e funcionalidades que guia o desenvolvimento do produto. Ele foi estruturado com base na EAP do projeto, \ref{fig:eap}, e classificado utilizando a técnica MoSCoW para priorizar os requisitos e histórias de usuário. 
 O backlog foi todo estruturado no github e pode ser acessado através deste \href{https://github.com/orgs/fcte-pi1/projects/8/views/1?visibleFields=%5B%22Title%22%2C274081113%2C274081114%2C%22Labels%22%2C%22Milestone%22%2C%22Assignees%22%2C%22Sub-issues+progress%22%2C%22Status%22%2C274081112%2C274081111%2C%22Linked+pull+requests%22%2C274111004%5D&hierarchy=true}{link}, onde é possivel observar com mais detalhes e compreender na sua totalidade o backlog do produto.
 
 Na figura \ref{fig:backlog_produto} é possível observar um recorte do backlog do produto onde é possivel observar as releases, épicos, histórias de usuário e a prioriação. Além disto, cada HU está relacionada há uma parte do protótipo, ao acessar a issue específica de cada HU é possível observar na descrição. 
@@ -399,7 +400,7 @@ Na figura \ref{fig:backlog_produto} é possível observar um recorte do backlog 
 \end{figure}
 
 \subsubsection{Protótipo Funcional}
-O protótipo funcional foi desenvolvido com base nos requisitos funcionais que requerem apresentação e interação na interface, representados pelas Histórias do Usuário. Inicialmente, o protótipo possui duas páginas principais:
+O protótipo funcional foi desenvolvido com base nos requisitos funcionais que requerem apresentação e interação na interface, representados pelas Histórias do Usuário e pode ser acessado pelo \href{https://www.figma.com/proto/2ZyxT13T50XnVaUs51JKeb/XAROPi---Prot%C3%B3tipo-Funcional?page-id=0%3A1&node-id=46-1543&viewport=-1443%2C185%2C0.37&t=nvLNuJQbUXyazppG-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=46%3A1543}{link}. Inicialmente, o protótipo possui duas páginas principais:
 \begin{enumerate}
     \item \textbf{Página de Visão Geral:} Concentra as informações gerais de todos os testes, fornecendo métricas e gráficos importantes para uma visão holística dos testes executados. A implementação dessas funcionalidades serão essenciais para o monitoramento da evolução do projeto em uma perspectiva mais ampla Além disso, essa página também fornece uma tabela para consulta histórica dos dados de trajetos anteriores. Isso permitirá escolher quais recuperar informações de testes executados recuperar com uma visualização rápida. As HUs relacionadas a essa tela incluem: 
 \href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/232}{HU03},  
@@ -429,11 +430,11 @@ O protótipo funcional foi desenvolvido com base nos requisitos funcionais que r
     \label{fig:prototipo_funcional}
 \end{figure}
 
-\href{https://www.figma.com/proto/2ZyxT13T50XnVaUs51JKeb/XAROPi---Prot%C3%B3tipo-Funcional?page-id=0%3A1&node-id=46-1543&viewport=-1443%2C185%2C0.37&t=nvLNuJQbUXyazppG-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=46%3A1543}{Link para acessar o protótipo navegável.}
+
 
 \subsection{Descrição da Arquitetura do Software}
-\subsubsection{Propósito do Software}
-O propósito do software no projeto XAROPi é apresentar em um ambiente web e em tempo real os dados de telemetria do micromouse. Além disso, o sistema deve armazenar os dados das tentativas de resolução do labirinto e permitir consultas posteriores à finalização dos trajetos.
+% \subsubsection{Propósito do Software}
+% O propósito do software no projeto XAROPi é apresentar em um ambiente web e em tempo real os dados de telemetria do micromouse. Além disso, o sistema deve armazenar os dados das tentativas de resolução do labirinto e permitir consultas posteriores à finalização dos trajetos.
 
 \subsubsection{Padrão adotado}
 Para a viabilização dessas tarefas, optou-se por um modelo \textbf{monolítico em camadas}, com separação estrita entre a interface de usuário (\textit{frontend}), as lógicas de negócio (\textit{backend}) e a persistência de informações (banco de dados). A escolha pela arquitetura monolítica no lado do servidor justifica-se pela simplicidade de desenvolvimento e implantação, alinhando-se à curva de adaptação da equipe. A divisão lógica em camadas, por sua vez, garante a organização do código e facilita a manutenção.
@@ -546,11 +547,11 @@ Na Figura \ref{fig:diagrama_componentes}, temos o Diagrama de Componentes que de
 
 A Fig.~\ref{fig:diagrama_implantacao} demonstra a arquitetura do sistema, caminhos de comunicação entre o \textit{Micromouse}, o sistema web, e o banco de dados, e como esses subsistemas se dispõem entre o rato físico, o dispositivo do usuário, e o serviço de banco de dados.
 
-A comunicação entre os subsistemas acontece principalmente através de \textit{WebSocket} a fim de possibilitar o acompanhamento em tempo real da navegação do \textit{micromouse}; essa mesma razão justifica a escolha do \textbf{Firebase Realtime Database} como serviço de banco de dados. No \textit{micromouse} e back-end do servidor web, essa conexão é facilitada por módulo incluso na \textbf{ESP32} e a framework \textbf{NestJS}, respectivamente.
+A comunicação entre os subsistemas acontece principalmente através de \textit{WebSocket} a fim de possibilitar o acompanhamento em tempo real da navegação do \textit{micromouse}. No \textit{micromouse} e back-end do servidor web, essa conexão é facilitada por módulo incluso na \textbf{ESP32} e a framework \textbf{NestJS}, respectivamente.
 
 Como espera-se que o back-end e o front-end do servidor web sejam executados na mesma máquina (dispositivo do usuário), a conexão por \textit{HTTPS} foi determinada como suficiente para o funcionamento da interface de usuário.
 
-O diagrama mostra também a relação de dependência entre o back-end e o \textit{micromouse} — indicando que o rato é capaz de operar independentemente — e entre o front-end e o back-end. 
+O diagrama mostra também a relação de dependência entre o back-end e o \textit{micromouse}, indicando que o rato é capaz de operar independentemente, e entre o front-end e o back-end. 
 
 \subsection{Visão de Dados do Software} 
 
@@ -575,11 +576,12 @@ A Visão de Dados descreve a forma como as informações geradas, processadas e 
 
     Os roteiro de testes funcionais pode ser observado na Tabela \ref{tab:roteiro_testes_funcionais}
 
+    
     \begin{table}[H]
         \centering
         \caption{Casos de testes funcionais}
         \label{tab:roteiro_testes_funcionais}
-        \footnotesize
+        \scriptsize
         \begin{tabular}{|p{0.9cm}|p{2.3cm}|p{2.3cm}|p{3cm}|p{3cm}|p{3.2cm}|}
         \hline
         Id   & Nome                                & Objetivo                                                               & Pré-condições                                                                                                                                                            & Procedimentos                                                                                                                                                              & Pós-condições                                                                                                                                                                      \\ \hline
