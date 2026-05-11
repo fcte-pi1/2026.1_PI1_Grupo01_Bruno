@@ -2,9 +2,70 @@
 
 \section{Características gerais}
 
-\textcolor{red}{Descrever produto de forma geral. Apresentar itens teóricos sobre o projeto a serem aprofundados ou detalhados oportunamente.}
+O XAROPi é um robô móvel autônomo projetado para explorar
+e resolver três labirintos de configurações distintas: 4×4, 8×8 e 16×16.
+O desafio consiste em partir de uma posição inicial conhecida, mapear
+progressivamente o ambiente e alcançar a região central do labirinto. Para isso, o projeto é organizado em quatro domínios principais: estrutura, hardware, software e consumo energético, cujo escopo, organização
+e interdependências são descritos a seguir.
 
-\textcolor{red}{Apresentar e explicar a Estrutura Analítica do Projeto (EAP), tomando cuidado com a legibilidade da imagem. Se necessário, coloque a EAP dentro do comando ``\textsf{\textbackslash begin\{landscape\} \textbackslash end\{landscape\}}'' para que ela seja apresentada em uma página deitada.}
+A Estrutura Analítica do Projeto
+(EAP) é uma ferramenta de gerenciamento de escopo que decompõe hierarquicamente
+o trabalho total do projeto em entregas menores e mais gerenciáveis.
+Cada nível da hierarquia representa um detalhamento progressivo do trabalho: o nível
+superior identifica as grandes entregas do projeto, os níveis intermediários agrupam
+pacotes de trabalho relacionados e o nível mais baixo corresponde às atividades
+concretas a serem executadas pela equipe. Essa decomposição serve de base para o
+planejamento de cronograma, orçamento e responsabilidades, além de garantir que
+nenhum entregável relevante seja omitido do escopo. A EAP do XAROPi é apresentada
+na Figura~\ref{fig:eap}.
+
+\begin{landscape}
+    \clearpage 
+    \thispagestyle{empty} 
+    \begin{figure}[p]
+        \centering
+        \makebox[\linewidth][c]{
+            \includegraphics[width=1\linewidth]{figuras/eap.jpeg}
+        }
+        \vspace{0.2cm} 
+        \caption{Estrutura Analítica do Projeto (EAP) do XAROPi.}
+        \label{fig:eap}
+    \end{figure}
+    \thispagestyle{empty} 
+\end{landscape}
+
+
+
+O projeto é organizado em sete nós de primeiro nível, cuja decomposição
+reflete as decisões de escopo da equipe. O nó \textbf{1. Documentação} agrupa
+os artefatos de gestão do projeto: cronograma, orçamento, plano de testes e o
+próprio relatório. Sua presença como nó independente reforça que a documentação
+é um produto do projeto tão relevante quanto o robô físico. O nó \textbf{2.
+Labirinto} cobre a concepção e fabricação da arena de competição, incluindo o
+dimensionamento das paredes, a escolha do material do piso, o processo de
+fabricação e o ambiente de testes. O nó \textbf{3. Veículo}
+abrange a estrutura física do robô, decomposta em rodas, posicionamento dos
+sensores, chassi, estrutura de suporte à alimentação e montagem final. Essa
+separação evidencia que cada decisão construtiva, como o posicionamento dos
+sensores e a fixação da bateria, impacta diretamente o desempenho da navegação.
+O nó \textbf{4. Alimentação} trata do dimensionamento energético, do sistema de
+alimentação e de sua validação de forma isolada, o que é justificado pela criticidade desse subsistema para a estabilidade geral do robô.
+
+O nó \textbf{5. Hardware} foi subdividido em dois ramos distintos: 5.1.
+Circuito Eletrônico e 5.2. Firmware. Essa separação reflete a diferença técnica entre os dois subsistemas: um físico e o outro lógico, e permite
+que a equipe trabalhe em paralelo com interfaces bem definidas entre si.
+O Circuito Eletrônico desdobra-se em seleção de componentes, modelagem do
+circuito, validação e montagem na placa, o firmware cobre o controle dos motores,
+a leitura dos sensores, o algoritmo de navegação e a comunicação via WebSocket.
+O nó \textbf{6. Sistemas} organiza o desenvolvimento do sistema web em três
+\textit{releases} incrementais: R1 (Comunicação e Controle), R2 (Telemetria em
+Tempo Real) e R3 (Persistência e Histórico). Essa estrutura em \textit{releases}
+reflete uma estratégia de entrega incremental, na qual cada versão agrega
+funcionalidades sobre a anterior e permite validações intermediárias ao longo do
+desenvolvimento. Por fim, o nó \textbf{7. Verificação e Validação} consolida os testes
+de estrutura, energia, hardware e software como uma entrega formal e independente,
+garantindo rastreabilidade entre os requisitos levantados e as
+evidências de conformidade coletadas ao longo do projeto.
 
 \section{Estrutura}
 
