@@ -1,0 +1,119 @@
+.lab-cards-container {
+    display: flex;
+    align-items: stretch; 
+    width: 100%;
+    gap: 24px;
+}
+
+.lab-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 30px 24px;
+    background-color: #161617;
+}
+
+.lab-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 80px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.lab-level {
+    color: var(--orange);
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    font-family: monospace;
+    margin: 0 0 8px 0;
+}
+
+.lab-card h2 {
+    color: #FFFFFF;
+    font-size: clamp(1.4rem, 3vw, 1.8rem); 
+    line-height: 1.1;
+    font-weight: 700;
+    margin: 0;
+}
+
+.lab-desc {
+    color: #888888;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+    text-align: center;
+}
+
+.maze-visual {
+    width: 100%;         
+    max-width: 150px;
+    aspect-ratio: 1 / 1; 
+    background-color: #1A1A1A;
+    border: 1px solid #333;
+    margin-bottom: 16px;
+    background-image:
+        linear-gradient(to right, #333 1px, transparent 1px),
+        linear-gradient(to bottom, #333 1px, transparent 1px);
+    background-position: top left;
+}
+
+.grid-4x4   { background-size: 25% 25%; }
+.grid-8x8   { background-size: 12.5% 12.5%; }
+.grid-16x16 { background-size: 6.25% 6.25%; }
+@media (max-width: 768px) {
+    .line-header {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important; 
+        width: 100%;
+        gap: 15px;
+    }
+    
+    .lab-size-section .system-header h1{
+      font-size: 1.8rem; 
+      line-height: 1.1;
+      margin-top: 1rem !important;
+
+    }
+    .subtitle {
+        white-space: nowrap;
+        flex-shrink: 0;
+        line-height: 1 !important; 
+    }
+
+    .line {
+        height: 1px;
+        background-color: #333;
+        flex-grow: 1;
+        width: auto;
+    }
+
+    .lab-cards-container {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .lab-card {
+        width: 100%;
+        padding: 24px 20px;
+    }
+
+    .maze-visual {
+        max-width: 180px;
+    }
+}
+
+.lab-size-obs {
+    color: #888;
+    line-height: 1.6;
+    font-size: 0.9rem;
+    margin-top: 16px;
+    text-align: center;
+    padding: 0 8px;
+}
