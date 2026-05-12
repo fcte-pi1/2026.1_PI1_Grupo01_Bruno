@@ -151,9 +151,9 @@ No subsistema de alimentação, a energia fornecida pela bateria passa inicialme
 O gerenciamento de todo o sistema é centralizado no ESP32-S3. Ele opera como o dispositivo mestre, realizando a leitura contínua dos dados do módulo inercial e dos sensores ToF por meio de um barramento de comunicação digital. A movimentação do robô ocorre sob um controle em malha fechada: o microcontrolador envia os comandos de atuação (PWM e direção) para a Ponte H e, simultaneamente, recebe o feedback odométrico por meio das interrupções geradas pelos encoders dos motores. Esse ciclo permite que o sistema calcule o deslocamento e ajuste a trajetória em tempo real.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\textwidth]{figuras/diagrama_componentesFinal.png}
+    \includegraphics[width=0.65\textwidth]{figuras/diagrama_componentesFinal.png}
     \captionsetup{font=footnotesize}
-    \caption{Diagrama de cblocos do Micromouse. As linhas contínuas pretas representam conexões físicas via protocolo I2C. As linhas verdes representam alimentação de (3,3V). As linhas vermelhas representam alimentação de (6V).}
+    \caption{Diagrama de blocos do Micromouse. As linhas contínuas pretas representam conexões físicas via protocolo I2C. As linhas verdes representam alimentação de (3,3V). As linhas vermelhas representam alimentação de (6V).}
     \label{fig:diagrama_blocos}
 \end{figure}
 
@@ -162,7 +162,7 @@ A Figura \ref{fig:diagrama_esquematico} apresenta o diagrama esquemático do cir
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{figuras/esquematico_micromouse_pi1.pdf}
+    \includegraphics[width=0.7\textwidth]{figuras/esquematico_micromouse_pi1.pdf}
     \captionsetup{font=footnotesize}
     \caption{Diagrama esquemático do circuito proposto para a construção do micromouse.}
     \label{fig:diagrama_esquematico}
@@ -182,15 +182,6 @@ Nesta subseção são apresentados os principais componentes responsáveis pelo 
 A energia consumida por cada componente foi estimada utilizando a equação:
 
 $$E = V \cdot I \cdot t$$
-
-onde:
-
-\begin{itemize}
-    \item $E$ representa a energia consumida em joules (J);
-    \item $V$ representa a tensão elétrica em volts (V);
-    \item $I$ representa a corrente elétrica em ampères (A);
-    \item $t$ representa o tempo de operação em segundos (s).
-\end{itemize}
 
 Considerando um tempo de operação de $1200\,s$, foram obtidos os seguintes valores de consumo energético:
 
@@ -234,13 +225,8 @@ O consumo energético total do sistema pode ser obtido pela seguinte expressão:
 E_{total} = \sum_{i=1}^{n} E_i
 \]
 
-onde:
+Onde $n$ representa o número total de subsistemas analisados.
 
-\begin{itemize}
-    \item $E_{total}$ representa a energia total consumida pelo sistema;
-    \item $E_i$ representa a energia consumida individualmente por cada componente;
-    \item $n$ representa o número total de subsistemas analisados.
-\end{itemize}
 
 Substituindo na fórmula, o consumo energético total estimado para uma operação contínua de $1200\,s$ é de aproximadamente
 \textbf{16.981,68\,J}
@@ -294,14 +280,6 @@ A autonomia do sistema é determinada pela relação entre a energia disponível
 \[
 A = \frac{E_{bat}}{P}
 \]
-
-onde:
-
-\begin{itemize}
-    \item $A$ representa a autonomia do sistema (em horas ou minutos);
-    \item $E_{bat}$ representa a energia armazenada na bateria (em Wh);
-    \item $P$ representa a potência média consumida pelo sistema (em W).
-\end{itemize}
 
 Considerando a capacidade da bateria de $8,14\,Wh$ e a potência média de consumo de $14,15\,W$, obtém-se uma autonomia teórica de aproximadamente $34$ minutos.
 
