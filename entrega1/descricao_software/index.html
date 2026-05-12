@@ -1,0 +1,1247 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fcte-pi1.github.io/2026.1_PI1_Grupo01_Bruno/entrega1/descricao_software/">
+      
+      
+        <link rel="prev" href="../requisitos/">
+      
+      
+        <link rel="next" href="../../entrega2/introducao/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Descrição de Software - XAROPi</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/css/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#descricao-de-software" class="md-skip">
+          Ir para o conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="../.." title="XAROPi" class="md-header__button md-logo" aria-label="XAROPi" data-md-component="logo">
+      
+  <img src="../../assets/images/logo-xaropi.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            XAROPi
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Descrição de Software
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Abas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  HOME
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../requisitos/" class="md-tabs__link">
+          
+  
+  
+  ENTREGA 1
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../entrega2/introducao/" class="md-tabs__link">
+          
+  
+  
+  ENTREGA 2
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../entrega3/introducao/" class="md-tabs__link">
+          
+  
+  
+  ENTREGA 3
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="XAROPi" class="md-nav__button md-logo" aria-label="XAROPi" data-md-component="logo">
+      
+  <img src="../../assets/images/logo-xaropi.svg" alt="logo">
+
+    </a>
+    XAROPi
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HOME
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ENTREGA 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ENTREGA 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../requisitos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Requisitos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Descrição de Software
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Descrição de Software
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-visao-logica-do-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Visão Lógica do Software
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Visão Lógica do Software">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-diagrama-de-atividades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Diagrama de Atividades
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-diagrama-de-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Diagrama de Classes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-visao-de-processos-do-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Visão de Processos do Software
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Visão de Processos do Software">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-diagrama-de-sequencia-fluxo-de-execucao-principal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Diagrama de Sequência: Fluxo de Execução Principal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-diagrama-de-sequencia-fluxo-de-interrupcoes-e-resets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Diagrama de Sequência: Fluxo de Interrupções e Resets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-diagrama-de-sequencia-recuperacao-de-historico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Diagrama de Sequência: Recuperação de Histórico
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-visao-de-implementacao-de-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Visão de Implementação de Software
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Visão de Implementação de Software">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-diagrama-de-componentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Diagrama de Componentes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-diagrama-de-pacotes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Diagrama de Pacotes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-visao-de-implantacao-do-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Visão de Implantação do Software
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Visão de Implantação do Software">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-diagrama-de-implantacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Diagrama de Implantação
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-visao-de-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Visão de Dados
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Visão de Dados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-diagrama-de-estrutura-de-documentos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Diagrama de Estrutura de Documentos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#historico-de-versoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Histórico de Versões
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ENTREGA 2
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ENTREGA 2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entrega2/introducao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Em breve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ENTREGA 3
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ENTREGA 3
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entrega3/introducao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Em breve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-visao-logica-do-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Visão Lógica do Software
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Visão Lógica do Software">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-diagrama-de-atividades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Diagrama de Atividades
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-diagrama-de-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Diagrama de Classes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-visao-de-processos-do-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Visão de Processos do Software
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Visão de Processos do Software">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-diagrama-de-sequencia-fluxo-de-execucao-principal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Diagrama de Sequência: Fluxo de Execução Principal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-diagrama-de-sequencia-fluxo-de-interrupcoes-e-resets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Diagrama de Sequência: Fluxo de Interrupções e Resets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-diagrama-de-sequencia-recuperacao-de-historico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Diagrama de Sequência: Recuperação de Histórico
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-visao-de-implementacao-de-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Visão de Implementação de Software
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Visão de Implementação de Software">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-diagrama-de-componentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Diagrama de Componentes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-diagrama-de-pacotes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Diagrama de Pacotes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-visao-de-implantacao-do-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Visão de Implantação do Software
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Visão de Implantação do Software">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-diagrama-de-implantacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Diagrama de Implantação
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-visao-de-dados" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Visão de Dados
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Visão de Dados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-diagrama-de-estrutura-de-documentos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Diagrama de Estrutura de Documentos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#historico-de-versoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Histórico de Versões
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="descricao-de-software">Descrição de Software</h1>
+<h2 id="1-visao-logica-do-software">1. Visão Lógica do Software</h2>
+<h3 id="11-diagrama-de-atividades">1.1 Diagrama de Atividades</h3>
+<p>O Diagrama de Atividades descreve o comportamento funcional do sistema web do projeto XAROPi. A modelagem utiliza raias (<em>swimlanes</em>) para organizar o fluxo e representar a separação entre os subsistemas da arquitetura.</p>
+<p>O fluxo demonstra a interação entre o estudante, o sistema web e o hardware do micromouse, contemplando atividades como envio de comandos, processamento de telemetria, renderização do mapa e armazenamento do histórico de execução.</p>
+<p align="center">Figura 1 - Diagrama de Atividades de Software XAROPi</p>
+
+<p align="center">
+  <img src="../../assets/images/software-t1/diagrama_atividades.png" alt="">
+</p>
+
+<p align="center">Fonte: Autoria de <a href="https://github.com/Marjoriemitzi">Marjorie Mitzi</a></p>
+
+<hr />
+<h3 id="12-diagrama-de-classes">1.2 Diagrama de Classes</h3>
+<p>O Diagrama de Classes representa a estrutura lógica do sistema, evidenciando as classes responsáveis pelo gerenciamento da telemetria, comunicação WebSocket, persistência de dados e renderização das informações no frontend.</p>
+<p>O modelo também demonstra os relacionamentos entre os módulos do backend, frontend e banco de dados, permitindo visualizar a organização orientada a objetos da aplicação.</p>
+<p align="center">Figura 2 - Diagrama de Classes do Sistema</p>
+
+<p align="center">
+  <img src="../../assets/images/software-t1/diagrama_classes.png" alt="">
+</p>
+
+<p align="center">Fonte: Autoria de <a href="https://github.com/Isaqzin">Isaque Camargos</a></p>
+
+<hr />
+<h2 id="2-visao-de-processos-do-software">2. Visão de Processos do Software</h2>
+<h3 id="21-diagrama-de-sequencia-fluxo-de-execucao-principal">2.1 Diagrama de Sequência: Fluxo de Execução Principal</h3>
+<p>O diagrama apresenta o fluxo principal de execução do sistema durante uma corrida do micromouse. O modelo demonstra a comunicação em tempo real entre o ESP32, o backend, o frontend e o banco de dados.</p>
+<p>A sequência contempla o envio contínuo de telemetria, atualização da interface e persistência automática das informações ao final da execução.</p>
+<p align="center">Figura 3 - Diagrama de Sequência: Fluxo de Execução Principal</p>
+
+<p align="center">
+  <img src="../../assets/images/software-t1/seq_execucao.png" alt="">
+</p>
+
+<p align="center">Fonte: Autoria de <a href="https://github.com/Marjoriemitzi">Marjorie Mitzi</a></p>
+
+<hr />
+<h3 id="22-diagrama-de-sequencia-fluxo-de-interrupcoes-e-resets">2.2 Diagrama de Sequência: Fluxo de Interrupções e Resets</h3>
+<p>O diagrama representa os fluxos de interrupção do sistema, contemplando ações de parada manual, reinicialização e abortamento da corrida.</p>
+<p>A modelagem evidencia o tratamento de eventos assíncronos e a manutenção da consistência do estado da aplicação durante situações excepcionais.</p>
+<p align="center">Figura 4 - Diagrama de Sequência: Fluxo de Interrupções e Resets</p>
+
+<p align="center">
+  <img src="../../assets/images/software-t1/seq_interrupcao.png" alt="">
+</p>
+
+<p align="center">Fonte: Autoria de <a href="https://github.com/Marjoriemitzi">Marjorie Mitzi</a></p>
+
+<hr />
+<h3 id="23-diagrama-de-sequencia-recuperacao-de-historico">2.3 Diagrama de Sequência: Recuperação de Histórico</h3>
+<p>O diagrama demonstra o fluxo de recuperação de execuções armazenadas no banco de dados.</p>
+<p>A comunicação entre frontend, backend e Firebase permite consultar trajetos anteriores e apresentar métricas históricas de desempenho do robô.</p>
+<p align="center">Figura 5 - Diagrama de Sequência: Recuperação de Histórico</p>
+
+<p align="center">
+  <img src="../../assets/images/software-t1/seq_historico.png" alt="">
+</p>
+
+<p align="center">Fonte: Autoria de <a href="https://github.com/Marjoriemitzi">Marjorie Mitzi</a></p>
+
+<hr />
+<h2 id="3-visao-de-implementacao-de-software">3. Visão de Implementação de Software</h2>
+<h3 id="31-diagrama-de-componentes">3.1 Diagrama de Componentes</h3>
+<p>O Diagrama de Componentes apresenta a decomposição arquitetural do sistema em módulos responsáveis pela navegação, telemetria, controle e persistência dos dados.</p>
+<p>A modelagem evidencia a interação entre o firmware executado na ESP32, o backend em NestJS, o frontend em React.js e o banco de dados Firebase.</p>
+<p align="center">Figura 6 - Diagrama de Componentes</p>
+
+<p align="center">
+  <img src="../../assets/images/software-t1/diagrama_componentes.png" alt="">
+</p>
+
+<p align="center">Fonte: Autoria de <a href="https://github.com/bolzanMGB">Othavio Araújo Bolzan</a></p>
+
+<hr />
+<h3 id="32-diagrama-de-pacotes">3.2 Diagrama de Pacotes</h3>
+<p>O Diagrama de Pacotes demonstra a organização hierárquica dos módulos do sistema e seus relacionamentos de dependência.</p>
+<p>A estrutura divide o software em pacotes de frontend, backend, firmware da ESP32 e persistência de dados, facilitando a compreensão da arquitetura lógica da aplicação.</p>
+<p align="center">Figura 7 - Diagrama de Pacotes</p>
+
+<p align="center">
+  <img src="../../assets/images/software-t1/diagrama-de-pacotes.png" alt="">
+</p>
+
+<p align="center">Fonte: Autoria de <a href="https://github.com/Samuel">Samuel</a></p>
+
+<hr />
+<h2 id="4-visao-de-implantacao-do-software">4. Visão de Implantação do Software</h2>
+<h3 id="41-diagrama-de-implantacao">4.1 Diagrama de Implantação</h3>
+<p>O Diagrama de Implantação apresenta a disposição física dos componentes do sistema e os canais de comunicação utilizados entre os subsistemas.</p>
+<p>A modelagem evidencia a troca de dados via WebSocket entre o micromouse, o sistema web e o Firebase, além da execução do frontend e backend no dispositivo do usuário.</p>
+<p align="center">Figura 8 - Diagrama de Implantação do Sistema</p>
+
+<p align="center">
+  <img src="../../assets/images/software-t1/diagrama_implantacao.png" alt="">
+</p>
+
+<p align="center">Fonte: Autoria de <a href="https://github.com/ludmilaaysha">Ludmila Aysha</a></p>
+
+<hr />
+<h2 id="5-visao-de-dados">5. Visão de Dados</h2>
+<h3 id="51-diagrama-de-estrutura-de-documentos">5.1 Diagrama de Estrutura de Documentos</h3>
+<p>O Diagrama de Estrutura de Documentos representa a modelagem dos dados persistidos no Firebase.</p>
+<p>A estrutura demonstra a organização das coleções e documentos utilizados para armazenar informações de trajetórias, telemetria, métricas de desempenho e históricos de execução do micromouse.</p>
+<p align="center">Figura 9 - Diagrama de Estrutura de Documentos</p>
+
+<p align="center">
+  <img src="../../assets/images/software-t1/diagrama_estrutura_documentos.png" alt="">
+</p>
+
+<p align="center">Fonte: Autoria de <a href="https://github.com/bolzanMGB">Othavio Araújo Bolzan</a></p>
+
+<hr />
+<h2 id="historico-de-versoes">Histórico de Versões</h2>
+<table>
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Autor(es)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>11/05/2025</td>
+<td>Criação do arquivo</td>
+<td><a href="https://github.com/bolzanMGB">Othavio Araújo Bolzan</a></td>
+</tr>
+<tr>
+<td>2.0</td>
+<td>11/05/2025</td>
+<td>Adição dos diagramas</td>
+<td><a href="https://github.com/bolzanMGB">Othavio Araújo Bolzan</a></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.instant", "toc.follow"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

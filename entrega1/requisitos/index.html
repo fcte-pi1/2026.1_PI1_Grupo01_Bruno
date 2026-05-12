@@ -1,0 +1,1447 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fcte-pi1.github.io/2026.1_PI1_Grupo01_Bruno/entrega1/requisitos/">
+      
+      
+        <link rel="prev" href="../..">
+      
+      
+        <link rel="next" href="../descricao_software/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Requisitos - XAROPi</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/css/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tabelas-de-priorizacao-de-requisitos" class="md-skip">
+          Ir para o conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="../.." title="XAROPi" class="md-header__button md-logo" aria-label="XAROPi" data-md-component="logo">
+      
+  <img src="../../assets/images/logo-xaropi.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            XAROPi
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Requisitos
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Abas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  HOME
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+  ENTREGA 1
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../entrega2/introducao/" class="md-tabs__link">
+          
+  
+  
+  ENTREGA 2
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../entrega3/introducao/" class="md-tabs__link">
+          
+  
+  
+  ENTREGA 3
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="XAROPi" class="md-nav__button md-logo" aria-label="XAROPi" data-md-component="logo">
+      
+  <img src="../../assets/images/logo-xaropi.svg" alt="logo">
+
+    </a>
+    XAROPi
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HOME
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ENTREGA 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ENTREGA 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Requisitos
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Requisitos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-requisitos-funcionais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Requisitos Funcionais
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Requisitos Funcionais">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-requisitos-de-hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Requisitos de Hardware
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-requisitos-de-estruturas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Requisitos de Estruturas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-requisitos-de-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Requisitos de Software
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-requisitos-de-consumo-energetico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 Requisitos de Consumo Energético
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-requisitos-nao-funcionais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Requisitos Não Funcionais
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Requisitos Não Funcionais">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-consumo-energetico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Consumo Energético
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-estruturas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Estruturas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Hardware
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Software
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#historico-de-versoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Histórico de Versões
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../descricao_software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Descrição de Software
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ENTREGA 2
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ENTREGA 2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entrega2/introducao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Em breve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ENTREGA 3
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ENTREGA 3
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entrega3/introducao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Em breve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-requisitos-funcionais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Requisitos Funcionais
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Requisitos Funcionais">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-requisitos-de-hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Requisitos de Hardware
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-requisitos-de-estruturas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Requisitos de Estruturas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-requisitos-de-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Requisitos de Software
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-requisitos-de-consumo-energetico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 Requisitos de Consumo Energético
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-requisitos-nao-funcionais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Requisitos Não Funcionais
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Requisitos Não Funcionais">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-consumo-energetico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Consumo Energético
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-estruturas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Estruturas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Hardware
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Software
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#historico-de-versoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Histórico de Versões
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="tabelas-de-priorizacao-de-requisitos">Tabelas de Priorização de Requisitos</h1>
+<h2 id="1-requisitos-funcionais">1. Requisitos Funcionais</h2>
+<h3 id="11-requisitos-de-hardware">1.1 Requisitos de Hardware</h3>
+<p align="center">Tabela 1 - Requisitos de Hardware</p>
+
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">ID</th>
+<th style="text-align: left;">Descrição</th>
+<th style="text-align: left;">Classificação</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">RF1</td>
+<td style="text-align: left;">O sistema deve detectar a presença ou ausência de paredes nas direções frontal, lateral esquerda e lateral direita do micromouse, compatível com as dimensões das células de 18 cm × 18 cm e paredes de 5 cm de altura.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RF2</td>
+<td style="text-align: left;">O sistema deve controlar individualmente a velocidade de cada motor DC por meio de sinal PWM enviado ao driver de motor.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RF3</td>
+<td style="text-align: left;">O sistema deve controlar o sentido de rotação de cada motor DC de forma independente, permitindo movimentos de avanço, recuo e curvas.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RF4</td>
+<td style="text-align: left;">O sistema deve mover o micromouse em linha reta dentro dos corredores do labirinto, mantendo trajetória centralizada entre as paredes.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RF5</td>
+<td style="text-align: left;">O sistema deve executar curvas de 90° e 180° de forma precisa, compatível com as dimensões das células de 18 cm × 18 cm do labirinto.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RF6</td>
+<td style="text-align: left;">O sistema deve iniciar e interromper a navegação por meio de um botão físico acessível externamente no micromouse.</td>
+<td style="text-align: left;">Should</td>
+</tr>
+<tr>
+<td style="text-align: left;">RF7</td>
+<td style="text-align: left;">O sistema deve detectar e sinalizar quando a tensão da bateria atingir nível insuficiente para continuidade segura da navegação.</td>
+<td style="text-align: left;">Should</td>
+</tr>
+<tr>
+<td style="text-align: left;">RF8</td>
+<td style="text-align: left;">O sistema deve acionar um buzzer ao detectar que o micromouse atingiu a sala objetivo do labirinto.</td>
+<td style="text-align: left;">Could</td>
+</tr>
+<tr>
+<td style="text-align: left;">RF9</td>
+<td style="text-align: left;">O sistema deve transmitir dados de telemetria ao sistema web em tempo real.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+</tbody>
+</table>
+<p align="center">Fonte: Autoria do Grupo </p>
+
+<h3 id="12-requisitos-de-estruturas">1.2 Requisitos de Estruturas</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">ID</th>
+<th style="text-align: left;">Descrição</th>
+<th style="text-align: left;">Classificação</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">RF10</td>
+<td style="text-align: left;">O micromouse deve suportar e integrar todos os componentes necessários (bateria, sensores e controle), garantindo seu funcionamento adequado durante a operação.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RF11</td>
+<td style="text-align: left;">A estrutura deve permitir que o micromouse percorra o labirinto sem interferências, respeitando limites de altura, largura e mobilidade.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RF12</td>
+<td style="text-align: left;">A estrutura deve proteger os componentes eletrônicos contra choques mecânicos e possíveis danos durante o percurso.</td>
+<td style="text-align: left;">Should</td>
+</tr>
+<tr>
+<td style="text-align: left;">RF13</td>
+<td style="text-align: left;">A estrutura do micromouse deve permitir a substituição e atualização de módulos de forma independente.</td>
+<td style="text-align: left;">Could</td>
+</tr>
+</tbody>
+</table>
+<h3 id="13-requisitos-de-software">1.3 Requisitos de Software</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">ID</th>
+<th style="text-align: left;">Descrição</th>
+<th style="text-align: left;">Classificação</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">RF14</td>
+<td style="text-align: left;">Em relação ao percurso atual, o sistema web deve exibir e atualizar em tempo real o mapeamento da localização e o trajeto do Micromouse no labirinto.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RF15</td>
+<td style="text-align: left;">O sistema web deve identificar e exibir o tipo de labirinto para o percurso atual.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RF16</td>
+<td style="text-align: left;">O sistema web deve exibir e atualizar em tempo real a porcentagem de bateria disponível do Micromouse.</td>
+<td style="text-align: left;">Should</td>
+</tr>
+<tr>
+<td style="text-align: left;">RF17</td>
+<td style="text-align: left;">O sistema web deve exibir e atualizar em tempo real a porcentagem de bateria consumida pelo Micromouse durante o trajeto.</td>
+<td style="text-align: left;">Could</td>
+</tr>
+<tr>
+<td style="text-align: left;">RF18</td>
+<td style="text-align: left;">O sistema web deve exibir e atualizar em tempo real um temporizador indicando o tempo decorrido até a conclusão ou interrupção do desafio.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RF19</td>
+<td style="text-align: left;">Após a conclusão do percurso, o sistema web deve exibir se o desafio foi cumprido com sucesso ou não.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RF20</td>
+<td style="text-align: left;">Após a conclusão do percurso, o sistema web deve exibir a velocidade média mantida pelo Micromouse.</td>
+<td style="text-align: left;">Could</td>
+</tr>
+<tr>
+<td style="text-align: left;">RF21</td>
+<td style="text-align: left;">O sistema web deve possuir um botão que envia comandos para iniciar e reiniciar percursos remotamente.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RF22</td>
+<td style="text-align: left;">Ao iniciar o percurso, o temporizador deve ser ativado automaticamente.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RF23</td>
+<td style="text-align: left;">Ao reiniciar o percurso, o sistema deve resetar o cronômetro.</td>
+<td style="text-align: left;">Should</td>
+</tr>
+<tr>
+<td style="text-align: left;">RF24</td>
+<td style="text-align: left;">Ao finalizar o percurso, o sistema deve enviar os dados do percurso anterior para o banco de dados.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RF25</td>
+<td style="text-align: left;">Após a conclusão do desafio, os dados finais devem ser armazenados em um banco de dados, categorizados de acordo com o tipo de labirinto.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RF26</td>
+<td style="text-align: left;">O sistema deve permitir a consulta e exibição de dados de qualquer trajeto específico armazenado, independentemente do tipo de labirinto.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RF27</td>
+<td style="text-align: left;">O sistema web deve processar os dados recebidos do micromouse em tempo real para identificar a presença de paredes.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RF28</td>
+<td style="text-align: left;">Ao detectar um obstáculo, o software deve atualizar a estrutura de dados do labirinto na interface web.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RF29</td>
+<td style="text-align: left;">O sistema web deve realizar a construção progressiva de uma representação lógica (matriz ou grafo) do ambiente conforme o Micromouse explora o labirinto.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RF30</td>
+<td style="text-align: left;">A troca de informações entre o Micromouse e o sistema web deve ser estabelecida através do protocolo WebSockets.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+</tbody>
+</table>
+<h3 id="14-requisitos-de-consumo-energetico">1.4 Requisitos de Consumo Energético</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">ID</th>
+<th style="text-align: left;">Descrição</th>
+<th style="text-align: left;">Classificação</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">RF31</td>
+<td style="text-align: left;">O micromouse deve possuir um indicador visual local (como LEDs de estado ou display OLED) para exibir o nível de carga da bateria sem a necessidade de dispositivos externos.</td>
+<td style="text-align: left;">Could</td>
+</tr>
+<tr>
+<td style="text-align: left;">RF32</td>
+<td style="text-align: left;">O sistema deve registrar o consumo de energia durante cada percurso para posterior análise no sistema web.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RF33</td>
+<td style="text-align: left;">O sistema deve possuir um interruptor físico (Chave On/Off) capaz de seccionar a alimentação da bateria, interrompendo completamente o consumo de energia do dispositivo.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RF34</td>
+<td style="text-align: left;">O sistema deve monitorar a tensão da bateria e, ao atingir um limiar crítico pré-definido, deve transitar automaticamente para o modo de economia de energia para estender a autonomia operacional.</td>
+<td style="text-align: left;">Should</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-requisitos-nao-funcionais">2. Requisitos Não Funcionais</h2>
+<h3 id="21-consumo-energetico">2.1 Consumo Energético</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">ID</th>
+<th style="text-align: left;">Descrição</th>
+<th style="text-align: left;">Classificação</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">RNF1</td>
+<td style="text-align: left;">Garantir funcionamento ininterrupto do sistema por, no mínimo, 20 minutos.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RNF2</td>
+<td style="text-align: left;">Suportar o mapeamento completo no labirinto 16x16 sem recarga.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RNF3</td>
+<td style="text-align: left;">Utilizar reguladores de tensão com rendimento energético mínimo de 85%.</td>
+<td style="text-align: left;">Should</td>
+</tr>
+<tr>
+<td style="text-align: left;">RNF4</td>
+<td style="text-align: left;">Limitar a corrente consumida em modo de espera a um máximo de 50mA.</td>
+<td style="text-align: left;">Should</td>
+</tr>
+<tr>
+<td style="text-align: left;">RNF5</td>
+<td style="text-align: left;">Implementar detecção de baixa tensão para alertar quando a célula atingir 3,2V.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RNF6</td>
+<td style="text-align: left;">O sistema de alimentação não deve exceder 25% do peso total do micromouse.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RNF7</td>
+<td style="text-align: left;">Permitir o carregamento das baterias sem a necessidade de desmontagem.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RNF8</td>
+<td style="text-align: left;">Manter a variação de tensão nos sensores dentro de uma margem de +/- 5% durante a aceleração dos motores.</td>
+<td style="text-align: left;">Should</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22-estruturas">2.2 Estruturas</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">ID</th>
+<th style="text-align: left;">Descrição</th>
+<th style="text-align: left;">Classificação</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">RNF9</td>
+<td style="text-align: left;">A estrutura do micromouse deve garantir estabilidade estática e dinâmica, evitando tombamento e oscilações durante a operação.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RNF10</td>
+<td style="text-align: left;">A massa total do micromouse deve ser minimizada, de modo a reduzir a inércia e melhorar a resposta dinâmica.</td>
+<td style="text-align: left;">Should</td>
+</tr>
+<tr>
+<td style="text-align: left;">RNF11</td>
+<td style="text-align: left;">Os componentes do micromouse devem ser fixados sem folgas, evitando vibrações e ruídos durante a operação.</td>
+<td style="text-align: left;">Should</td>
+</tr>
+<tr>
+<td style="text-align: left;">RNF12</td>
+<td style="text-align: left;">A estrutura do micromouse deve contribuir para a eficiência energética, minimizando perdas por atrito e massa excessiva.</td>
+<td style="text-align: left;">Could</td>
+</tr>
+</tbody>
+</table>
+<h3 id="23-hardware">2.3 Hardware</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">ID</th>
+<th style="text-align: left;">Descrição</th>
+<th style="text-align: left;">Classificação</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">RNF13</td>
+<td style="text-align: left;">A fonte de alimentação do microcontrolador e dos sensores deve ser eletricamente isolada (ou fortemente desacoplada) da alimentação dos motores.</td>
+<td style="text-align: left;">Should</td>
+</tr>
+<tr>
+<td style="text-align: left;">RNF14</td>
+<td style="text-align: left;">O circuito lógico deve manter uma tensão estável, mesmo quando os motores exigirem o pico máximo de corrente, no momento da partida.</td>
+<td style="text-align: left;">Should</td>
+</tr>
+<tr>
+<td style="text-align: left;">RNF15</td>
+<td style="text-align: left;">Sinais analógicos devem possuir filtros passa-baixa (filtros RC) no hardware para atenuar ruídos de alta frequência.</td>
+<td style="text-align: left;">Should</td>
+</tr>
+<tr>
+<td style="text-align: left;">RNF16</td>
+<td style="text-align: left;">A placa deve possuir um nó comum bem definido, evitando ground loops.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RNF17</td>
+<td style="text-align: left;">A placa deve expor pinos ou ilhas de fácil acesso para testes via multímetro (VCC, GND, sensores, PWM).</td>
+<td style="text-align: left;">Could</td>
+</tr>
+<tr>
+<td style="text-align: left;">RNF18</td>
+<td style="text-align: left;">O circuito deve incluir LEDs de status integrados para condições vitais (Alimentação OK, Bateria Fraca).</td>
+<td style="text-align: left;">Won’t</td>
+</tr>
+<tr>
+<td style="text-align: left;">RNF19</td>
+<td style="text-align: left;">Componentes de alto risco (ESP32, Ponte H) devem utilizar soquetes para substituição em no máximo 5 minutos.</td>
+<td style="text-align: left;">Should</td>
+</tr>
+<tr>
+<td style="text-align: left;">RNF20</td>
+<td style="text-align: left;">O circuito de entrada da bateria deve incluir proteção contra inversão de polaridade.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RNF21</td>
+<td style="text-align: left;">O algoritmo de navegação deve processar a tomada de decisão em um tempo inferior a 5 ms.</td>
+<td style="text-align: left;">Could</td>
+</tr>
+<tr>
+<td style="text-align: left;">RNF22</td>
+<td style="text-align: left;">A atualização da estrutura do labirinto deve ocorrer em menos de 10 ms após a leitura do sensor.</td>
+<td style="text-align: left;">Could</td>
+</tr>
+</tbody>
+</table>
+<h3 id="24-software">2.4 Software</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">ID</th>
+<th style="text-align: left;">Descrição</th>
+<th style="text-align: left;">Classificação</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">RNF23</td>
+<td style="text-align: left;">O sistema web deve ajustar automaticamente a escala visual do mapeamento para os três tipos de labirinto (4x4, 8x8 e 16x16).</td>
+<td style="text-align: left;">Should</td>
+</tr>
+<tr>
+<td style="text-align: left;">RNF24</td>
+<td style="text-align: left;">O sistema web deve exibir dados de localização com latência máxima de 200 ms.</td>
+<td style="text-align: left;">Should</td>
+</tr>
+<tr>
+<td style="text-align: left;">RNF25</td>
+<td style="text-align: left;">O sistema web deve exibir dados de velocidade com latência máxima de 200 ms.</td>
+<td style="text-align: left;">Could</td>
+</tr>
+<tr>
+<td style="text-align: left;">RNF26</td>
+<td style="text-align: left;">O sistema web deve exibir dados de bateria com latência máxima de 200 ms.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RNF27</td>
+<td style="text-align: left;">O sistema web deve exibir dados de conclusão com latência máxima de 200 ms.</td>
+<td style="text-align: left;">Could</td>
+</tr>
+<tr>
+<td style="text-align: left;">RNF28</td>
+<td style="text-align: left;">O sistema web deve garantir que todos os dados de telemetria recebidos sejam persistidos no banco de dados.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RNF29</td>
+<td style="text-align: left;">O sistema web deve exibir dados históricos em um tempo máximo de 1 segundo.</td>
+<td style="text-align: left;">Could</td>
+</tr>
+<tr>
+<td style="text-align: left;">RNF30</td>
+<td style="text-align: left;">Em caso de perda de conexão WebSocket, o sistema web deve tentar reconexão automática a cada 1 segundo.</td>
+<td style="text-align: left;">Must</td>
+</tr>
+<tr>
+<td style="text-align: left;">RNF31</td>
+<td style="text-align: left;">A interface web deve possuir debouncing nos botões de controle (intervalo menor que 500 ms).</td>
+<td style="text-align: left;">Should</td>
+</tr>
+<tr>
+<td style="text-align: left;">RNF32</td>
+<td style="text-align: left;">A interface web deve ser responsiva (adaptar-se a diferentes resoluções).</td>
+<td style="text-align: left;">Could</td>
+</tr>
+<tr>
+<td style="text-align: left;">RNF33</td>
+<td style="text-align: left;">O sistema web deve ser funcional em navegadores baseados em Chromium e WebKit.</td>
+<td style="text-align: left;">Should</td>
+</tr>
+</tbody>
+</table>
+<h2 id="historico-de-versoes">Histórico de Versões</h2>
+<table>
+<thead>
+<tr>
+<th>Versão</th>
+<th>Data</th>
+<th>Descrição</th>
+<th>Autor(es)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>11/05/2025</td>
+<td>Criação do arquivo</td>
+<td><a href="https://github.com/bolzanMGBC">Othavio Araujo Bolzan</a></td>
+</tr>
+<tr>
+<td>2.0</td>
+<td>11/05/2025</td>
+<td>Adição das tabelas de requisitos funcionais e não funcionais</td>
+<td><a href="https://github.com/bolzanMGBC">Othavio Araujo Bolzan</a></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.instant", "toc.follow"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>
