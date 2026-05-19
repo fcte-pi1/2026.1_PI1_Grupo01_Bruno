@@ -1,12 +1,12 @@
 # XAROPi - Software do Micromouse
 
-## Tecnologias utilizadas
+## 1. Tecnologias utilizadas
 
 1. **Vite + Typescript + React** para o frontend;
 2. **Node.js com NestJS** para o backend;
 3. **Firebase Realtime Database** para o banco de dados.
 
-## Requisitos Mínimos
+## 2. Requisitos Mínimos
 
 - [Node.js](https://nodejs.org/) v20 ou superior
 - npm v10 ou superior
@@ -14,49 +14,75 @@
 
 ---
 
-## Configuração Inicial
+## 3. Configuração Inicial
 
-### 1. Clone o repositório
+### 3.1 Clone o repositório
 
 ```bash
 git clone https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno.git
 cd 2026.1_PI1_Grupo01_Bruno
 ```
 
-### 2. Configure as variáveis de ambiente
+### 3.2 Configure as variáveis de ambiente
 
-**Backend:**
 
-```bash
-cd src/backend
-cp .env.example .env
-```
+#### 3.2.1 Credenciais do Firebase 
 
-Edite o `src/backend/.env` com os valores necessários:
+1. Solicite o arquivo `firebase-credentials.json` para o responsável do projeto (este arquivo contém chaves privadas e não deve ser versionado no Git).
 
-```env
-PORT=3000
-```
+2. Copie o arquivo `firebase-credentials.json` para dentro da pasta `src/backend/`;
 
-**Frontend:**
+3. Verifique se os arquivos estejam dispostos conforme a [Estrutura do Projeto](#6-estrutura-do-projeto).
 
-```bash
-cd ../frontend
-cp .env.example .env
-```
 
-Edite o `src/frontend/.env` com os valores necessários:
+#### 3.2.2 Variáveis do Backend
 
-```env
-VITE_API_URL=http://localhost:3000
-```
----
+1. Crie o `.env` do backend
 
-## Rodando o Projeto
+    ```bash
+    cd src/backend
+    cp .env.example .env
+    ```
+
+2. Edite o `src/backend/.env` com os valores necessários:
+
+    ```env
+    PORT=3000
+    FIREBASE_DATABASE_URL=https://xaropi-default-rtdb.firebaseio.com/
+    FIREBASE_CREDENTIALS_PATH=./firebase-credentials.json
+    ```
+
+#### 3.2.3 Variáveis do Frontend
+
+
+1. Crie o `.env` do frontend
+
+    ```bash
+    cd ../frontend
+    cp .env.example .env
+    ```
+
+2. Edite o `src/frontend/.env` com os valores necessários:
+
+    ```env
+    VITE_API_URL=http://localhost:3000
+    ```
+
+### 3.3 Acesso ao Console do Firebase
+
+Para visualizar e gerenciar os dados do banco através do [Console do Firebase](https://xaropi-default-rtdb.firebaseio.com/), siga as instruções abaixo:
+
+1. O acesso ao painel do Firebase é restrito aos membros autorizados do grupo.
+
+2. Solicite a um membro da equipe que já seja administrador do projeto para que envie um convite de acesso para o seu e-mail.
+
+3. Utilize a conta Google que foi vinculada ao projeto para realizar o login no Console do Firebase.
+
+## 4. Rodando o Projeto
 
 Abra **dois terminais** na raiz do projeto.
 
-### Terminal 1 — Backend
+### 4.1 Terminal 1 — Backend
 
 ```bash
 cd src/backend
@@ -65,7 +91,7 @@ npm run start:dev
 ```
 O servidor estará disponível em: `http://localhost:3000`
 
-### Terminal 2 — Frontend
+### 4.2 Terminal 2 — Frontend
 
 ```bash
 cd src/frontend
@@ -75,10 +101,10 @@ npm run dev
 
 A aplicação estará disponível em: `http://localhost:5173`
 
----
 
-## Rodar testes
-### Backend
+## 5. Rodar testes
+
+### 5.1 Backend
 
 ```bash
 # testes unitários
@@ -91,13 +117,13 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-<!-- ### Frontend
+### 5.2 Frontend
 
 ```bash
 
-``` -->
+``` 
 
-## Estrutura do projeto
+## 6. Estrutura do projeto
 
 A estrutura principal de arquivos do projeto consiste em:
 
@@ -105,17 +131,22 @@ A estrutura principal de arquivos do projeto consiste em:
 src
 ├───backend/      # API NestJS (porta 3000)
 │   ├───src/ 
+│   │   ├───Firebase/ 
+│   │   │    ├───firebase.service.ts
 │   │   ├───app.controller.spec.ts 
 │   │   ├───app.controller.ts       
 │   │   ├───app.module.ts          
 │   │   ├───app.service.ts         
 │   │   └───main.ts
-│   └───test/                      
+│   └───test/   
+│   └───.env    
+│   └───firebase-credentials.json                    
 ├───frontend/     # React + Vite (porta 5173)
-│    └──src/
-│       ├───assets/
-│       ├───components/
-│       └───App.tsx
+│   └──src/
+│   │   ├───assets/
+│   │   ├───components/
+│   │   └───App.tsx
+│   └───.env  
 └───firmware/     # Código da ESP32
     
 ```
