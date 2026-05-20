@@ -26,33 +26,20 @@ cd 2026.1_PI1_Grupo01_Bruno
 ### 3.2 Configure as variáveis de ambiente
 
 
-#### 3.2.1 Credenciais do Firebase 
+#### 3.2.1 Variáveis do Backend
 
-1. Solicite o arquivo `firebase-credentials.json` para o responsável do projeto (este arquivo contém chaves privadas e não deve ser versionado no Git).
+1. Solicite o arquivo `.env` para algum responsável do projeto (este arquivo contém chaves privadas que não devem ser versionadas no Git).
 
-2. Copie o arquivo `firebase-credentials.json` para dentro da pasta `src/backend/`;
-
-3. Verifique se os arquivos estejam dispostos conforme a [Estrutura do Projeto](#6-estrutura-do-projeto).
-
-
-#### 3.2.2 Variáveis do Backend
-
-1. Crie o `.env` do backend
+2. Crie o `.env` do backend
 
     ```bash
     cd src/backend
     cp .env.example .env
     ```
 
-2. Edite o `src/backend/.env` com os valores necessários:
+2. Edite o `src/backend/.env` com os valores corretos
 
-    ```env
-    PORT=3000
-    FIREBASE_DATABASE_URL=https://xaropi-default-rtdb.firebaseio.com/
-    FIREBASE_CREDENTIALS_PATH=./firebase-credentials.json
-    ```
-
-#### 3.2.3 Variáveis do Frontend
+#### 3.2.2 Variáveis do Frontend
 
 
 1. Crie o `.env` do frontend
@@ -139,8 +126,9 @@ src
 │   │   ├───app.service.ts         
 │   │   └───main.ts
 │   └───test/   
-│   └───.env    
-│   └───firebase-credentials.json                    
+│   └───.env   
+│   └───.env.example
+│   └───firebase-credentials-templatejson                    
 ├───frontend/     # React + Vite (porta 5173)
 │   └──src/
 │   │   ├───assets/
