@@ -10,6 +10,8 @@ import { PostStartDto } from '../dto/post-start.dto';
 import { PostNosDto } from '../dto/post-nos.dto';
 import { PostVelBatDto } from '../dto/post-vel-bat.dto';
 import { PostFinishDto } from '../dto/post-finish.dto';
+import { PostPosicaoAtualDto } from '../dto/post-posicao-atual.dto';
+import { SendCommandDto } from '../dto/send-command.dto';
 
 @WebSocketGateway({ cors: true })
 export class TelemetryGateway {
@@ -81,5 +83,34 @@ export class TelemetryGateway {
     });
 
     return { status: 'sucesso' };
+  }
+
+  @SubscribeMessage('post_posicao_atual')
+  async handlePostPosicaoAtual(@MessageBody() data: PostPosicaoAtualDto) {
+    const db = this.firebaseService.getDb();
+    
+    // Atualiza apenas o estado atual para o Front-end ler rapidamente, 
+    // tratando o labirinto como vetor.
+    const estadoRef = db.ref(`corridas/${data.id_corrida}/estado_atual`);
+    
+    await estadoRef.update({
+      posicao_vetor: data.posicao,
+      timestamp: Date.now()
+    });
+
+    return { status: 'sucesso' };
+  }
+
+  @SubscribeMessage('sendcomand')
+  async handleSendCommand(
+    @MessageBody() data: SendCommandDto,
+    @ConnectedSocket() client: Socket
+  ) {
+    console.log(`[sendcomand] Comando '${data.comando}' repassado para a corrida ${data.id_corrida}`);
+    
+    // O servidor recebe o comando do Front-end e emite de volta para a ESP32 ouvir
+    client.broadcast.emit('receiveCommand', data);
+    
+    return { status: 'comando_encaminhado' };
   }
 }
