@@ -19,7 +19,7 @@ socket.on("connect", () => {
         
         // 4. Finaliza a Corrida!
         socket.emit("postFinish", { id_corrida: id, bateria_final: 7.9 }, (resFinish) => {
-          console.log("🏁 Status do encerramento:", resFinish);
+          console.log("Status do encerramento:", resFinish);
           process.exit(0);
         });
       });
