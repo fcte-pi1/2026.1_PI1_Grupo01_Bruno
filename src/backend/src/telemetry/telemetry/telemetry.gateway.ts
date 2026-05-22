@@ -3,8 +3,9 @@ import {
   SubscribeMessage,
   MessageBody,
   ConnectedSocket,
+  WebSocketServer,
 } from '@nestjs/websockets';
-import { Socket } from 'socket.io';
+import { Server, Socket } from 'socket.io';
 import { FirebaseService } from '../../firebase/firebase.service';
 import { PostStartDto } from '../dto/post-start.dto';
 import { PostNosDto } from '../dto/post-nos.dto';
@@ -16,11 +17,14 @@ import { SendCommandDto } from '../dto/send-command.dto';
 @WebSocketGateway({ cors: true })
 export class TelemetryGateway {
   
+  
+  @WebSocketServer()
+  server!: Server;
+
   constructor(private readonly firebaseService: FirebaseService) {}
 
   @SubscribeMessage('postStart')
   async handlePostStart(@MessageBody() data: PostStartDto, @ConnectedSocket() client: Socket) {
-    console.log(`🚀 [postStart] Recebido do cliente: ${client.id}`);
     const db = this.firebaseService.getDb();
     const novaCorridaRef = db.ref('corridas').push(); 
     
@@ -71,11 +75,9 @@ export class TelemetryGateway {
 
   @SubscribeMessage('postFinish')
   async handlePostFinish(@MessageBody() data: PostFinishDto) {
-    console.log(`🏁 [postFinish] Corrida ${data.id_corrida} finalizada!`);
     const db = this.firebaseService.getDb();
     const metadadosRef = db.ref(`corridas/${data.id_corrida}/metadados`);
     
-    // O update() altera apenas os campos especificados sem apagar o resto
     await metadadosRef.update({
       status: 'concluido',
       fim_timestamp: Date.now(),
@@ -88,9 +90,6 @@ export class TelemetryGateway {
   @SubscribeMessage('post_posicao_atual')
   async handlePostPosicaoAtual(@MessageBody() data: PostPosicaoAtualDto) {
     const db = this.firebaseService.getDb();
-    
-    // Atualiza apenas o estado atual para o Front-end ler rapidamente, 
-    // tratando o labirinto como vetor.
     const estadoRef = db.ref(`corridas/${data.id_corrida}/estado_atual`);
     
     await estadoRef.update({
@@ -102,15 +101,9 @@ export class TelemetryGateway {
   }
 
   @SubscribeMessage('sendcomand')
-  async handleSendCommand(
-    @MessageBody() data: SendCommandDto,
-    @ConnectedSocket() client: Socket
-  ) {
-    console.log(`[sendcomand] Comando '${data.comando}' repassado para a corrida ${data.id_corrida}`);
+  async handleSendCommand(@MessageBody() data: SendCommandDto) {
     
-    // O servidor recebe o comando do Front-end e emite de volta para a ESP32 ouvir
-    client.broadcast.emit('receiveCommand', data);
-    
+    this.server.emit('receiveCommand', data);
     return { status: 'comando_encaminhado' };
   }
 }
