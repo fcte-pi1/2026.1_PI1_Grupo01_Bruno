@@ -7,6 +7,7 @@ Este documento descreve as rotinas e os códigos utilizados para validar o funci
 ## Índice
 1. [Componente A: ESP32-S3](esp32_s3)
 2. [Componente B: MPU6050](mpu6050)
+3. [Componente C: ToF VL53L0X](tof)
 
 ---
 
@@ -143,4 +144,59 @@ void loop() {
 
 ---
 
+## 3. Componente C (ToF VL53L0X)
 
+**Objetivo:** Validar o comportamento do sensor ToF com monitoramento em tempo real dos dados de distância.
+
+### O código
+
+```cpp
+
+#include <Wire.h>
+#include <Adafruit_VL53L0X.h>
+
+#define SDA_PIN 8
+#define SCL_PIN 9
+
+Adafruit_VL53L0X lox = Adafruit_VL53L0X();
+
+void setup() {
+	Serial.begin(115200);
+	delay(3000);
+
+	Serial.println("Inicializando VL53L0X...");
+	
+	Wire.begin(SDA_PIN, SCL_PIN);
+	
+	if (!lox.begin()) {
+		Serial.println("Falha ao iniciar o VL53L0X. Verifique SDA(8) e SCL(9).");
+		while(1);
+	}
+	Serial.println("VL53L0X Iniciado com sucesso!");
+}
+
+void loop() {
+	VL53L0X_RangingMeasurementData_t measure;
+	
+	lox.rangingTest(&measure, false); 
+
+	if (measure.RangeStatus != 4) { 
+		Serial.print("Distância: "); 
+		Serial.print(measure.RangeMilliMeter);
+		Serial.println(" mm");
+	} else {
+		Serial.println("Fora de alcance");
+	}
+		
+	delay(250);
+}
+
+```
+
+### Resultados esperados
+
+- O monitor serial deve estar configurado em **115200 baud rate**;
+- Após 3 segundos, o sistema deve exibir `"Inicializando VL53L0X..."`, seguido por `"VL53L0X Iniciado com sucesso!"`;
+- A cada 250ms, o serial atualizará as leituras com a indicação da distância;
+- Por se tratar de impressões no serial em tempo real, ao variar a distância do objeto em frente ao sensor, a impressão no serial deve acompanhar a variação;
+- Ao apontar o sensor para um espaço vazio (até 1.5m), o serial deve imprimir `"Fora de alcance"`.
