@@ -79,7 +79,7 @@ code {
     font-size: var(--font-scale-base);
 }
 
-strong {
+span {
     font-family: var(--text-heading);
     font-size: var(--font-scale-base);
     font-weight: var(--font-bold);

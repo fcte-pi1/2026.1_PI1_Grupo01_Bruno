@@ -25,6 +25,9 @@
     --alert-light: color-mix(in srgb, var(--red-400) 80%, transparent);
 
     --warn-alternative: var(--selective-yellow-500);
+
+    --color-state-hover: color-mix(in srgb, var(--pumpkin-950) 20%, transparent);
+    --color-state-active: color-mix(in srgb, var(--pumpkin-950) 40%, transparent);
 }
 
 [data-theme="light"] {
@@ -54,4 +57,7 @@
     --alert-light: none;
 
     --warn-alternative: var(--selective-yellow-600);
+
+    --color-state-hover: color-mix(in srgb, var(--pumpkin-600) 20%, transparent);
+    --color-state-active: color-mix(in srgb, var(--pumpkin-600) 40%, transparent);
 }
