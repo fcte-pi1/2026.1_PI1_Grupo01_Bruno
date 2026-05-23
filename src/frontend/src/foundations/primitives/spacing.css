@@ -7,9 +7,9 @@
     --spacing-4x: calc(var(--spacing-base) * 4);
     --spacing-5x: calc(var(--spacing-base) * 5);
     --spacing-6x: calc(var(--spacing-base) * 6);
-    /* --spacing-7x: calc(var(--spacing-base) * 7); */
+    --spacing-7x: calc(var(--spacing-base) * 7);
     --spacing-8x: calc(var(--spacing-base) * 8);
-    /* --spacing-9x: calc(var(--spacing-base) * 9); */
+    --spacing-9x: calc(var(--spacing-base) * 9);
     --spacing-10x: calc(var(--spacing-base) * 10);
 
     --spacing-half: calc(var(--spacing-base) / 2);
