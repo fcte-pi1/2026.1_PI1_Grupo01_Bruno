@@ -9,6 +9,7 @@ Este documento descreve as rotinas e os códigos utilizados para validar o funci
 2. [Componente B: MPU6050](mpu6050)
 3. [Componente C: ToF VL53L0X](tof)
 4. [Componente D: Ponte H e motores DC](ponteh)
+5. [Componente E: Verificador de carga da bateria](carga_bat)
 
 ---
 
@@ -281,5 +282,74 @@ void loop() {
 - Em seguida, ambos os motores devem parar por 1 segundo;
 - Após isso, os dois motores devem girar para trás por 2 segundos, na mesma velocidade de antes;
 - Por fim, o sistema faz uma pausa de 2 segundos e o ciclo se repete indefinidamente.
+
+---
+
+## 5. Componente E (Verificador de carga da bateria)
+
+**Objetivo:** Validar o comportamento do medidor de carga da bateria através de pino GPIO da ESP. 
+
+### O código
+
+```cpp
+
+#include <Arduino.h>
+
+// Definir o pino ADC onde o sinal ADC_BAT está conectado.
+const int pinoBat = 4; 
+
+// Fator de multiplicação calculado a partir dos resistores (R1=220k, R2=100k)
+const float fatorDivisor = 3.2; 
+
+void setup() {
+	Serial.begin(115200);
+	delay(3000); // Tempo para conectar o USB Nativo
+
+	Serial.println("--- teste do medidor de bateria ---");
+
+	// Configura a resolução do ADC para 12 bits (0 a 4095) - Padrão do S3
+	analogReadResolution(12);
+	
+	// A atenuação de 11dB (padrão) permite ler até aprox ~3.1V a ~3.3V
+	analogSetPinAttenuation(pinoBat, ADC_11db);
+}
+
+void loop() {
+	// 1. Lê a tensão calibrada diretamente do pino em milivolts
+	uint32_t tensaoPino_mV = analogReadMilliVolts(pinoBat);
+
+	// 2. Converte para Volts
+	float tensaoPino_V = tensaoPino_mV / 1000.0;
+
+	// 3. Calcula a tensão real da bateria multiplicando pelo fator do divisor
+	float tensaoBateria = tensaoPino_V * fatorDivisor;
+
+	// 4. Exibe os resultados
+	Serial.print("Tensão no Pino (ADC): ");
+	Serial.print(tensaoPino_V);
+	Serial.print(" V	--->	");
+	
+	Serial.print("Tensão da Bateria: ");
+	Serial.print(tensaoBateria);
+	Serial.println(" V");
+
+	// Um pequeno aviso se a bateria LiPo 2S estiver descarregando (abaixo de 7.0V)
+	if (tensaoBateria > 1.0 && tensaoBateria < 7.0) {
+		Serial.println("ALERTA: Bateria fraca! Recarregue a LiPo.");
+	}
+
+	Serial.println("---");
+	delay(1000);
+}
+
+```
+
+### Resultados esperados
+
+- O monitor serial deve estar configurado em **11520** baud rate;
+- Após 3 segundos, o serial exibirá `"--- teste do medidor de bateria ---"`;
+- A cada 1 segundo, o serial atualizará mostrando a tensão chegando no pino da ESP e a tensão real calculada da bateria;
+- Se a bateria estiver totalmente carregada, a tensão real exibida deve ser de aproximadamente 8.40V, enquanto a tensão que chega no pino deve ser de aproximadamente 2.62V;
+- Se a tensão calculada estiver entre 1.0V e 7.0V, o serial imprimirá o aviso `"ALERTA: Bateria fraca! Recarregue a LiPo."`.
 
 ---
