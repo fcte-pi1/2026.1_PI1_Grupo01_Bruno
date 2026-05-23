@@ -1,0 +1,49 @@
+:root{
+    /* familias */
+    --font-sans:  'Inter', system-ui, sans-serif;
+    --font-display: 'Questrial', system-ui, sans-serif;
+    --font-mono:  'Space Mono', monospace;
+
+    /* size */
+    --font-scale-base:  0.875rem;
+
+    --font-scale-up-01: calc(var(--font-scale-base) * 1.2);
+    --font-scale-up-02: calc(var(--font-scale-base) * 1.44);
+    --font-scale-up-03: calc(var(--font-scale-base) * 1.728);
+    --font-scale-up-04: calc(var(--font-scale-base) * 2.074);
+    --font-scale-up-05: calc(var(--font-scale-base) * 2.488);
+    --font-scale-up-06: calc(var(--font-scale-base) * 2.986);
+    --font-scale-up-07: calc(var(--font-scale-base) * 3.583);
+    
+    --font-scale-down-01:  calc(var(--font-scale-base) * 0.833);
+    --font-scale-down-02:  calc(var(--font-scale-base) * 0.694);
+    --font-scale-down-03:  calc(var(--font-scale-base) * 0.579);
+
+    /* weight */
+    --font-regular: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+    --font-bold: 700;
+
+    /* icons */
+    --font-icon: 'Material Symbols Outlined';
+
+    --icon-size-base: 1rem;
+    --icon-size-xs: 0.5rem;
+    --icon-size-sm: 0.75rem;
+    --icon-size-lg: 1.25rem;
+    --icon-size-2x: 2rem;
+    --icon-size-3x: 3rem;
+    --icon-size-4x: 4rem;
+    --icon-size-5x: 5rem;
+    --icon-size-6x: 6rem;
+    --icon-size-7x: 7rem;
+    --icon-size-8x: 8rem;
+    --icon-size-9x: 9rem;
+    --icon-size-10x: 10rem;
+
+    --icon-fill: 0;
+    --icon-weight: 400;
+    --icon-grad: 0;
+    --icon-opsz: 24;
+}

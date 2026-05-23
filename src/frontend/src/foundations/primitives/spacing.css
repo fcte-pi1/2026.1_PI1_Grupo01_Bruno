@@ -1,0 +1,21 @@
+:root{
+    --spacing-base: 8px;
+
+    --spacing-1x: var(--spacing-base);
+    --spacing-2x: calc(var(--spacing-base) * 2);
+    --spacing-3x: calc(var(--spacing-base) * 3);
+    --spacing-4x: calc(var(--spacing-base) * 4);
+    --spacing-5x: calc(var(--spacing-base) * 5);
+    --spacing-6x: calc(var(--spacing-base) * 6);
+    /* --spacing-7x: calc(var(--spacing-base) * 7); */
+    --spacing-8x: calc(var(--spacing-base) * 8);
+    /* --spacing-9x: calc(var(--spacing-base) * 9); */
+    --spacing-10x: calc(var(--spacing-base) * 10);
+
+    --spacing-half: calc(var(--spacing-base) / 2);
+    --spacing-baseh: calc(var(--spacing-1x) + var(--spacing-half));
+    --spacing-2xh: calc(var(--spacing-2x) + var(--spacing-half));
+    --spacing-3xh: calc(var(--spacing-3x) + var(--spacing-half));
+    --spacing-4xh: calc(var(--spacing-4x) + var(--spacing-half));
+    --spacing-5xh: calc(var(--spacing-5x) + var(--spacing-half));
+}

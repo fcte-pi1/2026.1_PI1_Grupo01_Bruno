@@ -1,0 +1,57 @@
+:root{
+    /* surfaces */
+    --bg-primary: var(--neutral-1000);
+    --bg-secondary: var(--neutral-950);
+    --wall: var(--neutral-800);
+
+    /* borders */
+    --border: var(--neutral-600);
+
+    /* logo */
+    --logo: var(--neutral-0);
+    --logo-secondary: var(--pumpkin-500);
+    
+    /* texts */
+    --txt-primary: var(--neutral-0);
+    --txt-secondary: var(--neutral-400);
+    --txt-interaction: var(--pumpkin-400);
+
+    /* states */
+    --success: var(--chateau-green-400);
+    --success-light: color-mix(in srgb, var(--chateau-green-400) 80%, transparent);
+    --warn: var(--pumpkin-500);
+    --warn-light: color-mix(in srgb, var(--pumpkin-500) 80%, transparent);
+    --alert: var(--red-500);
+    --alert-light: color-mix(in srgb, var(--red-400) 80%, transparent);
+
+    --warn-alternative: var(--selective-yellow-500);
+}
+
+[data-theme="light"] {
+    /* surfaces */
+    --bg-primary: var(--neutral-50);
+    --bg-secondary: var(--neutral-0);
+    --wall: var(--neutral-300);
+
+    /* borders */
+    --border: var(--neutral-300);
+
+    /* logo */
+    --logo: var(--pumpkin-500);
+    --logo-secondary: var(--pumpkin-700);
+    
+    /* texts */
+    --txt-primary: var(--neutral-800);
+    --txt-secondary: var(--neutral-500);
+    --txt-interaction: var(--pumpkin-600);
+
+    /* states */
+    --success: var(--chateau-green-600);
+    --success-light: none;
+    --warn: var(--pumpkin-600);
+    --warn-light: none;
+    --alert: var(--red-700);
+    --alert-light: none;
+
+    --warn-alternative: var(--selective-yellow-600);
+}
