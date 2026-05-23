@@ -8,6 +8,7 @@ Este documento descreve as rotinas e os códigos utilizados para validar o funci
 1. [Componente A: ESP32-S3](esp32_s3)
 2. [Componente B: MPU6050](mpu6050)
 3. [Componente C: ToF VL53L0X](tof)
+4. [Componente D: Ponte H e motores DC](ponteh)
 
 ---
 
@@ -200,3 +201,85 @@ void loop() {
 - A cada 250ms, o serial atualizará as leituras com a indicação da distância;
 - Por se tratar de impressões no serial em tempo real, ao variar a distância do objeto em frente ao sensor, a impressão no serial deve acompanhar a variação;
 - Ao apontar o sensor para um espaço vazio (até 1.5m), o serial deve imprimir `"Fora de alcance"`.
+
+---
+
+## 4. Componente D (Ponte H L298N e motores DC 6V)
+
+**Objetivo:** Validar o comportamento da ponte H e dos 2 motores DC em todas as possíveis variações de movimento.
+
+### O código
+
+```cpp
+
+#include <Arduino.h>
+
+// Pinos Seguros no ESP32-S3 para o Motor A (Esquerdo)
+const int enA = 4; // PWM
+const int in1 = 5; // Direção
+const int in2 = 6; // Direção
+
+// Pinos Seguros no ESP32-S3 para o Motor B (Direito)
+const int enB = 7;	// PWM
+const int in3 = 15; // Direção
+const int in4 = 16; // Direção
+
+const int freq = 5000;
+const int resolution = 8; // 0 a 255
+
+void setup() {
+	pinMode(in1, OUTPUT);
+	pinMode(in2, OUTPUT);
+	pinMode(in3, OUTPUT);
+	pinMode(in4, OUTPUT);
+
+	// NOVA API do ESP32 Core 3.x para configurar o PWM diretamente no pino
+	ledcAttach(enA, freq, resolution);
+	ledcAttach(enB, freq, resolution);
+}
+
+void loop() {
+	// Ajuste a velocidade usando o pino diretamente na nova API
+	ledcWrite(enA, 180);
+	ledcWrite(enB, 180);
+
+	// 1. Motores para FRENTE
+	digitalWrite(in1, HIGH);
+	digitalWrite(in2, LOW);
+	digitalWrite(in3, HIGH);
+	digitalWrite(in4, LOW);
+	delay(2000);
+
+	// 2. PARAR Motores
+	digitalWrite(in1, LOW);
+	digitalWrite(in2, LOW);
+	digitalWrite(in3, LOW);
+	digitalWrite(in4, LOW);
+	delay(1000);
+
+	// 3. Motores para TRÁS
+	digitalWrite(in1, LOW);
+	digitalWrite(in2, HIGH);
+	digitalWrite(in3, LOW);
+	digitalWrite(in4, HIGH);
+	delay(2000);
+
+	// 4. PARAR Motores
+	digitalWrite(in1, LOW);
+	digitalWrite(in2, LOW);
+	digitalWrite(in3, LOW);
+	digitalWrite(in4, LOW);
+	delay(2000);
+}
+
+```
+
+### Resultados esperados
+
+- Todas as validações deverão ser observadas a partir do comportamento físico dos motores. Não foram utilizados artifícios para validação via serial nesse teste;
+- No início, ambos os motores devem girar para frente por dois segundos, a aproximadamente 70% da sua velocidade máxima (PWM 180/255). Esse parâmetro pode ser facilmente alterado no código.
+- Em seguida, ambos os motores devem parar por 1 segundo;
+- Após isso, os dois motores devem girar para trás por 2 segundos, na mesma velocidade de antes;
+- Por fim, o sistema faz uma pausa de 2 segundos e o ciclo se repete indefinidamente.
+
+---
