@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import { Card } from './components/Card'
+import { ControlBtn } from './components/ControlBtn'
 import './App.css'
 
 function App() {
@@ -32,21 +33,6 @@ function App() {
       </section>
 
       <div className="ticks"></div>
-
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
-        <Card
-          icon="analytics"
-          label="Total de usuários"
-          value="1.240"
-        />
-
-        <Card
-          size="lg"
-          icon="analytics"
-          label="Total de usuários"
-          value="1.240"
-        />
-      </div>
       
       <section id="next-steps">
         <div id="docs">
