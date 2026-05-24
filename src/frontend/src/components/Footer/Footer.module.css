@@ -1,0 +1,35 @@
+/* OPCIONAL */
+/* Função: é utilizado caso o componente tenha estilos próprios. 
+Uso aqui é ideal para que o estilo do componente não vaze para fora */
+.footer{
+    display: flex;
+    width: var(--footer);
+    padding: var(--spacing-5x);
+    align-items: flex-start;
+    gap: var(--spacing-base);
+    border-top: 1px solid var(--neutral-600);
+}
+.links{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-base);
+    flex: 1 0 0;
+    color: var();
+}
+.left{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-3x);
+    flex: 1 0 0;
+    color: var();
+}
+.follow{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--spacing-half);
+    flex: 1 0 0;
+    color: var();
+}
