@@ -1,0 +1,17 @@
+.logo {
+    position:relative;
+    width:fit-content;
+    display:flex;
+    align-items: center;
+    gap: var(--spacing-base);
+}
+.icon {
+    height: fit-content;
+    width: fit-content;
+    position: relative;
+}
+.name {
+    height: fit-content;
+    width: fit-content;
+    position: relative;
+}

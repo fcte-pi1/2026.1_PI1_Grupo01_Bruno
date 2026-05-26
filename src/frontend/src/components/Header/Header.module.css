@@ -4,8 +4,8 @@
     padding: var(--spacing-3x) var(--spacing-5x);
     align-items: center;
     gap: var(--spacing-2x);
-    border-bottom: 1px solid var(--neutral-600);
-    background: var(--neutral-1000);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-primary);
 }
 .logo{
     display: flex;
