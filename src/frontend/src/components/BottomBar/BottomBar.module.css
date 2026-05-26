@@ -1,0 +1,15 @@
+.bottomBar{
+    display: flex;
+    width: 100%;
+    padding: var(--spacing-base) var(--spacing-2x);
+    align-items: center;
+    border-top: 1px solid var(--border);
+    background: var(--bg-primary);
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .bottomBar {
+        display: flex;
+    }
+}

@@ -7,17 +7,6 @@
     padding: 0;
 }
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  border-inline: 1px solid var(--border);
-}
-
 body {
     font-family: var(--text-body);
     font-size: var(--font-scale-base);

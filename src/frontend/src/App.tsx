@@ -1,17 +1,29 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import { Card } from './components/Card'
-import { ControlBtn } from './components/ControlBtn'
+import { useEffect } from 'react'
+import { Header } from './components/Header'
+import { BottomBar } from './components/BottomBar'
+import type { Page } from './types/navigation'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  // const [count, setCount] = useState(0)
+
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark')
+  const [currentPage, setCurrentPage] = useState<Page>('dashboard')
+
+  const toggleTheme = () => {
+      const next = theme === 'light' ? 'dark' : 'light'
+      setTheme(next)
+      document.documentElement.dataset.theme = next
+  }
+
+  useEffect(() => {
+      document.documentElement.dataset.theme = theme
+  }, [])
 
   return (
     <>
-      <section id="center">
+      {/* <section id="center">
         <div className="hero">
           <img src={heroImg} className="base" width="170" height="179" alt="" />
           <img src={reactLogo} className="framework" alt="React logo" />
@@ -33,7 +45,7 @@ function App() {
       </section>
 
       <div className="ticks"></div>
-      
+
       <section id="next-steps">
         <div id="docs">
           <svg className="icon" role="presentation" aria-hidden="true">
@@ -116,7 +128,25 @@ function App() {
       </section>
 
       <div className="ticks"></div>
-      <section id="spacer"></section>
+      <section id="spacer"></section> */}
+
+      <div>
+          <Header
+              theme={theme}
+              currentPage={currentPage}
+              onPageChange={setCurrentPage}
+              onThemeToggle={toggleTheme}
+          />
+
+          <main>
+
+          </main>
+
+          <BottomBar
+              currentPage={currentPage}
+              onPageChange={setCurrentPage}
+          />
+      </div>
     </>
   )
 }

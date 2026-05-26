@@ -1,32 +1,33 @@
 .header{
     display: flex;
-    width: var(--header);
-    padding: var(--spacing-3x) var(--spacing-5x);
+    width: 100%;
+    padding: var(--spacing-2x) var(--spacing-5x);
     align-items: center;
     gap: var(--spacing-2x);
     border-bottom: 1px solid var(--border);
     background: var(--bg-primary);
+    justify-content: space-between;
 }
-.logo{
-    display: flex;
-    width: var(--logo);
-    height: var(--logo);
-    align-items: center;
-    gap: var(--spacing-7x);
-    flex-shrink: 0;
-    aspect-ratio: 197.58/40.00;
+
+.logoBtn{
+    all: unset;
+    cursor: pointer;
+    width: fit-content;
 }
-.menuitens{
+
+nav {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: var(--spacing-2x);
     flex: 1 0 0;
 }
-.themebtn{
-    display: flex;
-    align-items: flex-start;
+
+@media (max-width: 768px) {
+    nav {
+        display: none;
+    }
+    .header{
+        padding: var(--spacing-1x) var(--spacing-3x);
+    }
 }
-/* OPCIONAL */
-/* Função: é utilizado caso o componente tenha estilos próprios. 
-Uso aqui é ideal para que o estilo do componente não vaze para fora */

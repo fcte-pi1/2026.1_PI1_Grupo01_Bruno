@@ -1,17 +1,13 @@
 .logo {
-    position:relative;
-    width:fit-content;
-    display:flex;
+    display: flex;
+    flex-direction: row;
     align-items: center;
-    gap: var(--spacing-base);
-}
-.icon {
-    height: fit-content;
+    justify-content: center;
     width: fit-content;
-    position: relative;
+    gap: 1em;
 }
-.name {
-    height: fit-content;
-    width: fit-content;
-    position: relative;
+
+.svg {
+  height: clamp(24px, 4vw, 32px);
+  width: auto;
 }
