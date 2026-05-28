@@ -215,62 +215,70 @@ void loop() {
 
 #include <Arduino.h>
 
-// Pinos Seguros no ESP32-S3 para o Motor A (Esquerdo)
-const int enA = 4; // PWM
-const int in1 = 5; // Direção
-const int in2 = 6; // Direção
+// Motor A (Esquerdo)
+const int enA = 4;  // PWM
+const int in1 = 5;  // Direção
+const int in2 = 6;  // Direção
 
-// Pinos Seguros no ESP32-S3 para o Motor B (Direito)
-const int enB = 7;	// PWM
-const int in3 = 15; // Direção
-const int in4 = 16; // Direção
+// Motor B (Direito)
+const int enB = 7;   // PWM
+const int in3 = 15;  // Direção
+const int in4 = 16;  // Direção
 
-const int freq = 5000;
-const int resolution = 8; // 0 a 255
+// Velocidade PWM (0 a 255)
+const int velocidade = 180;
 
-void setup() {
-	pinMode(in1, OUTPUT);
-	pinMode(in2, OUTPUT);
-	pinMode(in3, OUTPUT);
-	pinMode(in4, OUTPUT);
+void setup() {pinMode
+	(enA, OUTPUT);
+    pinMode(enB, OUTPUT);
 
-	// NOVA API do ESP32 Core 3.x para configurar o PWM diretamente no pino
-	ledcAttach(enA, freq, resolution);
-	ledcAttach(enB, freq, resolution);
+    pinMode(in1, OUTPUT);
+    pinMode(in2, OUTPUT);
+    pinMode(in3, OUTPUT);
+    pinMode(in4, OUTPUT);
 }
 
 void loop() {
-	// Ajuste a velocidade usando o pino diretamente na nova API
-	ledcWrite(enA, 180);
-	ledcWrite(enB, 180);
 
-	// 1. Motores para FRENTE
-	digitalWrite(in1, HIGH);
-	digitalWrite(in2, LOW);
-	digitalWrite(in3, HIGH);
-	digitalWrite(in4, LOW);
-	delay(2000);
+    // Define velocidade dos motores
+    analogWrite(enA, velocidade);
+    analogWrite(enB, velocidade);
 
-	// 2. PARAR Motores
-	digitalWrite(in1, LOW);
-	digitalWrite(in2, LOW);
-	digitalWrite(in3, LOW);
-	digitalWrite(in4, LOW);
-	delay(1000);
+    // 1. Motores para frente
+    digitalWrite(in1, HIGH);
+    digitalWrite(in2, LOW);
 
-	// 3. Motores para TRÁS
-	digitalWrite(in1, LOW);
-	digitalWrite(in2, HIGH);
-	digitalWrite(in3, LOW);
-	digitalWrite(in4, HIGH);
-	delay(2000);
+    digitalWrite(in3, HIGH);
+    digitalWrite(in4, LOW);
 
-	// 4. PARAR Motores
-	digitalWrite(in1, LOW);
-	digitalWrite(in2, LOW);
-	digitalWrite(in3, LOW);
-	digitalWrite(in4, LOW);
-	delay(2000);
+    delay(2000);
+
+    // 2. Parar motores
+    digitalWrite(in1, LOW);
+    digitalWrite(in2, LOW);
+
+    digitalWrite(in3, LOW);
+    digitalWrite(in4, LOW);
+
+    delay(1000);
+
+    // 3. Motores para trás
+    digitalWrite(in1, LOW);
+    digitalWrite(in2, HIGH);
+
+    digitalWrite(in3, LOW);
+    digitalWrite(in4, HIGH);
+
+    delay(2000);
+
+    // 4. Parar motores
+    digitalWrite(in1, LOW);
+    digitalWrite(in2, LOW);
+
+    digitalWrite(in3, LOW);
+    digitalWrite(in4, LOW);
+
+    delay(2000);
 }
 
 ```
