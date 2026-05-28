@@ -1,6 +1,7 @@
 .card {
     display: flex;
     min-width: 240px;
+    max-width: 540px;
     padding: var(--spacing-3x);
     align-items: center;
     gap: var(--spacing-base);
