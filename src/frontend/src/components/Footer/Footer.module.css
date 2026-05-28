@@ -1,29 +1,46 @@
 .footer{
-    background: var(--bg-primary);
+    background: var(--wall);
     display: flex;
     width: 100%;
     padding: var(--spacing-5x);
     align-items: flex-start;
     gap: var(--spacing-base);
 }
-.left{
+.grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: "link brand social";
+    gap: var(--spacing-4x);
+    align-items: start;
+    padding: var(--spacing-6x) var(--spacing-base);
+}
+.colLinks{ grid-area: links;}
+.colBrand{
+    grid-area: brand;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--spacing-2x);
-    align-self: stretch;
+    text-align: center;
 }
-.follow{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: var(--spacing-half);
-    flex: 1 0 0;
+.tagline{
+    margin-top: var(--spacing-2x);
+    font-family: var(--text-body);
+    font-size: var(--font-scale-down-01);
+    color: var(--txt-secondary);
+    line-height: 1.5;
 }
-.links{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--spacing-base);
-    flex: 1 0 0;
+.taglineSub{
+    font-family: var(--text-body);
+    font-size: var(--font-scale-down-01);
+    color: var(--txt-secondary);
+    line-height: 1.5;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+.copyright{
+    margin-top: var(--spacing-3x);
+    font-family: var(--text-body);
+    font-size: var(--font-scale-down-02);
+    color: var(--txt-secondary);
+    line-height: 1.5;
 }
