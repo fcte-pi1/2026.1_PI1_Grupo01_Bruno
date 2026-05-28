@@ -43,6 +43,10 @@ main {
     align-items: flex-start;
 }
 
+div {
+    width: 100%;
+}
+
 .Center {
     display: flex;
     padding: var(--spacing-5x);
@@ -55,6 +59,7 @@ h1 {
     font-size: var(--font-scale-up-06);
     font-weight: var(--font-semibold);
     text-transform: uppercase;
+    overflow-wrap: break-word;
 }
 
 h2 {
@@ -62,6 +67,7 @@ h2 {
     font-size: var(--font-scale-up-05);
     font-weight: var(--font-bold);
     text-transform: uppercase;
+    overflow-wrap: break-word;
 }
 
 h3 {
@@ -69,6 +75,7 @@ h3 {
     font-size: var(--font-scale-up-04);
     font-weight: var(--font-medium);
     text-transform: uppercase;
+    overflow-wrap: break-word;
 }
 
 h4 {
@@ -76,6 +83,7 @@ h4 {
     font-size: var(--font-scale-up-03);
     font-weight: var(--font-semibold);
     text-transform: uppercase;
+    overflow-wrap: break-word;
 }
 
 h5 {
@@ -83,6 +91,7 @@ h5 {
     font-size: var(--font-scale-up-02);
     font-weight: var(--font-semibold);
     text-transform: uppercase;
+    overflow-wrap: break-word;
 }
 
 h6 {
@@ -90,6 +99,7 @@ h6 {
     font-size: var(--font-scale-up-01);
     font-weight: var(--font-semibold);
     text-transform: uppercase;
+    overflow-wrap: break-word;
 }
 
 p {
