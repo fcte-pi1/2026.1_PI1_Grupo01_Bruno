@@ -20,7 +20,7 @@ nav {
     justify-content: center;
     align-items: center;
     gap: var(--spacing-2x);
-    flex: 1 0 0;
+    /* flex: 1 0 0; */
 }
 
 @media (max-width: 768px) {
