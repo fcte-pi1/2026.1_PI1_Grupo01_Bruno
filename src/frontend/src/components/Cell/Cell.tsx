@@ -78,12 +78,11 @@ export function Cell({ from, to, visits }: CellProps) {
         const [s1, s2, s3, s4] = getMultiVisitSides(dirs)
         return (
             <div className={styles.Cell}>
-                <Trace side={s1} />
-                <Trace side={s2} />
-                <Trace side={s3} />
-                <Trace side={s4} />
-            </div> 
-            
+                <Trace side={s1} revisit />
+                <Trace side={s2} revisit />
+                <Trace side={s3} revisit />
+                <Trace side={s4} revisit />
+            </div>
         )
     }
 
