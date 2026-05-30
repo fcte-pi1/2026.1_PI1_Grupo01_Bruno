@@ -1,0 +1,70 @@
+.dg-page {
+  padding: 24px;
+  background: #0b1220;
+  min-height: 100vh;
+  color: #e5e7eb;
+  font-family: Arial, sans-serif;
+}
+
+.dg-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #f97316;
+}
+
+.dg-cards {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.dg-section {
+  margin-top: 24px;
+  background: #0f172a;
+  border: 1px solid #1f2937;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.dg-section-title {
+  padding: 12px;
+  border-bottom: 1px solid #1f2937;
+  font-size: 14px;
+  font-weight: 600;
+  color: #94a3b8;
+  background: #0b1220;
+}
+
+.dg-table-wrapper {
+  overflow-x: auto;
+}
+
+.dg-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.dg-th {
+  text-align: left;
+  padding: 10px;
+  color: #f97316;
+  border-bottom: 1px solid #1f2937;
+  background: #0b1220;
+}
+
+.dg-td {
+  padding: 10px;
+  border-bottom: 1px solid #1f2937;
+  color: #cbd5e1;
+}
+
+.dg-pre {
+  margin: 0;
+  padding: 16px;
+  font-size: 12px;
+  white-space: pre-wrap;
+  color: #94a3b8;
+}
