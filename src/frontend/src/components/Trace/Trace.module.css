@@ -1,7 +1,8 @@
 .Trace {
     width: 100%;
     aspect-ratio: 1 / 1;
-    --trace-space: 8px;
+    /* font-size: 8px; */
+    --trace-space: 0.8em;
     padding: 0;
     container-type: inline-size;
     overflow: visible;

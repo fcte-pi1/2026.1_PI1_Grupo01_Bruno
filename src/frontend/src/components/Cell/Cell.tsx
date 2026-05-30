@@ -3,11 +3,9 @@ import { Trace } from '../Trace'
 
 type Direction = 'left' | 'right' | 'top' | 'bottom'
 
-interface CellProps {
-    from?: Direction
-    to?: Direction
-    visits?: Array<{ from: Direction, to: Direction }>
-}
+type CellProps =
+    | { wall: true; from?: never; to?: never; visits?: never }
+    | { wall?: false; from?: Direction; to?: Direction; visits?: Array<{ from: Direction; to: Direction }> }
 
 function getCell1Side(from?: Direction, to?: Direction) {
     if ((from === 'bottom' && to === 'top') || (from === 'top' && (!to || to === 'bottom')))
@@ -72,7 +70,7 @@ function getMultiVisitSides(dirs: Set<Direction>): [Side?, Side?, Side?, Side?] 
     return [undefined, undefined, undefined, undefined]
 }
 
-export function Cell({ from, to, visits }: CellProps) {
+export function Cell({ from, to, visits, wall=false }: CellProps) {
     if (visits && visits.length > 0) {
         const dirs = new Set<Direction>(visits.flatMap(v => [v.from, v.to]))
         const [s1, s2, s3, s4] = getMultiVisitSides(dirs)
@@ -87,11 +85,13 @@ export function Cell({ from, to, visits }: CellProps) {
     }
 
     return (
-        <div className={styles.Cell}>
-            <Trace side={getCell1Side(from, to)} />
-            <Trace side={getCell2Side(from, to)} />
-            <Trace side={getCell3Side(from, to)} />
-            <Trace side={getCell4Side(from, to)} />
+        <div className={`${styles.Cell} ${wall ? styles.Wall : ''}`}>
+            {!wall && <>
+                <Trace side={getCell1Side(from, to)} />
+                <Trace side={getCell2Side(from, to)} />
+                <Trace side={getCell3Side(from, to)} />
+                <Trace side={getCell4Side(from, to)} />
+            </>} 
         </div>
     )
 }

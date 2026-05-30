@@ -1,3 +1,31 @@
-/* OPCIONAL */
-/* Função: é utilizado caso o componente tenha estilos próprios. 
-Uso aqui é ideal para que o estilo do componente não vaze para fora */
+.MazeBox {
+    display: flex;
+    max-width: 480px;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1/1;
+    border-radius: var(--radius-2x);
+    background: var(--bg-secondary);
+    width: min(480px, 100%);
+    overflow: hidden;
+}
+
+.Maze {
+    display: grid;
+    /* aspect-ratio: 1/1; */
+    width: 100%;
+    height: 100%;
+}
+
+.size4 {
+    grid-template-rows: repeat(9,minmax(0,1fr));
+    grid-template-columns: repeat(9,minmax(0,1fr));
+}
+.size8 {
+    grid-template-rows: repeat(17,minmax(0,1fr));
+    grid-template-columns: repeat(17,minmax(0,1fr));
+}
+.size16 {
+    grid-template-rows: repeat(33,minmax(0,1fr));
+    grid-template-columns: repeat(33,minmax(0,1fr));
+}

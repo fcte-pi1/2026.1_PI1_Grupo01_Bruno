@@ -5,3 +5,7 @@
     grid-template-columns: repeat(2,minmax(0,1fr));
     max-width: 100px;
 }
+
+.Wall{
+    background: var(--wall);
+}

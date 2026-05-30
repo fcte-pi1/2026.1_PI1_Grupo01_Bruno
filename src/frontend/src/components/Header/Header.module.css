@@ -7,6 +7,11 @@
     border-bottom: 1px solid var(--border);
     background: var(--bg-primary);
     justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
 }
 
 .logoBtn{
