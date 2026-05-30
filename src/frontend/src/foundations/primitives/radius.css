@@ -19,4 +19,6 @@
     --radius-5xh: calc(var(--radius-5x) + var(--radius-half));
 
     --radius-half-half: calc(var(--radius-half) / 2);
+
+    --radius-full: 8000px;
 }

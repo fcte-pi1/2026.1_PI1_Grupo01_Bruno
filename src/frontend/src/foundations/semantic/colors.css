@@ -3,6 +3,7 @@
     --bg-primary: var(--neutral-1000);
     --bg-secondary: var(--neutral-950);
     --wall: var(--neutral-800);
+    --mouse: var(--pumpkin-600);
 
     /* borders */
     --border: var(--neutral-600);
@@ -19,12 +20,15 @@
     /* states */
     --success: var(--chateau-green-400);
     --success-light: color-mix(in srgb, var(--chateau-green-400) 80%, transparent);
-    --warn: var(--pumpkin-500);
-    --warn-light: color-mix(in srgb, var(--pumpkin-500) 80%, transparent);
+    --warn: var(--selective-yellow-500);
+    --warn-light: color-mix(in srgb, var(--selective-yellow-500) 80%, transparent);
     --alert: var(--red-500);
     --alert-light: color-mix(in srgb, var(--red-400) 80%, transparent);
 
-    --warn-alternative: var(--selective-yellow-500);
+    --warn-alternative: var(--pumpkin-500);
+
+    --color-state-hover: color-mix(in srgb, var(--pumpkin-700) 20%, transparent);
+    --color-state-active: color-mix(in srgb, var(--pumpkin-500) 20%, transparent);
 }
 
 [data-theme="light"] {
@@ -32,6 +36,7 @@
     --bg-primary: var(--neutral-50);
     --bg-secondary: var(--neutral-0);
     --wall: var(--neutral-300);
+    --mouse: var(--pumpkin-500);
 
     /* borders */
     --border: var(--neutral-300);
@@ -48,10 +53,13 @@
     /* states */
     --success: var(--chateau-green-600);
     --success-light: none;
-    --warn: var(--pumpkin-600);
+    --warn: var(--selective-yellow-500);
     --warn-light: none;
     --alert: var(--red-700);
     --alert-light: none;
 
-    --warn-alternative: var(--selective-yellow-600);
+    --warn-alternative: var(--pumpkin-600);
+
+    --color-state-hover: color-mix(in srgb, var(--pumpkin-600) 20%, transparent);
+    --color-state-active: color-mix(in srgb, var(--pumpkin-600) 40%, transparent);
 }

@@ -1,0 +1,104 @@
+.footer{
+    background: var(--wall);
+    display: flex;
+    width: 100%;
+    padding: var(--spacing-5x);
+    align-items: flex-start;
+    gap: var(--spacing-base);
+}
+.grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: "link brand social";
+    gap: var(--spacing-4x);
+    align-items: start;
+    padding: var(--spacing-6x) var(--spacing-base);
+}
+.colLinks{ grid-area: links;}
+.colBrand{
+    grid-area: brand;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.tagline{
+    margin-top: var(--spacing-2x);
+    font-family: var(--text-body);
+    font-size: var(--font-scale-down-01);
+    color: var(--txt-secondary);
+    line-height: 1.5;
+}
+.taglineSub{
+    font-family: var(--text-body);
+    font-size: var(--font-scale-down-01);
+    color: var(--txt-secondary);
+    line-height: 1.5;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+.copyright{
+    margin-top: var(--spacing-3x);
+    font-family: var(--text-body);
+    font-size: var(--font-scale-down-02);
+    color: var(--txt-secondary);
+    line-height: 1.5;
+}
+.colSocial{
+    grid-area: social;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+}
+.sectionLabel{
+    display: block;
+    font-family: var(--text-heading);
+    font-size: var(--font-scale-down-01);
+    font-weight: var(--fontbold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--txt-primary);
+    margin-bottom: var(--spacing-2x);
+}
+.githubBtn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border);
+    color: var(--txt-secondary);
+}
+.githubBtn:hover{
+    color:var(--txt-primary);
+    border-color: var(--txt-secondary);
+    background-color: (--color-state-hover);
+}
+.githubBtn svg {
+    width: 100%;
+}
+@media (max-width:428px){
+    .grid{
+        padding: var(--spacing-3x) var(--spacing-2x);
+        margin-bottom: var(--spacing-1x);
+    }
+    .sectionLabel{
+        font-size: var(--font-scale-down-02);
+        margin-bottom: var(--spacing-1x);
+    }
+    .tagline,
+    .taglineSub{
+        font-size: vara(--font-scale-down-02);
+    }
+    .copyright{
+        font-size: vara(--font-scale-down-03);
+        margin-top: var(--spacing-2x);
+    }
+    .githubBtn{
+        width: 80%;
+    }
+    .githubBtn svg{
+        width: 80%;
+    }
+}

@@ -52,17 +52,17 @@
     --selective-yellow-950: #461F02;
     
     /* red */
-    --selective-yellow-50: #FFF0F0;
-    --selective-yellow-100: #FFDEDE;
-    --selective-yellow-200: #FFC2C2;
-    --selective-yellow-300: #FF9797;
-    --selective-yellow-400: #FF5C5C;
-    --selective-yellow-500: #FF2929;
-    --selective-yellow-600: #F91010;
-    --selective-yellow-700: #D20303;
-    --selective-yellow-800: #AD0707;
-    --selective-yellow-900: #8F0D0D;
-    --selective-yellow-950: #4E0101;
+    --red-50: #FFF0F0;
+    --red-100: #FFDEDE;
+    --red-200: #FFC2C2;
+    --red-300: #FF9797;
+    --red-400: #FF5C5C;
+    --red-500: #FF2929;
+    --red-600: #F91010;
+    --red-700: #D20303;
+    --red-800: #AD0707;
+    --red-900: #8F0D0D;
+    --red-950: #4E0101;
     
     /* neutral */
     --neutral-0: #FFFFFF;

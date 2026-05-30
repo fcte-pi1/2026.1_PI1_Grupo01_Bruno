@@ -95,7 +95,7 @@ A aplicação estará disponível em: `http://localhost:5173`
 
 ```bash
 # testes unitários
-$ npm run test
+$ npx vitest
 
 # testes e2e
 $ npm run test:e2e
