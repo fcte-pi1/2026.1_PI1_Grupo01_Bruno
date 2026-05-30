@@ -3,6 +3,7 @@
     --bg-primary: var(--neutral-1000);
     --bg-secondary: var(--neutral-950);
     --wall: var(--neutral-800);
+    --mouse: var(--pumpkin-600);
 
     /* borders */
     --border: var(--neutral-600);
@@ -35,6 +36,7 @@
     --bg-primary: var(--neutral-50);
     --bg-secondary: var(--neutral-0);
     --wall: var(--neutral-300);
+    --mouse: var(--pumpkin-500);
 
     /* borders */
     --border: var(--neutral-300);
@@ -51,7 +53,7 @@
     /* states */
     --success: var(--chateau-green-600);
     --success-light: none;
-    --warn: var(--selective-yellow-600);
+    --warn: var(--selective-yellow-500);
     --warn-light: none;
     --alert: var(--red-700);
     --alert-light: none;
