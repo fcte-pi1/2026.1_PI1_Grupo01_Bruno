@@ -91,6 +91,7 @@ export function Cell({ from, to, visits, wall=false }: CellProps) {
                 <Trace side={getCell2Side(from, to)} />
                 <Trace side={getCell3Side(from, to)} />
                 <Trace side={getCell4Side(from, to)} />
+                {from && !to && <div className={styles.MouseLoc} />}
             </>} 
         </div>
     )

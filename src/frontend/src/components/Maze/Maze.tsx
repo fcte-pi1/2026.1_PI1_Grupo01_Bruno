@@ -23,17 +23,17 @@ export function Maze({ size = 4 }: MazeProps){
             if (i % 2 === 0 && i % (gridSize * 2) < gridSize) return { wall: true }
             
             const patterns: CellData[] = [
+                {},
                 { from: 'left', to: 'right' },
+                { from: 'right', to: 'top' },
                 { from: 'top', to: 'bottom' },
                 { from: 'left', to: 'top' },
                 { from: 'left', to: 'bottom' },
-                { from: 'right', to: 'top' },
                 { from: 'right', to: 'top' },
                 { from: 'left' },
                 { from: 'right' },
                 { from: 'top' },
                 { from: 'bottom' },
-                {}
             ]
             return patterns[i % patterns.length]
         })
