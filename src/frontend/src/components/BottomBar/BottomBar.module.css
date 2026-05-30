@@ -6,6 +6,11 @@
     border-top: 1px solid var(--border);
     background: var(--bg-primary);
     display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
 }
 
 @media (max-width: 768px) {

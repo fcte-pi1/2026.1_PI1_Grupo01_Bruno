@@ -13,7 +13,8 @@ body {
     font-weight: var(--font-regular);
     color: var(--txt-primary);
     background: var(--bg-primary);
-    overflow: hidden;
+    /* overflow: hidden; */
+    overflow-y: auto;
 }
 
 #root {
@@ -34,23 +35,27 @@ html, body {
 
 main {
     display: flex;
-    flex: 1 0 0; 
+    /* flex: 1 0 0;  */
     width: 100%;
     align-self: stretch;
-    overflow: hidden;
-    overflow-y: auto;
+    /* overflow: hidden;
+    overflow-y: auto; */
     flex-direction: column;
     align-items: flex-start;
-}
-
-div {
-    width: 100%;
+    overflow: hidden;
 }
 
 .Center {
     display: flex;
+    flex-direction: column;
     padding: var(--spacing-5x);
     gap: var(--spacing-4x);
+    width: 100%;
+    min-height: 100vh;
+    margin-top: var(--spacing-8x);
+}
+
+div {
     width: 100%;
 }
 

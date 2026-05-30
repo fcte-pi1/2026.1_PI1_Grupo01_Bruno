@@ -38,7 +38,7 @@ export function Equipe() {
 
             <h2>empty</h2>
             <Cell />
-
+            
             <h2>right bottom left</h2>
             <Cell visits={[{ from: 'right', to: 'bottom' }, { from: 'bottom', to: 'left' }]} />
 

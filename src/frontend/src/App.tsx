@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-ro
 import { Header } from './components/Header'
 import { BottomBar } from './components/BottomBar'
 import { Footer } from './components/Footer'
+import { Breadcrumb } from './components/Breadcrumb'
 import { Dashboard } from './pages/Dashboard/Dashboard'
 import { Historico } from './pages/Historico/Historico'
 import { Projeto } from './pages/Projeto/Projeto'
@@ -40,6 +41,17 @@ function AppLayout(){
     document.documentElement.dataset.theme = theme
   }, [])
 
+  const PAGE_LABELS: Record<Page, string> = {
+    dashboard: 'Dashboard',
+    historico: 'Histórico',
+    projeto: 'Projeto',
+    equipe: 'Equipe',
+  }
+
+  useEffect(() => {
+    document.title = `XAROPi | ${PAGE_LABELS[currentPage]}`
+  }, [currentPage])
+
   return (
     <>
         <Header
@@ -51,6 +63,7 @@ function AppLayout(){
 
         <main>
           <div className="Center">
+            {currentPage !== 'dashboard' && <Breadcrumb />}
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/historico" element={<Historico />} />
