@@ -4,6 +4,7 @@ import {
   MessageBody,
   ConnectedSocket,
   WebSocketServer,
+  OnGatewayConnection, // Adicionado para detectar novas conexões
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { FirebaseService } from '../../firebase/firebase.service';
@@ -15,13 +16,43 @@ import { PostPosicaoAtualDto } from '../dto/post-posicao-atual.dto';
 import { SendCommandDto } from '../dto/send-command.dto';
 
 @WebSocketGateway({ cors: true })
-export class TelemetryGateway {
+export class TelemetryGateway implements OnGatewayConnection {
   
   
   @WebSocketServer()
   server!: Server;
 
   constructor(private readonly firebaseService: FirebaseService) {}
+
+  async handleConnection(client: Socket) {
+  try {
+    const db = this.firebaseService.getDb();
+
+    // Envia os dados atuais
+    const snapshot = await db.ref('/').once('value');
+    const data = snapshot.val();
+
+    if (data) {
+      client.emit('historicoInicial', data);
+    }
+
+    // Escuta alterações no Firebase
+    db.ref('/').on('value', (snapshot) => {
+      const updatedData = snapshot.val();
+
+      client.emit(
+        'historicoInicial',
+        updatedData
+      );
+    });
+
+  } catch (error) {
+    console.error(
+      'Erro ao carregar dados iniciais no WebSocket:',
+      error
+    );
+  }
+}
 
   @SubscribeMessage('postStart')
   async handlePostStart(@MessageBody() data: PostStartDto, @ConnectedSocket() client: Socket) {

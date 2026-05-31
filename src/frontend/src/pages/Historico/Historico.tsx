@@ -17,6 +17,7 @@ export function Historico() {
             <br />
 
             <Maze size={16} />
+
         </div>
     )
 }

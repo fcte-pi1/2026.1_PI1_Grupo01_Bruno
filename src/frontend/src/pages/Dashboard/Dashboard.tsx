@@ -1,4 +1,6 @@
 import { Card } from '../../components/Card'
+import { TemperatureChart } from '../../components/Charts/TemperatureChart';
+
 
 export function Dashboard() {
     return (
@@ -10,6 +12,7 @@ export function Dashboard() {
                 label="Total de usuários"
                 value="1.240"
             />
+        <TemperatureChart />
         </div>
     )
 }
