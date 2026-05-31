@@ -4,7 +4,7 @@ import {
   MessageBody,
   ConnectedSocket,
   WebSocketServer,
-  OnGatewayConnection, // Adicionado para detectar novas conexões
+  OnGatewayConnection,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { FirebaseService } from '../../firebase/firebase.service';
@@ -36,7 +36,6 @@ export class TelemetryGateway implements OnGatewayConnection {
       client.emit('historicoInicial', data);
     }
 
-    // Escuta alterações no Firebase
     db.ref('/').on('value', (snapshot) => {
       const updatedData = snapshot.val();
 
