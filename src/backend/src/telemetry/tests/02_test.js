@@ -17,10 +17,10 @@ function emitAsync(event, data, timeoutMs = 2500) {
 function assertValidationError(testName, response) {
   if (response && response.status === 'erro') {
     console.log(`[SUCESSO] ${testName}: O backend barrou corretamente.`);
-    console.log(`   └─ Erros retornados:`, JSON.stringify(response.detalhes, null, 2));
+    console.log(`Erros retornados:`, JSON.stringify(response.detalhes, null, 2));
   } else {
     console.error(`[FALHA] ${testName}: O servidor aceitou o dado ou retornou um formato inesperado!`);
-    console.error(`   └─ Resposta obtida:`, response);
+    console.error(`Resposta obtida:`, response);
   }
   console.log("-".repeat(70));
 }
@@ -45,7 +45,7 @@ socket.on("connect", async () => {
     id_corrida: idCorridaValido, 
     comando: 124 
   });
-  assertValidationError("Teste 2 (String inválida - comando como número)", res2);
+  assertValidationError("Teste 2 (String inválida - string como número)", res2);
 
   // Teste de formato errado (string e numero em campo de boolean)
   const res3 = await emitAsync("postNos", {
@@ -56,20 +56,20 @@ socket.on("connect", async () => {
     l: true,
     o: false
   });
-  assertValidationError("Teste 3 (Boolean inválido - sensores como string/número)", res3);
+  assertValidationError("Teste 3 (Boolean inválido - boolean como string/número)", res3);
 
   // Teste de campo ausente
   const res4 = await emitAsync("post_posicao_atual", { 
     id_corrida: idCorridaValido
   });
-  assertValidationError("Teste 4 (Campo Ausente - posicao faltando)", res4);
+  assertValidationError("Teste 4 (Campo Ausente - post_posicao_atual faltando)", res4);
 
   // Teste de campo que nao existe
   const res5 = await emitAsync("postFinish", { 
     id_corrida: idCorridaValido, 
     bateria_final: 7.8,
-    campo_hacker: "injeção_dados" 
+    campo_teste: "teste" 
   });
-  assertValidationError("Teste 5 (Campo Extra - Whitelist de segurança)", res5);
+  assertValidationError("Teste 5 (Campo Extra - campo_teste)", res5);
   process.exit(0);
 });
