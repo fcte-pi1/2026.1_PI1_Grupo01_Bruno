@@ -1,5 +1,6 @@
 import { Card } from '../../components/Card'
 import { Battery } from '../../components/Battery'
+import { Connection } from '../../components/Connection'
 
 export function Dashboard() {
     return (
@@ -19,6 +20,13 @@ export function Dashboard() {
             <Battery level={20} voltage={3.7} />
 
             <Battery level={0} />
+
+
+            <Connection status="connected" port="COM3" />
+
+            <Connection status="warn" port="COM3" />
+
+            <Connection status="disconnected" port="COM3" />
         </div>
     )
 }
