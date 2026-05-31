@@ -8,6 +8,8 @@
     /* borders */
     --border: var(--neutral-600);
 
+    --inactive-battery: var(--neutral-900);
+
     /* logo */
     --logo: var(--neutral-0);
     --logo-secondary: var(--pumpkin-500);
@@ -40,6 +42,8 @@
 
     /* borders */
     --border: var(--neutral-300);
+
+    --inactive-battery: var(--neutral-200);
 
     /* logo */
     --logo: var(--pumpkin-500);

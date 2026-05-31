@@ -1,0 +1,41 @@
+.Content {
+    display: flex;
+    padding: var(--spacing-3x);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-2x);
+    align-self: stretch;
+    overflow-y: auto;
+}
+
+.BtnFull {
+    width: 100%;
+}
+
+dialog {
+    display: flex;
+    width: 400px;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: var(--shape-2x);
+    background: var(--bg-primary);
+}
+
+header {
+    display: flex;
+    padding: var(--spacing-half) var(--spacing-2x);
+    align-items: center;
+    gap: var(--spacing-base);
+    align-self: stretch;
+    border-bottom: 1px solid var(--border);
+}
+
+footer {
+    display: flex;
+    padding: var(--spacing-base) var(--spacing-2x);
+    justify-content: flex-end;
+    align-items: center;
+    gap: var(--spacing-base);
+    align-self: stretch;
+}
