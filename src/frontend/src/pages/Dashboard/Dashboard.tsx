@@ -1,8 +1,6 @@
 import { Card } from '../../components/Card'
 import { Battery } from '../../components/Battery'
 import { Connection } from '../../components/Connection'
-import { Battery } from '../../components/Battery'
-import { Connection } from '../../components/Connection'
 import { TemperatureChart } from '../../components/Charts/TemperatureChart';
 
 
