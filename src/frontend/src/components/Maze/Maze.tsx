@@ -12,7 +12,6 @@ interface MazeProps {
     size?: 4 | 8 | 16
 }
 
-
 export function Maze({ size = 4 }: MazeProps){
     const gridSize = size * 2 + 1
     const totalCells = gridSize * gridSize
