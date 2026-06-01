@@ -1,5 +1,1 @@
-// ESSENCIAL
-// Função: exporta de maneira limpa o componente
-
-// ESTRUTURA BASICA
-// export { Component } from './Component'
+export { Modal } from './Modal'
