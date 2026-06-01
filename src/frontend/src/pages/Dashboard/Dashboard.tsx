@@ -1,105 +1,70 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { io } from 'socket.io-client';
+import { useNavigate } from 'react-router-dom';
 import { Card } from '../../components/Card';
+import { Button } from '../../components/Button';
 import { Battery } from '../../components/Battery';
 import { Connection } from '../../components/Connection';
+import styles from './Dashboard.module.css';
 
-// Conexão do WebSocket (fora do componente para não ficar reconectando à toa)
+// Conexão do WebSocket
 const socket = io('http://localhost:3000');
 
 export function Dashboard() {
-    // os "estados" (variáveis) que vão guardar os dados pescados
+    const navigate = useNavigate();
+
+    // Estados da Integração (Back-end)
     const [qtdTestes, setQtdTestes] = useState(0);
     const [taxaSucesso, setTaxaSucesso] = useState(0);
-    
     const [bateriaNivel, setBateriaNivel] = useState(0);
     const [bateriaTensao, setBateriaTensao] = useState(0);
-    
-    // Status da conexão pode ser 'connected', 'disconnected' ou 'warn'
     const [statusConexao, setStatusConexao] = useState<'connected' | 'disconnected' | 'warn'>('warn');
 
-    // O useEffect faz a pescaria assim que a tela abre
     useEffect(() => {
-        //  Escutando a Conexão do Robô
+        // Escutando WebSockets
         socket.on('connect', () => setStatusConexao('connected'));
         socket.on('disconnect', () => setStatusConexao('disconnected'));
 
-        // Pescando os Dados do Banco 
+        // Buscando dados REST
         axios.get('http://localhost:3000/corridas')
             .then(response => {
                 const dadosNode = response.data.dados;
                 if (!dadosNode) return;
 
-                // Transforma o objeto do Firebase num Array de corridas
                 const listaCorridas = Object.values(dadosNode) as any[];
                 
-                // Pescando: Quantidade total de testes
                 setQtdTestes(listaCorridas.length);
 
-                // Pescando: Taxa de sucesso (quantas tem status 'concluido' x total)
                 const concluidas = listaCorridas.filter(corrida => corrida.metadados?.status === 'concluido').length;
-                const porcentagemSucesso = Math.round((concluidas / listaCorridas.length) * 100);
+                const porcentagemSucesso = listaCorridas.length > 0 
+                    ? Math.round((concluidas / listaCorridas.length) * 100) 
+                    : 0;
                 setTaxaSucesso(porcentagemSucesso);
 
-                // Pescando: Dados da bateria da ÚLTIMA corrida
-                const ultimaCorrida = listaCorridas[listaCorridas.length - 1]; // Pega a última da lista
+                const ultimaCorrida = listaCorridas[listaCorridas.length - 1]; 
                 if (ultimaCorrida && ultimaCorrida.telemetria) {
                     const listaTelemetria = Object.values(ultimaCorrida.telemetria) as any[];
-                    const ultimaTelemetria = listaTelemetria[listaTelemetria.length - 1]; // Pega o último pulso enviado
+                    const ultimaTelemetria = listaTelemetria[listaTelemetria.length - 1]; 
                     
                     if (ultimaTelemetria) {
-                        setBateriaNivel(ultimaTelemetria.mah_restante); // Ex: 95
-                        setBateriaTensao(ultimaTelemetria.tensao);      // Ex: 8.2
+                        setBateriaNivel(ultimaTelemetria.mah_restante || 0); 
+                        setBateriaTensao(ultimaTelemetria.tensao || 0);      
                     }
                 }
             })
             .catch(error => console.error("Erro ao buscar dados:", error));
 
-        // Limpeza quando o componente é fechado
         return () => {
             socket.off('connect');
             socket.off('disconnect');
         };
     }, []);
 
-    //  Renderizando os componentes com os DADOS REAIS
-    return (
-        <div>
-            <h1>Dashboard (Integrado)</h1>
-
-            <Card
-                icon="analytics"
-                label="Qtd. Testes"
-                value={qtdTestes.toString()}
-            />
-            
-            <Card
-                icon="analytics" // criar um ícone de sucesso depois
-                label="Taxa de Sucesso"
-                value={`${taxaSucesso}%`}
-            />
-
-            {/* Injetando a bateria real. O componente vai desenhar baseado nesses números */}
-            <Battery level={bateriaNivel} voltage={bateriaTensao} />
-
-            {/* Injetando a conexão real (se o backend tá online ou não) */}
-            <Connection status={statusConexao} port="WS" />
-        </div>
-    );
-import { Card } from '../../components/Card'
-import { Button } from '../../components/Button'
-import { useNavigate } from 'react-router-dom'
-import styles from './Dashboard.module.css'
-
-
-export function Dashboard() {
-    const navigate = useNavigate()
-
-    // muda aqui os cards da dashboard
-    const stats: { icon: string; label: string; value: string; size?: 'default' | 'lg' }[] =[
-        { icon: 'science', label: 'Qtd. Testes', value: '152', size: 'lg' },
-        { icon: 'check_circle', label: 'Taxa de sucesso', value: '87%', size: 'lg' },
+    // Lista de cards mesclando os dados reais com os dados estáticos temporários
+    const stats: { icon: string; label: string; value: string; size?: 'default' | 'lg' }[] = [
+        { icon: 'science', label: 'Qtd. Testes', value: qtdTestes.toString(), size: 'lg' },
+        { icon: 'check_circle', label: 'Taxa de sucesso', value: `${taxaSucesso}%`, size: 'lg' },
         { icon: 'timer', label: 'tempo médio', value: '43.3s', size: 'lg' },
         { icon: 'speed', label: 'Vel. média geral', value: '0.38 m/s', size: 'lg' },
         { icon: 'electric_bolt', label: 'Cons. energ. médio', value: '3.8 Wh', size: 'lg' },
@@ -107,20 +72,27 @@ export function Dashboard() {
         { icon: 'alt_route', label: 'Eficiência de trajeto', value: '70,5%', size: 'default' },
         { icon: 'thermostat', label: 'Temp. média do sistema', value: '48°C', size: 'default' },
         { icon: 'shield', label: 'Confiabilidade geral', value: '92%', size: 'default' },
-    ]
+    ];
+
     return (
         <>
-            <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                 <Button icon='add' label='Novo percurso' onClick={() => navigate('/percurso')} />
+                
+                {/* Bateria e Conexão ao lado do botão */}
+                <div style={{ display: 'flex', gap: '1rem' }}>
+                    <Connection status={statusConexao} port="WS" />
+                    <Battery level={bateriaNivel} voltage={bateriaTensao} />
+                </div>
             </div>
 
             <div className={styles.Cards}>
                 {stats.map(stat => (
                     <div key={stat.label} className={stat.size === 'lg' ? styles.SpanLg : styles.SpanDefault}>
-                        <Card key={stat.label} icon={stat.icon} label={stat.label} value={stat.value} size={stat.size} />
+                        <Card icon={stat.icon} label={stat.label} value={stat.value} size={stat.size} />
                     </div>    
                 ))}
             </div>
         </>
-    )
+    );
 }

@@ -9,11 +9,8 @@ import { Dashboard } from './pages/Dashboard/Dashboard'
 import { Historico } from './pages/Historico/Historico'
 import { Projeto } from './pages/Projeto/Projeto'
 import { Equipe } from './pages/Equipe/Equipe'
-<<<<<<< HEAD
 import { TesteIntegracao } from './pages/TesteIntegracao'
-=======
 import { Percurso } from './pages/Percurso/Percurso'
->>>>>>> f285209e2e2ae3683a6bf6a9d05bc60f4b70ffe7
 import { useState, useEffect } from 'react'
 import './index.css'
 import type { Page } from './types/navigation'
@@ -24,6 +21,8 @@ function AppLayout(){
   const navigate = useNavigate()
   const location = useLocation()
   const [theme, setTheme] = useState<'light' | 'dark'>('dark')
+  
+  // No futuro, podemos integrar a bateria e conexão do WebSocket aqui também
   const [connection, setConnection] = useState({ status: 'connected' as 'connected' | 'warn' | 'disconnected', port: 'COM3' })
   const [battery, setBattery] = useState({ level: 80, voltage: 7.4 })
 
@@ -49,7 +48,7 @@ function AppLayout(){
 
   useEffect(() => {
     document.title = `XAROPi | ${label}`
-  }, [currentPage])
+  }, [label])
 
   return (
     <>
@@ -60,23 +59,9 @@ function AppLayout(){
         onThemeToggle={toggleTheme}
       />
 
-<<<<<<< HEAD
-        <main>
-          <div className="Center">
-            {currentPage !== 'dashboard' && <Breadcrumb />}
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/historico" element={<Historico />} />
-              <Route path="/projeto" element={<Projeto />} />
-              <Route path="/equipe" element={<Equipe />} />
-              <Route path="/teste" element={<TesteIntegracao />} />
-            </Routes>
-          </div>
-=======
       <main>
         <div className="Center">
           {currentPage !== 'dashboard' && <Breadcrumb />}
->>>>>>> f285209e2e2ae3683a6bf6a9d05bc60f4b70ffe7
 
           {showTopPage && (
             <div className={styles.TopPage}>
@@ -97,6 +82,7 @@ function AppLayout(){
             <Route path="/projeto" element={<Projeto />} />
             <Route path="/equipe" element={<Equipe />} />
             <Route path="/percurso" element={<Percurso />} />
+            <Route path="/teste" element={<TesteIntegracao />} />
           </Routes>
         </div>
 
