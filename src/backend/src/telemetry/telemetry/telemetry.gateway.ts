@@ -2,8 +2,8 @@ import { WebSocketGateway,
          SubscribeMessage,
          MessageBody,
          ConnectedSocket,
-         WebSocketServer
-  OnGatewayConnection,
+         WebSocketServer,
+        OnGatewayConnection,
         } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { FirebaseService } from '../../firebase/firebase.service';
