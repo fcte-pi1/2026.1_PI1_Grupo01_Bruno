@@ -7,6 +7,7 @@ import { Dashboard } from './pages/Dashboard/Dashboard'
 import { Historico } from './pages/Historico/Historico'
 import { Projeto } from './pages/Projeto/Projeto'
 import { Equipe } from './pages/Equipe/Equipe'
+import { TesteIntegracao } from './pages/TesteIntegracao'
 import { useState, useEffect } from 'react'
 import './index.css'
 import type { Page } from './types/navigation'
@@ -69,6 +70,7 @@ function AppLayout(){
               <Route path="/historico" element={<Historico />} />
               <Route path="/projeto" element={<Projeto />} />
               <Route path="/equipe" element={<Equipe />} />
+              <Route path="/teste" element={<TesteIntegracao />} />
             </Routes>
           </div>
 
