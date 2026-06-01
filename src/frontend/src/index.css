@@ -52,7 +52,7 @@ main {
     gap: var(--spacing-4x);
     width: 100%;
     min-height: 100vh;
-    margin-top: var(--spacing-8x);
+    margin-top: var(--spacing-10x);
 }
 
 div {
@@ -109,7 +109,7 @@ h6 {
 
 p {
     font-family: var(--text-body);
-    font-size: var(--font-scale-base);
+    font-size: var(--font-scale-up-01);
     font-weight: var(--font-regular);
 }
 
@@ -154,4 +154,11 @@ label {
     'opsz' var(--icon-opsz);
 
   user-select: none;
+}
+
+@media(max-width: 768px) {
+    .Center {
+        margin-top: var(--spacing-8x);
+        padding: var(--spacing-3x);
+    }
 }
