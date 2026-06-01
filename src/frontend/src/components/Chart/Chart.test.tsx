@@ -39,7 +39,7 @@ vi.mock('recharts', () => ({
   Tooltip: () => <div data-testid="tooltip" />,
 }));
 
-import { TemperatureChart } from './TemperatureChart';
+import { TemperatureChart } from './Chart';
 
 describe('TemperatureChart', () => {
   beforeEach(() => {
