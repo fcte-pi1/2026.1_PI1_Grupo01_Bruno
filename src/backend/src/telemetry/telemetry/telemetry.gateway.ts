@@ -3,7 +3,8 @@ import { WebSocketGateway,
          MessageBody,
          ConnectedSocket,
          WebSocketServer,
-        OnGatewayConnection,
+         OnGatewayConnection,
+         OnGatewayDisconnect
         } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { FirebaseService } from '../../firebase/firebase.service';
@@ -19,11 +20,13 @@ import { WsValidationFilter } from './ws-exception.filter';
 @WebSocketGateway({ cors: true })
 @UsePipes(new ValidationPipe({ transform: true, whitelist: true, forbidNonWhitelisted: true, }))
 @UseFilters(new WsValidationFilter())
-export class TelemetryGateway implements OnGatewayConnection {
+export class TelemetryGateway implements OnGatewayConnection, OnGatewayDisconnect {
   
   
   @WebSocketServer()
   server!: Server;
+
+  private corridasAtivas: Map<string, string> = new Map();
 
   constructor(private readonly firebaseService: FirebaseService) {}
 
@@ -61,6 +64,9 @@ export class TelemetryGateway implements OnGatewayConnection {
     const db = this.firebaseService.getDb();
     const novaCorridaRef = db.ref('corridas').push(); 
     
+    const idCorrida = novaCorridaRef.key as string;
+    this.corridasAtivas.set(client.id, idCorrida);
+    
     await novaCorridaRef.set({
       metadados: {
         status: 'em_execucao',
@@ -75,7 +81,7 @@ export class TelemetryGateway implements OnGatewayConnection {
       telemetria: {}
     });
 
-    return { status: 'sucesso', id_corrida: novaCorridaRef.key };
+    return { status: 'sucesso', id_corrida: idCorrida };
   }
 
   @SubscribeMessage('postNos')
@@ -107,7 +113,7 @@ export class TelemetryGateway implements OnGatewayConnection {
   }
 
   @SubscribeMessage('postFinish')
-  async handlePostFinish(@MessageBody() data: PostFinishDto) {
+  async handlePostFinish(@MessageBody() data: PostFinishDto, @ConnectedSocket() client: Socket) {
     const db = this.firebaseService.getDb();
     const metadadosRef = db.ref(`corridas/${data.id_corrida}/metadados`);
     
@@ -116,6 +122,8 @@ export class TelemetryGateway implements OnGatewayConnection {
       fim_timestamp: Date.now(),
       bateria_final: data.bateria_final
     });
+
+    this.corridasAtivas.delete(client.id);
 
     return { status: 'sucesso' };
   }
@@ -139,5 +147,22 @@ export class TelemetryGateway implements OnGatewayConnection {
   ) {
     this.server.emit('receiveCommand', data);
     return { status: 'comando_encaminhado' };
+  }
+
+  async handleDisconnect(client: Socket) {
+    const id_corrida = this.corridasAtivas.get(client.id);
+    
+    if (id_corrida) {
+      const db = this.firebaseService.getDb();
+      const metadadosRef = db.ref(`corridas/${id_corrida}/metadados`);
+      
+      await metadadosRef.update({
+        status: 'interrompida',
+        fim_timestamp: Date.now()
+      });
+
+      this.corridasAtivas.delete(client.id);
+      console.log(`[ALERTA] Conexão perdida. Corrida ${id_corrida} marcada como interrompida.`);
+    }
   }
 }

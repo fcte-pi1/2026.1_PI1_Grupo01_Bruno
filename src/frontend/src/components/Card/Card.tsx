@@ -10,7 +10,7 @@ interface CardProps {
 
 export function Card({ size = 'default', icon, label, value }: CardProps){
     const iconSize = ({
-        default: '3x',
+        default: '2x',
         lg: '2x',
     } as const)[size]
 
