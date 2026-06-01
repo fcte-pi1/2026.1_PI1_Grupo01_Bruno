@@ -21,7 +21,15 @@ export function Percurso() {
             </div>
 
             <div className={styles.Content}>
-                <Maze />
+                <Maze  size={4} updates={ [
+                    { index: 0, walls: { left: true, right: false, top: true, bottom: true } },
+                    {index: 1, walls: { left: false, right: false, top: true, bottom: false} },
+                    {index: 5, walls: { left: true, right: false, top: false, bottom: false } },
+                    {index: 9, walls: { left: true, right: false, top: false, bottom: true} },
+                    {index: 10, walls: { left: false, right: true, top: false, bottom: true} },
+                    {index: 6, walls: { left: false, right: true, top: true, bottom: false } }
+                ]}
+                path={[0, 1, 5, 9, 10, 6]}/>
                 <div className={styles.InfosLog}>
                     <div className={styles.ControlCards}>
                         {cards.map(card => (
