@@ -5,6 +5,7 @@
     padding: var(--spacing-5x);
     align-items: flex-start;
     gap: var(--spacing-base);
+    position: relative;
 }
 .grid{
     display: grid;
@@ -14,7 +15,7 @@
     align-items: start;
     padding: var(--spacing-6x) var(--spacing-base);
 }
-.colLinks{ grid-area: links;}
+.colLinks{ grid-area: auto;}
 .colBrand{
     grid-area: brand;
     display: flex;
@@ -45,15 +46,17 @@
     line-height: 1.5;
 }
 .colSocial{
-    grid-area: social;
+    width:auto;
     display: flex;
+    position: relative;
     flex-direction: column;
     align-items: flex-end;
     text-align: right;
+    gap: var(--spacing-base);
 }
 .sectionLabel{
     display: block;
-    font-family: var(--text-heading);
+    font-family: var(--font-display);
     font-size: var(--font-scale-down-01);
     font-weight: var(--fontbold);
     letter-spacing: 0.1em;
@@ -62,13 +65,15 @@
     margin-bottom: var(--spacing-2x);
 }
 .githubBtn{
-    display: flex;
-    align-items: center;
+    width: 15%;
+    display:flex;
+    flex-direction: column;
+    align-items: right;
     justify-content: center;
-    width: 100%;
-    border-radius: var(--radius-full);
-    border: 1px solid var(--border);
+    text-align: center;
+    border-radius:inherit;
     color: var(--txt-secondary);
+    height: auto;
 }
 .githubBtn:hover{
     color:var(--txt-primary);
@@ -76,7 +81,7 @@
     background-color: (--color-state-hover);
 }
 .githubBtn svg {
-    width: 100%;
+    width:auto;
 }
 @media (max-width:428px){
     .grid{
@@ -89,16 +94,16 @@
     }
     .tagline,
     .taglineSub{
-        font-size: vara(--font-scale-down-02);
+        font-size: var(--font-scale-down-02);
     }
     .copyright{
-        font-size: vara(--font-scale-down-03);
+        font-size: var(--font-scale-down-03);
         margin-top: var(--spacing-2x);
     }
     .githubBtn{
-        width: 80%;
+        width: auto;
     }
     .githubBtn svg{
-        width: 80%;
+        width: auto;
     }
 }
