@@ -1,10 +1,9 @@
-import {
-  WebSocketGateway,
-  SubscribeMessage,
-  MessageBody,
-  ConnectedSocket,
-  WebSocketServer,
-} from '@nestjs/websockets';
+import { WebSocketGateway,
+         SubscribeMessage,
+         MessageBody,
+         ConnectedSocket,
+         WebSocketServer
+        } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { FirebaseService } from '../../firebase/firebase.service';
 import { PostStartDto } from '../dto/post-start.dto';
@@ -13,8 +12,12 @@ import { PostVelBatDto } from '../dto/post-vel-bat.dto';
 import { PostFinishDto } from '../dto/post-finish.dto';
 import { PostPosicaoAtualDto } from '../dto/post-posicao-atual.dto';
 import { SendCommandDto } from '../dto/send-command.dto';
+import { UsePipes, UseFilters, ValidationPipe } from '@nestjs/common';
+import { WsValidationFilter } from './ws-exception.filter';
 
 @WebSocketGateway({ cors: true })
+@UsePipes(new ValidationPipe({ transform: true, whitelist: true, forbidNonWhitelisted: true, }))
+@UseFilters(new WsValidationFilter())
 export class TelemetryGateway {
   
   
@@ -101,8 +104,9 @@ export class TelemetryGateway {
   }
 
   @SubscribeMessage('sendcomand')
-  async handleSendCommand(@MessageBody() data: SendCommandDto) {
-    
+  async handleSendCommand(
+    @MessageBody(new ValidationPipe({ transform: true, whitelist: true, forbidNonWhitelisted: true })) data: SendCommandDto
+  ) {
     this.server.emit('receiveCommand', data);
     return { status: 'comando_encaminhado' };
   }
