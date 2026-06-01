@@ -10,12 +10,21 @@
 .SpanLg { grid-column: span 4; }
 .SpanDefault { grid-column: span 5; }
 
+@media (max-width: 768px) {
+    .Cards{
+        grid-template-rows: repeat(5,fit-content(100%));
+        grid-template-columns: repeat(2,minmax(0,1fr));
+    }
+
+    .SpanLg { grid-column: span 1; }
+    .SpanDefault { grid-column: span 1; }
+}
 @media (max-width: 480px) {
     .Cards{
         grid-template-rows: repeat(5,fit-content(100%));
         grid-template-columns: repeat(2,minmax(0,1fr));
     }
 
-    .SpanLg { grid-column: span 2; }
+    .SpanLg { grid-column: span 1; }
     .SpanDefault { grid-column: span 2; }
 }

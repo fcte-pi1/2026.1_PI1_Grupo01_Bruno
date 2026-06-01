@@ -1,4 +1,4 @@
-p {
+.TopPageLeft p {
     color: var(--txt-secondary);
 }
 
@@ -36,10 +36,12 @@ p {
     .TopPageLeft {
         min-width: 0;
     }
-    
-}
 
-@media (max-width: 480px) {
+    .TopPage {
+        flex-direction: column;
+        flex-wrap: nowrap; 
+    }
+    
     .TopPageRight {
         all: unset;
         display: flex;
@@ -51,11 +53,6 @@ p {
         scrollbar-width: none;
         &::-webkit-scrollbar {
             display: none;
-}
-    }
-
-    .TopPage {
-        flex-direction: column;
-        flex-wrap: nowrap; 
+        }
     }
 }

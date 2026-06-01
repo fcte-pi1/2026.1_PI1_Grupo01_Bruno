@@ -7,7 +7,7 @@
     gap: var(--spacing-base);
     border-radius: var(--radius-2x);
     background: var(--bg-secondary);
-    color: var(--color-txt-primary);
+    color: var(--txt-primary);
     height: stretch;
 }
 

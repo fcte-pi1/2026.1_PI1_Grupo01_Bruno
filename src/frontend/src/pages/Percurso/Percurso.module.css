@@ -14,7 +14,7 @@
     align-content: center;
     gap: var(--spacing-2x) var(--spacing-2x);
     align-self: stretch;
-    /* flex-wrap: wrap; */
+    flex-wrap: wrap;
     justify-content: space-between;
 }
 
@@ -32,7 +32,7 @@
     align-content: flex-start;
     gap: var(--spacing-3x) var(--spacing-3x);
     align-self: stretch;
-    /* flex-wrap: wrap; */
+    flex-wrap: wrap;
 }
 
 .InfosLog {
