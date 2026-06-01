@@ -1,14 +1,14 @@
 .card {
     display: flex;
-    min-width: 240px;
+    /* min-width: 240px; */
     max-width: 540px;
     padding: var(--spacing-3x);
     align-items: center;
     gap: var(--spacing-base);
     border-radius: var(--radius-2x);
     background: var(--bg-secondary);
-    color: var(--color-txt-primary);
-    height: fit-content;
+    color: var(--txt-primary);
+    height: stretch;
 }
 
 .lg {

@@ -2,34 +2,39 @@ import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-ro
 import { Header } from './components/Header'
 import { BottomBar } from './components/BottomBar'
 import { Footer } from './components/Footer'
+import { Connection } from './components/Connection'
+import { Battery } from './components/Battery'
 import { Breadcrumb } from './components/Breadcrumb'
 import { Dashboard } from './pages/Dashboard/Dashboard'
 import { Historico } from './pages/Historico/Historico'
 import { Projeto } from './pages/Projeto/Projeto'
 import { Equipe } from './pages/Equipe/Equipe'
+<<<<<<< HEAD
 import { TesteIntegracao } from './pages/TesteIntegracao'
+=======
+import { Percurso } from './pages/Percurso/Percurso'
+>>>>>>> f285209e2e2ae3683a6bf6a9d05bc60f4b70ffe7
 import { useState, useEffect } from 'react'
 import './index.css'
 import type { Page } from './types/navigation'
-
-const PAGE_ROUTES: Record<Page, string> = {
-  dashboard: '/',
-  historico: '/historico',
-  projeto: '/projeto',
-  equipe: '/equipe',
-}
+import { PAGE_CONFIG } from './config/pages'
+import styles from './App.module.css'
 
 function AppLayout(){
   const navigate = useNavigate()
   const location = useLocation()
   const [theme, setTheme] = useState<'light' | 'dark'>('dark')
+  const [connection, setConnection] = useState({ status: 'connected' as 'connected' | 'warn' | 'disconnected', port: 'COM3' })
+  const [battery, setBattery] = useState({ level: 80, voltage: 7.4 })
 
-  const currentPage = (Object.entries(PAGE_ROUTES).find(
-    ([, path]) => path === location.pathname
+  const currentPage = (Object.entries(PAGE_CONFIG).find(
+    ([, config]) => config.route === location.pathname
   )?.[0] ?? 'dashboard') as Page
 
+  const { label, description, showTopPage } = PAGE_CONFIG[currentPage]
+
   const handlePageChange = (page: Page) => {
-    navigate(PAGE_ROUTES[page])
+    navigate(PAGE_CONFIG[page].route)
   }
 
   const toggleTheme = () => {
@@ -40,28 +45,22 @@ function AppLayout(){
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme
-  }, [])
-
-  const PAGE_LABELS: Record<Page, string> = {
-    dashboard: 'Dashboard',
-    historico: 'Histórico',
-    projeto: 'Projeto',
-    equipe: 'Equipe',
-  }
+  }, [theme])
 
   useEffect(() => {
-    document.title = `XAROPi | ${PAGE_LABELS[currentPage]}`
+    document.title = `XAROPi | ${label}`
   }, [currentPage])
 
   return (
     <>
-        <Header
-            theme={theme}
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-            onThemeToggle={toggleTheme}
-        />
+      <Header
+        theme={theme}
+        currentPage={currentPage}
+        onPageChange={handlePageChange}
+        onThemeToggle={toggleTheme}
+      />
 
+<<<<<<< HEAD
         <main>
           <div className="Center">
             {currentPage !== 'dashboard' && <Breadcrumb />}
@@ -73,17 +72,44 @@ function AppLayout(){
               <Route path="/teste" element={<TesteIntegracao />} />
             </Routes>
           </div>
+=======
+      <main>
+        <div className="Center">
+          {currentPage !== 'dashboard' && <Breadcrumb />}
+>>>>>>> f285209e2e2ae3683a6bf6a9d05bc60f4b70ffe7
 
-          <Footer />
-        </main>
-        <BottomBar
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-        />
+          {showTopPage && (
+            <div className={styles.TopPage}>
+              <div className={styles.TopPageLeft}>
+                <h1>{label}</h1>
+                <p>{description}</p>
+              </div>
+              <div className={styles.TopPageRight}>
+                <Connection status={connection.status} port={connection.port} />
+                <Battery level={battery.level} voltage={battery.voltage} />
+              </div>
+            </div>
+          )}
+
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/historico" element={<Historico />} />
+            <Route path="/projeto" element={<Projeto />} />
+            <Route path="/equipe" element={<Equipe />} />
+            <Route path="/percurso" element={<Percurso />} />
+          </Routes>
+        </div>
+
+        <Footer />
+      </main>
+
+      <BottomBar
+        currentPage={currentPage}
+        onPageChange={handlePageChange}
+      />
     </>
   )
 }
-
 
 function App() {
   return (
