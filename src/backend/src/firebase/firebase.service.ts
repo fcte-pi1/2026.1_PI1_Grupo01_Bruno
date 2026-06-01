@@ -6,7 +6,7 @@ import * as fs from 'fs';
 
 @Injectable()
 export class FirebaseService implements OnModuleInit {
-  private db: admin.database.Database;
+  private db!: admin.database.Database;
 
   constructor(private configService: ConfigService) {}
 
@@ -53,4 +53,24 @@ export class FirebaseService implements OnModuleInit {
     const ref = this.db.ref('telemetry');
     return await ref.push(data);
   }
+
+  async obterCorridas() {
+    const ref = this.db.ref('corridas');
+    const snapshot = await ref.once('value');
+    return snapshot.val();
+  }
+
+  async obterCorridaPorId(id: string) {
+    const ref = this.db.ref(`corridas/${id}`);
+    const snapshot = await ref.once('value');
+    return snapshot.val();
+  }
+  
+  getDb(): admin.database.Database {
+    return this.db;
+  }
 }
+
+
+
+
