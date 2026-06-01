@@ -1,0 +1,45 @@
+.ChartContainer {  
+  display: flex;
+  width: 100%;
+  aspect-ratio: 2;
+  min-width: 320px;
+  max-width: 800px;
+  /* height: 400px; */
+  padding: var(--spacing-3x);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-base);
+  border-radius: var(--radius-2x);
+  background: var(--bg-secondary);
+}
+
+.ChartHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  gap: var(--spacing-base) var(--spacing-base);
+  align-self: stretch;
+  justify-content: space-between;
+}
+
+.ChartMeta {
+  display: flex;
+  width: fit-content;
+  color: var(--pumpkin-500);
+  height: var(--density-high);
+  padding: 0 var(--spacing-2x);
+  align-items: center;
+  gap: var(--spacing-base);
+  border-radius: var(--radius-6x);
+  background: color-mix(in srgb, var(--pumpkin-500) 16%, transparent);
+}
+
+.MetaInfo {
+  font-family: var(--code);
+  font-weight: var(--font-regular);
+}
+
+.recharts-wrapper{
+  margin-left: -20px;
+}

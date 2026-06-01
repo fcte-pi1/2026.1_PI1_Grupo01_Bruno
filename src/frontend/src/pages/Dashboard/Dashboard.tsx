@@ -1,7 +1,7 @@
 import { Card } from '../../components/Card'
 import { Battery } from '../../components/Battery'
 import { Connection } from '../../components/Connection'
-import { TemperatureChart } from '../../components/Charts/TemperatureChart';
+import { Chart } from '../../components/Chart/Chart';
 
 
 export function Dashboard() {
@@ -44,7 +44,13 @@ export function Dashboard() {
             <Connection status="warn" port="COM3" />
 
             <Connection status="disconnected" port="COM3" />
-        <TemperatureChart />
+            <Chart
+                title="Temperatura"
+                icon="thermostat"
+                event="historicoInicial"
+                dataKey="temperatura"
+                generalValue="48°C"
+            />
         </div>
     )
 }
