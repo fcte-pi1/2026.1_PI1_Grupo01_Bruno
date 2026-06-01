@@ -1,0 +1,308 @@
+.container {
+  width: 100%;
+  height: 75vh; 
+  min-height: 550px;
+  background: #111111; 
+  position: relative; 
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  margin-top: 10px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.controlPanel {
+  width: 300px;
+  background: rgba(30, 30, 30, 0.95);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex-shrink: 0;
+  z-index: 10;
+  color: #fff;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: -10px;
+}
+
+.logoIcon {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.generalSpecs {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 152, 0, 0.15);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 10px 0;
+  box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.specItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 6px;
+}
+
+.specItem:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.specItemCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.specLabel {
+  color: #ffb74d; 
+  font-weight: 600;
+  text-transform: none;
+}
+
+.specValue {
+  color: #dddddd;
+  text-align: right;
+  font-weight: 500;
+  text-transform: none;
+}
+
+.specValueText {
+  color: #e0e0e0;
+  text-align: left;
+  line-height: 1.6;
+  background: rgba(255, 152, 0, 0.08);
+  padding: 10px 12px;
+  border-radius: 6px;
+  border-left: 3px solid #ff9800;
+  font-weight: 500;
+  text-transform: none;
+  animation: fadeInUp 0.6s ease;
+}
+
+.canvas {
+  flex: 1; 
+  width: 100%;
+  height: 100% !important;
+  cursor: grab;
+}
+
+.canvas:active {
+  cursor: grabbing;
+}
+
+.titulo {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  text-transform: none;
+}
+
+.descricao {
+  margin: 0;
+  font-size: 13px;
+  color: #aaaaaa;
+  line-height: 1.5;
+  text-transform: none;
+}
+
+
+.componentInfo {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 320px;
+  z-index: 20; 
+  background: rgba(25, 25, 25, 0.95);
+  backdrop-filter: blur(8px);
+  border: 1px solid #ff9800; 
+  border-radius: 8px;
+  padding: 20px;
+  color: white;
+  animation: slideInRight 0.3s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 152, 0, 0.15); 
+}
+
+.closeBtn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: #888;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.closeBtn:hover {
+  background: rgba(255, 152, 0, 0.2);
+  color: #ff9800;
+}
+
+.componentTitle {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ff9800;
+  text-transform: none; 
+}
+
+.specsList {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.specsList li {
+  font-size: 13px;
+  color: #dddddd;
+  margin-bottom: 8px;
+  padding-left: 14px;
+  position: relative;
+  line-height: 1.4;
+}
+
+.specsList li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: #ff9800; 
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(8px);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 20px;
+  margin-top: auto; 
+}
+
+.controlGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.controlGroup label {
+  font-size: 13px;
+  color: #ccc;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+  }
+  .controlPanel {
+    width: 100%;
+    order: 2; 
+    border-right: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .canvas {
+    height: 400px !important;
+    order: 1; 
+  }
+  .componentInfo {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    width: auto;
+  }
+}
+
+
+.loadingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  backdrop-filter: blur(2px);
+}
+
+.loadingContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.loadingContent p {
+  color: #ff9800;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid rgba(255, 152, 0, 0.3);
+  border-top: 3px solid #ff9800;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}

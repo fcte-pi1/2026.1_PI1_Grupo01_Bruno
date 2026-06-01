@@ -12,6 +12,7 @@ const TABS: { page: Page; label: string; icon: string }[] = [
     { page: 'historico', label: 'Histórico', icon: 'history' },
     { page: 'projeto', label: 'Projeto', icon: 'architecture' },
     { page: 'equipe', label: 'Equipe', icon: 'groups' },
+    { page: 'chassi', label: 'Chassi', icon: 'view_in_ar' },
 ]
 
 export function BottomBar({ currentPage, onPageChange }: BottomBarProps){

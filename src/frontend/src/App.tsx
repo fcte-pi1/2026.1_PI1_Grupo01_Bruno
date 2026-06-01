@@ -7,6 +7,7 @@ import { Dashboard } from './pages/Dashboard/Dashboard'
 import { Historico } from './pages/Historico/Historico'
 import { Projeto } from './pages/Projeto/Projeto'
 import { Equipe } from './pages/Equipe/Equipe'
+import { Chassi3D } from './pages/Chassi/Chassi3D'
 import { useState, useEffect } from 'react'
 import './index.css'
 import type { Page } from './types/navigation'
@@ -16,6 +17,7 @@ const PAGE_ROUTES: Record<Page, string> = {
   historico: '/historico',
   projeto: '/projeto',
   equipe: '/equipe',
+  chassi: '/chassi',
 }
 
 function AppLayout(){
@@ -45,6 +47,7 @@ function AppLayout(){
     dashboard: 'Dashboard',
     historico: 'Histórico',
     projeto: 'Projeto',
+    chassi: 'Chassi',
     equipe: 'Equipe',
   }
 
@@ -63,12 +66,13 @@ function AppLayout(){
 
         <main>
           <div className="Center">
-            {currentPage !== 'dashboard' && <Breadcrumb />}
+            {currentPage !== 'dashboard' && currentPage !== 'chassi' && <Breadcrumb />}
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/historico" element={<Historico />} />
               <Route path="/projeto" element={<Projeto />} />
               <Route path="/equipe" element={<Equipe />} />
+              <Route path="/chassi" element={<Chassi3D />} />
             </Routes>
           </div>
 
