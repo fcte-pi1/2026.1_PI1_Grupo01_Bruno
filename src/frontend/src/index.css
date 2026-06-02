@@ -114,7 +114,7 @@ p {
 }
 
 code {
-    font-family: var(--font-code);
+    font-family: var(--text-code);
     font-size: var(--font-scale-base);
 }
 
