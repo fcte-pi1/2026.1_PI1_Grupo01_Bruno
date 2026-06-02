@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { ReactNode } from 'react'
 import { Icon } from '../Icon'
 import { Button } from '../Button'
+import { Modal } from '../Modal'
 
 export interface Column<T> {
   key: keyof T
@@ -19,9 +20,15 @@ interface TableProps<T> {
 
 export function Table<T extends { id: string | number }>({ columns, data, pageSize = 10, actions = true }: TableProps<T>) {
   const [page, setPage] = useState(1)
+  const [deleteId, setDeleteId] = useState<string | number | null>(null)
 
   const totalPages = Math.ceil(data.length / pageSize)
   const paginated = data.slice((page - 1) * pageSize, page * pageSize)
+
+  const handleDelete = () => {
+    console.log('excluir', deleteId)
+    setDeleteId(null)
+  }
 
   return (
     <div className="TableContainer">
@@ -47,7 +54,13 @@ export function Table<T extends { id: string | number }>({ columns, data, pageSi
               ))}
               {actions && (
                 <td style={{ width: '1px', whiteSpace: 'nowrap' }}>
-                  <Button density='high' type='circle' icon='delete' hierarchy='tertiary' />
+                  <Button 
+                    density='high' 
+                    type='circle' 
+                    icon='delete' 
+                    hierarchy='tertiary'
+                    onClick={() => setDeleteId(row.id)}
+                  />
                 </td>
               )}
             </tr>
@@ -71,6 +84,22 @@ export function Table<T extends { id: string | number }>({ columns, data, pageSi
             onClick={() => setPage(p => Math.min(totalPages, p + 1))}
           />
         </div>
+      )}
+
+      {deleteId !== null && (
+          <Modal
+              open={deleteId !== null}
+              onClose={() => setDeleteId(null)}
+              onConfirm={handleDelete}
+              title="Excluir registro"
+              btnPrimary
+              labelBtnPrimary='Excluir'
+              iconPrimary='delete'
+              btnSecondary
+              labelBtnSecondary='Cancelar'
+          >
+              <p>Excluir este registro? Essa ação não poderá ser desfeita.</p>
+          </Modal>
       )}
     </div>
   )

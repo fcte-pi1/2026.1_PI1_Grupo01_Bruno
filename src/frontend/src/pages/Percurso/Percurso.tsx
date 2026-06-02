@@ -1,6 +1,7 @@
 import { Card } from '../../components/Card'
 import { ControlBtn } from '../../components/ControlBtn'
 import { Maze } from '../../components/Maze'
+import { Log } from '../../components/Log'
 import styles from './Percurso.module.css'
 
 export function Percurso() {
@@ -36,6 +37,11 @@ export function Percurso() {
                             <Card key={card.label} icon={card.icon} label={card.label} value={card.value} size="default" />
                         ))}
                     </div>
+                    <Log entries={[
+                        '[09:01.105] Conectado',
+                        '[09:01.200] Conectado ao dispositivo',
+                        '[09:01.350] Percurso iniciado',
+                    ]} />
                 </div>
             </div>
 
