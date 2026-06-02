@@ -2,9 +2,9 @@ import { Table } from '../../components/Table'
 import type { Column } from '../../components/Table'
 import { Badge } from '../../components/Badge'
 
-const STATUS_BADGE: Record<string, 'success' | 'warn' | 'default'> = {
+const STATUS_BADGE: Record<string, 'success' | 'warn' | 'alert'> = {
   'Concluído': 'success',
-  'Falhou':    'default',
+  'Falhou':    'alert',
   'Em curso':  'warn',
 }
 
