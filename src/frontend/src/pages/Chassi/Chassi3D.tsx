@@ -15,28 +15,30 @@ const PART_CONFIG: Record<string, {
 }> = {
   'chassi': { 
     title: 'Chassi XAROPi', 
-    specs: ['Material: PETG', 'Peso: 328g'], 
+    specs: ['Material: PETG', 'Estrutura principal que suporta todos os componentes eletrônicos', 'Design otimizado para velocidade e estabilidade em competições'], 
     matchers: ['chassi'] 
   },
   'roda': { 
     title: 'Rodas Sumo 500', 
-    specs: ['Diâmetro: 65mm', 'Material: Borracha'], 
+    specs: ['Diâmetro: 65mm', 'Proporciona tração precisa em piso e movimento suave', 'Compatível com motores'], 
     matchers: ['roda', 'mesh_18_1', 'mesh_3_1'] 
   },
   'motor': { 
     title: 'Motor com Redução', 
-    specs: ['Tipo: Motor DC 6V 750RPM'], 
+    specs: ['Modelo: Motor DC 6V 750RPM', 'Converte energia elétrica em movimento rotativo', 'Redução de velocidade garante torque adequado para o chassi'], 
+    image: '/motor.png',
     matchers: ['motor', 'mesh_15', 'mesh_16', 'bracadeira'] 
   },
   'sensor_tof': { 
     title: 'Sensores ToF', 
-    specs: ['Modelo: VL53L0X'], 
+    specs: ['Modelo: VL53L0X', 'Detecta paredes do labirinto usando luz infravermelha', 'Essencial para o mapeamento e navegação autônoma'], 
+    image: '/sensorTof.png',
     matchers: ['vl53l0x', 'mesh_46', 'mesh_47', 'mesh_48', 'mesh_49'] 
   },
   'bateria': {
     title: 'Bateria',
-    specs: ['Modelo: LiPo-2S VP903048'],
-    image: '/battery.jpg',
+    specs: ['Modelo: LiPo-2S VP903048', 'Fornece energia para motores, eletrônica e sensores', 'Alimenta todo o sistema de forma autônoma durante as competições'],
+    image: '/battery.png',
     customColors: {
       'tampa_bateria-1': '#080303',
       'bateria-1': '#005bb5' 
@@ -45,37 +47,41 @@ const PART_CONFIG: Record<string, {
   },
   'pcb': {
     title: 'Placa Principal',
-    specs: ['Material: FR4'],
+    specs: ['Material: FR4', 'Integra todos os componentes eletrônicos em um único módulo', 'Facilita conexões, reduz peso e aumenta confiabilidade'],
     matchers: ['pcb', 'placaperfurada']
   },
   'parafusos': {
     title: 'Parafusos Allen',
-    specs: ['Material: Inox'],
+    specs: ['Material: Inox', 'Garante resistência à corrosão e durabilidade', 'Fixa componentes estruturais mantendo segurança mecânica'],
     matchers: ['allen']
   },
   'caster': {
     title: 'Roda Boba',
-    specs: ['Apoio frontal'],
+    specs: ['Apoio frontal do chassi', 'Reduz fricção e melhora a mobilidade em curvas', 'Permite rotação livre em 360 graus para movimentação fluida'],
     matchers: ['ball', 'stand']
   },
   'esp32': {
     title: 'Microcontrolador',
     specs: ['Modelo: ESP32-S3', 'Execução local do algoritmo de navegação', 'Processamento PID e leitura de sensores'],
+    image: '/esp32.png',
     matchers: ['mesh_22']
   },
   'driver_motor': {
     title: 'Ponte H',
     specs: ['Modelo: L298N', 'Controla a potência enviada aos motores', 'Recebe sinal PWM do ESP32'],
+    image: '/ponteH.png',
     matchers: ['mesh_8'] 
   },
   'step_down': {
     title: 'Regulador de Tensão',
     specs: ['Modelo: LM2596', 'Reduz a tensão da bateria', 'Garante alimentação segura'],
+    image: '/reguladorTensao.png',
     matchers: ['mesh_23']
   },
   'imu': {
     title: 'Giroscópio/Acelerômetro',
     specs: ['Modelo: MPU-6050', 'Mede a rotação no próprio eixo', 'Essencial para curvas precisas'],
+    image: '/acelerometro.png',
     matchers: ['mesh_24']
   }
 };
@@ -93,9 +99,10 @@ function getLogicalGroup(meshName: string) {
 interface ModeloChassiProps {
   onComponentClick: (groupId: string) => void;
   selectedComponent?: string;
+  transparencyMode?: boolean;
 }
 
-function ModeloChassi({ onComponentClick, selectedComponent }: ModeloChassiProps) {
+function ModeloChassi({ onComponentClick, selectedComponent, transparencyMode }: ModeloChassiProps) {
   const { scene } = useGLTF('/xaropi.glb');
   const modelRef = useRef<THREE.Group>(null);
   const [hoveredGroup, setHoveredGroup] = useState<string | null>(null);
@@ -122,7 +129,7 @@ function ModeloChassi({ onComponentClick, selectedComponent }: ModeloChassiProps
           }
 
           const logicalGroup = getLogicalGroup(mesh.name);
-          mesh.userData.logicalGroup = logicalGroup === 'other' ? mesh.name : logicalGroup;
+          mesh.userData.logicalGroup = logicalGroup;
 
           if (logicalGroup !== 'other') {
             const config = PART_CONFIG[logicalGroup];
@@ -153,36 +160,67 @@ function ModeloChassi({ onComponentClick, selectedComponent }: ModeloChassiProps
   }, [scene]);
 
   useEffect(() => {
-    scene.traverse((node) => {
-      if ((node as THREE.Mesh).isMesh) {
-        const mesh = node as THREE.Mesh;
-        const material = mesh.material as THREE.MeshStandardMaterial;
-        
-        const isHovered = hoveredGroup && mesh.userData.logicalGroup === hoveredGroup;
-        const isSelected = selectedComponent && mesh.userData.logicalGroup === selectedComponent;
+    let animationFrameId: number;
+    
+    const animate = () => {
+      scene.traverse((node) => {
+        if ((node as THREE.Mesh).isMesh) {
+          const mesh = node as THREE.Mesh;
+          const material = mesh.material as THREE.MeshStandardMaterial;
+          
+          const isHovered = hoveredGroup && mesh.userData.logicalGroup === hoveredGroup;
+          const isSelected = selectedComponent && mesh.userData.logicalGroup === selectedComponent;
 
-        if (isSelected) {
-          material.emissive.setHex(0xff9800); 
-          material.emissiveIntensity = 0.35;
-        } else if (isHovered) {
-          material.emissive.setHex(0xffffff);
-          material.emissiveIntensity = 0.15;
-        } else {
-          material.emissive.setHex(0x000000); 
-          material.emissiveIntensity = 0;
+          // Controlar emissive e glow
+          if (isSelected) {
+            material.emissive.setHex(0xff9800);
+            // Pulsação suave: 0.5 a 0.75
+            const pulse = 0.6 + Math.sin(Date.now() * 0.003) * 0.15;
+            material.emissiveIntensity = pulse;
+          } else if (isHovered) {
+            material.emissive.setHex(0xffffff);
+            material.emissiveIntensity = 0.15;
+          } else {
+            material.emissive.setHex(0x000000); 
+            material.emissiveIntensity = 0;
+          }
+
+          // Controlar transparência
+          if (transparencyMode && selectedComponent) {
+            if (isSelected) {
+              material.transparent = false;
+              material.opacity = 1;
+            } else {
+              material.transparent = true;
+              material.opacity = 0.15;
+              material.alphaTest = 0.01;
+            }
+          } else {
+            material.transparent = false;
+            material.opacity = 1;
+            material.alphaTest = 0;
+          }
+          material.needsUpdate = true;
         }
-      }
-    });
-  }, [hoveredGroup, selectedComponent, scene]);
+      });
+      animationFrameId = requestAnimationFrame(animate);
+    };
+    
+    animate();
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [hoveredGroup, selectedComponent, transparencyMode, scene]);
   
   return (
     <group ref={modelRef} rotation={[-Math.PI / 2, 0, 0]}>
       <primitive 
         object={scene} 
         onPointerOver={(e: any) => {
-          e.stopPropagation(); 
-          setHoveredGroup(e.object.userData.logicalGroup);
-          document.body.style.cursor = 'pointer';
+          e.stopPropagation();
+          const logicalGroup = e.object.userData.logicalGroup;
+          if (logicalGroup !== 'other') {
+            setHoveredGroup(logicalGroup);
+            document.body.style.cursor = 'pointer';
+          }
         }}
         onPointerOut={(e: any) => {
           e.stopPropagation();
@@ -191,8 +229,11 @@ function ModeloChassi({ onComponentClick, selectedComponent }: ModeloChassiProps
         }}
         onClick={(e: any) => {
           e.stopPropagation();
-          onComponentClick(e.object.userData.logicalGroup);
-          bounds.refresh(e.object).fit(); 
+          const logicalGroup = e.object.userData.logicalGroup;
+          if (logicalGroup !== 'other') {
+            onComponentClick(logicalGroup);
+            bounds.refresh(e.object).fit();
+          }
         }}
       />
     </group>
@@ -203,6 +244,9 @@ export function Chassi3D() {
   const [autoRotate, setAutoRotate] = useState(false);
   const [selectedComponent, setSelectedComponent] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [transparencyMode, setTransparencyMode] = useState(false);
+  const [expandedImage, setExpandedImage] = useState(false);
+  const [detailsMode, setDetailsMode] = useState(false);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -213,6 +257,10 @@ export function Chassi3D() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
+
+  useEffect(() => {
+    setExpandedImage(false);
+  }, [selectedComponent]);
 
   const handleModelLoad = () => {
     setIsLoading(false);
@@ -274,6 +322,18 @@ export function Chassi3D() {
               Girar automaticamente
             </label>
           </div>
+          <div className={styles.controlGroup}>
+            <label>
+              <input type="checkbox" checked={transparencyMode} onChange={(e) => setTransparencyMode(e.target.checked)} />
+              Modo Raio-X
+            </label>
+          </div>
+          <div className={styles.controlGroup}>
+            <label>
+              <input type="checkbox" checked={detailsMode} onChange={(e) => setDetailsMode(e.target.checked)} />
+              Detalhes Eletrônicos
+            </label>
+          </div>
         </div>
       </div>
 
@@ -287,20 +347,34 @@ export function Chassi3D() {
           </h3>
           
           {currentInfo.image && (
-            <div style={{ margin: '16px 0', textAlign: 'center' }}>
-              <img 
-                src={currentInfo.image} 
-                alt={currentInfo.title} 
-                style={{ 
-                  width: '100%', 
-                  maxHeight: '220px', 
-                  borderRadius: '6px', 
-                  objectFit: 'contain', 
-                  background: 'rgba(0,0,0,0.2)', 
-                  padding: '4px'
-                }} 
-              />
-            </div>
+            <>
+              {detailsMode && (
+                <div style={{ 
+                  margin: '12px 0', 
+                  textAlign: 'center',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: '200px',
+                  background: 'linear-gradient(135deg, rgba(255,152,0,0.08) 0%, rgba(0,0,0,0.15) 100%)',
+                  borderRadius: '8px',
+                  padding: '12px',
+                  boxShadow: '0 8px 16px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)',
+                  border: '1px solid rgba(255,152,0,0.2)',
+                  animation: 'fadeInDown 0.3s ease',
+                }}>
+                  <img 
+                    src={currentInfo.image} 
+                    alt={currentInfo.title} 
+                    style={{ 
+                      maxWidth: '100%',
+                      maxHeight: '100%',
+                      objectFit: 'contain'
+                    }} 
+                  />
+                </div>
+              )}
+            </>
           )}
 
           <ul className={styles.specsList}>
@@ -319,7 +393,7 @@ export function Chassi3D() {
         </div>
       )}
       <Canvas shadows camera={{ position: [5, 3, 5], fov: 45 }} className={styles.canvas} onCreated={() => setTimeout(handleModelLoad, 1500)}>
-        <Suspense fallback={<Html center><span style={{ color: 'white' }}>Carregando modelo 3D...</span></Html>}>
+        <Suspense fallback={<Html center></Html>}>
           <ambientLight intensity={0.15} />
           <Stage 
             environment="warehouse" 
@@ -331,6 +405,7 @@ export function Chassi3D() {
               <ModeloChassi 
                 onComponentClick={setSelectedComponent}
                 selectedComponent={selectedComponent || undefined}
+                transparencyMode={transparencyMode}
               />
             </Bounds>
           </Stage>
