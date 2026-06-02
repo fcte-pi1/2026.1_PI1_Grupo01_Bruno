@@ -67,8 +67,8 @@ function AppLayout(){
                 <p>{description}</p>
               </div>
               <div className={styles.TopPageRight}>
-                <Connection status={connection.status} port={connection.port} />
-                <Battery level={battery.level} voltage={battery.voltage} />
+                <Connection />
+                <Battery />
               </div>
             </div>
           )}

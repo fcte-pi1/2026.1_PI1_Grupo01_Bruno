@@ -2,8 +2,8 @@ import styles from './Connection.module.css'
 import { Badge } from '../Badge'
 
 interface ConnectionProps {
-    status: 'connected' | 'warn' | 'disconnected'
-    port: string
+    status?: 'connected' | 'warn' | 'disconnected'
+    port?: string
 }
 
 const STATUS_BADGE = {
@@ -18,12 +18,14 @@ const STATUS_LABEL = {
     disconnected: 'Desconectado',
 } as const
 
-export function Connection({ status, port }: ConnectionProps){
+export function Connection({ status='disconnected', port }: ConnectionProps){
     return (
         <div className={styles.Connection}>
-            <Badge size='default' type={STATUS_BADGE[status]} />
+            <div className={`${styles.BadgeConnection} ${status === 'warn' ? styles.BadgeWarn : ''}`}>
+                <Badge size='default' type={STATUS_BADGE[status]} />
+            </div>
             <div className={styles.Info}>
-                <label>{STATUS_LABEL[status]}</label>
+                <span>{STATUS_LABEL[status]}</span>
                 <small>{port}</small>
             </div>
         </div>

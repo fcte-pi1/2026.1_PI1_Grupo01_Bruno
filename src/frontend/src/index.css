@@ -156,6 +156,91 @@ label {
   user-select: none;
 }
 
+:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.TableContainer {
+    width: 100%;
+    border-radius: var(--radius-2x);
+    background: var(--bg-secondary);
+    /* overflow: hidden; */
+    /* min-height: 400px; */
+    overflow-x: auto;
+}
+
+.BottomRow{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+table {
+    width: 100%;
+    min-width: 800px;
+    border-collapse: collapse;
+}
+
+table p {
+    font-size: var(--font-scale-base);
+}
+th, td {
+    padding: var(--spacing-half) var(--spacing-baseh);
+    text-align: left;
+}
+
+th {
+    color: var(--txt-interaction);
+    border-bottom: 1px solid var(--border);
+    padding: var(--spacing-baseh) var(--spacing-base);
+}
+
+th .icon {
+  margin-right: var(--spacing-base);
+}
+
+td:first-child {
+  font-weight: var(--font-bold) !important;
+}
+
+tr {
+    border-bottom: 1px solid var(--bg-primary);
+}
+
+tr:hover td {
+    background: var(--color-state-hover);
+}
+
+th:hover {
+    background: var(--color-state-hover);
+    
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: var(--radius-10x);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--txt-secondary);
+}
+
+* {
+  scrollbar-width: auto;
+  scrollbar-color: var(--border) transparent;
+}
+
 @media(max-width: 768px) {
     .Center {
         margin-top: var(--spacing-8x);
