@@ -72,25 +72,18 @@ export class TelemetryGateway implements OnGatewayDisconnect {
   }
 
   @SubscribeMessage('postVelBat')
-  async handlePostVelBat(@MessageBody() data: PostVelBatDto) {
+async handlePostVelBat(@MessageBody() data: PostVelBatDto) {
+    console.log("Dados validados pelo DTO:", data); 
     const db = this.firebaseService.getDb();
     const telemetriaRef = db.ref(`corridas/${data.id_corrida}/telemetria`).push();
-    
     await telemetriaRef.set({
-      timestamp: Date.now(),
-      velocidade: data.velocidade,
-      corrente: data.corrente,
-      tensao: data.tensao,
-      mah_restante: data.mah_restante
+        timestamp: Date.now(),
+        ...data 
     });
-
-    this.server.emit('novaTelemetria', {
-      velocidade: data.velocidade,
-      corrente: data.corrente
-    });
+    this.server.emit('novaTelemetria', data);
 
     return { status: 'sucesso' };
-  }
+}
 
   @SubscribeMessage('postFinish')
   async handlePostFinish(@MessageBody() data: PostFinishDto, @ConnectedSocket() client: Socket) {

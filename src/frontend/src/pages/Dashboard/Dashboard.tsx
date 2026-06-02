@@ -78,12 +78,6 @@ export function Dashboard() {
         <>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                 <Button icon='add' label='Novo percurso' onClick={() => navigate('/percurso')} />
-                
-                {/* Bateria e Conexão ao lado do botão */}
-                <div style={{ display: 'flex', gap: '1rem' }}>
-                    <Connection status={statusConexao} port="WS" />
-                    <Battery level={bateriaNivel} voltage={bateriaTensao} />
-                </div>
             </div>
 
             <div className={styles.Cards}>
