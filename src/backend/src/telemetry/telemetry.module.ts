@@ -7,5 +7,6 @@ import { FirebaseService } from '../firebase/firebase.service';
 @Module({
   imports: [ConfigModule], 
   providers: [TelemetryGateway, FirebaseService],
+  exports: [TelemetryGateway]
 })
 export class TelemetryModule {}

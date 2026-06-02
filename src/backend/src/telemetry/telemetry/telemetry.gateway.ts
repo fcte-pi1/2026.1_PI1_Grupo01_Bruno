@@ -1,10 +1,11 @@
-import { WebSocketGateway,
-         SubscribeMessage,
-         MessageBody,
-         ConnectedSocket,
-         WebSocketServer,
-         OnGatewayDisconnect
-        } from '@nestjs/websockets';
+import { 
+    WebSocketGateway,
+    SubscribeMessage,
+    MessageBody,
+    ConnectedSocket,
+    WebSocketServer,
+    OnGatewayDisconnect
+} from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { FirebaseService } from '../../firebase/firebase.service';
 import { PostStartDto } from '../dto/post-start.dto';
@@ -17,7 +18,7 @@ import { UsePipes, UseFilters, ValidationPipe } from '@nestjs/common';
 import { WsValidationFilter } from './ws-exception.filter';
 
 @WebSocketGateway({ cors: true })
-@UsePipes(new ValidationPipe({ transform: true, whitelist: true, forbidNonWhitelisted: true, }))
+@UsePipes(new ValidationPipe({ transform: true, whitelist: true, forbidNonWhitelisted: true }))
 @UseFilters(new WsValidationFilter())
 export class TelemetryGateway implements OnGatewayDisconnect {
   
@@ -62,6 +63,11 @@ export class TelemetryGateway implements OnGatewayDisconnect {
       n: data.n, s: data.s, l: data.l, o: data.o
     });
 
+    this.server.emit('novaParede', {
+      celula: data.id_celula,
+      n: data.n, s: data.s, l: data.l, o: data.o
+    });
+
     return { status: 'sucesso' };
   }
 
@@ -76,6 +82,11 @@ export class TelemetryGateway implements OnGatewayDisconnect {
       corrente: data.corrente,
       tensao: data.tensao,
       mah_restante: data.mah_restante
+    });
+
+    this.server.emit('novaTelemetria', {
+      velocidade: data.velocidade,
+      corrente: data.corrente
     });
 
     return { status: 'sucesso' };
@@ -107,13 +118,13 @@ export class TelemetryGateway implements OnGatewayDisconnect {
       timestamp: Date.now()
     });
 
+    this.server.emit('novaPosicao', data.posicao);
+
     return { status: 'sucesso' };
   }
 
   @SubscribeMessage('sendcomand')
-  async handleSendCommand(
-    @MessageBody(new ValidationPipe({ transform: true, whitelist: true, forbidNonWhitelisted: true })) data: SendCommandDto
-  ) {
+  async handleSendCommand(@MessageBody() data: SendCommandDto) {
     this.server.emit('receiveCommand', data);
     return { status: 'comando_encaminhado' };
   }
