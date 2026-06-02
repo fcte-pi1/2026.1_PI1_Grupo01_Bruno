@@ -63,13 +63,6 @@ export function Dashboard() {
             <Connection status="warn" port="COM3" />
 
             <Connection status="disconnected" port="COM3" />
-            <Chart
-                title="Temperatura"
-                icon="thermostat"
-                event="historicoInicial"
-                dataKey="temperatura"
-                generalValue="48°C"
-            />
 
             <div className={styles.Cards}>
                 {stats.map(stat => (
@@ -78,6 +71,28 @@ export function Dashboard() {
                     </div>    
                 ))}
             </div>
+
+            <Chart
+            title="Velocidade"
+            dataKey="velocidade"
+            icon="speed"
+            event="telemetria_viva"
+            />
+
+            <Chart
+            title="Voltagem"
+            dataKey="tensao"
+            icon="bolt"
+            event="telemetria_viva"
+            />
+
+            <Chart
+            title="Amperagem"
+            dataKey="corrente"
+            icon="electric_bolt"
+            event="telemetria_viva"
+            />
+
         </>
     )
 }

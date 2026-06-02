@@ -31,33 +31,45 @@ export class TelemetryGateway implements OnGatewayConnection, OnGatewayDisconnec
   constructor(private readonly firebaseService: FirebaseService) {}
 
   async handleConnection(client: Socket) {
-  try {
-    const db = this.firebaseService.getDb();
+    const role = client.handshake.query.role;
 
-    // Envia os dados atuais
-    const snapshot = await db.ref('/').once('value');
-    const data = snapshot.val();
+    if (role === 'frontend') {
+      client.join('telemetria_viva_room');
 
-    if (data) {
-      client.emit('historicoInicial', data);
+      const db = this.firebaseService.getDb();
+      const snapshot = await db.ref('/').once('value');
+      client.emit('historicoInicial', snapshot.val());
+
     }
 
-    db.ref('/').on('value', (snapshot) => {
-      const updatedData = snapshot.val();
+    /* Método antigo de resolver o problema que continua aqui pq sou muito coverde para pagar
+    try {
+      const db = this.firebaseService.getDb();
 
-      client.emit(
-        'historicoInicial',
-        updatedData
+      // Envia os dados atuais
+      const snapshot = await db.ref('/').once('value');
+      const data = snapshot.val();
+
+      if (data) {
+        client.emit('historicoInicial', data);
+      }
+
+      db.ref('/').on('value', (snapshot) => {
+        const updatedData = snapshot.val();
+
+        client.emit(
+          'historicoInicial',
+          updatedData
+        );
+      });
+
+    } catch (error) {
+      console.error(
+        'Erro ao carregar dados iniciais no WebSocket:',
+        error
       );
-    });
-
-  } catch (error) {
-    console.error(
-      'Erro ao carregar dados iniciais no WebSocket:',
-      error
-    );
+    } */
   }
-}
 
   @SubscribeMessage('postStart')
   async handlePostStart(@MessageBody() data: PostStartDto, @ConnectedSocket() client: Socket) {
@@ -100,14 +112,19 @@ export class TelemetryGateway implements OnGatewayConnection, OnGatewayDisconnec
   async handlePostVelBat(@MessageBody() data: PostVelBatDto) {
     const db = this.firebaseService.getDb();
     const telemetriaRef = db.ref(`corridas/${data.id_corrida}/telemetria`).push();
+
+    const novaLeitura = {
+    timestamp: Date.now(),
+    velocidade: data.velocidade,
+    corrente: data.corrente,
+    tensao: data.tensao,
+    mah_restante: data.mah_restante
+    };
     
-    await telemetriaRef.set({
-      timestamp: Date.now(),
-      velocidade: data.velocidade,
-      corrente: data.corrente,
-      tensao: data.tensao,
-      mah_restante: data.mah_restante
-    });
+    await telemetriaRef.set(novaLeitura);
+
+    // Qualquer página que tenha um <Chart /> vai receber.
+    this.server.to('telemetria_viva_room').emit('telemetria_viva', novaLeitura);
 
     return { status: 'sucesso' };
   }
