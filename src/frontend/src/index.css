@@ -156,10 +156,32 @@ label {
   user-select: none;
 }
 
+:focus {
+    outline: 3px dashed var(--border-focus);
+    border-radius: var(--radius-half);
+}
+
 :disabled {
   opacity: 0.4;
   cursor: not-allowed;
   pointer-events: none;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--spacing-2x);
+  padding: var(--spacing-2x);
+  background: var(--pumpkin-600);
+  color: var(--txt-primary);
+  border-radius: var(--radius-base);
+  border: 2px solid var(--border-focus);
+  z-index: 9999;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: var(--spacing-2x);
 }
 
 .TableContainer {

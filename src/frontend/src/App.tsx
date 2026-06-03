@@ -50,6 +50,9 @@ function AppLayout(){
 
   return (
     <>
+      <a href="#main-content" className="skip-link">
+        <span>Pular para o conteúdo principal</span>
+      </a>
       <Header
         theme={theme}
         currentPage={currentPage}
@@ -57,7 +60,6 @@ function AppLayout(){
         onThemeToggle={toggleTheme}
       />
 
-      <main>
         <div className="Center">
           {currentPage !== 'dashboard' && <Breadcrumb />}
 
@@ -74,18 +76,19 @@ function AppLayout(){
             </div>
           )}
 
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/historico" element={<Historico />} />
-            <Route path="/projeto" element={<Projeto />} />
-            <Route path="/equipe" element={<Equipe />} />
-            <Route path="/percurso" element={<Percurso />} />
-            <Route path="/chassi" element={<Chassi3D />} />
-          </Routes>
+          <main id="main-content">
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/historico" element={<Historico />} />
+              <Route path="/projeto" element={<Projeto />} />
+              <Route path="/equipe" element={<Equipe />} />
+              <Route path="/percurso" element={<Percurso />} />
+              <Route path="/chassi" element={<Chassi3D />} />
+            </Routes>
+        </main>
         </div>
 
         <Footer />
-      </main>
 
       <BottomBar
         currentPage={currentPage}
