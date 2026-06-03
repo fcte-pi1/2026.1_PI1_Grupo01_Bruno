@@ -14,4 +14,7 @@ export class PostVelBatDto {
   @IsOptional() corrente?: any;
   @IsOptional() tensao?: any;
   @IsOptional() mah_restante?: any;
+  @IsOptional() distancia?: number | string;
+  @IsOptional() amperagem?: number | string;
+  @IsOptional() voltagem?: number | string;
 }

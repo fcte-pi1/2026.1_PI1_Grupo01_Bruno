@@ -3,7 +3,7 @@ const socket = io("http://localhost:3000");
 
 let isPaused = false; 
 
-// Mapa falso que o simulador vai revelar aos poucos
+// Mapa falso 
 const labirintoMock = {
   0: { n: true, s: false, l: false, o: true },
   1: { n: true, s: false, l: false, o: false },
@@ -18,7 +18,7 @@ const labirintoMock = {
 socket.on("connect", () => {
   console.log("Robô simulado conectado!");
 
-  // Escuta os comandos do Front-end
+
   socket.on("receiveCommand", (data) => {
     console.log("Comando recebido:", data.comando);
     
@@ -46,10 +46,10 @@ socket.on("connect", () => {
           const posicao_atual = caminho[passo];
           console.log(`Explorando a célula: ${posicao_atual}`);
           
-          // O robô avisa onde está
+          
           socket.emit("post_posicao_atual", { id_corrida: data.id_corrida, posicao: posicao_atual });
           
-          // O robô "descobre" as paredes dessa célula e envia pro front
+          
           const paredes = labirintoMock[posicao_atual] || { n: false, s: false, l: false, o: false };
           socket.emit("postNos", { 
               id_corrida: data.id_corrida, 
@@ -57,7 +57,7 @@ socket.on("connect", () => {
               ...paredes 
           });
           
-          //  O robô manda a telemetria atualizada
+          // manda a telemetria atualizada
           socket.emit("postVelBat", { 
             id_corrida: data.id_corrida, 
             velocidade: (Math.random() * 0.5 + 0.2).toFixed(2),
@@ -69,7 +69,10 @@ socket.on("connect", () => {
             tempoMedio:(passo * 1.5).toFixed(1) + "s",
             velMedia: (Math.random() * 0.5 + 0.2).toFixed(2) + " m/s",
             energia: "3.8 Wh",
-            latencia: "18-120 ms"
+            latencia: "18-120 ms",
+            distancia: (Math.random() * 12).toFixed(2), 
+            amperagem: Math.floor(Math.random() * (500 - 400 + 1) + 400), 
+            voltagem: (7.4 - Math.random() * 0.5).toFixed(1)
           });
 
           passo++;
