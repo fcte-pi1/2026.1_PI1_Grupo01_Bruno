@@ -142,7 +142,7 @@
 .componentInfo {
   display: flex;
   flex-direction: column;
-  align-items:flex-end;
+  align-items: flex-start;
   position: absolute;
   top: 24px;
   right: 24px;
@@ -158,9 +158,18 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 152, 0, 0.15); 
 }
 
-.componentTitle {
+.componentHeader {
+  display: flex;
   width: 100%;
-  margin: 0 0 12px 0;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-base);
+  margin-bottom: 12px;
+}
+
+.componentTitle {
+  flex: 1;
+  margin: 0;
   font-size: var(--font-scale-up-02);
   /* font-weight: 600; */
   color: var(--txt-interaction);
