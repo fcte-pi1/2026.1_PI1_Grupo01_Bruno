@@ -1,10 +1,10 @@
-import {
-  WebSocketGateway,
-  SubscribeMessage,
-  MessageBody,
-  ConnectedSocket,
-  WebSocketServer,
-} from '@nestjs/websockets';
+import { WebSocketGateway,
+         SubscribeMessage,
+         MessageBody,
+         ConnectedSocket,
+         WebSocketServer,
+         OnGatewayDisconnect
+        } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { FirebaseService } from '../../firebase/firebase.service';
 import { PostStartDto } from '../dto/post-start.dto';
@@ -13,13 +13,18 @@ import { PostVelBatDto } from '../dto/post-vel-bat.dto';
 import { PostFinishDto } from '../dto/post-finish.dto';
 import { PostPosicaoAtualDto } from '../dto/post-posicao-atual.dto';
 import { SendCommandDto } from '../dto/send-command.dto';
+import { UsePipes, UseFilters, ValidationPipe } from '@nestjs/common';
+import { WsValidationFilter } from './ws-exception.filter';
 
 @WebSocketGateway({ cors: true })
-export class TelemetryGateway {
-  
+@UsePipes(new ValidationPipe({ transform: true, whitelist: true, forbidNonWhitelisted: true, }))
+@UseFilters(new WsValidationFilter())
+export class TelemetryGateway implements OnGatewayDisconnect {
   
   @WebSocketServer()
   server!: Server;
+
+  private corridasAtivas: Map<string, string> = new Map();
 
   constructor(private readonly firebaseService: FirebaseService) {}
 
@@ -27,6 +32,9 @@ export class TelemetryGateway {
   async handlePostStart(@MessageBody() data: PostStartDto, @ConnectedSocket() client: Socket) {
     const db = this.firebaseService.getDb();
     const novaCorridaRef = db.ref('corridas').push(); 
+    
+    const idCorrida = novaCorridaRef.key as string;
+    this.corridasAtivas.set(client.id, idCorrida);
     
     await novaCorridaRef.set({
       metadados: {
@@ -42,7 +50,7 @@ export class TelemetryGateway {
       telemetria: {}
     });
 
-    return { status: 'sucesso', id_corrida: novaCorridaRef.key };
+    return { status: 'sucesso', id_corrida: idCorrida };
   }
 
   @SubscribeMessage('postNos')
@@ -74,7 +82,7 @@ export class TelemetryGateway {
   }
 
   @SubscribeMessage('postFinish')
-  async handlePostFinish(@MessageBody() data: PostFinishDto) {
+  async handlePostFinish(@MessageBody() data: PostFinishDto, @ConnectedSocket() client: Socket) {
     const db = this.firebaseService.getDb();
     const metadadosRef = db.ref(`corridas/${data.id_corrida}/metadados`);
     
@@ -83,6 +91,8 @@ export class TelemetryGateway {
       fim_timestamp: Date.now(),
       bateria_final: data.bateria_final
     });
+
+    this.corridasAtivas.delete(client.id);
 
     return { status: 'sucesso' };
   }
@@ -101,9 +111,27 @@ export class TelemetryGateway {
   }
 
   @SubscribeMessage('sendcomand')
-  async handleSendCommand(@MessageBody() data: SendCommandDto) {
-    
+  async handleSendCommand(
+    @MessageBody(new ValidationPipe({ transform: true, whitelist: true, forbidNonWhitelisted: true })) data: SendCommandDto
+  ) {
     this.server.emit('receiveCommand', data);
     return { status: 'comando_encaminhado' };
+  }
+
+  async handleDisconnect(client: Socket) {
+    const id_corrida = this.corridasAtivas.get(client.id);
+    
+    if (id_corrida) {
+      const db = this.firebaseService.getDb();
+      const metadadosRef = db.ref(`corridas/${id_corrida}/metadados`);
+      
+      await metadadosRef.update({
+        status: 'interrompida',
+        fim_timestamp: Date.now()
+      });
+
+      this.corridasAtivas.delete(client.id);
+      console.log(`[ALERTA] Conexão perdida. Corrida ${id_corrida} marcada como interrompida.`);
+    }
   }
 }

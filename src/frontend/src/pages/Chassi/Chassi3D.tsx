@@ -1,5 +1,7 @@
 import { Suspense, useState, useRef, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
+import { Button } from '../../components/Button'
+import { Icon } from '../../components/Icon'
 import { OrbitControls, Stage, useGLTF, Html, Bounds, useBounds } from '@react-three/drei';
 import * as THREE from 'three';
 import styles from './Chassi3D.module.css';
@@ -274,75 +276,86 @@ export function Chassi3D() {
     : null;
 
   return (
+    <div>
+      <div className={styles.TopPage}>
+        <div className={styles.header}>
+          {/* <img src="/icon.svg" alt="XAROPi Logo" className={styles.logoIcon} /> */}
+          <h2 className={styles.titulo}>Visão Interativa</h2>
+        </div>
+        <p className={styles.descricao}>
+          <Icon name='mouse' size='lg'/> Passe o mouse e clique nos componentes para ver detalhes.<br/><br/>
+        </p>
+      </div>
+
     <div className={styles.container}>
-      
       {}
       <div className={styles.controlPanel}>
-        
-        <div className={styles.header}>
-          <img src="/icon.svg" alt="XAROPi Logo" className={styles.logoIcon} />
-          <h1 className={styles.titulo}>Visão Interativa</h1>
-        </div>
-        
-        <p className={styles.descricao}>
-          Explore o design mecânico do XAROPi. Passe o mouse e clique nos componentes para ver detalhes.<br/><br/>
-          <span style={{ fontSize: '11px', color: '#ffb74d' }}>Pressione <strong>ESC</strong> para afastar a câmera.</span>
-        </p>
+        <span className={styles.Info}>Pressione <strong>ESC</strong> para afastar a câmera.</span>
         
         {}
         <div className={styles.generalSpecs}>
           <div className={styles.specItem}>
             <span className={styles.specLabel}>Nome:</span>
-            <span className={styles.specValue}>XAROPi</span>
+            <p className={styles.specValue}>XAROPi</p>
           </div>
           <div className={styles.specItem}>
             <span className={styles.specLabel}>Dimensão:</span>
-            <span className={styles.specValue}>12,9 × 10,0 × 4,5 cm</span>
+            <p className={styles.specValue}>12,9 × 10,0 × 4,5 cm</p>
           </div>
           <div className={styles.specItem}>
             <span className={styles.specLabel}>Peso Total:</span>
-            <span className={styles.specValue}>328 g</span>
+            <p className={styles.specValue}>328 g</p>
+          </div>
+          <div className={styles.specItem}>
+            <span className={styles.specLabel}>Comunicação:</span>
+            <p className={styles.specValue}>WebSocket</p>
           </div>
           <div className={styles.specItem}>
             <span className={styles.specLabel}>Alg. de Navegação:</span>
-            <span className={styles.specValue}>Flood Fill</span>
+            <p className={styles.specValue}>Flood Fill</p>
           </div>
-          <div className={styles.specItemCol}>
+          <div className={styles.specItem}>
+            <span className={styles.specLabel}>Mem./proces.:</span>
+            <p className={styles.specValue}>5-10KBs RAM</p>
+          </div>
+          {/* <div className={styles.specItemCol}>
             <span className={styles.specLabel}>Objetivo:</span>
-            <span className={styles.specValueText} key={Date.now()}>
+            <p className={styles.specValueText} key={Date.now()}>
               Travessia inteligente e autônoma em labirintos de 16×16, 8×8 e 4×4 células.
-            </span>
-          </div>
+            </p>
+          </div> */}
         </div>
 
         <div className={styles.controls}>
           <div className={styles.controlGroup}>
-            <label>
-              <input type="checkbox" checked={autoRotate} onChange={(e) => setAutoRotate(e.target.checked)} /> 
+            <label className={styles.checkLabel}>
+              <input type="checkbox" checked={autoRotate} onChange={(e) => setAutoRotate(e.target.checked)} />
+              <span className={styles.checkBox} />
               Girar automaticamente
             </label>
           </div>
           <div className={styles.controlGroup}>
-            <label>
+            <label className={styles.checkLabel}>
               <input type="checkbox" checked={transparencyMode} onChange={(e) => setTransparencyMode(e.target.checked)} />
+              <span className={styles.checkBox} />
               Modo Raio-X
             </label>
           </div>
           <div className={styles.controlGroup}>
-            <label>
+            <label className={styles.checkLabel}>
               <input type="checkbox" checked={detailsMode} onChange={(e) => setDetailsMode(e.target.checked)} />
+              <span className={styles.checkBox} />
               Detalhes Eletrônicos
             </label>
           </div>
         </div>
       </div>
-
       {}
       {currentInfo && (
         <div className={styles.componentInfo}>
-          <button className={styles.closeBtn} onClick={() => setSelectedComponent(null)}>✕</button>
+          <Button type='circle' icon='close' hierarchy='tertiary' onClick={() => setSelectedComponent(null)}/>
           
-          <h3 className={styles.componentTitle} style={{ color: PART_CONFIG[selectedComponent || ''] ? '#ff9800' : '#aaaaaa' }}>
+          <h3 className={styles.componentTitle} style={{ color: PART_CONFIG[selectedComponent || ''] ? 'var(--txt-interaction)' : 'var(--txt-secondary)' }}>
             {currentInfo.title}
           </h3>
           
@@ -412,6 +425,7 @@ export function Chassi3D() {
         </Suspense>
         <OrbitControls makeDefault autoRotate={autoRotate} autoRotateSpeed={1} enableZoom={true} />
       </Canvas>
+    </div>
     </div>
   );
 }
