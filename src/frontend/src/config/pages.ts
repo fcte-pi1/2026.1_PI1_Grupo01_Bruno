@@ -38,4 +38,11 @@ export const PAGE_CONFIG: Record<Page, {
         description: 'Acompanhe os dados da trajetória do micromouse no percurso.',
         showTopPage: true,
     },
+
+    chassi: {
+        route: '/chassi',
+        label: 'Chassi',
+        description: 'Explore o design mecânico do XAROPi.',
+        showTopPage: true,
+    },
 }
