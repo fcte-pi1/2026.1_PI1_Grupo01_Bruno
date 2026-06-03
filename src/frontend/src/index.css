@@ -43,6 +43,7 @@ main {
     flex-direction: column;
     align-items: flex-start;
     overflow: hidden;
+    gap: var(--spacing-2x);
 }
 
 .Center {
@@ -157,6 +158,10 @@ label {
 }
 
 :focus {
+    outline: none;
+}
+
+:focus-visible {
     outline: 3px dashed var(--border-focus);
     border-radius: var(--radius-half);
 }
