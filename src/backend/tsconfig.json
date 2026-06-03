@@ -22,5 +22,12 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false
-  }
+  },
+    "exclude": [
+    "node_modules",
+    "dist",
+    "cypress",
+    "../frontend/cypress",
+    "**/*.cy.ts"
+  ]
 }
