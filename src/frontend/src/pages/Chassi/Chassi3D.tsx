@@ -353,11 +353,12 @@ export function Chassi3D() {
       {}
       {currentInfo && (
         <div className={styles.componentInfo}>
-          <Button type='circle' icon='close' hierarchy='tertiary' onClick={() => setSelectedComponent(null)}/>
-          
-          <h3 className={styles.componentTitle} style={{ color: PART_CONFIG[selectedComponent || ''] ? 'var(--txt-interaction)' : 'var(--txt-secondary)' }}>
-            {currentInfo.title}
-          </h3>
+          <div className={styles.componentHeader}>
+            <h3 className={styles.componentTitle} style={{ color: PART_CONFIG[selectedComponent || ''] ? 'var(--txt-interaction)' : 'var(--txt-secondary)' }}>
+              {currentInfo.title}
+            </h3>
+            <Button type='circle' icon='close' hierarchy='tertiary' onClick={() => setSelectedComponent(null)}/>
+          </div>
           
           {currentInfo.image && (
             <>
