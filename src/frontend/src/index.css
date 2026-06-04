@@ -42,7 +42,7 @@ main {
     overflow-y: auto; */
     flex-direction: column;
     align-items: flex-start;
-    overflow: hidden;
+    /* overflow: hidden; */
     gap: var(--spacing-2x);
 }
 

@@ -37,11 +37,11 @@ export function Percurso() {
                             <Card key={card.label} icon={card.icon} label={card.label} value={card.value} size="default" />
                         ))}
                     </div>
-                    {/* <Log entries={[
+                    <Log entries={[
                         '[09:01.105] Conectado',
                         '[09:01.200] Conectado ao dispositivo',
                         '[09:01.350] Percurso iniciado',
-                    ]} /> */}
+                    ]} />
                 </div>
             </div>
 
