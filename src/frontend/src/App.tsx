@@ -11,6 +11,7 @@ import { Projeto } from './pages/Projeto/Projeto'
 import { Equipe } from './pages/Equipe/Equipe'
 import { TesteIntegracao } from './pages/TesteIntegracao'
 import { Percurso } from './pages/Percurso/Percurso'
+import { Chassi3D } from './pages/Chassi/Chassi3D'
 import { useState, useEffect } from 'react'
 import './index.css'
 import type { Page } from './types/navigation'
@@ -83,6 +84,7 @@ function AppLayout(){
             <Route path="/equipe" element={<Equipe />} />
             <Route path="/percurso" element={<Percurso />} />
             <Route path="/teste" element={<TesteIntegracao />} />
+            <Route path="/chassi" element={<Chassi3D />} />
           </Routes>
         </div>
 

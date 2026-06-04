@@ -1,1 +1,1 @@
-export type Page = 'dashboard' | 'historico' | 'projeto' | 'equipe' | 'percurso'
+export type Page = 'dashboard' | 'historico' | 'projeto' | 'equipe' | 'percurso' | 'chassi'
