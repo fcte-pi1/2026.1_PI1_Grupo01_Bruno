@@ -5,6 +5,12 @@
     grid-template-columns: repeat(2,minmax(0,1fr));
     max-width: 100px;
     position: relative;
+    z-index: 1; 
+}
+
+.Path {
+    position: relative !important;
+    z-index: 999 !important; /* Força a linha pra frente de tudo */
 }
 
 .Wall {
@@ -20,8 +26,10 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    z-index: 20;
 }
 
 .Unknown {
     background-color: var(--neutral-950);
+    z-index: 0 !important; /* Força o bloco preto pro fundo */
 }

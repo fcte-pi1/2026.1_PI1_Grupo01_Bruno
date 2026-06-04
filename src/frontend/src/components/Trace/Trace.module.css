@@ -1,13 +1,16 @@
 .Trace {
     width: 100%;
     aspect-ratio: 1 / 1;
-    /* font-size: 8px; */
     --trace-space: 0.8em;
     --padding-space: calc(0.5 * var(--trace-space));
     --space: 0.37px;
     padding: 0;
     container-type: inline-size;
     overflow: visible;
+    
+    
+    position: relative;
+    z-index: 10;
 }
 
 .Trace.right {

@@ -31,7 +31,7 @@ socket.on("connect", () => {
       console.log(`Robô em movimento na corrida: ${data.id_corrida}`);
       
       // O caminho contíguo que faz sentido num grid 4x4
-      const caminho = [0, 1, 5, 9, 10, 6, 2, 3];
+      const caminho = [1, 2, 3, 4, 8, 12, 16];
       let passo = 0;
 
       const intervalo = setInterval(() => {
