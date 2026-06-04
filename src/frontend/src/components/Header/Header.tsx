@@ -25,13 +25,13 @@ export function Header({ currentPage = 'dashboard', onPageChange, onThemeToggle,
 
     return (
         <header className={`${styles.header}`}>
-            <button
+            <a
                 className={styles.logoBtn}
                 onClick={() => onPageChange?.('dashboard')}
                 aria-label="Ir para o dashboard"
                 >
                 <Logo />
-            </button>
+            </a>
         
             <nav className={styles.nav} arial-label="Navegação principal">
                 {TABS.map(({ page, label, icon}) => (
@@ -51,6 +51,8 @@ export function Header({ currentPage = 'dashboard', onPageChange, onThemeToggle,
                 density="default"
                 hierarchy="tertiary"
                 onClick={onThemeToggle}
+                aria-label='Alternar tema'
+                title='Alternar tema'
             />
         </header>
     )

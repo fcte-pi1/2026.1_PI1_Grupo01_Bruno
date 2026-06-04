@@ -19,3 +19,19 @@
 .Info small {
     color: var(--txt-secondary);
 }
+
+.BadgeConnection {
+    width: fit-content;
+    height: fit-content;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .BadgeWarn {
+    animation: blink 4s ease-in-out infinite;
+  }
+}

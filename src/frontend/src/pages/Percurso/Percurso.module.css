@@ -59,9 +59,31 @@
 
 }
 
-
 .ControlCards > * {
     width: auto;
     flex: 0 0 auto;
     height: fit-content;
+    height: stretch;
+}
+
+@media (max-width: 991px) {
+    .ControlCards {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+        grid-template-rows: repeat(3,fit-content(100%));
+    }
+
+    .Content {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .InfosLog {
+        min-width: 0;
+    }
+
+    .ControlCards {
+        grid-template-rows: repeat(2,fit-content(100%));
+        grid-template-columns: repeat(1,minmax(0,1fr));
+    }
 }
