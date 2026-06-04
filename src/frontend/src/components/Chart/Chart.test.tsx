@@ -1,110 +1,113 @@
-import { render } from '@testing-library/react';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
 
-const { onMock, offMock } = vi.hoisted(() => ({
-  onMock: vi.fn(),
-  offMock: vi.fn(),
-}));
+import { Chart } from './Chart';
 
-vi.mock('socket.io-client', () => ({
-  io: () => ({
-    on: onMock,
-    off: offMock,
-  }),
-}));
-
+// Mock do Recharts para evitar problemas de renderização
 vi.mock('recharts', () => ({
   ResponsiveContainer: ({ children }: any) => (
     <div data-testid="responsive-container">
       {children}
     </div>
   ),
-
   AreaChart: ({ children }: any) => (
     <div data-testid="area-chart">
       {children}
     </div>
   ),
-
   Area: () => <div data-testid="area" />,
-
   XAxis: () => <div data-testid="x-axis" />,
-
   YAxis: () => <div data-testid="y-axis" />,
-
-  CartesianGrid: () => (
-    <div data-testid="cartesian-grid" />
-  ),
-
+  CartesianGrid: () => <div data-testid="grid" />,
   Tooltip: () => <div data-testid="tooltip" />,
 }));
 
-import { TemperatureChart } from './Chart';
+// Mock do Icon
+vi.mock('../Icon', () => ({
+  Icon: ({ name }: any) => (
+    <span data-testid="icon">{name}</span>
+  ),
+}));
 
-describe('TemperatureChart', () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
+describe('Chart', () => {
+  const points = [
+    {
+      timestamp: 1000,
+      velocidade: 0.5,
+      tensao: 7.4,
+      corrente: 1.2,
+    },
+    {
+      timestamp: 2000,
+      velocidade: 0.8,
+      tensao: 7.3,
+      corrente: 1.5,
+    },
+  ];
 
-  it('renderiza sem lançar erro quando não há dados', () => {
-    const { getByTestId } = render(
-      <TemperatureChart />
+  it('deve renderizar o título', () => {
+    render(
+      <Chart
+        title="Velocidade"
+        dataKey="velocidade"
+        points={points}
+      />
     );
 
     expect(
-      getByTestId('responsive-container')
-    ).toBeDefined();
-
-    expect(
-      getByTestId('area-chart')
-    ).toBeDefined();
+      screen.getByText('Velocidade')
+    ).toBeInTheDocument();
   });
 
-  it('registra listener do socket ao montar', () => {
-    render(<TemperatureChart />);
-
-    expect(onMock).toHaveBeenCalledWith(
-      'historicoInicial',
-      expect.any(Function)
-    );
-  });
-
-  it('remove listener do socket ao desmontar', () => {
-    const { unmount } = render(
-      <TemperatureChart />
-    );
-
-    unmount();
-
-    expect(offMock).toHaveBeenCalledWith(
-      'historicoInicial',
-      expect.any(Function)
-    );
-  });
-
-  it('renderiza todos os elementos principais do gráfico', () => {
-    const { getByTestId } = render(
-      <TemperatureChart />
+  it('deve renderizar o ícone quando informado', () => {
+    render(
+      <Chart
+        title="Velocidade"
+        dataKey="velocidade"
+        icon="speed"
+        points={points}
+      />
     );
 
     expect(
-      getByTestId('area')
-    ).toBeDefined();
-
-    expect(
-      getByTestId('x-axis')
-    ).toBeDefined();
-
-    expect(
-      getByTestId('y-axis')
-    ).toBeDefined();
-
-    expect(
-      getByTestId('tooltip')
-    ).toBeDefined();
-
-    expect(
-      getByTestId('cartesian-grid')
-    ).toBeDefined();
+      screen.getByTestId('icon')
+    ).toHaveTextContent('speed');
   });
+
+  it('não deve renderizar ícone quando não informado', () => {
+    render(
+      <Chart
+        title="Velocidade"
+        dataKey="velocidade"
+        points={points}
+      />
+    );
+
+    expect(
+      screen.queryByTestId('icon')
+    ).not.toBeInTheDocument();
+  });
+
+  it('deve renderizar os componentes do gráfico', () => {
+    render(
+      <Chart
+        title="Velocidade"
+        dataKey="velocidade"
+        points={points}
+      />
+    );
+
+    expect(
+      screen.getByTestId('responsive-container')
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByTestId('area-chart')
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByTestId('area')
+    ).toBeInTheDocument();
+  });
+
 });
