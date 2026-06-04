@@ -346,3 +346,10 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+
+
+# Dependências do Node
+node_modules/
+dist/
+build/
+.npm
