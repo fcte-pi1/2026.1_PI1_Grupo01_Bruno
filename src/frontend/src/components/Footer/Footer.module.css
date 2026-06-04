@@ -1,15 +1,18 @@
-.footer{
+.footer {
     display: flex;
     width: 100%;
     padding: var(--spacing-5x);
     align-items: flex-start;
-    gap: var(--spacing-2x) var(--spacing-base);
+    gap: var(--spacing-4x) var(--spacing-base);
     border-top: 1px solid var(--border);
     flex-wrap: wrap;
 }
 
 .footer p, a {
     color: var(--txt-secondary);
+    text-align: center;
+    font-family: var(--txt-body);
+    font-size: var(--font-base);
 }
 
 .colLinks{
@@ -55,6 +58,13 @@
     align-items: flex-end;
     gap: var(--spacing-base);
     flex: 1 0 0;
+    text-align: center;
+}
+
+@media (max-width: 991px) {
+    .footer {
+        margin-bottom: var(--spacing-8x);
+    }
 }
 
 @media (max-width:480px){

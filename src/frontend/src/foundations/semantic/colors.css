@@ -31,6 +31,8 @@
 
     --color-state-hover: color-mix(in srgb, var(--pumpkin-700) 20%, transparent);
     --color-state-active: color-mix(in srgb, var(--pumpkin-500) 20%, transparent);
+
+    --border-focus: var(--pumpkin-300);
 }
 
 [data-theme="light"] {
@@ -66,4 +68,6 @@
 
     --color-state-hover: color-mix(in srgb, var(--pumpkin-600) 20%, transparent);
     --color-state-active: color-mix(in srgb, var(--pumpkin-600) 40%, transparent);
+
+    --border-focus: var(--pumpkin-600);
 }
