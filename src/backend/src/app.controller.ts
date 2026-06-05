@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Param, Body } from '@nestjs/common';
 import { AppService } from './app.service';
 import { FirebaseService } from './firebase/firebase.service'; 
 import { TelemetryGateway } from './telemetry/telemetry/telemetry.gateway';
@@ -40,6 +40,11 @@ export class AppController {
   async listarCorridas() {
     const dados = await this.firebaseService.obterCorridas();
     return { status: 'sucesso', dados };
+  }
+
+  @Delete('corridas/:id')
+  async deletarCorrida(@Param('id') id: string) {
+    return await this.appService.deletarCorrida(id);
   }
 
   @Get('corridas/:id')

@@ -16,9 +16,12 @@ interface TableProps<T> {
   data: T[]
   pageSize?: number
   actions?: boolean
+  
+  onDelete?: (id: string | number) => void 
 }
 
-export function Table<T extends { id: string | number }>({ columns, data, pageSize = 10, actions = true }: TableProps<T>) {
+
+export function Table<T extends { id: string | number }>({ columns, data, pageSize = 10, actions = true, onDelete }: TableProps<T>) {
   const [page, setPage] = useState(1)
   const [deleteId, setDeleteId] = useState<string | number | null>(null)
 
@@ -26,7 +29,10 @@ export function Table<T extends { id: string | number }>({ columns, data, pageSi
   const paginated = data.slice((page - 1) * pageSize, page * pageSize)
 
   const handleDelete = () => {
-    console.log('excluir', deleteId)
+    
+    if (onDelete && deleteId !== null) {
+        onDelete(deleteId)
+    }
     setDeleteId(null)
   }
 

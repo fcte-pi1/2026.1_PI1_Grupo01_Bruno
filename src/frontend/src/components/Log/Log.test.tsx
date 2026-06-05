@@ -1,10 +1,13 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { describe, test, expect } from 'vitest';
-import { Log } from './Log';
+import { Log } from './Log'; // Confirme se o caminho de importação está correto
 
-describe('LogComponent', () => {
-    test('renderiza sem quebrar', () => {
+describe('Componente Log', () => {
+    test('deve renderizar o título do componente', () => {
+        
         render(<Log entries={[]} />);
-        expect(true).toBe(true);
+        
+       
+        expect(screen.getByText(/Log de teste/i)).toBeInTheDocument();
     });
 });

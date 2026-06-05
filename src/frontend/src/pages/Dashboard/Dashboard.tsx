@@ -16,8 +16,12 @@ const STATUS_LABEL: Record<string, string> = {
     'concluido': 'Concluído', 'falha': 'Falhou', 'interrompida': 'Falhou', 'em_execucao': 'Em curso'
 };
 
+const safeNum = (val: any) => { const n = Number(val); return isNaN(n) ? 0 : n; };
+
+// ATENÇÃO: Mudei a key para 'displayId' para o usuário ver o número bonito, 
+// enquanto o 'id' real oculto será o do Firebase para a lixeira funcionar.
 const columns: Column<any>[] = [
-    { key: 'id', label: 'id', icon: 'tag'},
+    { key: 'displayId', label: 'id', icon: 'tag'},
     { key: 'datetime', label: 'data/hora', icon: 'schedule'},
     { key: 'size', label: 'Tamanho', icon: 'grid_view'},
     { 
@@ -36,9 +40,8 @@ const columns: Column<any>[] = [
 
 export function Dashboard() {
     const navigate = useNavigate();
-    const [qtdTestes, setQtdTestes] = useState(0);
-    const [taxaSucesso, setTaxaSucesso] = useState(0);
     const [corridasHistorico, setCorridasHistorico] = useState<any[]>([]);
+    const [stats, setStats] = useState({ qtd: 0, sucesso: 0, tempo: '0.0s', vel: '0.00 m/s', consumo: '0.0 Wh' });
 
     const fetchCorridas = () => {
         axios.get('http://localhost:3000/corridas')
@@ -46,29 +49,55 @@ export function Dashboard() {
                 const dadosNode = response.data.dados;
                 if (!dadosNode) return;
 
-                const listaCorridas = Object.values(dadosNode) as any[];
-                setQtdTestes(listaCorridas.length);
+                const corridas = Object.entries(dadosNode);
+                let totalTempo = 0, totalVel = 0, totalConsumo = 0, concluidas = 0;
 
-                const concluidas = listaCorridas.filter(corrida => corrida.metadados?.status === 'concluido').length;
-                setTaxaSucesso(listaCorridas.length > 0 ? Math.round((concluidas / listaCorridas.length) * 100) : 0);
-
-                const formatoTabela = listaCorridas.map((corrida, index) => {
+                const formatoTabela = corridas.map(([firebaseId, corrida]: any, index) => {
                     const ultimaTel = corrida.telemetria ? Object.values(corrida.telemetria).pop() as any : null;
+                    
+                    
+                    const duracao = safeNum(ultimaTel?.tempoMedio);
+                    const velocity = safeNum(ultimaTel?.velMedia);
+                    const mahRestante = safeNum(ultimaTel?.mah_restante);
+                    const consume = mahRestante > 0 ? 1000 - mahRestante : 0;
+
+                    totalTempo += duracao; totalVel += velocity; totalConsumo += consume;
+                    if (corrida.metadados?.status === 'concluido') concluidas++;
+
                     return {
-                        id: index + 1,
+                        id: firebaseId, // O ID real para a lixeira
+                        displayId: index + 1, // O ID visual para a tabela
                         datetime: new Date(corrida.metadados?.inicio_timestamp || Date.now()).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }),
                         size: `${corrida.metadados?.dimensao_labirinto || 16}x${corrida.metadados?.dimensao_labirinto || 16}`,
                         status: corrida.metadados?.status || 'concluido',
-                        duracao: ultimaTel?.tempoMedio || 0,
-                        velocity: ultimaTel?.velMedia || 0,
-                        consume: 1000 - (ultimaTel?.mah_restante || 1000),
-                        distance: ultimaTel?.distancia || 0
+                        duracao, velocity, consume, distance: safeNum(ultimaTel?.distancia)
                     };
                 });
                 
+                const total = corridas.length;
+                setStats({
+                    qtd: total,
+                    sucesso: total > 0 ? Math.round((concluidas / total) * 100) : 0,
+                    tempo: total > 0 ? (totalTempo / total).toFixed(1) + 's' : '0.0s',
+                    vel: total > 0 ? (totalVel / total).toFixed(2) + ' m/s' : '0.00 m/s',
+                    consumo: total > 0 ? ((totalConsumo / total) * 0.0084).toFixed(1) + ' Wh' : '0.0 Wh' 
+                });
+
                 setCorridasHistorico(formatoTabela.reverse().slice(0, 5)); 
-            })
-            .catch(console.error);
+            }).catch(console.error);
+    };
+
+    const apagarCorrida = async (param: any) => {
+        // Pega o ID com segurança
+        const idParaApagar = typeof param === 'object' ? param.id : param;
+        if (!idParaApagar) return;
+        
+        try {
+            await axios.delete(`http://localhost:3000/corridas/${idParaApagar}`);
+            fetchCorridas(); // Recarrega os dados após deletar
+        } catch (error) { 
+            console.error("Erro ao apagar:", error); 
+        }
     };
 
     useEffect(() => {
@@ -77,12 +106,12 @@ export function Dashboard() {
         return () => { socket.off('corrida_atualizada'); };
     }, []);
 
-    const stats = [
-        { icon: 'science', label: 'Qtd. Testes', value: qtdTestes.toString(), size: 'lg' as const },
-        { icon: 'check_circle', label: 'Taxa de sucesso', value: `${taxaSucesso}%`, size: 'lg' as const },
-        { icon: 'timer', label: 'tempo médio', value: '43.3s', size: 'lg' as const },
-        { icon: 'speed', label: 'Vel. média geral', value: '0.38 m/s', size: 'lg' as const },
-        { icon: 'electric_bolt', label: 'Cons. energ. médio', value: '3.8 Wh', size: 'lg' as const },
+    const cardsData = [
+        { icon: 'science', label: 'Qtd. Testes', value: stats.qtd.toString(), size: 'lg' as const },
+        { icon: 'check_circle', label: 'Taxa de sucesso', value: `${stats.sucesso}%`, size: 'lg' as const },
+        { icon: 'timer', label: 'tempo médio', value: stats.tempo, size: 'lg' as const },
+        { icon: 'speed', label: 'Vel. média geral', value: stats.vel, size: 'lg' as const },
+        { icon: 'electric_bolt', label: 'Cons. energ. médio', value: stats.consumo, size: 'lg' as const },
         { icon: 'sync', label: 'Lat. méd. de comunicação', value: '18–120 ms', size: 'default' as const },
         { icon: 'alt_route', label: 'Eficiência de trajeto', value: '70,5%', size: 'default' as const },
         { icon: 'thermostat', label: 'Temp. média do sistema', value: '48°C', size: 'default' as const },
@@ -92,7 +121,7 @@ export function Dashboard() {
     return (
         <div style={{ width: '100%', color: '#FFF' }}>
             <div className={styles.Cards}>
-                {stats.map(stat => (
+                {cardsData.map(stat => (
                     <div key={stat.label} className={stat.size === 'lg' ? styles.SpanLg : styles.SpanDefault}>
                         <Card icon={stat.icon} label={stat.label} value={stat.value} size={stat.size} />
                     </div>    
@@ -103,9 +132,8 @@ export function Dashboard() {
                 <h3 style={{ fontSize: '1.3rem', margin: 0 }}>Histórico de testes</h3>
                 <Button icon='add' label='NOVO PERCURSO' onClick={() => navigate('/percurso')} />
             </div>
-
             <div style={{ backgroundColor: '#0D0D0D', borderRadius: '12px', border: '1px solid #222', overflowX: 'auto' }}>
-                <Table columns={columns as any} data={corridasHistorico} />
+                <Table columns={columns as any} data={corridasHistorico} onDelete={apagarCorrida} />
             </div>
         </div>
     );
