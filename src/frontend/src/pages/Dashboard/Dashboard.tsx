@@ -88,15 +88,24 @@ export function Dashboard() {
     };
 
     const apagarCorrida = async (param: any) => {
-        // Pega o ID com segurança
+        console.log('O botão foi clicado!', param);
+        
         const idParaApagar = typeof param === 'object' ? param.id : param;
-        if (!idParaApagar) return;
+        console.log('O ID extraído é:', idParaApagar);
+        
+        if (!idParaApagar) {
+            console.error('ERRO: O ID está vazio!');
+            return;
+        }
         
         try {
-            await axios.delete(`http://localhost:3000/corridas/${idParaApagar}`);
-            fetchCorridas(); // Recarrega os dados após deletar
+            console.log(`Enviando ordem para apagar a corrida: ${idParaApagar}`);
+            const response = await axios.delete(`http://localhost:3000/corridas/${idParaApagar}`);
+            console.log('Back-end respondeu:', response.data);
+            
+            fetchCorridas(); 
         } catch (error) { 
-            console.error("Erro ao apagar:", error); 
+            console.error("Deu erro na API:", error); 
         }
     };
 

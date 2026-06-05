@@ -62,13 +62,26 @@ export function Historico() {
 
     useEffect(() => { fetchCorridas(); }, []);
 
-    const apagarCorrida = async (param: any) => {
+   const apagarCorrida = async (param: any) => {
+        console.log('O botão foi clicado!', param);
+        
         const idParaApagar = typeof param === 'object' ? param.id : param;
-        if(!window.confirm("Deseja apagar esta corrida permanentemente?")) return;
+        console.log('O ID extraído é:', idParaApagar);
+        
+        if (!idParaApagar) {
+            console.error('ERRO: O ID está vazio!');
+            return;
+        }
+        
         try {
-            await axios.delete(`http://localhost:3000/corridas/${idParaApagar}`);
-            fetchCorridas();
-        } catch (error) { console.error("Erro ao apagar:", error); }
+            console.log(`Enviando ordem para apagar a corrida: ${idParaApagar}`);
+            const response = await axios.delete(`http://localhost:3000/corridas/${idParaApagar}`);
+            console.log('Back-end respondeu:', response.data);
+            
+            fetchCorridas(); 
+        } catch (error) { 
+            console.error(" Deu erro na API:", error); 
+        }
     };
 
     return (

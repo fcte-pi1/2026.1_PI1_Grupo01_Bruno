@@ -1,13 +1,19 @@
 import { render, screen } from '@testing-library/react';
 import { describe, test, expect, vi } from 'vitest';
 import { Table } from './Table';
+import type { Column } from './Table'; 
+
+
+type MockData = { id: number; status: string };
 
 describe('Componente Table', () => {
-    const colunasMock = [
+    
+    const colunasMock: Column<MockData>[] = [
         { key: 'id', label: 'ID', icon: 'tag' },
         { key: 'status', label: 'STATUS', icon: 'info' }
     ];
-    const dadosMock = [
+    
+    const dadosMock: MockData[] = [
         { id: 1, status: 'Concluído' },
         { id: 2, status: 'Falhou' }
     ];
@@ -27,7 +33,6 @@ describe('Componente Table', () => {
     test('deve renderizar o botão de exclusão se a função onDelete for passada', () => {
         const onDeleteMock = vi.fn();
         const { container } = render(<Table columns={colunasMock} data={dadosMock} onDelete={onDeleteMock} />);
-        // Procura pelos botões de lixeira
         const deleteButtons = container.querySelectorAll('button');
         expect(deleteButtons.length).toBeGreaterThan(0);
     });
