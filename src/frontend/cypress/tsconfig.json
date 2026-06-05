@@ -4,6 +4,7 @@
     "lib": ["es5", "dom"],
     "types": ["node"],
     "moduleResolution": "node",
+    "ignoreDeprecations": "6.0",
     "baseUrl": "."
   },
   "include": [
