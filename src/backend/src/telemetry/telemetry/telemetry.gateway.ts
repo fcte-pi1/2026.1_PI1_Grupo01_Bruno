@@ -1,10 +1,11 @@
-import { WebSocketGateway,
-  SubscribeMessage,
-  MessageBody,
-  ConnectedSocket,
-  WebSocketServer,
-  OnGatewayConnection,
-  OnGatewayDisconnect
+import { 
+    WebSocketGateway,
+    SubscribeMessage,
+    MessageBody,
+    ConnectedSocket,
+    WebSocketServer,
+    OnGatewayConnection,
+    OnGatewayDisconnect
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { FirebaseService } from '../../firebase/firebase.service';
@@ -18,11 +19,10 @@ import { UsePipes, UseFilters, ValidationPipe } from '@nestjs/common';
 import { WsValidationFilter } from './ws-exception.filter';
 
 @WebSocketGateway({ cors: true })
-@UsePipes(new ValidationPipe({ transform: true, whitelist: true, forbidNonWhitelisted: true, }))
+@UsePipes(new ValidationPipe({ transform: true, whitelist: true, forbidNonWhitelisted: true }))
 @UseFilters(new WsValidationFilter())
 export class TelemetryGateway implements OnGatewayConnection, OnGatewayDisconnect {
-
-
+  
   @WebSocketServer()
   server!: Server;
 
@@ -33,8 +33,8 @@ export class TelemetryGateway implements OnGatewayConnection, OnGatewayDisconnec
 
   async handleConnection(client: Socket) {
     const role = client.handshake.query.role;
-
     if (role !== 'frontend') return;
+    
     client.join('telemetria_viva_room');
 
     const db = this.firebaseService.getDb();
@@ -47,44 +47,26 @@ export class TelemetryGateway implements OnGatewayConnection, OnGatewayDisconnec
     }
 
     const corridas = Object.entries(data) as any[];
-
     const getMaisRecente = (lista: any[]) =>
       lista
-        .sort((a, b) =>
-          (a[1].metadados?.inicio_timestamp ?? 0) -
-          (b[1].metadados?.inicio_timestamp ?? 0)
-        )
+        .sort((a, b) => (a[1].metadados?.inicio_timestamp ?? 0) - (b[1].metadados?.inicio_timestamp ?? 0))
         .at(-1);
 
-    const ativa = getMaisRecente(
-      corridas.filter(([_, c]) => c?.metadados?.status === 'em_execucao')
-    );
+    const ativa = getMaisRecente(corridas.filter(([_, c]) => c?.metadados?.status === 'em_execucao'));
 
     if (ativa) {
       const [id, corrida] = ativa;
       this.corridaAtual = id;
-
-      client.emit('session_init', {
-        mode: 'live',
-        corrida: this.formatCorrida({ id, ...corrida }),
-      });
-
+      client.emit('session_init', { mode: 'live', corrida: this.formatCorrida({ id, ...corrida }) });
       return;
     }
 
-    const ultima = getMaisRecente(
-      corridas.filter(([_, c]) => c?.metadados?.status === 'concluido')
-    );
+    const ultima = getMaisRecente(corridas.filter(([_, c]) => c?.metadados?.status === 'concluido'));
 
     if (ultima) {
       const [id, corrida] = ultima;
       this.corridaAtual = id;
-
-      client.emit('session_init', {
-        mode: 'replay',
-        corrida: this.formatCorrida({ id, ...corrida }),
-      });
-
+      client.emit('session_init', { mode: 'replay', corrida: this.formatCorrida({ id, ...corrida }) });
       return;
     }
 
@@ -121,8 +103,8 @@ export class TelemetryGateway implements OnGatewayConnection, OnGatewayDisconnec
       labirinto: {},
       telemetria: {}
     });
-    this.server.to('telemetria_viva_room').emit('corrida_atualizada', { mode: 'live', id_corrida: idCorrida, reset: true, });
 
+    this.server.to('telemetria_viva_room').emit('corrida_atualizada', { mode: 'live', id_corrida: idCorrida, reset: true });
     return { status: 'sucesso', id_corrida: idCorrida };
   }
 
@@ -131,10 +113,9 @@ export class TelemetryGateway implements OnGatewayConnection, OnGatewayDisconnec
     const db = this.firebaseService.getDb();
     const celulaRef = db.ref(`corridas/${data.id_corrida}/labirinto/celula_${data.id_celula}`); 
     
-    await celulaRef.set({
-      n: data.n, s: data.s, l: data.l, o: data.o
-    });
-
+    await celulaRef.set({ n: data.n, s: data.s, l: data.l, o: data.o });
+    this.server.emit('novaParede', { celula: data.id_celula, n: data.n, s: data.s, l: data.l, o: data.o });
+    
     return { status: 'sucesso' };
   }
 
@@ -153,8 +134,9 @@ export class TelemetryGateway implements OnGatewayConnection, OnGatewayDisconnec
 
     await telemetriaRef.set(novaLeitura);
 
-    if (this.corridaAtual !== data.id_corrida) return { status: 'ignorado' };
+    // Notifica o canal de telemetria viva e o canal geral esperado pelas views
     this.server.to('telemetria_viva_room').emit('telemetria_viva', novaLeitura);
+    this.server.emit('novaTelemetria', data);
 
     return { status: 'sucesso' };
   }
@@ -171,7 +153,6 @@ export class TelemetryGateway implements OnGatewayConnection, OnGatewayDisconnec
     });
 
     this.corridasAtivas.delete(client.id);
-
     return { status: 'sucesso' };
   }
 
@@ -180,36 +161,27 @@ export class TelemetryGateway implements OnGatewayConnection, OnGatewayDisconnec
     const db = this.firebaseService.getDb();
     const estadoRef = db.ref(`corridas/${data.id_corrida}/estado_atual`);
 
-    await estadoRef.update({
-      posicao_vetor: data.posicao,
-      timestamp: Date.now()
-    });
+    await estadoRef.update({ posicao_vetor: data.posicao, timestamp: Date.now() });
+    this.server.emit('novaPosicao', data.posicao);
 
     return { status: 'sucesso' };
   }
 
   @SubscribeMessage('sendcomand')
-  async handleSendCommand(
-    @MessageBody(new ValidationPipe({ transform: true, whitelist: true, forbidNonWhitelisted: true })) data: SendCommandDto
-  ) {
+  async handleSendCommand(@MessageBody() data: SendCommandDto) {
     this.server.emit('receiveCommand', data);
     return { status: 'comando_encaminhado' };
   }
 
   async handleDisconnect(client: Socket) {
     const id_corrida = this.corridasAtivas.get(client.id);
-
     if (id_corrida) {
-    const db = this.firebaseService.getDb();
-    const metadadosRef = db.ref(`corridas/${id_corrida}/metadados`);
+      const db = this.firebaseService.getDb();
+      const metadadosRef = db.ref(`corridas/${id_corrida}/metadados`);
 
-    await metadadosRef.update({
-      status: 'interrompida',
-      fim_timestamp: Date.now()
-    });
-
-    this.corridasAtivas.delete(client.id);
-    console.log(`[ALERTA] Conexão perdida. Corrida ${id_corrida} marcada como interrompida.`);
-  }
+      await metadadosRef.update({ status: 'interrompida', fim_timestamp: Date.now() });
+      this.corridasAtivas.delete(client.id);
+      console.log(`[ALERTA] Conexão perdida. Corrida ${id_corrida} marcada como interrompida.`);
+    }
   }
 }

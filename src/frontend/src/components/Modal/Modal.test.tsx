@@ -1,7 +1,12 @@
 import { render, screen } from '@testing-library/react'
-import { describe, test, expect, vi } from 'vitest'
+import { describe, test, expect, vi, beforeAll } from 'vitest'
 import userEvent from '@testing-library/user-event'
 import { Modal } from './Modal'
+
+beforeAll(() => {
+    HTMLDialogElement.prototype.showModal = vi.fn();
+    HTMLDialogElement.prototype.close = vi.fn();
+});
 
 vi.mock('../Button', () => ({
     Button: ({ label, icon, onClick }: {label?: string; icon?: string; onClick?: () => void }) => (

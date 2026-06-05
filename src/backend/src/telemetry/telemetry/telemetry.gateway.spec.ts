@@ -5,7 +5,7 @@ import { FirebaseService } from '../../firebase/firebase.service';
 describe('TelemetryGateway', () => {
   let gateway: TelemetryGateway;
 
-  // 1.  mocks para a cadeia de funções do Firebase (ref().push().set())
+  //  mocks para a cadeia de funções do Firebase (ref().push().set())
   const mockRef = {
     push: jest.fn().mockReturnThis(),
     set: jest.fn().mockResolvedValue(true),
@@ -17,7 +17,7 @@ describe('TelemetryGateway', () => {
     ref: jest.fn().mockReturnValue(mockRef),
   };
 
-  // 2. Mock do FirebaseService que será injetado no Gateway
+  //  Mock do FirebaseService que será injetado no Gateway
   const mockFirebaseService = {
     getDb: jest.fn().mockReturnValue(mockDb),
   };
@@ -37,7 +37,7 @@ describe('TelemetryGateway', () => {
     expect(gateway).toBeDefined();
   });
 
-  // 3. Teste para garantir que o postStart funciona e chama o banco corretamente
+  // Teste para garantir que o postStart funciona e chama o banco corretamente
   describe('postStart', () => {
     it('deve registrar o início de uma corrida e retornar o ID', async () => {
       const dto = { num_cell: 16, bat_total: 100, bat_inicial: 8.4 };

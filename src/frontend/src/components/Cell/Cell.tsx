@@ -52,12 +52,13 @@ function getMultiVisitSides(dirs: Set<Direction>): [Side?, Side?, Side?, Side?] 
 }
 
 export function Cell({ from, to, visits, wall = false, unknown = false }: CellProps) {
+    
     if (visits && visits.length > 0) {
         const validDirs = visits.flatMap(v => [v.from, v.to]).filter(Boolean) as Direction[];
         const dirs = new Set<Direction>(validDirs);
         const [s1, s2, s3, s4] = getMultiVisitSides(dirs);
         return (
-            <div className={styles.Cell}>
+            <div className={`${styles.Cell} ${styles.Path}`}>
                 <Trace side={s1} revisit />
                 <Trace side={s2} revisit />
                 <Trace side={s3} revisit />
@@ -66,8 +67,11 @@ export function Cell({ from, to, visits, wall = false, unknown = false }: CellPr
         )
     }
 
+    
+    const isPath = !wall && (from || to);
+
     return (
-        <div className={`${styles.Cell} ${wall ? styles.Wall : ''} ${unknown ? styles.Unknown : ''}`}>
+        <div className={`${styles.Cell} ${wall ? styles.Wall : ''} ${unknown ? styles.Unknown : ''} ${isPath ? styles.Path : ''}`}>
             {!wall && <>
                 <Trace side={getCell1Side(from, to)} />
                 <Trace side={getCell2Side(from, to)} />
