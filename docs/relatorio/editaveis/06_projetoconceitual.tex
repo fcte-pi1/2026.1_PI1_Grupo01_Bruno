@@ -168,6 +168,17 @@ A Figura \ref{fig:diagrama_esquematico} apresenta o diagrama esquemático do cir
     \label{fig:diagrama_esquematico}
 \end{figure}
 
+\subsection{Firmware}
+
+Para a navegação do \textit{Micromouse}, utilizou-se o algoritmo \textit{Flood Fill} (Preenchimento por Inundação), uma técnica baseada em Busca em Largura (BFS) que permite ao robô mapear progressivamente o labirinto e convergir para o centro mesmo sem conhecê-lo previamente. O desenvolvimento e a validação lógica do código foram realizados no simulador MMS.
+
+O robô conta com switches de configuração que definem o tamanho do labirinto a ser percorrido. Para suportar esse algoritmo, a memória do robô é organizada em duas matrizes estáticas cujas dimensões dependem do acionamento desses dispositivos, podendo assumir os tamanhos 4×4, 8×8 ou 16×16. A primeira matriz, \texttt{maze}, armazena as paredes descobertas durante a exploração: cada célula é representada por um único byte (\texttt{uint8\_t}), cujos 4 bits menos significativos funcionam como \textit{flags} 
+para as direções Norte, Leste, Sul e Oeste, permitindo operações lógicas bit a bit (\textit{bitwise}) eficientes. A segunda, \texttt{distances}, guarda o número de passos necessários de cada célula até o destino central, sendo esse mapa de distâncias a principal referência para a tomada de decisão do robô. Além das matrizes, variáveis globais monitoram continuamente a posição atual ($x, y$) e a orientação cardinal do robô.
+
+O processo de inundação é executado uma vez antes do início da navegação para que o robô explore o labirinto com um mapa de distâncias inicial e recalculado a cada nova parede detectada. Em cada execução, todas as posições de \texttt{distances} são resetadas para 255 (indicando que nenhuma célula foi alcançada pela inundação ainda), exceto as quatro células centrais do labirinto, calculadas dinamicamente como \texttt{SIZE/2 - 1} e \texttt{SIZE/2}, que recebem valor zero e iniciam a propagação. A expansão ocorre por meio de uma fila estática circular com aritmética modular, que garante inserções e remoções em complexidade constante $\mathcal{O}(1)$. A fila percorre as células vizinhas acessíveis, incrementando o valor da distância em $+1$ a cada passo, até preencher todo o mapa com um gradiente que aponta, em qualquer posição, o caminho mais curto até o centro.
+
+Com o mapa atualizado, o robô executa o ciclo de decisão e movimento. As leituras relativas dos sensores (frente, direita e esquerda) são convertidas em coordenadas absolutas com base na orientação atual do \textit{Micromouse}. Quando uma parede é detectada, ela é registrada simultaneamente na célula atual e na célula vizinha, mantendo a consistência espacial do mapa. Em seguida, o robô analisa as células adjacentes livres, seleciona aquela com o menor valor em \texttt{distances} e calcula a rotação necessária por diferença angular, acionando \texttt{API\_turnRight}, \texttt{API\_turnLeft} ou \texttt{API\_moveForward} conforme o caso. Esse ciclo se repete até que o robô alcance uma célula com distância zero, sinalizando a chegada ao objetivo.
+
 \section{Análise de consumo energético}
 
 O consumo energético do Micromouse XAROPi foi analisado com o objetivo de verificar a viabilidade do sistema de alimentação e garantir autonomia suficiente para a execução das provas. Para isso, realizou-se o levantamento dos principais subsistemas elétricos do robô, considerando a tensão de operação, a corrente média consumida e o tempo estimado de funcionamento de cada componente.
