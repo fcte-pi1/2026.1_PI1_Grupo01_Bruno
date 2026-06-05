@@ -67,23 +67,21 @@ export function Historico() {
                         status: corrida.metadados?.status || 'concluido',
                         duracao: ultimaTel?.tempoMedio || 0,
                         velocity: ultimaTel?.velMedia || 0,
-                        consume: 1000 - (ultimaTel?.mah_restante || 1000), // Diferença de bateria gasta
+                        consume: 1000 - (ultimaTel?.mah_restante || 1000), 
                         distance: ultimaTel?.distancia || 0
                     };
                 });
                 
-                setData(formatoTabela.reverse()); // Mais novos no topo
+                setData(formatoTabela.reverse()); 
             })
             .catch(console.error);
     }, []);
 
     return (
-        <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', color: '#FFF' }}>
-            <div style={{ marginBottom: '2rem' }}>
-                <h1 style={{ fontSize: '2rem', margin: 0, textTransform: 'uppercase' }}>HISTÓRICO</h1>
-                <p style={{ color: '#888' }}>Registros de percursos anteriores</p>
+        <div style={{ width: '100%', color: '#FFF' }}>
+            <div style={{ backgroundColor: '#0D0D0D', borderRadius: '12px', border: '1px solid #222', overflowX: 'auto' }}>
+                <Table columns={columns} data={data} />
             </div>
-            <Table columns={columns} data={data} />
         </div>
     );
 }

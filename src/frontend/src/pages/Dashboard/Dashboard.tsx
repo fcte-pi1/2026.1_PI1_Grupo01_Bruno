@@ -66,7 +66,6 @@ export function Dashboard() {
                     };
                 });
                 
-                // Exibe apenas as últimas 5 no Dashboard
                 setCorridasHistorico(formatoTabela.reverse().slice(0, 5)); 
             })
             .catch(console.error);
@@ -91,7 +90,7 @@ export function Dashboard() {
     ];
 
     return (
-        <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', color: '#FFF' }}>
+        <div style={{ width: '100%', color: '#FFF' }}>
             <div className={styles.Cards}>
                 {stats.map(stat => (
                     <div key={stat.label} className={stat.size === 'lg' ? styles.SpanLg : styles.SpanDefault}>
@@ -101,11 +100,13 @@ export function Dashboard() {
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '4rem', marginBottom: '1.5rem' }}>
-                <h3 style={{ fontSize: '1.5rem', margin: 0, textTransform: 'uppercase' }}>Histórico de testes</h3>
+                <h3 style={{ fontSize: '1.3rem', margin: 0 }}>Histórico de testes</h3>
                 <Button icon='add' label='NOVO PERCURSO' onClick={() => navigate('/percurso')} />
             </div>
 
-            <Table columns={columns as any} data={corridasHistorico} />
+            <div style={{ backgroundColor: '#0D0D0D', borderRadius: '12px', border: '1px solid #222', overflowX: 'auto' }}>
+                <Table columns={columns as any} data={corridasHistorico} />
+            </div>
         </div>
     );
 }
