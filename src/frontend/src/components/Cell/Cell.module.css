@@ -32,4 +32,5 @@
 .Unknown {
     background-color: var(--neutral-950);
     z-index: 0 !important; /* Força o bloco preto pro fundo */
+    background-color: var(--bg-secondary);
 }

@@ -1,21 +1,46 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { io } from 'socket.io-client';
 import { useNavigate } from 'react-router-dom';
 import { Card } from '../../components/Card';
 import { Button } from '../../components/Button';
+import { Table } from '../../components/Table';
+import type { Column } from '../../components/Table';
+import { Badge } from '../../components/Badge';
+import { socket } from '../../socket';
 import styles from './Dashboard.module.css';
 
-const socket = io('http://localhost:3000');
+const STATUS_BADGE: Record<string, 'success' | 'warn' | 'alert'> = {
+    'Concluído': 'success', 'Falhou': 'alert', 'Em curso': 'warn'
+};
+const STATUS_LABEL: Record<string, string> = {
+    'concluido': 'Concluído', 'falha': 'Falhou', 'interrompida': 'Falhou', 'em_execucao': 'Em curso'
+};
+
+const columns: Column<any>[] = [
+    { key: 'id', label: 'id', icon: 'tag'},
+    { key: 'datetime', label: 'data/hora', icon: 'schedule'},
+    { key: 'size', label: 'Tamanho', icon: 'grid_view'},
+    { 
+        key: 'status', label: 'Status', icon: 'task_alt',
+        render: (value) => {
+            const label = STATUS_LABEL[String(value).toLowerCase()] ?? 'Desconhecido';
+            const type  = STATUS_BADGE[label] ?? 'default';
+            return <Badge size='sm' type={type} label={label} />;
+        }
+    },
+    { key: 'duracao', label: 'Duração', icon: 'timer', render: (val) => <p>{Number(val).toFixed(1)}s</p> },
+    { key: 'velocity', label: 'Vel. Média', icon: 'speed', render: (val) => <p>{Number(val).toFixed(2)} m/s</p> },
+    { key: 'consume', label: 'Consumo', icon: 'electric_bolt', render: (val) => <p>{Number(val).toFixed(0)} mAh</p> },
+    { key: 'distance', label: 'Distância', icon: 'route', render: (val) => <p>{Number(val).toFixed(2)} m</p> },
+];
 
 export function Dashboard() {
     const navigate = useNavigate();
-
     const [qtdTestes, setQtdTestes] = useState(0);
     const [taxaSucesso, setTaxaSucesso] = useState(0);
     const [corridasHistorico, setCorridasHistorico] = useState<any[]>([]);
 
-    useEffect(() => {
+    const fetchCorridas = () => {
         axios.get('http://localhost:3000/corridas')
             .then(response => {
                 const dadosNode = response.data.dados;
@@ -25,36 +50,32 @@ export function Dashboard() {
                 setQtdTestes(listaCorridas.length);
 
                 const concluidas = listaCorridas.filter(corrida => corrida.metadados?.status === 'concluido').length;
-                const porcentagemSucesso = listaCorridas.length > 0 
-                    ? Math.round((concluidas / listaCorridas.length) * 100) 
-                    : 0;
-                setTaxaSucesso(porcentagemSucesso);
+                setTaxaSucesso(listaCorridas.length > 0 ? Math.round((concluidas / listaCorridas.length) * 100) : 0);
 
                 const formatoTabela = listaCorridas.map((corrida, index) => {
-                    const idOriginal = Object.keys(dadosNode)[index];
-                    const ultimaTel = corrida.telemetria ? (Object.values(corrida.telemetria).pop() as any) : null;
-                    
+                    const ultimaTel = corrida.telemetria ? Object.values(corrida.telemetria).pop() as any : null;
                     return {
-                        id: String(index + 1).padStart(3, '0'),
-                        data: new Date(corrida.metadados?.inicio_timestamp || Date.now()).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }),
-                        tamanho: `${corrida.metadados?.dimensao_labirinto || 16}x${corrida.metadados?.dimensao_labirinto || 16}`,
-                        status: corrida.metadados?.status === 'concluido' ? 'Sucesso' : corrida.metadados?.status === 'interrompida' ? 'Interrompido' : 'Falha',
-                        tempo: ultimaTel?.tempoMedio || '0.0s',
-                        velMedia: ultimaTel?.velMedia || '0 m/s',
-                        consumo: '420 mAh',
-                        obstaculos: Object.keys(corrida.labirinto || {}).length,
-                        distancia: (ultimaTel?.distancia || '0') + ' m'
+                        id: index + 1,
+                        datetime: new Date(corrida.metadados?.inicio_timestamp || Date.now()).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }),
+                        size: `${corrida.metadados?.dimensao_labirinto || 16}x${corrida.metadados?.dimensao_labirinto || 16}`,
+                        status: corrida.metadados?.status || 'concluido',
+                        duracao: ultimaTel?.tempoMedio || 0,
+                        velocity: ultimaTel?.velMedia || 0,
+                        consume: 1000 - (ultimaTel?.mah_restante || 1000),
+                        distance: ultimaTel?.distancia || 0
                     };
                 });
                 
-                setCorridasHistorico(formatoTabela);
+                // Exibe apenas as últimas 5 no Dashboard
+                setCorridasHistorico(formatoTabela.reverse().slice(0, 5)); 
             })
-            .catch(error => console.error("Erro ao buscar dados:", error));
+            .catch(console.error);
+    };
 
-        return () => {
-            socket.off('connect');
-            socket.off('disconnect');
-        };
+    useEffect(() => {
+        fetchCorridas(); 
+        socket.on('corrida_atualizada', fetchCorridas); 
+        return () => { socket.off('corrida_atualizada'); };
     }, []);
 
     const stats = [
@@ -70,7 +91,7 @@ export function Dashboard() {
     ];
 
     return (
-        <>
+        <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', color: '#FFF' }}>
             <div className={styles.Cards}>
                 {stats.map(stat => (
                     <div key={stat.label} className={stat.size === 'lg' ? styles.SpanLg : styles.SpanDefault}>
@@ -79,45 +100,12 @@ export function Dashboard() {
                 ))}
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '3rem', marginBottom: '1.5rem' }}>
-                <h3 style={{ color: '#FFF', fontSize: '1.5rem', margin: 0 }}>Histórico de testes</h3>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '4rem', marginBottom: '1.5rem' }}>
+                <h3 style={{ fontSize: '1.5rem', margin: 0, textTransform: 'uppercase' }}>Histórico de testes</h3>
                 <Button icon='add' label='NOVO PERCURSO' onClick={() => navigate('/percurso')} />
             </div>
 
-            <div style={{ backgroundColor: '#0A0A0A', borderRadius: '12px', border: '1px solid #222', overflow: 'hidden' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.85rem', color: '#FFF' }}>
-                    <thead style={{ borderBottom: '1px solid #333', color: '#FF5A00', letterSpacing: '0.5px', textTransform: 'uppercase', fontSize: '0.75rem' }}>
-                        <tr>
-                            <th style={{ padding: '1.2rem 1rem' }}># ID</th>
-                            <th>🕒 DATA/HORA</th>
-                            <th>⚏ TAMANHO</th>
-                            <th>✔ STATUS</th>
-                            <th>⏱ TEMPO</th>
-                            <th>☈ VEL. MÉDIA</th>
-                            <th>⚡ CONSUMO</th>
-                            <th>⚠ OBSTÁCULOS</th>
-                            <th>☋ DISTÂNCIA</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {corridasHistorico.map((corrida, index) => (
-                            <tr key={index} style={{ borderBottom: '1px solid #1A1A1A' }}>
-                                <td style={{ padding: '1rem', fontWeight: 'bold', color: '#FFF' }}>{corrida.id}</td>
-                                <td style={{ color: '#AAA' }}>{corrida.data}</td>
-                                <td style={{ color: '#AAA' }}>{corrida.tamanho}</td>
-                                <td style={{ color: corrida.status === 'Sucesso' ? '#00E676' : corrida.status === 'Falha' ? '#FF3D00' : '#FFC107', fontWeight: 'bold' }}>
-                                    ● {corrida.status}
-                                </td>
-                                <td style={{ color: '#AAA' }}>{corrida.tempo}</td>
-                                <td style={{ color: '#AAA' }}>{corrida.velMedia}</td>
-                                <td style={{ color: '#AAA' }}>{corrida.consumo}</td>
-                                <td style={{ color: '#AAA' }}>{corrida.obstaculos}</td>
-                                <td style={{ color: '#AAA' }}>{corrida.distancia}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        </>
+            <Table columns={columns as any} data={corridasHistorico} />
+        </div>
     );
 }

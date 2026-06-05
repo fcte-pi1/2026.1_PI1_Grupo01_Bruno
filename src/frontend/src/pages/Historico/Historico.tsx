@@ -1,9 +1,89 @@
-import { ControlBtn } from '../../components/ControlBtn'
-import { Maze } from '../../components/Maze'
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Table } from '../../components/Table';
+import type { Column } from '../../components/Table';
+import { Badge } from '../../components/Badge';
+
+const STATUS_BADGE: Record<string, 'success' | 'warn' | 'alert'> = {
+  'Concluído': 'success',
+  'Falhou':    'alert',
+  'Em curso':  'warn',
+};
+
+const STATUS_LABEL: Record<string, string> = {
+    'concluido': 'Concluído',
+    'falha':     'Falhou',
+    'interrompida': 'Falhou',
+    'em_execucao': 'Em curso',
+};
+
+interface RunData {
+    id: number;
+    datetime: string;
+    size: '4x4' | '8x8' | '16x16';
+    status: 'concluded' | 'failed' | 'running';
+    duracao: number;
+    velocity: number;
+    consume: number;
+    distance: number;
+}
+
+const columns: Column<RunData>[] = [
+    { key: 'id', label: 'id', icon: 'tag'},
+    { key: 'datetime', label: 'data/hora', icon: 'schedule'},
+    { key: 'size', label: 'Tamanho', icon: 'grid_view'},
+    { 
+        key: 'status', label: 'Status', icon: 'task_alt',
+        render: (value) => {
+            const statusKey = String(value).toLowerCase();
+            const label = STATUS_LABEL[statusKey] ?? 'Desconhecido';
+            const type  = STATUS_BADGE[label] ?? 'default';
+            return <Badge size='sm' type={type} label={label} />;
+        }
+    },
+    { key: 'duracao', label: 'Duração', icon: 'timer', render: (value) => <p>{Number(value).toFixed(1)}s</p> },
+    { key: 'velocity', label: 'Vel. Média', icon: 'speed', render: (value) => <p>{Number(value).toFixed(2)} m/s</p> },
+    { key: 'consume', label: 'Consumo', icon: 'electric_bolt', render: (value) => <p>{Number(value).toFixed(0)} mAh</p> },
+    { key: 'distance', label: 'Distância', icon: 'route', render: (value) => <p>{Number(value).toFixed(2)} m</p> },
+];
 
 export function Historico() {
+    const [data, setData] = useState<RunData[]>([]);
+
+    useEffect(() => {
+        axios.get('http://localhost:3000/corridas')
+            .then(response => {
+                const dadosNode = response.data.dados;
+                if (!dadosNode) return;
+
+                const listaCorridas = Object.values(dadosNode) as any[];
+                
+                const formatoTabela = listaCorridas.map((corrida, index) => {
+                    const ultimaTel = corrida.telemetria ? Object.values(corrida.telemetria).pop() as any : null;
+                    return {
+                        id: index + 1,
+                        datetime: new Date(corrida.metadados?.inicio_timestamp || Date.now()).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }),
+                        size: `${corrida.metadados?.dimensao_labirinto || 16}x${corrida.metadados?.dimensao_labirinto || 16}` as any,
+                        status: corrida.metadados?.status || 'concluido',
+                        duracao: ultimaTel?.tempoMedio || 0,
+                        velocity: ultimaTel?.velMedia || 0,
+                        consume: 1000 - (ultimaTel?.mah_restante || 1000), // Diferença de bateria gasta
+                        distance: ultimaTel?.distancia || 0
+                    };
+                });
+                
+                setData(formatoTabela.reverse()); // Mais novos no topo
+            })
+            .catch(console.error);
+    }, []);
+
     return (
-        <div>
+        <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto', color: '#FFF' }}>
+            <div style={{ marginBottom: '2rem' }}>
+                <h1 style={{ fontSize: '2rem', margin: 0, textTransform: 'uppercase' }}>HISTÓRICO</h1>
+                <p style={{ color: '#888' }}>Registros de percursos anteriores</p>
+            </div>
+            <Table columns={columns} data={data} />
         </div>
-    )
+    );
 }

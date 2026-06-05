@@ -9,6 +9,8 @@ interface ButtonBaseProps {
     icon?: string
     onClick?: () => void
     className?: string
+    ariaLabel?: string
+    title?: string
 }
 
 interface ButtonDefault extends ButtonBaseProps {
@@ -31,6 +33,8 @@ export function Button({
     icon, 
     onClick, 
     className, 
+    ariaLabel,
+    title,
 }: ButtonProps){
     const densityClass = {
         default: styles.densityDefault,
@@ -54,7 +58,8 @@ export function Button({
                 className ?? '',
             ].join(' ')}
             onClick={onClick}
-        >
+            title={title}
+            {...(ariaLabel && { 'aria-label': ariaLabel })}>
             {icon && <Icon name={icon} size={iconSize} />}
             {type != 'circle' && label && <span>{label}</span>}
         </button>

@@ -42,7 +42,8 @@ main {
     overflow-y: auto; */
     flex-direction: column;
     align-items: flex-start;
-    overflow: hidden;
+    /* overflow: hidden; */
+    gap: var(--spacing-2x);
 }
 
 .Center {
@@ -114,7 +115,7 @@ p {
 }
 
 code {
-    font-family: var(--font-code);
+    font-family: var(--text-code);
     font-size: var(--font-scale-base);
 }
 
@@ -154,6 +155,117 @@ label {
     'opsz' var(--icon-opsz);
 
   user-select: none;
+}
+
+:focus {
+    outline: none;
+}
+
+:focus-visible {
+    outline: 3px dashed var(--border-focus);
+    border-radius: var(--radius-half);
+}
+
+:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--spacing-2x);
+  padding: var(--spacing-2x);
+  background: var(--pumpkin-600);
+  color: var(--txt-primary);
+  border-radius: var(--radius-base);
+  border: 2px solid var(--border-focus);
+  z-index: 9999;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: var(--spacing-2x);
+}
+
+.TableContainer {
+    width: 100%;
+    border-radius: var(--radius-2x);
+    background: var(--bg-secondary);
+    /* overflow: hidden; */
+    /* min-height: 400px; */
+    overflow-x: auto;
+}
+
+.BottomRow{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+table {
+    width: 100%;
+    min-width: 800px;
+    border-collapse: collapse;
+}
+
+table p {
+    font-size: var(--font-scale-base);
+}
+th, td {
+    padding: var(--spacing-half) var(--spacing-baseh);
+    text-align: left;
+}
+
+th {
+    color: var(--txt-interaction);
+    border-bottom: 1px solid var(--border);
+    padding: var(--spacing-baseh) var(--spacing-base);
+}
+
+th .icon {
+  margin-right: var(--spacing-base);
+}
+
+td:first-child {
+  font-weight: var(--font-bold) !important;
+}
+
+tr {
+    border-bottom: 1px solid var(--bg-primary);
+}
+
+tr:hover td {
+    background: var(--color-state-hover);
+}
+
+th:hover {
+    background: var(--color-state-hover);
+    
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: var(--radius-10x);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--txt-secondary);
+}
+
+* {
+  scrollbar-width: auto;
+  scrollbar-color: var(--border) transparent;
 }
 
 @media(max-width: 768px) {
