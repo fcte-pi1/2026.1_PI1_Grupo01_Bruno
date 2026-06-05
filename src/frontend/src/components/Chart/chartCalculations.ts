@@ -11,7 +11,7 @@ export function chartCalculations({
 }: Props) {
   return useMemo(() => {
     const ordered = [...points].sort(
-      (a, b) => a.timestamp - b.timestamp
+      (a, b) => Number(a.timestamp) - Number(b.timestamp)
     );
 
     if (dataKey === 'distancia') {
@@ -21,9 +21,9 @@ export function chartCalculations({
         if (index) {
           const previous = ordered[index - 1];
 
-          distancia +=
-            Number(item.velocidade ?? 0) *
-            ((item.timestamp - previous.timestamp) / 1000);
+        distancia +=
+          (Number(String(item.velocidade).replace(/[^\d.-]/g, '')) || 0) *
+          ((Number(item.timestamp) - Number(previous.timestamp)) / 1000);
         }
 
         return {
