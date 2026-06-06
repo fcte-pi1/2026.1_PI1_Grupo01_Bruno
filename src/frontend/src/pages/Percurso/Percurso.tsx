@@ -62,7 +62,6 @@ export function Percurso() {
         socket.on('novaParede', (dado: any) => setUpdates(prev => [...prev, { index: dado.celula, walls: { top: dado.n, bottom: dado.s, right: dado.l, left: dado.o } }]));
 
         socket.on('novaTelemetria', (dado: any) => {
-            // Atualiza o ref da distância se o socket mandar
             if (dado.distancia !== undefined) {
                 distanciaAtualRef.current = dado.distancia;
             }
@@ -77,8 +76,7 @@ export function Percurso() {
                 voltagem: dado.tensao !== undefined ? `${dado.tensao} V` : prev.voltagem
             }));
 
-            // Monta o ponto do chart com a distância do ref (mesma fonte do card)
-            // e garante timestamp válido para evitar "Invalid Date" no eixo X
+            
             setPoints(prev => [...prev, {
                 ...dado,
                 distancia: distanciaAtualRef.current,

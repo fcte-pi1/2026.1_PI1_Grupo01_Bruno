@@ -1,3 +1,5 @@
+// isso aqui deve ficar pra depois do pc2
+
 describe('Fluxo do Sistema XAROPI', () => {
     
     it('Deve carregar o Dashboard', () => {

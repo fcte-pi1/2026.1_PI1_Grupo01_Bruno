@@ -18,8 +18,6 @@ const STATUS_LABEL: Record<string, string> = {
 
 const safeNum = (val: any) => { const n = Number(val); return isNaN(n) ? 0 : n; };
 
-// ATENÇÃO: Mudei a key para 'displayId' para o usuário ver o número bonito, 
-// enquanto o 'id' real oculto será o do Firebase para a lixeira funcionar.
 const columns: Column<any>[] = [
     { key: 'displayId', label: 'id', icon: 'tag'},
     { key: 'datetime', label: 'data/hora', icon: 'schedule'},
@@ -65,8 +63,8 @@ export function Dashboard() {
                     if (corrida.metadados?.status === 'concluido') concluidas++;
 
                     return {
-                        id: firebaseId, // O ID real para a lixeira
-                        displayId: index + 1, // O ID visual para a tabela
+                        id: firebaseId,
+                        displayId: index + 1, 
                         datetime: new Date(corrida.metadados?.inicio_timestamp || Date.now()).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }),
                         size: `${corrida.metadados?.dimensao_labirinto || 16}x${corrida.metadados?.dimensao_labirinto || 16}`,
                         status: corrida.metadados?.status || 'concluido',

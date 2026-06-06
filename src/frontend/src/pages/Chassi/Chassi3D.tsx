@@ -173,10 +173,8 @@ function ModeloChassi({ onComponentClick, selectedComponent, transparencyMode }:
           const isHovered = hoveredGroup && mesh.userData.logicalGroup === hoveredGroup;
           const isSelected = selectedComponent && mesh.userData.logicalGroup === selectedComponent;
 
-          // Controlar emissive e glow
           if (isSelected) {
             material.emissive.setHex(0xff9800);
-            // Pulsação suave: 0.5 a 0.75
             const pulse = 0.6 + Math.sin(Date.now() * 0.003) * 0.15;
             material.emissiveIntensity = pulse;
           } else if (isHovered) {
@@ -187,7 +185,6 @@ function ModeloChassi({ onComponentClick, selectedComponent, transparencyMode }:
             material.emissiveIntensity = 0;
           }
 
-          // Controlar transparência
           if (transparencyMode && selectedComponent) {
             if (isSelected) {
               material.transparent = false;
