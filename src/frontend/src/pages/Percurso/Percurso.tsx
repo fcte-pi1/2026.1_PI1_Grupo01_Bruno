@@ -60,7 +60,8 @@ export function Percurso() {
         socket.on('novaPosicao', (novaPos: number) => setPath(prev => [...prev, novaPos]));
         socket.on('novaParede', (dado: any) => setUpdates(prev => [...prev, { index: dado.celula, walls: { top: dado.n, bottom: dado.s, right: dado.l, left: dado.o } }]));
 
-        socket.on('novaTelemetria', (dado: any) => {
+
+              socket.on('novaTelemetria', (dado: any) => {
             setTelemetria(prev => ({
                 ...prev,
                 status: dado.status || prev.status,
@@ -95,7 +96,7 @@ export function Percurso() {
     const enviarComando = (comando: string) => {
         if (comando === 'iniciar') {
             setTelemetria(prev => ({ ...prev, status: 'Em execução', tempo: '0.0s', velocidade: '0.00 m/s', distancia: '0.00 m', amperagem: '0 mA', voltagem: '0.0 V' }));
-            setPath([]); setUpdates([]); setLogs([]); setPoints([]);
+            setPath([]); setUpdates([]); setLogs([]); setPoints([]);    
             addLog('Exploração iniciada', 'info');
 
             socket.emit("postStart", { num_cell: 16, bat_total: 1000, bat_inicial: 8.4 }, (res: any) => {
@@ -171,10 +172,10 @@ export function Percurso() {
 
             <h3 style={{ fontSize: '1.3rem', marginTop: '3rem', marginBottom: '1.5rem' }}>Dados Gerais</h3>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '2rem', width: '100%' }}>
-                <Chart title="VELOCIDADE DURANTE O TESTE" dataKey="velocidade" icon="speed" points={points} />
-                <Chart title="EVOLUÇÃO DA DISTÂNCIA" dataKey="distancia" icon="alt_route" points={points} />
-                <Chart title="VOLTAGEM DA BATERIA" dataKey="tensao" icon="bolt" points={points} />
-                <Chart title="AMPERAGEM DA BATERIA" dataKey="corrente" icon="electric_bolt" points={points} />
+                <Chart title="VELOCIDADE DURANTE O TESTE" dataKey="velocidade" icon="speed"/>
+                <Chart title="EVOLUÇÃO DA DISTÂNCIA" dataKey="distancia" icon="alt_route" />
+                <Chart title="VOLTAGEM DA BATERIA" dataKey="tensao" icon="bolt" />
+                <Chart title="AMPERAGEM DA BATERIA" dataKey="corrente" icon="electric_bolt" />
             </div>
 
             {isLogModalOpen && (
