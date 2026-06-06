@@ -1,6 +1,3 @@
-import { useEffect, useState } from 'react';
-import { io } from 'socket.io-client';
-
 import {
   ResponsiveContainer,
   AreaChart,
@@ -19,55 +16,24 @@ interface ChartProps {
   title: string;
   icon?: string;
   dataKey: string;
+  points: any[]; 
 }
 
-export function Chart({ title, icon, dataKey }: ChartProps) {
-  const [points, setPoints] = useState<any[]>([]);
-
-  useEffect(() => {
-    const socket = io(import.meta.env.VITE_API_URL, {
-      query: { role: 'frontend' },
-    });
-
-    const handleSessionInit = ({ corrida }: any) => {
-      setPoints(
-        corrida?.telemetria ? Object.values(corrida.telemetria) : []
-      );
-    };
-
-    const handleTelemetriaViva = (data: any) => {
-      setPoints(prev => [...prev, data]);
-    };
-
-    const handleCorridaAtualizada = ({ reset }: any) => {
-      if (reset) setPoints([]);
-    };
-
-    socket.on('session_init', handleSessionInit);
-    socket.on('telemetria_viva', handleTelemetriaViva);
-    socket.on('corrida_atualizada', handleCorridaAtualizada);
-
-    return () => {
-      socket.off('session_init', handleSessionInit);
-      socket.off('telemetria_viva', handleTelemetriaViva);
-      socket.off('corrida_atualizada', handleCorridaAtualizada);
-      socket.disconnect();
-    };
-  }, []);
-
+export function Chart({ title, icon, dataKey, points }: ChartProps) {
   const data = chartCalculations({ points, dataKey });
 
-const averageValue =
-  data.length > 0
-    ? data.reduce((acc, item) => acc + ((item as any)[dataKey] ?? 0), 0) / data.length
-    : null;
+  const averageValue =
+    data.length > 0
+      ? data.reduce((acc, item) => acc + ((item as any)[dataKey] ?? 0), 0) / data.length
+      : null;
 
   const formatValue = (value: number) => {
+    const rounded = Number(value.toFixed(2));
     if (dataKey === 'velocidade') return `${value} m/s`;
     if (dataKey === 'distancia') return `${value} m`;
     if (dataKey === 'tensao') return `${value} V`;
     if (dataKey === 'corrente') return `${value} mA`;
-    return value;
+    return rounded;
   };
 
   return (

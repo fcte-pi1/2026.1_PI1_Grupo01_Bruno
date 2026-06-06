@@ -75,6 +75,12 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+    "main.ts",
+    "app.module.ts",
+    "telemetry.module.ts",
+    "src/telemetry/tests"
+  ]
   }
 }

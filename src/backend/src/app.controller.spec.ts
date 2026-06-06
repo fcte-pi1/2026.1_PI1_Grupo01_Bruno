@@ -2,16 +2,22 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { FirebaseService } from './firebase/firebase.service';
+import { TelemetryGateway } from './telemetry/telemetry/telemetry.gateway';
 
 describe('AppController', () => {
   let appController: AppController;
   let firebaseService: FirebaseService;
 
-  // um mock do FirebaseService para não acessar o banco real durante o teste
   const mockFirebaseService = {
-    saveTelemetry: jest.fn(),
+    saveTelemetry: jest.fn().mockResolvedValue(true),
     obterCorridas: jest.fn(),
     obterCorridaPorId: jest.fn(),
+  };
+
+  const mockTelemetryGateway = {
+    server: {
+      emit: jest.fn(),
+    },
   };
 
   beforeEach(async () => {
@@ -20,12 +26,15 @@ describe('AppController', () => {
       providers: [
         AppService,
         { provide: FirebaseService, useValue: mockFirebaseService },
+        { provide: TelemetryGateway, useValue: mockTelemetryGateway },
       ],
     }).compile();
 
     appController = app.get<AppController>(AppController);
     firebaseService = app.get<FirebaseService>(FirebaseService);
   });
+
+  afterEach(() => jest.clearAllMocks());
 
   it('deve estar definido', () => {
     expect(appController).toBeDefined();
@@ -57,6 +66,34 @@ describe('AppController', () => {
 
       const resultado = await appController.obterCorrida('id_invalido');
       expect(resultado).toEqual({ status: 'erro', mensagem: 'Corrida não encontrada' });
+    });
+  });
+
+  describe('POST /telemetria', () => {
+    it('deve salvar e emitir novaTelemetria quando velocidade presente', async () => {
+      const dados = { velocidade: 0.5, corrente: 400 };
+
+      const resultado = await appController.receberTelemetria(dados);
+
+      expect(mockFirebaseService.saveTelemetry).toHaveBeenCalledWith(dados);
+      expect(mockTelemetryGateway.server.emit).toHaveBeenCalledWith('novaTelemetria', dados);
+      expect(resultado).toEqual({ status: 'sucesso', mensagem: 'Dados salvos e transmitidos!' });
+    });
+
+    it('deve emitir novaPosicao quando posicao_vetor presente', async () => {
+      const dados = { posicao_vetor: 42 };
+
+      await appController.receberTelemetria(dados);
+
+      expect(mockTelemetryGateway.server.emit).toHaveBeenCalledWith('novaPosicao', 42);
+    });
+
+    it('deve emitir novaParede quando celula presente', async () => {
+      const dados = { celula: 5, n: true, s: false };
+
+      await appController.receberTelemetria(dados);
+
+      expect(mockTelemetryGateway.server.emit).toHaveBeenCalledWith('novaParede', dados);
     });
   });
 });
