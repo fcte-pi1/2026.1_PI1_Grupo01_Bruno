@@ -15,6 +15,7 @@ export function Percurso() {
     const [path, setPath] = useState<number[]>([]);
     const [updates, setUpdates] = useState<any[]>([]);
     const [logs, setLogs] = useState<LogEntry[]>([]);
+    const [points, setPoints] = useState<any[]>([]); 
     const [isLogModalOpen, setIsLogModalOpen] = useState(false);
     
     const [telemetria, setTelemetria] = useState({
@@ -60,6 +61,20 @@ export function Percurso() {
         socket.on('novaParede', (dado: any) => setUpdates(prev => [...prev, { index: dado.celula, walls: { top: dado.n, bottom: dado.s, right: dado.l, left: dado.o } }]));
 
 
+              socket.on('novaTelemetria', (dado: any) => {
+            setTelemetria(prev => ({
+                ...prev,
+                status: dado.status || prev.status,
+                tempo: dado.tempoMedio !== undefined ? `${dado.tempoMedio}s` : prev.tempo,
+                velocidade: dado.velocidade !== undefined ? `${dado.velocidade} m/s` : prev.velocidade,
+                distancia: dado.distancia !== undefined ? `${dado.distancia} m` : prev.distancia,
+                amperagem: dado.corrente !== undefined ? `${dado.corrente} mA` : prev.amperagem,
+                voltagem: dado.tensao !== undefined ? `${dado.tensao} V` : prev.voltagem
+            }));
+            const chartPoint = { ...dado, time: new Date(dado.timestamp).toLocaleTimeString('pt-BR', { minute: '2-digit', second: '2-digit' }) };
+            setPoints(prev => [...prev, chartPoint]);
+        });
+
         return () => { socket.off('novaPosicao'); socket.off('novaParede'); socket.off('novaTelemetria'); };
     }, []);
 
@@ -81,7 +96,7 @@ export function Percurso() {
     const enviarComando = (comando: string) => {
         if (comando === 'iniciar') {
             setTelemetria(prev => ({ ...prev, status: 'Em execução', tempo: '0.0s', velocidade: '0.00 m/s', distancia: '0.00 m', amperagem: '0 mA', voltagem: '0.0 V' }));
-            setPath([]); setUpdates([]); setLogs([]);
+            setPath([]); setUpdates([]); setLogs([]); setPoints([]);    
             addLog('Exploração iniciada', 'info');
 
             socket.emit("postStart", { num_cell: 16, bat_total: 1000, bat_inicial: 8.4 }, (res: any) => {
@@ -94,7 +109,7 @@ export function Percurso() {
         }
 
         if (comando === 'reiniciar' || comando === 'cancelar') {
-            setPath([]); setUpdates([]); setLogs([]);
+            setPath([]); setUpdates([]); setLogs([]); setPoints([]);
             setTelemetria(prev => ({ ...prev, status: comando === 'cancelar' ? 'Cancelado' : 'Aguardando...' }));
             addLog(`Percurso ${comando}`, 'info');
         } else if (comando === 'pausar') {
