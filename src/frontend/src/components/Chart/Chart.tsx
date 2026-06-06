@@ -57,8 +57,10 @@ export function Chart({ title, icon, dataKey }: ChartProps) {
 
   const data = chartCalculations({ points, dataKey });
 
-  const lastValue =
-    data.length > 0 ? (data[data.length - 1] as any)[dataKey] : null;
+const averageValue =
+  data.length > 0
+    ? data.reduce((acc, item) => acc + ((item as any)[dataKey] ?? 0), 0) / data.length
+    : null;
 
   const formatValue = (value: number) => {
     if (dataKey === 'velocidade') return `${value} m/s`;
@@ -75,9 +77,9 @@ export function Chart({ title, icon, dataKey }: ChartProps) {
 
         {icon && (
           <div className={styles.ChartMeta}>
-            {lastValue !== null && (
+            {averageValue !== null && (
               <span className={styles.MetaInfo}>
-                {formatValue(lastValue)}
+                {formatValue(averageValue)}
               </span>
             )}
             <Icon name={icon} />
