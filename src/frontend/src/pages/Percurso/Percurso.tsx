@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { socket } from '../../socket'; 
 import { Card } from '../../components/Card';
@@ -17,7 +17,8 @@ export function Percurso() {
     const [logs, setLogs] = useState<LogEntry[]>([]);
     const [points, setPoints] = useState<any[]>([]); 
     const [isLogModalOpen, setIsLogModalOpen] = useState(false);
-    
+    const distanciaAtualRef = useRef(0); 
+
     const [telemetria, setTelemetria] = useState({
         status: 'Aguardando...', tempo: '0.0s', velocidade: '0.00 m/s',
         distancia: '0.00 m', amperagem: '0 mA', voltagem: '0.0 V'
@@ -60,8 +61,12 @@ export function Percurso() {
         socket.on('novaPosicao', (novaPos: number) => setPath(prev => [...prev, novaPos]));
         socket.on('novaParede', (dado: any) => setUpdates(prev => [...prev, { index: dado.celula, walls: { top: dado.n, bottom: dado.s, right: dado.l, left: dado.o } }]));
 
+        socket.on('novaTelemetria', (dado: any) => {
+            // Atualiza o ref da distância se o socket mandar
+            if (dado.distancia !== undefined) {
+                distanciaAtualRef.current = dado.distancia;
+            }
 
-              socket.on('novaTelemetria', (dado: any) => {
             setTelemetria(prev => ({
                 ...prev,
                 status: dado.status || prev.status,
@@ -71,8 +76,14 @@ export function Percurso() {
                 amperagem: dado.corrente !== undefined ? `${dado.corrente} mA` : prev.amperagem,
                 voltagem: dado.tensao !== undefined ? `${dado.tensao} V` : prev.voltagem
             }));
-            const chartPoint = { ...dado, time: new Date(dado.timestamp).toLocaleTimeString('pt-BR', { minute: '2-digit', second: '2-digit' }) };
-            setPoints(prev => [...prev, chartPoint]);
+
+            // Monta o ponto do chart com a distância do ref (mesma fonte do card)
+            // e garante timestamp válido para evitar "Invalid Date" no eixo X
+            setPoints(prev => [...prev, {
+                ...dado,
+                distancia: distanciaAtualRef.current,
+                timestamp: dado.timestamp ?? Date.now(),
+            }]);
         });
 
         return () => { socket.off('novaPosicao'); socket.off('novaParede'); socket.off('novaTelemetria'); };
@@ -95,6 +106,7 @@ export function Percurso() {
 
     const enviarComando = (comando: string) => {
         if (comando === 'iniciar') {
+            distanciaAtualRef.current = 0; // reseta a distância acumulada
             setTelemetria(prev => ({ ...prev, status: 'Em execução', tempo: '0.0s', velocidade: '0.00 m/s', distancia: '0.00 m', amperagem: '0 mA', voltagem: '0.0 V' }));
             setPath([]); setUpdates([]); setLogs([]); setPoints([]);    
             addLog('Exploração iniciada', 'info');
@@ -109,6 +121,7 @@ export function Percurso() {
         }
 
         if (comando === 'reiniciar' || comando === 'cancelar') {
+            distanciaAtualRef.current = 0; // reseta a distância acumulada
             setPath([]); setUpdates([]); setLogs([]); setPoints([]);
             setTelemetria(prev => ({ ...prev, status: comando === 'cancelar' ? 'Cancelado' : 'Aguardando...' }));
             addLog(`Percurso ${comando}`, 'info');
@@ -132,7 +145,6 @@ export function Percurso() {
     return (
         <div style={{ width: '100%', paddingBottom: '4rem', color: '#FFF' }}>
             
-            {/* SOLUÇÃO GRID: Força o título na esquerda e o botão travado na direita */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', width: '100%', alignItems: 'center', marginBottom: '2rem' }}>
                 <h2 style={{ fontSize: '1.6rem', margin: 0, textTransform: 'uppercase' }}>PERCURSO #{shortId}</h2>
                 <div>
@@ -172,10 +184,10 @@ export function Percurso() {
 
             <h3 style={{ fontSize: '1.3rem', marginTop: '3rem', marginBottom: '1.5rem' }}>Dados Gerais</h3>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '2rem', width: '100%' }}>
-                <Chart title="VELOCIDADE DURANTE O TESTE" dataKey="velocidade" icon="speed"/>
-                <Chart title="EVOLUÇÃO DA DISTÂNCIA" dataKey="distancia" icon="alt_route" />
-                <Chart title="VOLTAGEM DA BATERIA" dataKey="tensao" icon="bolt" />
-                <Chart title="AMPERAGEM DA BATERIA" dataKey="corrente" icon="electric_bolt" />
+                <Chart title="VELOCIDADE DURANTE O TESTE" dataKey="velocidade" icon="speed" points={points} />
+                <Chart title="EVOLUÇÃO DA DISTÂNCIA" dataKey="distancia" icon="alt_route" points={points} />
+                <Chart title="VOLTAGEM DA BATERIA" dataKey="tensao" icon="bolt" points={points} />
+                <Chart title="AMPERAGEM DA BATERIA" dataKey="corrente" icon="electric_bolt" points={points} />
             </div>
 
             {isLogModalOpen && (
