@@ -4,7 +4,6 @@
   aspect-ratio: 2;
   min-width: 320px;
   max-width: 800px;
-  /* height: 400px; */
   padding: var(--spacing-3x);
   flex-direction: column;
   align-items: flex-start;
@@ -38,8 +37,10 @@
 .MetaInfo {
   font-family: var(--code);
   font-weight: var(--font-regular);
+  font-size: 0.8rem;
+  color: var(--pumpkin-500);
 }
 
-.recharts-wrapper{
+.recharts-wrapper {
   margin-left: -20px;
 }
