@@ -23,41 +23,8 @@
 % \end{itemize}
 
 \section{Testes de \textit{hardware}}
-\subsection{Sensores}
-\subsubsection{TOF}
-Para realizar a validação dos sensores TOF, foram coletados dados de distância considerando os limites laterais e frontais para o veiculo identificar obstaculos. A coleta de dados foi feita com um objeto branco fixo em frente ao sensor, a distância foi definida em 80mm para o limite lateral e 50mm para o limite frontal, a posição do sensor foi fixa durante a coleta e posicionada por meio de uma regua milimetrada. Foram coletados 403 dados para o limite lateral e 334 para o limite frontal, ambos com uma taxa de amostragem de 4Hz. A análise estatística dos dados coletados é apresentada na Tabela \ref{tab:tof_stats}. 
-\begin{table}[H]
-    \centering
-       \begin{tabular}{|l|c|c|}
-        \hline
-        \textbf{Distância} & \textbf{Limite Lateral} & \textbf{Limite Frontal} \\ \hline
-        
-        \multicolumn{3}{|c|}{\textbf{Dados Gerais}} \\ \hline
-        Amostras originais & 403 & 334 \\ \hline
-        Outliers removidos & 0 & 1 \\ \hline
-        Amostras utilizadas & 403 & 333 \\ \hline
-        
-        \multicolumn{3}{|c|}{\textbf{Medidas de Tendência}} \\ \hline
-        Média & 81,422 & 50,928 \\ \hline
-        Mediana & 81,000 & 51,000 \\ \hline
-        
-        \multicolumn{3}{|c|}{\textbf{Medidas de Dispersão}} \\ \hline
-        Desvio padrão & 2,031 & 3,320 \\ \hline
-        Coeficiente de variação (CV) & 2,494\% & 6,520\% \\ \hline
-        
-        \multicolumn{3}{|c|}{\textbf{Extremos}} \\ \hline
-        Mínimo & 76,000 & 43,000 \\ \hline
-        Máximo & 87,000 & 59,000 \\ \hline
-        
-        \multicolumn{3}{|c|}{\textbf{Quartis}} \\ \hline
-        Q1 & 80,000 & 48,750 \\ \hline
-        Q3 & 83,000 & 53,000 \\ \hline
-    \end{tabular}
-    \caption{Análise estatística das medições do sensor TOF para os limites lateral e frontal.}
-    \label{tab:tof_stats}
-\end{table}
 
- \textcolor{red}{Apresentar com detalhes os testes feitos para conferir se os objetivos do \textit{hardware} foram atendidos, incluindo:}
+\textcolor{red}{Apresentar com detalhes os testes feitos para conferir se os objetivos do \textit{hardware} foram atendidos, incluindo:}
 
  \begin{enumerate}
      \item \textcolor{red}{Processamento (Arduino, ESP32 etc):}
@@ -90,6 +57,45 @@ Para realizar a validação dos sensores TOF, foram coletados dados de distânci
          \item \textcolor{red}{Transmissão de dados de sensores dentro da taxa de amostragem.}
      \end{itemize}
  \end{enumerate}
+ 
+\subsection{Sensores}
+\subsubsection{TOF}
+Para validar os sensores TOF, foram coletados dados de distância considerando os limites estimados para a detecção de obstáculos pelo veículo. As medições foram feitas com um objeto branco fixo em frente ao sensor e as distâncias de referência adotadas foram de 80mm para o limite lateral e 50mm para o limite frontal. Durante a coleta, a posição do sensor foi mantida fixa e ajustada com o auxilio de uma régua milimetrada. Foram obtidas 403 amostras para o limite lateral e 334 amostras para o limite frontal, ambas com frequência de amostragem de 4Hz. A analise estatística dos dados coletados é apresentada na Tabela \ref{tab:tof_stats}. 
+
+\begin{table}[H]
+    \centering
+       \begin{tabular}{|l|c|c|}
+        \hline
+        \textbf{Distância} & \textbf{Limite Lateral} & \textbf{Limite Frontal} \\ \hline
+        
+        \multicolumn{3}{|c|}{\textbf{Dados Gerais}} \\ \hline
+        Amostras originais & 403 & 334 \\ \hline
+        Outliers removidos & 0 & 1 \\ \hline
+        Amostras utilizadas & 403 & 333 \\ \hline
+        
+        \multicolumn{3}{|c|}{\textbf{Medidas de Tendência}} \\ \hline
+        Média & 81,422 & 50,928 \\ \hline
+        Mediana & 81,000 & 51,000 \\ \hline
+        
+        \multicolumn{3}{|c|}{\textbf{Medidas de Dispersão}} \\ \hline
+        Desvio padrão & 2,031 & 3,320 \\ \hline
+        Coeficiente de variação (CV) & 2,494\% & 6,520\% \\ \hline
+        
+        \multicolumn{3}{|c|}{\textbf{Extremos}} \\ \hline
+        Mínimo & 76,000 & 43,000 \\ \hline
+        Máximo & 87,000 & 59,000 \\ \hline
+        
+        \multicolumn{3}{|c|}{\textbf{Quartis}} \\ \hline
+        Q1 & 80,000 & 48,750 \\ \hline
+        Q3 & 83,000 & 53,000 \\ \hline
+    \end{tabular}
+    \caption{Análise estatística das medições do sensor TOF para os limites lateral e frontal.}
+    \label{tab:tof_stats}
+\end{table}
+
+Durante os testes, também foi observado que a distância entre os sensores e a superfície sobre a qual o micromouse navegará influencia a precisão das medições. Em alturas reduzidas, as leituras apresentaram rápido aumento de imprecisão, tendendo a valores inferiores às distâncias reais. Essa observação indica que o posicionamento dos sensores deve ser considerado durante o projeto mecânico do veículo. Registros desse comportamento podem ser encontrados nas demonstrações disponíveis no \href{https://unbbr-my.sharepoint.com/:v:/g/personal/231027079_aluno_unb_br/IQD2xGlDyRQrT7hCBopCS1RXAX4SP_C7y0wbpGJBctz3md8?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=rYLxsI}{OneDrive do projeto}. 
+
+A partir dos dados analisados, observa-se que as leituras apresentam boa estabilidade, com pequenas variações em torno das distâncias de referência. Deve-se ressaltar que o método de posicionamento adotado introduz uma parcela de erro fixo nas medições, associada ao alinhamento manual do sensor e do objeto durante os testes. Considerando os resultados obtidos, os dados sugerem que o sensor ToF é adequado para a detecção das paredes do labirinto nas distâncias avaliadas. 
 
 \subsubsection{MPU 6050}
 Para calibração da MPU 6050, foram utilizados dois métodos: a obtenção, via média de erro de leitura, de valores de offset para cada eixo de cada sensor, e a implementação do filtro passa-baixa configurável existente no módulo via biblioteca nativa emph{Adafruit\_MPU6050.h}. O sensor foi mantido ligado e coletou quantidades satisfatórias de dados sob as duas condições (antes e depois da calibração). Os resultados foram documentados e comparados, a fim de determinar a aplicabilidade da filtragem e frequência escolhida e dos parâmetros de offset obtidos numericamente. Os resultados das medições podem ser observados a partir dos gráficos Y e da tabela X.
@@ -99,10 +105,10 @@ Para calibração da MPU 6050, foram utilizados dois métodos: a obtenção, via
 \caption{Desvio padrão médio, mínimos e máximos em cada eixo obtidos em leitura dos dados da MPU 6050 antes e depois da aplicação dos métodos de calibração.}
 \label{tab:calibracao_mpu}
 \renewcommand{\arraystretch}{1.5} % Aumenta o espaçamento vertical das células
-\begin{tabular}{|p{4.5cm}|p{2.8cm}|p{3.2cm}|p{2.8cm}|p{3.2cm}|}
+\begin{tabular}{|p{2.5cm}|p{2.8cm}|p{2.8cm}|p{2.8cm}|p{2.8cm}|}
 \hline
- & \textbf{Acelerômetro (dados brutos)} & \textbf{Acelerômetro (dados tratados com offset e filtragem)} & \textbf{Giroscópio (dados brutos)} & \textbf{Giroscópio (dados tratados com offset e filtragem)} \\ \hline
-\textbf{Desvio padrão médio entre os eixos X, Y e Z} & 0.06827 & 0.00816 & 0.02462 & 0.00311 \\ \hline
+ & \textbf{Acelerômetro (dados brutos)} & \textbf{Acelerômetro (dados tratados)} & \textbf{Giroscópio (dados brutos)} & \textbf{Giroscópio (dados tratados)} \\ \hline
+\textbf{SD médio entre eixos} & 0.06827 & 0.00816 & 0.02462 & 0.00311 \\ \hline
 \textbf{X mín.} & 0.59 & -0.10 & -1.17 & 0.00 \\ \hline
 \textbf{Y mín.} & -1.62 & 0.02 & -0.94 & -0.01 \\ \hline
 \textbf{Z mín.} & 5.19 & 9.78 & -0.41 & -0.01 \\ \hline
