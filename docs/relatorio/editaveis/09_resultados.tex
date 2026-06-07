@@ -113,6 +113,39 @@ A cobertura dos testes foi analisada utilizando o Vitest. Conforme apresentado n
 
 \subsection{Testes unitários do backend}
 
+Os testes unitários do backend foram desenvolvidos com o objetivo de validar o comportamento individual dos serviços, controladores e gateways da aplicação, garantindo que cada módulo funcione corretamente de forma isolada. Para isso, foram utilizados testes automatizados implementados com Jest em conjunto com o módulo de testes do NestJS (\texttt{@nestjs/testing}).
+
+Foram criadas suítes de testes para os principais módulos desenvolvidos. Os módulos contemplados pelos testes unitários são: \texttt{AppController}, \texttt{AppService}, \texttt{FirebaseService} e \texttt{TelemetryGateway}. O código fonte destes testes pode ser acessado em \texttt{src/backend/src}, nos arquivos com sufixo \texttt{.spec.ts} ao lado de cada módulo testado.
+
+Os testes verificaram a inicialização correta dos módulos, o comportamento esperado dos endpoints HTTP, a comunicação via WebSocket com os eventos \texttt{postStart}, \texttt{postNos}, \texttt{postVelBat}, \texttt{postFinish}, \texttt{post\_posicao\_atual} e \texttt{sendcomand}, a integração com o Firebase Realtime Database, o tratamento de erros e o gerenciamento de conexões e desconexões de clientes.
+
+A cobertura dos testes foi analisada utilizando o Jest com a flag \texttt{--coverage}. Conforme apresentado na figura \ref{fig:uni_back}, o projeto alcançou 84,14\% de cobertura de instruções e 84,11\% de cobertura de linhas, superando o requisito mínimo de 70\% de cobertura de código-fonte estabelecido pela disciplina. Os arquivos de configuração de módulos e inicialização da aplicação (\texttt{main.ts}, \texttt{app.module.ts} e \texttt{telemetry.module.ts}) foram excluídos da análise de cobertura por não possuírem lógica de negócio testável. O relatório também permitiu identificar trechos com menor cobertura, como o filtro de exceções WebSocket (\texttt{ws-exception.filter.ts}), servindo como referência para futuras melhorias nas suítes de testes.
+
+\begin{table}[!ht]
+    \centering
+    \caption{Cobertura dos testes unitários do backend por módulo.}
+    \label{tab:cov_back}
+    \begin{tabular}{|l|c|c|c|c|}
+    \hline
+        \textbf{Arquivo} & \textbf{\% Stmts} & \textbf{\% Branch} & \textbf{\% Funcs} & \textbf{\% Lines} \\ \hline
+        app.controller.ts         & 93,54 & 87,50  & 66,66 & 93,10  \\ \hline
+        app.service.ts            & 100   & 100    & 100   & 100    \\ \hline
+        firebase.service.ts       & 100   & 80     & 100   & 100    \\ \hline
+        telemetry.gateway.ts      & 78,49 & 62,50  & 64,28 & 79,54  \\ \hline
+        ws-exception.filter.ts    & 26,31 & 0      & 0     & 17,64  \\ \hline
+        \textbf{Total}            & \textbf{84,14} & \textbf{62,74} & \textbf{72,41} & \textbf{84,11} \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figuras/software/uni_back.png}
+    \captionsetup{font=footnotesize}
+    \caption{Relatório de cobertura dos testes unitários do backend.}
+    \label{fig:uni_back}
+\end{figure}
+
+
 \subsection{Testes de integração}
 
 \subsection{Testes E2E}
