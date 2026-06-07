@@ -91,6 +91,33 @@ Para realizar a validação dos sensores TOF, foram coletados dados de distânci
      \end{itemize}
  \end{enumerate}
 
+ \subsubsection{MPU 6050}
+Para calibração da MPU 6050, foram utilizados dois métodos: a obtenção, via média de erro de leitura, de valores de offset para cada eixo de cada sensor, e a implementação do filtro passa-baixa configurável existente no módulo via biblioteca nativa emph{Adafruit\_MPU6050.h}. O sensor foi mantido ligado e coletou quantidades satisfatórias de dados sob as duas condições (antes e depois da calibração). Os resultados foram documentados e comparados, a fim de determinar a aplicabilidade da filtragem e frequência escolhida e dos parâmetros de offset obtidos numericamente. Os resultados das medições podem ser observados a partir dos gráficos Y e da tabela X.
+
+\begin{table}[htbp]
+\centering
+\caption{Desvio padrão médio, mínimos e máximos em cada eixo obtidos em leitura dos dados da MPU 6050 antes e depois da aplicação dos métodos de calibração.}
+\label{tab:calibracao_mpu}
+\renewcommand{\arraystretch}{1.5} % Aumenta o espaçamento vertical das células
+\begin{tabular}{|p{4.5cm}|p{2.8cm}|p{3.2cm}|p{2.8cm}|p{3.2cm}|}
+\hline
+ & \textbf{Acelerômetro (dados brutos)} & \textbf{Acelerômetro (dados tratados com offset e filtragem)} & \textbf{Giroscópio (dados brutos)} & \textbf{Giroscópio (dados tratados com offset e filtragem)} \\ \hline
+\textbf{Desvio padrão médio entre os eixos X, Y e Z} & 0.06827 & 0.00816 & 0.02462 & 0.00311 \\ \hline
+\textbf{X mín.} & 0.59 & -0.10 & -1.17 & 0.00 \\ \hline
+\textbf{Y mín.} & -1.62 & 0.02 & -0.94 & -0.01 \\ \hline
+\textbf{Z mín.} & 5.19 & 9.78 & -0.41 & -0.01 \\ \hline
+\textbf{X máx.} & 4.49 & 0.06 & 3.02 & 0.00 \\ \hline
+\textbf{Y máx.} & 1.10 & 0.09 & 2.92 & 0.00 \\ \hline
+\textbf{Z máx.} & 16.8 & 9.86 & 0.13 & 0.01 \\ \hline
+\end{tabular}
+\end{table}
+
+Os dados foram coletados com o sensor parado e posicionado na horizontal, paralelo ao chão. Foi utilizada uma frequência de amostragem de 50 Hz. Os dados sem o filtro foram coletados por um tempo aproximado de 3 minutos e 19 segundos, totalizando 9950 amostras. Com o filtro passa-baixa habilitado e configurado para a frequência de 5 Hz através da função \emph{mpu.setFilterBandwidth} e o offset calculado aplicado em todos os eixos, foram coletadas um total de 6554 amostras, em um tempo aproximado de 2 minutos e 12 segundos. 
+
+Ao analisar os gráficos e a tabela, nota-se que os dados de máximos e mínimos pós filtragem e aplicação de offset mostram-se mais concisos e coerentes com o posicionamento do sensor, pois espera-se, a partir da configuração descrita anteriormente, valores próximos de 0 em todos os eixos do giroscópio. Quanto ao acelerômetro, são esperados valores próximos de 0 em todos os eixos, com exceção do eixo Z, que, por conta da leitura da aceleração da gravidade, deve apresentar valores próximos a 9.8. Observa-se, também, uma diminuição considerável nas amplitudes e nos picos em bandas de frequência isoladas das amostras filtradas quando comparadas às amostras não filtradas. A diminuição dessa inconsistência resultou em um desvio padrão médio entre os três eixos substancialmente menor no sampling filtrado tanto no acelerômetro quanto no giroscópio, como demonstrado pela tabela X. 
+
+Os dados amostrados indicam que a aplicação dos métodos de calibração escolhidos resultaram em uma melhora significativa na confiabilidade, precisão e consistência dos dados de output da MPU 6050.
+
 % \section{Testes de consumo energético}
 
 % \textcolor{red}{Apresentar com detalhes os testes feitos para conferir se as demandas energéticas do projeto foram atendidas.}
