@@ -1,16 +1,16 @@
-% \chapter{Testes de Verificação e Validação}
+\chapter{Testes de Verificação e Validação}
 
-% \section{Características Gerais}
+\section{Características Gerais}
 
-% \textcolor{red}{Introduzir os principais pontos deste capítulo. Cada teste deve conter explicações completas que garantam sua repetibilidade:
-% \begin{itemize}
-%     \item Hipóteses levantadas
-%     \item Condições de contorno
-%     \item Resultados esperados
-%     \item Materiais e métodos
-%     \item Precisão e acurácia das medidas obtidas.
-% \end{itemize}
-% }
+\textcolor{red}{Introduzir os principais pontos deste capítulo. Cada teste deve conter explicações completas que garantam sua repetibilidade:
+ \begin{itemize}
+     \item Hipóteses levantadas
+     \item Condições de contorno
+     \item Resultados esperados
+     \item Materiais e métodos
+     \item Precisão e acurácia das medidas obtidas.
+ \end{itemize}
+}
 
 % \section{Testes da estrutura}
 
@@ -22,41 +22,74 @@
 %     \item \textcolor{red}{Ilustração contemplando o carro montado virtualmente em alguma ferramenta de CAD, no intuito de verificar se as peças foram construídas e montadas em conformidade com o projeto.}
 % \end{itemize}
 
-% \section{Testes de \textit{hardware}}
+\section{Testes de \textit{hardware}}
+\subsection{Sensores}
+\subsubsection{TOF}
+Para realizar a validação dos sensores TOF, foram coletados dados de distância considerando os limites laterais e frontais para o veiculo identificar obstaculos. A coleta de dados foi feita com um objeto branco fixo em frente ao sensor, a distância foi definida em 80mm para o limite lateral e 50mm para o limite frontal, a posição do sensor foi fixa durante a coleta e posicionada por meio de uma regua milimetrada. Foram coletados 403 dados para o limite lateral e 334 para o limite frontal, ambos com uma taxa de amostragem de 4Hz. A análise estatística dos dados coletados é apresentada na Tabela \ref{tab:tof_stats}. 
+\begin{table}[H]
+    \centering
+       \begin{tabular}{|l|c|c|}
+        \hline
+        \textbf{Distância} & \textbf{Limite Lateral} & \textbf{Limite Frontal} \\ \hline
+        
+        \multicolumn{3}{|c|}{\textbf{Dados Gerais}} \\ \hline
+        Amostras originais & 403 & 334 \\ \hline
+        Outliers removidos & 0 & 1 \\ \hline
+        Amostras utilizadas & 403 & 333 \\ \hline
+        
+        \multicolumn{3}{|c|}{\textbf{Medidas de Tendência}} \\ \hline
+        Média & 81,422 & 50,928 \\ \hline
+        Mediana & 81,000 & 51,000 \\ \hline
+        
+        \multicolumn{3}{|c|}{\textbf{Medidas de Dispersão}} \\ \hline
+        Desvio padrão & 2,031 & 3,320 \\ \hline
+        Coeficiente de variação (CV) & 2,494\% & 6,520\% \\ \hline
+        
+        \multicolumn{3}{|c|}{\textbf{Extremos}} \\ \hline
+        Mínimo & 76,000 & 43,000 \\ \hline
+        Máximo & 87,000 & 59,000 \\ \hline
+        
+        \multicolumn{3}{|c|}{\textbf{Quartis}} \\ \hline
+        Q1 & 80,000 & 48,750 \\ \hline
+        Q3 & 83,000 & 53,000 \\ \hline
+    \end{tabular}
+    \caption{Análise estatística das medições do sensor TOF para os limites lateral e frontal.}
+    \label{tab:tof_stats}
+\end{table}
 
-% \textcolor{red}{Apresentar com detalhes os testes feitos para conferir se os objetivos do \textit{hardware} foram atendidos, incluindo:}
+ \textcolor{red}{Apresentar com detalhes os testes feitos para conferir se os objetivos do \textit{hardware} foram atendidos, incluindo:}
 
-% \begin{enumerate}
-%     \item \textcolor{red}{Processamento (Arduino, ESP32 etc):}
-%     \begin{itemize}
-%         \item \textcolor{red}{Definir interface de desenvolvimento;}
-%         \item \textcolor{red}{Rodar exemplo mínimo.}
-%     \end{itemize}
-%     \item \textcolor{red}{Sensores (temperatura, pressão, posição, velocidade etc.):}
-%     \begin{itemize}
-%         \item \textcolor{red}{Realizar leitura básica de dados;}
-%         \item \textcolor{red}{Validar/calibrar leituras;}
-%         \item \textcolor{red}{Definir taxas de amostragem e quantidade de dados para transmissão e/ou armazenamento;}
-%         \item \textcolor{red}{Validar taxas definidas e quantidade de dados;}
-%         \item \textcolor{red}{Realizar processamento básico de dados (\textit{thresholding}, filtro média-móvel etc.).}
-%     \end{itemize}
-%     \item \textcolor{red}{Armazenamento (memória interna, cartão SD, pendrive etc.):}
-%     \begin{itemize}
-%         \item \textcolor{red}{Armazenar dados básicos;}
-%         \item \textcolor{red}{Armazenar e validar dados de sensores.}
-%     \end{itemize}
-%     \item \textcolor{red}{Atuadores (Motores DC, relés, LEDs etc.):}
-%     \begin{itemize}
-%         \item \textcolor{red}{Realizar acionamentos básicos;}
-%         \item \textcolor{red}{Realizar acionamentos com base em dados de sensores;}
-%         \item \textcolor{red}{Realizar processamento básico de dados (PWM etc.).}
-%     \end{itemize}
-%     \item \textcolor{red}{Comunicações (UART, I2C, SPI, USB, WiFi, Bluetooth etc.):}
-%     \begin{itemize}
-%         \item \textcolor{red}{Transmissão básica de dados;}
-%         \item \textcolor{red}{Transmissão de dados de sensores dentro da taxa de amostragem.}
-%     \end{itemize}
-% \end{enumerate}
+ \begin{enumerate}
+     \item \textcolor{red}{Processamento (Arduino, ESP32 etc):}
+     \begin{itemize}
+         \item \textcolor{red}{Definir interface de desenvolvimento;}
+         \item \textcolor{red}{Rodar exemplo mínimo.}
+     \end{itemize}
+     \item \textcolor{red}{Sensores (temperatura, pressão, posição, velocidade etc.):}
+     \begin{itemize}
+         \item \textcolor{red}{Realizar leitura básica de dados;}
+         \item \textcolor{red}{Validar/calibrar leituras;}
+         \item \textcolor{red}{Definir taxas de amostragem e quantidade de dados para transmissão e/ou armazenamento;}
+         \item \textcolor{red}{Validar taxas definidas e quantidade de dados;}
+         \item \textcolor{red}{Realizar processamento básico de dados (\textit{thresholding}, filtro média-móvel etc.).}
+     \end{itemize}
+     \item \textcolor{red}{Armazenamento (memória interna, cartão SD, pendrive etc.):}
+     \begin{itemize}
+         \item \textcolor{red}{Armazenar dados básicos;}
+         \item \textcolor{red}{Armazenar e validar dados de sensores.}
+     \end{itemize}
+     \item \textcolor{red}{Atuadores (Motores DC, relés, LEDs etc.):}
+     \begin{itemize}
+         \item \textcolor{red}{Realizar acionamentos básicos;}
+         \item \textcolor{red}{Realizar acionamentos com base em dados de sensores;}
+         \item \textcolor{red}{Realizar processamento básico de dados (PWM etc.).}
+     \end{itemize}
+     \item \textcolor{red}{Comunicações (UART, I2C, SPI, USB, WiFi, Bluetooth etc.):}
+     \begin{itemize}
+         \item \textcolor{red}{Transmissão básica de dados;}
+         \item \textcolor{red}{Transmissão de dados de sensores dentro da taxa de amostragem.}
+     \end{itemize}
+ \end{enumerate}
 
 % \section{Testes de consumo energético}
 
