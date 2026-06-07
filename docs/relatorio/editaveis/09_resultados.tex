@@ -91,7 +91,7 @@ Para realizar a validação dos sensores TOF, foram coletados dados de distânci
      \end{itemize}
  \end{enumerate}
 
- \subsubsection{MPU 6050}
+\subsubsection{MPU 6050}
 Para calibração da MPU 6050, foram utilizados dois métodos: a obtenção, via média de erro de leitura, de valores de offset para cada eixo de cada sensor, e a implementação do filtro passa-baixa configurável existente no módulo via biblioteca nativa emph{Adafruit\_MPU6050.h}. O sensor foi mantido ligado e coletou quantidades satisfatórias de dados sob as duas condições (antes e depois da calibração). Os resultados foram documentados e comparados, a fim de determinar a aplicabilidade da filtragem e frequência escolhida e dos parâmetros de offset obtidos numericamente. Os resultados das medições podem ser observados a partir dos gráficos Y e da tabela X.
 
 \begin{table}[htbp]
@@ -117,6 +117,15 @@ Os dados foram coletados com o sensor parado e posicionado na horizontal, parale
 Ao analisar os gráficos e a tabela, nota-se que os dados de máximos e mínimos pós filtragem e aplicação de offset mostram-se mais concisos e coerentes com o posicionamento do sensor, pois espera-se, a partir da configuração descrita anteriormente, valores próximos de 0 em todos os eixos do giroscópio. Quanto ao acelerômetro, são esperados valores próximos de 0 em todos os eixos, com exceção do eixo Z, que, por conta da leitura da aceleração da gravidade, deve apresentar valores próximos a 9.8. Observa-se, também, uma diminuição considerável nas amplitudes e nos picos em bandas de frequência isoladas das amostras filtradas quando comparadas às amostras não filtradas. A diminuição dessa inconsistência resultou em um desvio padrão médio entre os três eixos substancialmente menor no sampling filtrado tanto no acelerômetro quanto no giroscópio, como demonstrado pela tabela X. 
 
 Os dados amostrados indicam que a aplicação dos métodos de calibração escolhidos resultaram em uma melhora significativa na confiabilidade, precisão e consistência dos dados de output da MPU 6050.
+
+\subsection{Atuadores}
+\subsubsection{Ponte H L298N e motores DC 6V}
+Uma vez que a ponte H e os motores DC 6V funcionam juntos, optou-se por realizar testes em ambos como conjunto, e não de cada um dos componentes separadamente. Os testes foram realizados via firmware com controle periódico de PWM e sentido de rotação, gravado na ESP32 conectada à ponte H. A alimentação da L298N foi feita a partir dos pinos de alimentação do devkit do microcontrolador. Os terminais de alimentação dos motores foram conectados diretamente aos terminais da bateria. 
+
+O sistema apresentou o comportamento esperado em todas as etapas de teste. As variações de PWM, em intervalos de 50 (o argumento do PWM varia de 0 a 255), resultaram em mudanças na velocidade do motor. A mudança nos bits de sentido resultou em alteração no sentido de rotação, que, no firmware utilizado no teste, mudou a cada 2 segundos. Ambos os canais da ponte H e ambos os motores DC foram testados e avaliados, com resultados semelhantes obtidos em todos os cenários testados. Devido ao caráter qualitativo do protocolo de teste desse sistema, parte do teste foi registrado em formato de vídeo, que pode ser acessado através \href{https://unbbr-my.sharepoint.com/:f:/g/personal/231027079_aluno_unb_br/IgBTkERhmse0RpFUGiqooULzAQvzFr9VL5YGq6soeIDkyNI?e=624aZd}{deste link}.
+
+
+
 
 % \section{Testes de consumo energético}
 
