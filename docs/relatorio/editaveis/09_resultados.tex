@@ -85,6 +85,7 @@ Os testes contemplaram três cenários distintos, alterando as condições de co
 Nosso projeto possui 16 histórias de usuário e durante este ponto de controle foram implementadas 13 histórias de usuário, totalizando 81\% das histórias de usuário, sendo elas listadas na tabela \ref{tab:historias} e observadas na figura \ref{fig:hus-implementadas} do protótipo . As demais histórias de usuário estão parcialmente criadas.
 \begin{table}[H]
     \centering
+    \scriptsize
     \caption{Histórias de usuário implementadas.}
     \label{tab:historias}
     \begin{tabular}{|l|l|}
@@ -141,21 +142,21 @@ Os testes verificaram a inicialização correta dos módulos, o comportamento es
 
 A cobertura dos testes foi analisada utilizando o Jest com a flag \texttt{--coverage}. Conforme apresentado na figura \ref{fig:uni_back}, o projeto alcançou 84,14\% de cobertura de instruções e 84,11\% de cobertura de linhas, superando o requisito mínimo de 70\% de cobertura de código-fonte estabelecido pela disciplina. Os arquivos de configuração de módulos e inicialização da aplicação (\texttt{main.ts}, \texttt{app.module.ts} e \texttt{telemetry.module.ts}) foram excluídos da análise de cobertura por não possuírem lógica de negócio testável. O relatório também permitiu identificar trechos com menor cobertura, como o filtro de exceções WebSocket (\texttt{ws-exception.filter.ts}), servindo como referência para futuras melhorias nas suítes de testes.
 
-\begin{table}[!ht]
-    \centering
-    \caption{Cobertura dos testes unitários do backend por módulo.}
-    \label{tab:cov_back}
-    \begin{tabular}{|l|c|c|c|c|}
-    \hline
-        \textbf{Arquivo} & \textbf{\% Stmts} & \textbf{\% Branch} & \textbf{\% Funcs} & \textbf{\% Lines} \\ \hline
-        app.controller.ts         & 93,54 & 87,50  & 66,66 & 93,10  \\ \hline
-        app.service.ts            & 100   & 100    & 100   & 100    \\ \hline
-        firebase.service.ts       & 100   & 80     & 100   & 100    \\ \hline
-        telemetry.gateway.ts      & 78,49 & 62,50  & 64,28 & 79,54  \\ \hline
-        ws-exception.filter.ts    & 26,31 & 0      & 0     & 17,64  \\ \hline
-        \textbf{Total}            & \textbf{84,14} & \textbf{62,74} & \textbf{72,41} & \textbf{84,11} \\ \hline
-    \end{tabular}
-\end{table}
+% \begin{table}[!ht]
+%     \centering
+%     \caption{Cobertura dos testes unitários do backend por módulo.}
+%     \label{tab:cov_back}
+%     \begin{tabular}{|l|c|c|c|c|}
+%     \hline
+%         \textbf{Arquivo} & \textbf{\% Stmts} & \textbf{\% Branch} & \textbf{\% Funcs} & \textbf{\% Lines} \\ \hline
+%         app.controller.ts         & 93,54 & 87,50  & 66,66 & 93,10  \\ \hline
+%         app.service.ts            & 100   & 100    & 100   & 100    \\ \hline
+%         firebase.service.ts       & 100   & 80     & 100   & 100    \\ \hline
+%         telemetry.gateway.ts      & 78,49 & 62,50  & 64,28 & 79,54  \\ \hline
+%         ws-exception.filter.ts    & 26,31 & 0      & 0     & 17,64  \\ \hline
+%         \textbf{Total}            & \textbf{84,14} & \textbf{62,74} & \textbf{72,41} & \textbf{84,11} \\ \hline
+%     \end{tabular}
+% \end{table}
 
 \begin{figure}[H]
     \centering
@@ -172,12 +173,11 @@ A cobertura dos testes foi analisada utilizando o Jest com a flag \texttt{--cove
 
 Foram implementados testes end-to-end utilizando Cypress com base nos roteiros de testes funcionais definidos na primeira entrega do projeto. Até o momento, foi possível implementar os casos de teste CT1, CT2 e CT3, uma vez que os demais dependem de histórias de usuário ainda não desenvolvidas. O código fonte destes testes podem ser acessados em \texttt{src/frontend/src/cypress/e2e}.
 
-O CT1 valida o carregamento inicial da tela de percurso, verificando a exibição dos componentes de telemetria, a apresentação dos valores iniciais zerados, o funcionamento da ação de iniciar o percurso, a atualização dos dados de telemetria durante a execução e a exibição dos gráficos de acompanhamento.
+O CT1 valida o carregamento inicial da tela de percurso, verificando a exibição dos componentes de telemetria, a apresentação dos valores iniciais zerados, o funcionamento da ação de iniciar o percurso, a atualização dos dados de telemetria durante a execução e a exibição dos gráficos de acompanhamento. Conforme apresentado na figura \ref{fig:ct1}.
 
-O CT2 verifica o fluxo de execução e reinicialização do percurso, garantindo que o sistema altere corretamente o estado da corrida após o início e que os dados sejam redefinidos após a confirmação da reinicialização.
+O CT2 verifica o fluxo de execução e reinicialização do percurso, garantindo que o sistema altere corretamente o estado da corrida após o início e que os dados sejam redefinidos após a confirmação da reinicialização. Conforme apresentado na figura \ref{fig:ct2}.
 
-O CT3 valida a finalização bem-sucedida do percurso, verificando a exibição da mensagem de sucesso ao alcançar o objetivo e a manutenção das métricas consolidadas apresentadas nos gráficos após o término da execução.
-
+O CT3 valida a finalização bem-sucedida do percurso, verificando a exibição da mensagem de sucesso ao alcançar o objetivo e a manutenção das métricas consolidadas apresentadas nos gráficos após o término da execução. Conforme apresentado na figura \ref{fig:ct3}.
 
 
 % \textcolor{red}{Apresentar com detalhes os testes feitos para conferir se os objetivos do \textit{software} foram atendidos.
