@@ -1,6 +1,6 @@
 \chapter{Termo de Abertura do Projeto}
 
-\textcolor{red}{Termo de abertura do projeto / Project Charter. Um documento publicado pelo iniciador ou patrocinador do projeto que autoriza formalmente a existência de um projeto e fornece ao gerente do projeto a autoridade para aplicar os recursos organizacionais nas atividades do projeto.}
+%\textcolor{red}{Termo de abertura do projeto / Project Charter. Um documento publicado pelo iniciador ou patrocinador do projeto que autoriza formalmente a existência de um projeto e fornece ao gerente do projeto a autoridade para aplicar os recursos organizacionais nas atividades do projeto.}
 
 \section{Dados do projeto}
 \begin{description}
@@ -37,6 +37,7 @@ De forma mais ampla, o projeto apresenta relevância indireta para o setor tecno
 
 % \begin{landscape}
 
+
 \section{Requisitos}
 
 % \textcolor{red}{Listar os fatos que são essenciais para o consumidor adquirir o produto, exemplo: cor, tamanho, material, tempo de vida-útil, dispositivo de segurança \textbf{x}, entre outros.}
@@ -44,164 +45,214 @@ De forma mais ampla, o projeto apresenta relevância indireta para o setor tecno
 % Exemplo de referência a um requisito: \cref{req:login}.
 {\scriptsize
 
-\begin{longtable}{| l | p{14.5cm}| }
+\begin{longtable}{| p{1cm} | p{12cm} | p{2.2cm} |}
     \caption{Requisitos Funcionais} \\
     % \toprule
     \hline
-    \textbf{ID} & \textbf{Descrição} \\ \hline
+    \rowcolor{gray!30}
+    \textbf{ID} & \textbf{Descrição} & \textbf{Classificação} \\ \hline
     % \midrule
     \endfirsthead
     % \toprule
     \hline
-    \textbf{ID} & \textbf{Descrição} \\ \hline
+    \rowcolor{gray!30}
+    \textbf{ID} & \textbf{Descrição} & \textbf{Classificação} \\ \hline
     % \midrule
     \endhead
-    \rf[tof-paredes]{Detecção de paredes do labirinto}{
+    \rowcolor{gray!10}
+    \multicolumn{3}{|c|}{Hardware} \\ \hline
+    \rf[tof-paredes]{Must}{
         O sistema deve detectar a presença ou ausência de paredes
         nas direções frontal, lateral esquerda e lateral direita
         do micromouse, compatível com as dimensões das células de
         18~cm × 18~cm e paredes de 5~cm de altura.} \\ \hline
-    \rf[motor-pwm]{Controle de velocidade dos motores}{
+    \rf[motor-pwm]{Must}{
         O sistema deve controlar individualmente a velocidade de
         cada motor DC por meio de sinal PWM enviado ao driver
         de motor.} \\ \hline
-    \rf[motor-direcao]{Controle de direção dos motores}{
+    \rf[motor-direcao]{Must}{
         O sistema deve controlar o sentido de rotação de cada motor
         DC de forma independente, permitindo movimentos de avanço,
         recuo e curvas.} \\ \hline
-    \rf[linha-reta]{Deslocamento em linha reta}{
+    \rf[linha-reta]{Must}{
         O sistema deve mover o micromouse em linha reta dentro dos
         corredores do labirinto, mantendo trajetória centralizada
         entre as paredes.} \\ \hline
-    \rf[curva]{Execução de curvas}{
+    \rf[curva]{Must}{
         O sistema deve executar curvas de 90° e 180° de forma
         precisa, compatível com as dimensões das células de
         18~cm × 18~cm do labirinto.} \\ \hline
-    \rf[botao]{Acionamento por botão}{
+    \rf[botao]{Should}{
         O sistema deve iniciar e interromper a navegação por meio
         de um botão físico acessível externamente no micromouse} \\ \hline
-    \rf[bat-alerta]{Alerta de bateria baixa}{
+    \rf[bat-alerta]{Should}{
         O sistema deve detectar e sinalizar quando a tensão da
         bateria atingir nível insuficiente para continuidade
         segura da navegação.} \\ \hline
-    \rf[buzzer]{Sinalização sonora ao atingir objetivo}{
+    \rf[buzzer]{Could}{
         O sistema deve acionar um buzzer ao detectar que o micromouse
         atingiu a sala objetivo do labirinto.} \\ \hline
-    \rf[wifi-telemetria]{Transmissão de telemetria}{
+    \rf[wifi-telemetria]{Must}{
         O sistema deve transmitir dados de telemetria ao sistema
         web em tempo real.} \\ \hline
-    \rf[disposição]{Suporte dos componentes}{O micromouse deve suportar e integrar todos os componentes necessários (bateria, sensores e controle), garantindo seu funcionamento adequado durante a operação.} \\ \hline
-    \rf[tamanho]{Compatibilidade com o labirinto}{A estrutura deve permitir que o micromouse percorra o labirinto sem interferências, respeitando limites de altura, largura e mobilidade.} \\ \hline
-    \rf[proteção]{Proteção estrutural}{A estrutura deve proteger os componentes eletrônicos contra choques mecânicos e possíveis danos durante o percurso.}\\ \hline
-    \rf[modularidade]{Modularidade do sistema}{A estrutura do micromouse deve permitir a substituição e atualização de módulos de forma independente.}\\ \hline
-    \rf[mapeamento_trajeto_web]{Exibição do mapeamento e trajeto}{
+    \rf[disposição]{Must}{
+        O micromouse deve suportar e integrar todos os componentes necessários 
+        (bateria, sensores e controle), garantindo seu funcionamento adequado durante a operação.} \\ \hline
+    
+    \rowcolor{gray!10}
+    \multicolumn{3}{|c|}{Estruturas} \\ \hline
+    \rf[tamanho]{Must}{
+        A estrutura deve permitir que o micromouse percorra o labirinto sem interferências, 
+        respeitando limites de altura, largura e mobilidade.} \\ \hline
+    \rf[proteção]{Should}{
+        A estrutura deve proteger os componentes eletrônicos contra choques mecânicos e possíveis danos durante o percurso.}\\ \hline
+    \rf[modularidade]{Must}{
+        A estrutura do micromouse deve permitir a substituição e atualização de módulos de forma independente.}\\ \hline
+
+    \rowcolor{gray!10}
+    \multicolumn{3}{|c|}{Software} \\ \hline
+    \rf[mapeamento_trajeto_web]{Must}{
         Em relação ao percurso atual, o sistema web deve exibir e atualizar em tempo real o mapeamento da localização e o trajeto do Micromouse no labirinto.} \\ \hline  
-    \rf[tipo_labirinto_web]{Exibição do tipo de labirinto}{
-        O sistema web deve identificar e exibir o tipo de labirinto selecionado para o percurso atual.} \\ \hline
-    \rf[resto_bateria_web]{Exibição da bateria disponível}{
+    \rf[tipo_labirinto_web]{Must}{
+        O sistema web deve identificar e exibir o tipo de labirinto para o percurso atual.} \\ \hline
+    \rf[resto_bateria_web]{Must}{
         O sistema web deve exibir e atualizar em tempo real a porcentagem de bateria disponível do Micromouse.} \\ \hline
-    \rf[bateria_consumida_web]{Exibição da bateria consumida}{
+    \rf[bateria_consumida_web]{Could}{
         O sistema web deve exibir e atualizar em tempo real a porcentagem de bateria consumida pelo Micromouse durante o trajeto.} \\ \hline
-    \rf[tempo_web]{Exibição do tempo de percurso}{
+    \rf[tempo_web]{Must}{
         O sistema web deve exibir e atualizar em tempo real um temporizador indicando o tempo decorrido até a conclusão ou interrupção do desafio.} \\ \hline
-    \rf[status_web]{Status do desafio}{
+    \rf[status_web]{Must}{
         Após a conclusão do percurso, o sistema web deve exibir se o desafio foi cumprido com sucesso ou não.} \\ \hline
-    \rf[vmedia_web]{Exibição da velocidade média}{
+    \rf[vmedia_web]{Must}{
         Após a conclusão do percurso, o sistema web deve exibir a velocidade média mantida pelo Micromouse.} \\ \hline
-    \rf[on_off_web]{Possuir botão para controle remoto de operação}{
+    \rf[on_off_web]{Should}{
         O sistema web deve possuir um botão que envia comandos para iniciar e reiniciar percursos remotamente.} \\ \hline
-    \rf[on_temp_ web]{Iniciar temporidazador ao iniciar percurso}{
-         Ao iniciar o percurso, o temporizador deve ser ativado automaticamente. } \\ \hline
-    \rf[reset_temp_ web]{Reiniciar temporidazador ao reiniciar percurso}{
-         Ao reiniciar o percurso, o sistema deve resetar o cronômetro. } \\ \hline
-    \rf[dados_bd_web]{Envio de dados ao finalizar percurso}{
-         Ao finalizar o percurso, o sistema deve enviar os dados do percurso anterior para o banco de dados.} \\ \hline
-    \rf[salvar_bd]{Persistência por tipo de labirinto}{
+    \rf[on_temp_ web]{Must}{
+        Ao iniciar o percurso, o temporizador deve ser ativado automaticamente. } \\ \hline
+    \rf[reset_temp_ web]{Should}{
+        Ao reiniciar o percurso, o sistema deve resetar o cronômetro. } \\ \hline
+    \rf[dados_bd_web]{Must}{
+        Ao finalizar o percurso, o sistema deve enviar os dados do percurso anterior para o banco de dados.} \\ \hline
+    \rf[salvar_bd]{Must}{
         Após a conclusão do desafio, os dados finais devem ser armazenados em um banco de dados, categorizados de acordo com o tipo de labirinto.} \\ \hline
-    \rf[consulta_bd]{Consulta de trajetos históricos}{
+    \rf[consulta_bd]{Must}{
         O sistema deve permitir a consulta e exibição de dados de qualquer trajeto específico armazenado, independentemente do tipo de labirinto.} \\ \hline
-    \rf[obstaculos_web]{Processamento de obstáculos}{
+    \rf[obstaculos_web]{Must}{
         O sistema web deve processar os dados recebidos do micromouse em tempo real para identificar a presença de paredes.} \\ \hline
-    \rf[obstaculos_id_web]{Identificação de obstáculos}{
-         Ao detectar um obstáculo, o software deve atualizar a estrutura de dados do labirinto na interface web.} \\ \hline
-    \rf[map_lab_web]{Mapeamento do labirinto}{
+    \rf[obstaculos_id_web]{Must}{
+        Ao detectar um obstáculo, o software deve atualizar a estrutura de dados do labirinto na interface web.} \\ \hline
+    \rf[map_lab_web]{Could}{
         O sistema web deve realizar a construção progressiva de uma representação lógica (matriz ou grafo) do ambiente conforme o Micromouse explora o labirinto.} \\ \hline
-    \rf[websocket]{Comunicação via WebSocket}{
+    \rf[websocket]{Could}{
         A troca de informações entre o Micromouse e o sistema web deve ser estabelecida através do protocolo WebSockets.} \\ \hline
-    \rf[display-local]{Visualização de energia no hardware}{ O micromouse deve possuir um indicador visual local (como LEDs de estado ou display OLED) para exibir o nível de carga da bateria sem a necessidade de dispositivos externos.} \\ \hline
-    \rf[bat-log]{Registro de consumo energético}{ O sistema deve registrar o consumo de energia durante cada percurso para posterior análise no sistema web.} \\ \hline
-    \rf[chave-geral]{Interruptor de potência}{ O sistema deve possuir um interruptor físico (Chave On/Off) capaz de seccionar a alimentação da bateria, interrompendo completamente o consumo de energia do dispositivo.} \\ \hline
-    \rf[power-throttling]{(Power Throttling)}{ O sistema deve monitorar a tensão da bateria e, ao atingir um limiar crítico pré-definido, deve transitar automaticamente para o modo de economia de energia para estender a autonomia operacional.} \\ \hline
-    \rf[bat-proteção]{Proteção contra descarga profunda}{ O sistema deve interromper automaticamente o funcionamento quando a bateria atingir um nível crítico mínimo, evitando danos permanentes à bateria.} \\ \hline
+
+    \rowcolor{gray!10}
+    \multicolumn{3}{|c|}{Consumo Energético} \\ \hline
+    \rf[display-local]{Could}{
+        O micromouse deve possuir um indicador visual local (como LEDs de estado ou display OLED) 
+        para exibir o nível de carga da bateria sem a necessidade de dispositivos externos.} \\ \hline
+    \rf[bat-log]{Must}{
+        O sistema deve registrar o consumo de energia durante cada percurso para posterior análise no sistema web.} \\ \hline
+    \rf[chave-geral]{Must}{
+        O sistema deve possuir um interruptor físico (Chave On/Off) capaz de seccionar a
+        alimentação da bateria, interrompendo completamente o consumo de energia do dispositivo.} \\ \hline
+    \rf[power-throttling]{Should}{
+        O sistema deve monitorar a tensão da bateria e, ao atingir um limiar crítico pré-definido,
+        deve transitar automaticamente para o modo de economia de energia para estender a autonomia operacional.} \\ \hline
 \end{longtable}
 }
 
 {\scriptsize
-\begin{longtable}{| l | p{14.5cm} |}
+\begin{longtable}{| p{1cm} | p{12cm} | p{2.2cm} |}
     \caption{Requisitos Não Funcionais} \\
     % \toprule
     \hline
-    \textbf{ID} & \textbf{Descrição} \\ \hline
+    \rowcolor{gray!30}
+    \textbf{ID} & \textbf{Descrição} & \textbf{Classificação} \\ \hline
     % \midrule
     \endfirsthead
     % \toprule
     \hline
-    \textbf{ID} & \textbf{Descrição} \\ \hline
+    \rowcolor{gray!30}
+    \textbf{ID} & \textbf{Descrição} & \textbf{Classificação} \\ \hline
     % \midrule
     \endhead
-    \rnf[autonomia_operacao]{Autonomia de operação}{Garantir funcionamento ininterrupto do sistema por, no mínimo, 20 minutos.} \\ \hline
-    \rnf[ciclo_missao]{Ciclo de missão}{Suportar o mapeamento completo no labirinto 16x16 sem recarga..} \\ \hline
-    \rnf[eficiencia_conversao]{Eficiência de conversão}{Utilizar reguladores de tensão com rendimento energético mínimo de 85\%.} \\ \hline
-    \rnf[consumo_standby]{Consumo em standby}{Limitar a corrente consumida em modo de espera a um máximo de 50mA.} \\ \hline
-    \rnf[monitorar_carga]{Monitoramento de carga}{Implementar detecção de baixa tensão para alertar quando a célula atingir 3,2V.} \\ \hline
-    \rnf[peso_bateria]{Peso do sistema de alimentação}{O sistema de alimentação não deve exceder 25\% do peso total do micromouse.} \\ \hline
-    \rnf[acessibilidade_bateria]{Acessibilidade}{Permitir o carregamento das baterias sem a necessidade de desmontagem.} \\ \hline
-    \rnf[estabilidade_tensao]{Estabilidade de tensão}{ Manter a variação de tensão nos sensores dentro de uma margem de +/- 5\% durante a aceleração dos motores.} \\ \hline
-    \rnf[estabilidade_estrutural]{Estabilidade estrutural}{A estrutura do micromouse deve garantir estabilidade estática e dinâmica, evitando tombamento e oscilações durante a operação.}\\ \hline
-    \rnf[massa]{Massa do sistema}{A massa total do micromouse deve ser minimizada, de modo a reduzir a inércia e melhorar a resposta dinâmica.}\\ \hline
-    \rnf[fixacao]{Fixação firme}{Os componentes do micromouse devem ser fixados sem folgas, evitando vibrações e ruídos durante a operação.}\\ \hline
-    \rnf[eficiencia]{Eficiência energética}{A estrutura do micromouse deve contribuir para a eficiência energética, minimizando perdas por atrito e massa excessiva.}\\ \hline
-    \rnf[isolam_dominios]{Isolamento de domínios}{
-    A fonte de alimentação do microcontrolador e dos sensores deve ser eletricamente isolada (ou fortemente desacoplada) da alimentação dos motores.} \\ \hline
-    \rnf[reg_tensao]{Regulação de tensão}{
-    O circuito lógico deve manter uma tensão estável, mesmo quando os motores exigirem o pico máximo de corrente, no momento da partida.} \\ \hline
-    \rnf[sinais_analogicos]{Sinais analógicos}{
-    Sinais analógicos (como o retorno de sensores infravermelhos de distância) devem possuir filtros passa-baixa (filtros RC) no hardware para atenuar ruídos de alta frequência do ambiente e do próprio circuito antes de chegarem ao devkit (ESP32).} \\ \hline
-    \rnf[aterramento]{Aterramento}{
-    A placa perfurada (ou, se for o caso, PCB) deve possuir um nó comum bem definido, evitando ground loops que possam interferir nas leituras.} \\ \hline
-    \rnf[pontos_teste]{Pontos de teste}{
-    A placa deve expor pinos ou ilhas de fácil acesso para testes via multímetro (e, se necessário, osciloscópio), especificamente para: VCC, GND, sinais de saída dos sensores e PWM dos motores.} \\ \hline
-    \rnf[feedback_visual]{Feedback visual}{
-    O circuito deve incluir LEDs de status integrados que não afetem a lógica para indicar condições vitais, como "Alimentação OK", "Bateria Fraca" ou para debuggar a ativação individual de sensores sem precisar olhar para o terminal do computador.} \\ \hline
-    \rnf[acoplamento_cis]{Acoplamento mecânico de CIs}{
-    Componentes de alto risco ou alto custo (como a placa do microcontrolador e a ponte H) não devem ser soldados diretamente na placa principal. Eles devem utilizar soquetes para permitir a substituição em, no máximo, 5 minutos em caso de queima.} \\ \hline
-    \rnf[protecao_polaridade]{Proteção contra polaridade}{
-    O circuito de entrada da bateria deve incluir um componente ou circuito para proteção contra inversão de polaridade.} \\ \hline
-    \rnf[vel_alg]{Tempo de execução do algoritmo}{
+    \rowcolor{gray!10}
+    \multicolumn{3}{|c|}{Consumo Energético} \\ \hline
+    \rnf[autonomia_operacao]{Must}{
+        Garantir funcionamento ininterrupto do sistema por, no mínimo, 20 minutos.} \\ \hline
+    \rnf[ciclo_missao]{Must}{
+        Suportar o mapeamento completo no labirinto 16x16 sem recarga..} \\ \hline
+    \rnf[eficiencia_conversao]{Should}{
+        Utilizar reguladores de tensão com rendimento energético mínimo de 85\%.} \\ \hline
+    \rnf[consumo_standby]{Should}{
+        Limitar a corrente consumida em modo de espera a um máximo de 50mA.} \\ \hline
+    \rnf[monitorar_carga]{Must}{
+        Implementar detecção de baixa tensão para alertar quando a célula atingir 3,2V.} \\ \hline
+    \rnf[peso_bateria]{Must}{
+        O sistema de alimentação não deve exceder 25\% do peso total do micromouse.} \\ \hline
+    \rnf[acessibilidade_bateria]{Must}{
+        Permitir o carregamento das baterias sem a necessidade de desmontagem.} \\ \hline
+    \rnf[estabilidade_tensao]{Should}{ 
+        Manter a variação de tensão nos sensores dentro de uma margem de +/- 5\% durante a aceleração dos motores.} \\ \hline
+
+    \rowcolor{gray!10}
+    \multicolumn{3}{|c|}{Estruturas} \\ \hline
+    \rnf[estabilidade_estrutural]{Must}{
+        A estrutura do micromouse deve garantir estabilidade estática e dinâmica, evitando tombamento e oscilações durante a operação.}\\ \hline
+    \rnf[massa]{Should}{
+        A massa total do micromouse deve ser minimizada, de modo a reduzir a inércia e melhorar a resposta dinâmica.}\\ \hline
+    \rnf[fixacao]{Should}{
+        Os componentes do micromouse devem ser fixados sem folgas, evitando vibrações e ruídos durante a operação.}\\ \hline
+    \rnf[eficiencia]{Could}{
+        A estrutura do micromouse deve contribuir para a eficiência energética, minimizando perdas por atrito e massa excessiva.}\\ \hline
+
+    \rowcolor{gray!10}
+    \multicolumn{3}{|c|}{Hardware} \\ \hline
+    \rnf[isolam_dominios]{Should}{
+        A fonte de alimentação do microcontrolador e dos sensores deve ser eletricamente isolada (ou fortemente desacoplada) da alimentação dos motores.} \\ \hline
+    \rnf[reg_tensao]{Should}{
+        O circuito lógico deve manter uma tensão estável, mesmo quando os motores exigirem o pico máximo de corrente, no momento da partida.} \\ \hline
+    \rnf[sinais_analogicos]{Should}{
+        Sinais analógicos (como o retorno de sensores infravermelhos de distância) devem possuir filtros passa-baixa (filtros RC) no hardware para atenuar ruídos de alta frequência do ambiente e do próprio circuito antes de chegarem ao devkit (ESP32).} \\ \hline
+    \rnf[aterramento]{Must}{
+        A placa perfurada (ou, se for o caso, PCB) deve possuir um nó comum bem definido, evitando ground loops que possam interferir nas leituras.} \\ \hline
+    \rnf[pontos_teste]{Could}{
+        A placa deve expor pinos ou ilhas de fácil acesso para testes via multímetro (e, se necessário, osciloscópio), especificamente para: VCC, GND, sinais de saída dos sensores e PWM dos motores.} \\ \hline
+    \rnf[feedback_visual]{Won't}{
+        O circuito deve incluir LEDs de status integrados que não afetem a lógica para indicar condições vitais, como "Alimentação OK", "Bateria Fraca" ou para debuggar a ativação individual de sensores sem precisar olhar para o terminal do computador.} \\ \hline
+    \rnf[acoplamento_cis]{Should}{
+        Componentes de alto risco ou alto custo (como a placa do microcontrolador e a ponte H) não devem ser soldados diretamente na placa principal. Eles devem utilizar soquetes para permitir a substituição em, no máximo, 5 minutos em caso de queima.} \\ \hline
+    \rnf[protecao_polaridade]{Must}{
+        O circuito de entrada da bateria deve incluir um componente ou circuito para proteção contra inversão de polaridade.} \\ \hline
+    \rnf[vel_alg]{Could}{
         O algoritmo de navegação deve processar a tomada de decisão em um tempo inferior a 5 ms.} \\ \hline
-    \rnf[prec_parede]{Precisão na detecção de paredes}{
+    \rnf[prec_parede]{Could}{
         A atualização da estrutura do labirinto deve ocorrer em menos de 10 ms após a leitura do sensor.} \\ \hline
-    \rnf[temp_tipo]{Atualização em tempo real do tipo de labirinto}{
+
+    \rowcolor{gray!10}
+    \multicolumn{3}{|c|}{Software} \\ \hline
+    \rnf[temp_tipo]{Should}{
         O sistema web deve ajustar automaticamente a escala visual do mapeamento para os três tipos de labirinto (4x4, 8x8 e 16x16).} \\ \hline
-    \rnf[temp_localização]{Atualização em tempo real da localização do micromouse}{
+    \rnf[temp_localização]{Should}{
         O sistema web deve receber, processar e exibir na interface os dados de localização do micromouse com uma latência máxima de 200 ms.} \\ \hline
-    \rnf[temp_velocidade]{Atualização em tempo real da velocidade}{
+    \rnf[temp_velocidade]{Could}{
         O sistema web deve receber, processar e exibir na interface os dados de velocidade com uma latência máxima de 200 ms.} \\ \hline
-    \rnf[temp_bateria]{Atualização em tempo real da bateria do micromouse}{
+    \rnf[temp_bateria]{Must}{
         O sistema web deve receber, processar e exibir na interface os dados de bateria do micromouse com uma latência máxima de 200 ms.} \\ \hline
-    \rnf[temp_conclusao]{Atualização em tempo real da conclusão do labirinto}{
+    \rnf[temp_conclusao]{Could}{
         O sistema web deve receber, processar e exibir na interface os dados de conclusão do labirinto com uma latência máxima de 200 ms.} \\ \hline
-    \rnf[intg_bd_web]{Integridade dos dados}{
+    \rnf[intg_bd_web]{Must}{
         O sistema web deve garantir que todos os dados de telemetria recebidos sejam persistidos no banco de dados sem perda de informação.} \\ \hline
-    \rnf[desempenho_bd]{Tempo de resposta para consultas históricas}{
+    \rnf[desempenho_bd]{Could}{
         O sistema web deve ser capaz de exibir os dados de qualquer trajeto histórico armazenado no banco de dados em um tempo máximo de 1 segundo após a solicitação do usuário.} \\ \hline
-    \rnf[recon_websocket]{Tolerância a falhas na comunicação}{
+    \rnf[recon_websocket]{Must}{
         Em caso de perda de conexão WebSocket durante um percurso, o sistema web deve tentar a reconexão automática a cada 1 segundo, sem perder o estado atual dos dados de telemetria na interface.} \\ \hline
-    \rnf[debounce_comandos]{Prevenção de comandos conflitantes}{
+    \rnf[debounce_comandos]{Should}{
         A interface web deve aplicar um mecanismo de bloqueio nos botões de controle remoto (iniciar/reiniciar), impedindo o envio de comandos duplicados em um intervalo menor que 500 ms.} \\ \hline
-    \rnf[responsividade_web]{Responsividade da interface}{
+    \rnf[responsividade_web]{Could}{
         A interface web deve adaptar-se automaticamente a diferentes resoluções, garantindo a ausência de elementos cortados ou sobrepostos.} \\ \hline
-    \rnf[compatibilidade_browser]{Compatibilidade de navegadores}{
+    \rnf[compatibilidade_browser]{Should}{
         O sistema web deve ser totalmente funcional e manter a integridade visual nos navegadores baseados nas engines Chromium (Chrome, Brave, Opera, Edge) e WebKit (Safari), em suas versões estáveis mais recentes.} \\ \hline
 \end{longtable}
 

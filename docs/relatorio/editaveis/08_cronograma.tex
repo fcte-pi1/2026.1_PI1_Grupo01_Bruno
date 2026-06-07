@@ -2,111 +2,89 @@
 
 \chapter{Cronograma} 
 
+% --- TABELA 1: CRONOGRAMA GERAL ---
 \begin{table}[htpb]
-\begin{center}
+\centering
 \caption{Cronograma geral.}
 \begin{tabular}{|c|c|c|}
 \hline
 \textbf{Geral}          & \textbf{Previsto} & \textbf{Realizado} \\ \hline
-Início do projeto       & xx/xx/20xx        & xx/xx/20xx         \\ \hline
-Fim do projeto          & xx/xx/20xx        & xx/xx/20xx         \\ \hline
+Início do projeto       & 09/04/2026        & 09/04/2026         \\ \hline
+Fim do projeto          & 08/07/2026        & 08/07/2026*         \\ \hline
 \end{tabular}
-\end{center}
 \end{table}
 
-\begin{table}[htpb]
-\begin{center}
-\caption{Cronograma por atividade.}
-\begin{tabular}{|l|c|c|c|c|c|c|}
-\hline
-& \textbf{Início} & \textbf{Início} & \textbf{Fim} & \textbf{Fim} & \textbf{Atividades} & \\
-\textbf{Atividade} & \textbf{Previsto} & \textbf{Realizado} & \textbf{Previsto} & \textbf{Realizado} & \textbf{Predecessoras} & \textbf{Responsáveis}\\ \hline
-1 - Pesquisa de componentes       & 16/04/2026               & 16/04/2026                & 24/04/2026               & 24/04/2026                & ---           & João Victor\\ \hline
-2 - Pesquisa firmware             & 13/04/2026               & 13/04/2026                & 17/04/2026               & 16/04/2026                & ---           & ???? \\ \hline
-3 - Escolha de IDE                & 17/04/2026               & 17/04/2026                & 25/04/2026               & 25/04/2026                & ---           & Luana \\ \hline
-4 - Pesquisa de bibliotecas       & 27/04/2026               & 27/04/2026                & 03/05/2026               & DD/MM/AAAA                & 2             & Jorge \\ \hline
-5 - Compontentes -> Tesouraria    & 27/04/2026               & DD/MM/AAAA                & 28/04/2026               & DD/MM/AAAA                & 1             & Celestino \\ \hline          
-6 - Diagrama de blocos            & 27/04/2026               & DD/MM/AAAA                & 03/05/2026               & DD/MM/AAAA                & 1             & Rafael  \\ \hline
-7 - Esquemático do circuito       & 03/04/2026               & DD/MM/AAAA                & 09/04/2025               & DD/MM/AAAA                & 1, 3          & Beltrano \\ \hline
-8 - Caracterização de componentes & 10/05/2026               & DD/MM/AAAA                & 23/05/2026               & DD/MM/AAAA                & 1, 3, 4       & Ciclano \\ \hline
-9 - Montagem do circuito          & 24/05/2026               & DD/MM/AAAA                & 30/05/2026               & DD/MM/AAAA                & 4, 5          & Ciclano \\ \hline
-\end{tabular}
-\end{center}
-\end{table} 
+\vspace{1cm}
 
+\small 
 
+% --- TABELA 2: CRONOGRAMA POR ATIVIDADE ---
+\begin{longtable}{|p{4cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2.5cm}|p{3.5cm}|}
+   \caption{Cronograma detalhado por atividade.} \label{tab:cronograma_longa} \\
+    \hline
+    \centering \textbf{\begin{tabular}[c]{@{}c@{}}Atividade\end{tabular}} & 
+    \centering \textbf{\begin{tabular}[c]{@{}c@{}}Início\\ Previsto\end{tabular}} & 
+    \centering \textbf{\begin{tabular}[c]{@{}c@{}}Início\\ Realizado\end{tabular}} & 
+    \centering \textbf{\begin{tabular}[c]{@{}c@{}}Fim\\ Previsto\end{tabular}} & 
+    \centering \textbf{\begin{tabular}[c]{@{}c@{}}Fim\\ Realizado\end{tabular}} & 
+    \centering \textbf{\begin{tabular}[c]{@{}c@{}}Atividades\\ Prévias\end{tabular}} & 
+    \centering \textbf{Responsáveis} \tabularnewline \hline
+    \endfirsthead
+    
+    \hline
+    \centering \textbf{\begin{tabular}[c]{@{}c@{}}Atividade\end{tabular}} & 
+    \centering \textbf{\begin{tabular}[c]{@{}c@{}}Início\\ Previsto\end{tabular}} & 
+    \centering \textbf{\begin{tabular}[c]{@{}c@{}}Início\\ Realizado\end{tabular}} & 
+    \centering \textbf{\begin{tabular}[c]{@{}c@{}}Fim\\ Previsto\end{tabular}} & 
+    \centering \textbf{\begin{tabular}[c]{@{}c@{}}Fim\\ Realizado\end{tabular}} & 
+    \centering \textbf{\begin{tabular}[c]{@{}c@{}}Atividades\\ Prévias\end{tabular}} & 
+    \centering \textbf{Responsáveis} \tabularnewline \hline
+    \endhead
 
-\begin{table}[htpb]
-\begin{center}
-\caption{Justificativas para atrasos ou não-conclusão de atividades.}
-\begin{tabular}{|c|c|} \hline
-\textbf{Atividade} & \textbf{Justificativa}  \\ \hline 
-    3 - GHI &
-    O material solicitado não foi entregue no prazo pelo fornecedor. \\ \hline
-    5 - MNO &
-    A equipe responsável pelo desenvolvimento não finalizou a atividade. \\ \hline
-\end{tabular}
-\end{center}
-\end{table}
+    \hline
+    \endfoot
 
+    \hline
+    \endlastfoot
 
+    % --- DADOS DA TABELA ---
+    1 - Criação do template inicial & 09/04/2026 & 09/04/2026 & 09/04/2026 & 09/04/2026 & \multicolumn{1}{c|}{\textbf{---}} & Davi \\ \hline
+    2 - Pesquisa bibliográfica sobre o tema & 09/04/2026 & 09/04/2026 & 12/04/2026 & 12/04/2026 & \multicolumn{1}{c|}{\textbf{---}} & Todos \\ \hline
+    3 - Entrega dos artefatos do PC1 & 09/04/2026 & 09/04/2026 & 11/05/2026 & 11/05/2026 & \multicolumn{1}{c|}{\textbf{---}} & Todos \\ \hline
+    4 - Desenvolvimento do software & 11/05/2026 & 11/05/2026 & 01/07/2026 & 01/07/2026 & \multicolumn{1}{c|}{\textbf{---}} & Equipe de Software \\ \hline
+    5 - Escrita do PC2 & 11/05/2026 & \multicolumn{1}{c|}{\textbf{---}} & 08/06/2026 & \multicolumn{1}{c|}{\textbf{---}} & \multicolumn{1}{c|}{\textbf{---}} & Todos \\ \hline   
+    6 - Montagem do labirinto & 13/05/2026 & \multicolumn{1}{c|}{\textbf{---}} & 25/05/2026 & \multicolumn{1}{c|}{\textbf{---}} & \multicolumn{1}{c|}{\textbf{---}} & Equipe de estruturas e Isaque \\ \hline
+    7 - Validação dos componentes & 13/05/2026 & \multicolumn{1}{c|}{\textbf{---}} & 20/05/2026 & \multicolumn{1}{c|}{\textbf{---}} & \multicolumn{1}{c|}{\textbf{---}} & Equipe de Hardware \\ \hline
+    8 - Montagem do veículo & 20/05/2026 & \multicolumn{1}{c|}{\textbf{---}} & 27/05/2026 & \multicolumn{1}{c|}{\textbf{---}} &  & Equipe de estruturas, hardware e energia \\ \hline
+    9 - Montagem dos componentes & 20/05/2026 & \multicolumn{1}{c|}{\textbf{---}} & 25/05/2026 & \multicolumn{1}{c|}{\textbf{---}} & \multicolumn{1}{c|}{\textbf{---}} & Equipe de Hardware \\ \hline
+    10 - Desenvolvimento do firmware & 20/05/2026 & \multicolumn{1}{c|}{\textbf{---}} & 04/06/2026 & \multicolumn{1}{c|}{\textbf{---}} & \multicolumn{1}{c|}{\textbf{---}} & Equipes de Software e Hardware \\ \hline
+    11 - Validação do consumo energético & 25/05/2026 & \multicolumn{1}{c|}{\textbf{---}} & 07/06/2026 & \multicolumn{1}{c|}{\textbf{---}} & \multicolumn{1}{c|}{\textbf{---}} & Equipe de Hardware \\ \hline
+    12 - Teste em Labirinto & 01/06/2026 & \multicolumn{1}{c|}{\textbf{---}} & 24/06/2026 & \multicolumn{1}{c|}{\textbf{---}} &  & Todos \\ \hline
+    13 - Ajustes Finais & 01/07/2026 & \multicolumn{1}{c|}{\textbf{---}} & 08/07/2026 & \multicolumn{1}{c|}{\textbf{---}} & & Todos \\ \hline
+\end{longtable}
 
-%%% Exemplo de tabela que ocupa várias páginas
-% \begin{center}
-% \begin{longtable}{|l|l|l|}
-% \caption{A sample long table.} \label{tab:long} \\
+\vspace{1cm}
 
-% \hline \multicolumn{1}{|c|}{\textbf{First column}} & \multicolumn{1}{c|}{\textbf{Second column}} & \multicolumn{1}{c|}{\textbf{Third column}} \\ \hline 
-% \endfirsthead
+% --- TABELA 3: JUSTIFICATIVAS ---
+\begin{longtable}{|c|p{12cm}|}
+    \caption{Justificativas para atrasos ou não-conclusão de atividades.} \\
+    \hline
+    \textbf{Atividade} & \textbf{Justificativa} \\ \hline
+    \endfirsthead
+    
+    \hline
+    \textbf{Atividade} & \textbf{Justificativa} \\ \hline
+    \endhead
 
-% \multicolumn{3}{c}%
-% {{\bfseries \tablename\ \thetable{} -- continued from previous page}} \\
-% \hline \multicolumn{1}{|c|}{\textbf{First column}} & \multicolumn{1}{c|}{\textbf{Second column}} & \multicolumn{1}{c|}{\textbf{Third column}} \\ \hline 
-% \endhead
+    \hline
+    \endfoot
 
-% \hline \multicolumn{3}{|r|}{{Continued on next page}} \\ \hline
-% \endfoot
+    \hline
+    \endlastfoot
 
-% \hline \hline
-% \endlastfoot
+    3 - GHI & O material solicitado não foi entregue no prazo pelo fornecedor. \\ \hline
+    5 - MNO & A equipe responsável pelo desenvolvimento não finalizou a atividade. \\ \hline
+\end{longtable}
 
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% One & abcdef ghjijklmn & 123.456778 \\
-% \end{longtable}
-% \end{center}
-
+\normalsize 
 \end{landscape}
