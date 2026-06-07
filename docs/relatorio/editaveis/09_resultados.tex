@@ -1,68 +1,131 @@
-% \chapter{Testes de Verificação e Validação}
+\chapter{Testes de Verificação e Validação}
 
-% \section{Características Gerais}
+\section{Características Gerais}
 
-% \textcolor{red}{Introduzir os principais pontos deste capítulo. Cada teste deve conter explicações completas que garantam sua repetibilidade:
-% \begin{itemize}
-%     \item Hipóteses levantadas
-%     \item Condições de contorno
-%     \item Resultados esperados
-%     \item Materiais e métodos
-%     \item Precisão e acurácia das medidas obtidas.
-% \end{itemize}
-% }
+\textcolor{red}{Introduzir os principais pontos deste capítulo. Cada teste deve conter explicações completas que garantam sua repetibilidade:
+\begin{itemize}
+    \item Hipóteses levantadas
+    \item Condições de contorno
+    \item Resultados esperados
+    \item Materiais e métodos
+    \item Precisão e acurácia das medidas obtidas.
+\end{itemize}
+}
 
-% \section{Testes da estrutura}
+\section{Testes da estrutura}
 
-% \textcolor{red}{Apresentar com detalhes os testes feitos para conferir se os objetivos da estrutura foram atendidos, incluindo:}
+\textcolor{red}{Apresentar com detalhes os testes feitos para conferir se os objetivos da estrutura foram atendidos, incluindo:}
 
-% \begin{itemize}
-%     \item \textcolor{red}{Imagem com todas as peças separadas da estrutura (carcaça) do veículo;}
-%     \item \textcolor{red}{Imagem que apresente a estrutura já montada (sem necessidade de partes internas, como eletrônica ou motores);}
-%     \item \textcolor{red}{Ilustração contemplando o carro montado virtualmente em alguma ferramenta de CAD, no intuito de verificar se as peças foram construídas e montadas em conformidade com o projeto.}
-% \end{itemize}
+\begin{itemize}
+    \item \textcolor{red}{Imagem com todas as peças separadas da estrutura (carcaça) do veículo;}
+    \item \textcolor{red}{Imagem que apresente a estrutura já montada (sem necessidade de partes internas, como eletrônica ou motores);}
+    \item \textcolor{red}{Ilustração contemplando o carro montado virtualmente em alguma ferramenta de CAD, no intuito de verificar se as peças foram construídas e montadas em conformidade com o projeto.}
+\end{itemize}
 
-% \section{Testes de \textit{hardware}}
+\section{Testes de \textit{hardware}}
 
-% \textcolor{red}{Apresentar com detalhes os testes feitos para conferir se os objetivos do \textit{hardware} foram atendidos, incluindo:}
+\textcolor{red}{Apresentar com detalhes os testes feitos para conferir se os objetivos do \textit{hardware} foram atendidos, incluindo:}
 
-% \begin{enumerate}
-%     \item \textcolor{red}{Processamento (Arduino, ESP32 etc):}
-%     \begin{itemize}
-%         \item \textcolor{red}{Definir interface de desenvolvimento;}
-%         \item \textcolor{red}{Rodar exemplo mínimo.}
-%     \end{itemize}
-%     \item \textcolor{red}{Sensores (temperatura, pressão, posição, velocidade etc.):}
-%     \begin{itemize}
-%         \item \textcolor{red}{Realizar leitura básica de dados;}
-%         \item \textcolor{red}{Validar/calibrar leituras;}
-%         \item \textcolor{red}{Definir taxas de amostragem e quantidade de dados para transmissão e/ou armazenamento;}
-%         \item \textcolor{red}{Validar taxas definidas e quantidade de dados;}
-%         \item \textcolor{red}{Realizar processamento básico de dados (\textit{thresholding}, filtro média-móvel etc.).}
-%     \end{itemize}
-%     \item \textcolor{red}{Armazenamento (memória interna, cartão SD, pendrive etc.):}
-%     \begin{itemize}
-%         \item \textcolor{red}{Armazenar dados básicos;}
-%         \item \textcolor{red}{Armazenar e validar dados de sensores.}
-%     \end{itemize}
-%     \item \textcolor{red}{Atuadores (Motores DC, relés, LEDs etc.):}
-%     \begin{itemize}
-%         \item \textcolor{red}{Realizar acionamentos básicos;}
-%         \item \textcolor{red}{Realizar acionamentos com base em dados de sensores;}
-%         \item \textcolor{red}{Realizar processamento básico de dados (PWM etc.).}
-%     \end{itemize}
-%     \item \textcolor{red}{Comunicações (UART, I2C, SPI, USB, WiFi, Bluetooth etc.):}
-%     \begin{itemize}
-%         \item \textcolor{red}{Transmissão básica de dados;}
-%         \item \textcolor{red}{Transmissão de dados de sensores dentro da taxa de amostragem.}
-%     \end{itemize}
-% \end{enumerate}
+\begin{enumerate}
+    \item \textcolor{red}{Processamento (Arduino, ESP32 etc):}
+    \begin{itemize}
+        \item \textcolor{red}{Definir interface de desenvolvimento;}
+        \item \textcolor{red}{Rodar exemplo mínimo.}
+    \end{itemize}
+    \item \textcolor{red}{Sensores (temperatura, pressão, posição, velocidade etc.):}
+    \begin{itemize}
+        \item \textcolor{red}{Realizar leitura básica de dados;}
+        \item \textcolor{red}{Validar/calibrar leituras;}
+        \item \textcolor{red}{Definir taxas de amostragem e quantidade de dados para transmissão e/ou armazenamento;}
+        \item \textcolor{red}{Validar taxas definidas e quantidade de dados;}
+        \item \textcolor{red}{Realizar processamento básico de dados (\textit{thresholding}, filtro média-móvel etc.).}
+    \end{itemize}
+    \item \textcolor{red}{Armazenamento (memória interna, cartão SD, pendrive etc.):}
+    \begin{itemize}
+        \item \textcolor{red}{Armazenar dados básicos;}
+        \item \textcolor{red}{Armazenar e validar dados de sensores.}
+    \end{itemize}
+    \item \textcolor{red}{Atuadores (Motores DC, relés, LEDs etc.):}
+    \begin{itemize}
+        \item \textcolor{red}{Realizar acionamentos básicos;}
+        \item \textcolor{red}{Realizar acionamentos com base em dados de sensores;}
+        \item \textcolor{red}{Realizar processamento básico de dados (PWM etc.).}
+    \end{itemize}
+    \item \textcolor{red}{Comunicações (UART, I2C, SPI, USB, WiFi, Bluetooth etc.):}
+    \begin{itemize}
+        \item \textcolor{red}{Transmissão básica de dados;}
+        \item \textcolor{red}{Transmissão de dados de sensores dentro da taxa de amostragem.}
+    \end{itemize}
+\end{enumerate}
 
-% \section{Testes de consumo energético}
+\section{Testes de consumo energético}
 
-% \textcolor{red}{Apresentar com detalhes os testes feitos para conferir se as demandas energéticas do projeto foram atendidas.}
+\textcolor{red}{Apresentar com detalhes os testes feitos para conferir se as demandas energéticas do projeto foram atendidas.}
 
-% \section{Testes de \textit{software}}
+\section{Testes de \textit{software}}
+
+Esta seção apresenta os testes realizados para verificar e validar as funcionalidades implementadas no sistema. Os testes tiveram como objetivo garantir que os requisitos definidos nas histórias de usuário foram atendidos corretamente, bem como avaliar a qualidade do código desenvolvido por meio de testes automatizados em diferentes níveis.
+
+\subsection{Histórias de usuário implementadas}
+
+Nosso projeto possui 16 histórias de usuário e durante este ponto de controle foram implementadas 13 histórias de usuário, totalizando 81\% das histórias de usuário, sendo elas listadas na tabela \ref{tab:historias} e observadas nas imagens Z W do protótipo . As demais histórias de usuário estão parcialmente criadas.
+\begin{table}[!ht]
+    \centering
+    \caption{Histórias de usuário implementadas.}
+    \label{tab:historias}
+    \begin{tabular}{|l|l|}
+    \hline
+        \href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/246}{Hu 9 }  & Iniciar temporizador ao iniciar percurso \\ \hline
+        \href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/247}{Hu 10}  & Iniciar temporizador ao reiniciar percurso \\ \hline
+        \href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/252}{Hu 15}   & Identificação de obstáculos  \\ \hline
+        \href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/251}{Hu 14}   & Processamento de obstáculos \\ \hline
+        \href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/232}{Hu 3 }  & Exibição da bateria disponível \\ \hline
+        \href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/233}{Hu 4 } & Exibição da bateria consumida  \\ \hline
+        \href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/253}{Hu 16}   & Mapeamento do labirinto \\ \hline
+        \href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/236}{Hu 7}   & Exibição da velocidade média \\ \hline
+        \href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/234}{Hu 5}   & Exibição do tempo de percurso \\ \hline
+        \href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/231}{Hu 2}   & Exibição do tipo de labirinto \\ \hline
+        \href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/237}{Hu 8}   & Possuir Botão para controle remoto de operação \\ \hline
+        \href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/230}{Hu 1}   & Visualização do labirinto \\ \hline
+        \href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/235}{Hu 6}   & Status do desafio \\ \hline
+    \end{tabular}
+\end{table}
+
+
+\subsection{Testes unitários do frontend}
+
+Os testes unitários do frontend foram desenvolvidos com o objetivo de validar o comportamento individual dos componentes da interface gráfica, garantindo que cada elemento funcione corretamente de forma isolada. Para isso, foram utilizados testes automatizados implementados com Vitest.
+
+Foram criadas suítes de testes para todos os componentes desenvolvidos até o presente momento. Os componentes contemplados pelos testes unitários são: badge, battery, bottomBar, breadcrumb, button, card, cell, chart, connection, controlBtn, header, log, maze, modal, tab, table e trace. O código fonte destes testes podem ser acessados em \texttt{src/frontend/src/components/nome\_componente/teste\_componente}.
+
+Os testes verificaram a renderização dos componentes, o recebimento e a exibição correta das propriedades, o comportamento esperado em interações do usuário, o gerenciamento de estados internos e a renderização condicional de elementos.
+
+A cobertura dos testes foi analisada utilizando o Vitest. Conforme apresentado na figura \ref{fig:uni_front}, o projeto alcançou 78,37\% de cobertura de instruções e 86,36\% de cobertura de linhas, atendendo ao requisito mínimo de 70\% de cobertura de código-fonte estabelecido pela disciplina. O relatório também permitiu identificar trechos com menor cobertura, servindo como referência para futuras melhorias nas suítes de testes.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figuras/software/testes_uni_front.png}
+    \captionsetup{font=footnotesize}
+    \caption{Relatorio de cobertura dos testes unitários do frontend.}
+    \label{fig:uni_front}
+\end{figure}
+
+
+\subsection{Testes unitários do backend}
+
+\subsection{Testes de integração}
+
+\subsection{Testes E2E}
+
+Foram implementados testes end-to-end utilizando Cypress com base nos roteiros de testes funcionais definidos na primeira entrega do projeto. Até o momento, foi possível implementar os casos de teste CT1, CT2 e CT3, uma vez que os demais dependem de histórias de usuário ainda não desenvolvidas. O código fonte destes testes podem ser acessados em \texttt{src/frontend/src/cypress/e2e}.
+
+O CT1 valida o carregamento inicial da tela de percurso, verificando a exibição dos componentes de telemetria, a apresentação dos valores iniciais zerados, o funcionamento da ação de iniciar o percurso, a atualização dos dados de telemetria durante a execução e a exibição dos gráficos de acompanhamento.
+
+O CT2 verifica o fluxo de execução e reinicialização do percurso, garantindo que o sistema altere corretamente o estado da corrida após o início e que os dados sejam redefinidos após a confirmação da reinicialização.
+
+O CT3 valida a finalização bem-sucedida do percurso, verificando a exibição da mensagem de sucesso ao alcançar o objetivo e a manutenção das métricas consolidadas apresentadas nos gráficos após o término da execução.
+
+
 
 % \textcolor{red}{Apresentar com detalhes os testes feitos para conferir se os objetivos do \textit{software} foram atendidos.
 % Considerando a implementação de $50\%$ do \textit{backlog} do produto (funcional):}
@@ -100,9 +163,8 @@
 %     \item \textcolor{red}{Catch2}
 % \end{itemize}
 
-% \section{Testes de integração}
+\section{Testes de integração}
 
-% \textcolor{red}{Apresentar com detalhes os testes feitos para conferir se os objetivos do projeto como um todo foram atendidos.}
+\textcolor{red}{Apresentar com detalhes os testes feitos para conferir se os objetivos do projeto como um todo foram atendidos.}
 
-% %\textcolor{red}{Com relação ao \textit{software}, será necessário apresentar pacotes de componentes de \textit{software}, suas funções e características, e explicar as decisões de projeto.}
-
+\textcolor{red}{Com relação ao \textit{software}, será necessário apresentar pacotes de componentes de \textit{software}, suas funções e características, e explicar as decisões de projeto.}
