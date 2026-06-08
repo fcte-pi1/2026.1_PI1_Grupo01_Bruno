@@ -207,8 +207,30 @@ Foram implementados testes end-to-end utilizando Cypress com base nos roteiros d
 %     \item \textcolor{red}{Catch2}
 % \end{itemize}
 
-\section{Testes de integração}
+\subsection{Testes de integração}
 
-\textcolor{red}{Apresentar com detalhes os testes feitos para conferir se os objetivos do projeto como um todo foram atendidos.}
+Os testes de integração tiveram como foco principal validar os \textit{endpoints} da API (backend em NestJS) e sua correta orquestração com a camada de serviços responsáveis pela comunicação e persistência de dados no Firebase Realtime Database.
 
-\textcolor{red}{Com relação ao \textit{software}, será necessário apresentar pacotes de componentes de \textit{software}, suas funções e características, e explicar as decisões de projeto.}
+Para a realização das chamadas, utilizou-se a biblioteca \textit{Supertest}, que simula requisições HTTP e avalia os códigos de status e corpos de resposta. A suíte de testes contemplou o fluxo completo de gerenciamento de corridas e telemetria:
+
+\begin{itemize}
+    \item \textbf{GET / (Healthcheck):} Validação da disponibilidade e tempo de resposta da API.
+    \item \textbf{POST /telemetria:} Validação do recebimento do \textit{payload} estruturado pelo robô e do acionamento do serviço de salvamento.
+    \item \textbf{GET /corridas:} Validação da recuperação, estruturação e formatação dos dados provindos do banco de dados.
+    \item \textbf{DELETE /corridas/:id:} Validação da rotina de remoção de registros.
+\end{itemize}
+
+Durante a validação, devido a restrições rigorosas de rede no ambiente de desenvolvimento Linux (isolamento provocado por contêineres Flatpak), a conexão externa direta aos servidores do Google Cloud sofreu bloqueios operacionais (falhas de \textit{timeout} e \textit{Gaxios Error}). 
+
+Para contornar essa limitação de infraestrutura sem comprometer a validação da arquitetura, aplicou-se a técnica de \textit{Provider Override} suportada nativamente pelo NestJS. Os serviços de conexão direta (\texttt{FirebaseService} e \texttt{AppService}) foram interceptados e substituídos por dublês (\textit{mocks}) com respostas controladas. 
+
+Essa abordagem metodológica atesta que os controladores, as rotas e o sistema de injeção de dependências estão perfeitamente integrados e capazes de processar os dados adequadamente até a fronteira final com o banco de dados. Como ilustrado na figura \ref{fig:integracao_back}, a bateria de testes foi aprovada com sucesso.
+
+\begin{figure}[H]
+    \centering
+    % Lembre-se de renomear o arquivo abaixo para o nome real da sua imagem salva
+    \includegraphics[width=0.7\textwidth]{figuras/software/testeIntegracao.png} 
+    \captionsetup{font=footnotesize}
+    \caption{Relatório de aprovação dos testes de integração da API (Supertest).}
+    \label{fig:integracao_back}
+\end{figure}
