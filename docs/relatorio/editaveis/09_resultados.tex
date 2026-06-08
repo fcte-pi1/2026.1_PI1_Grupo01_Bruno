@@ -1,16 +1,16 @@
 \chapter{Testes de Verificação e Validação}
 
-\section{Características Gerais}
+%\section{Características Gerais}
 
-\textcolor{red}{Introduzir os principais pontos deste capítulo. Cada teste deve conter explicações completas que garantam sua repetibilidade:
- \begin{itemize}
-     \item Hipóteses levantadas
-     \item Condições de contorno
-     \item Resultados esperados
-     \item Materiais e métodos
-     \item Precisão e acurácia das medidas obtidas.
- \end{itemize}
-}
+%\textcolor{red}{Introduzir os principais pontos deste capítulo. Cada teste deve %conter explicações completas que garantam sua repetibilidade:
+% \begin{itemize}
+%     \item Hipóteses levantadas
+%     \item Condições de contorno
+%     \item Resultados esperados
+%     \item Materiais e métodos
+%     \item Precisão e acurácia das medidas obtidas.
+% \end{itemize}
+%}
 
 % \section{Testes da estrutura}
 
@@ -23,46 +23,16 @@
 % \end{itemize}
 
 \section{Testes de \textit{hardware}}
+\subsection{ESP32}
+Para validar o funcionamento da ESP32 e de seus dois núcleos de processamento, foi realizado um teste utilizando o FreeRTOS. A execução das tarefas foi monitorada por meio da comunicação serial, permitindo verificar a correta operação dos dois núcleos do microcontrolador. 
 
-\textcolor{red}{Apresentar com detalhes os testes feitos para conferir se os objetivos do \textit{hardware} foram atendidos, incluindo:}
+Foi desenvolvida uma rotina simples em que duas tarefas independentes eram atribuídas a núcleos distintos da ESP32. Cada tarefa enviava uma mensagem pela interface serial contendo a identificação do núcleo responsável pela execução. O resultado do teste é apresentado na Figura \ref{fig:teste_dualcore}, localizada no Apêndice C. 
 
- \begin{enumerate}
-     \item \textcolor{red}{Processamento (Arduino, ESP32 etc):}
-     \begin{itemize}
-         \item \textcolor{red}{Definir interface de desenvolvimento;}
-         \item \textcolor{red}{Rodar exemplo mínimo.}
-     \end{itemize}
-     \item \textcolor{red}{Sensores (temperatura, pressão, posição, velocidade etc.):}
-     \begin{itemize}
-         \item \textcolor{red}{Realizar leitura básica de dados;}
-         \item \textcolor{red}{Validar/calibrar leituras;}
-         \item \textcolor{red}{Definir taxas de amostragem e quantidade de dados para transmissão e/ou armazenamento;}
-         \item \textcolor{red}{Validar taxas definidas e quantidade de dados;}
-         \item \textcolor{red}{Realizar processamento básico de dados (\textit{thresholding}, filtro média-móvel etc.).}
-     \end{itemize}
-     \item \textcolor{red}{Armazenamento (memória interna, cartão SD, pendrive etc.):}
-     \begin{itemize}
-         \item \textcolor{red}{Armazenar dados básicos;}
-         \item \textcolor{red}{Armazenar e validar dados de sensores.}
-     \end{itemize}
-     \item \textcolor{red}{Atuadores (Motores DC, relés, LEDs etc.):}
-     \begin{itemize}
-         \item \textcolor{red}{Realizar acionamentos básicos;}
-         \item \textcolor{red}{Realizar acionamentos com base em dados de sensores;}
-         \item \textcolor{red}{Realizar processamento básico de dados (PWM etc.).}
-     \end{itemize}
-     \item \textcolor{red}{Comunicações (UART, I2C, SPI, USB, WiFi, Bluetooth etc.):}
-     \begin{itemize}
-         \item \textcolor{red}{Transmissão básica de dados;}
-         \item \textcolor{red}{Transmissão de dados de sensores dentro da taxa de amostragem.}
-     \end{itemize}
- \end{enumerate}
- 
 \subsection{Sensores}
 \subsubsection{TOF}
 Para validar os sensores TOF, foram coletados dados de distância considerando os limites estimados para a detecção de obstáculos pelo veículo. As medições foram feitas com um objeto branco fixo em frente ao sensor e as distâncias de referência adotadas foram de 80mm para o limite lateral e 50mm para o limite frontal. Durante a coleta, a posição do sensor foi mantida fixa e ajustada com o auxilio de uma régua milimetrada. Foram obtidas 403 amostras para o limite lateral e 334 amostras para o limite frontal, ambas com frequência de amostragem de 4Hz. A analise estatística dos dados coletados é apresentada na Tabela \ref{tab:tof_stats}. 
 
-\begin{table}[H]
+\begin{table}[h]
     \centering
        \begin{tabular}{|l|c|c|}
         \hline
@@ -98,7 +68,7 @@ Durante os testes, também foi observado que a distância entre os sensores e a 
 A partir dos dados analisados, observa-se que as leituras apresentam boa estabilidade, com pequenas variações em torno das distâncias de referência. Deve-se ressaltar que o método de posicionamento adotado introduz uma parcela de erro fixo nas medições, associada ao alinhamento manual do sensor e do objeto durante os testes. Considerando os resultados obtidos, os dados sugerem que o sensor ToF é adequado para a detecção das paredes do labirinto nas distâncias avaliadas. 
 
 \subsubsection{MPU 6050}
-Para calibração da MPU 6050, foram utilizados dois métodos: a obtenção, via média de erro de leitura, de valores de offset para cada eixo de cada sensor, e a implementação do filtro passa-baixa configurável existente no módulo via biblioteca nativa emph{Adafruit\_MPU6050.h}. O sensor foi mantido ligado e coletou quantidades satisfatórias de dados sob as duas condições (antes e depois da calibração). Os resultados foram documentados e comparados, a fim de determinar a aplicabilidade da filtragem e frequência escolhida e dos parâmetros de offset obtidos numericamente. Os resultados das medições podem ser observados a partir dos gráficos Y e da tabela X.
+Para calibração da MPU 6050, foram utilizados dois métodos: a obtenção, via média de erro de leitura, de valores de offset para cada eixo de cada sensor, e a implementação do filtro passa-baixa configurável existente no módulo via biblioteca nativa emph{Adafruit\_MPU6050.h}. O sensor foi mantido ligado e coletou quantidades satisfatórias de dados sob as duas condições (antes e depois da calibração). Os resultados foram documentados e comparados, a fim de determinar a aplicabilidade da filtragem e frequência escolhida e dos parâmetros de offset obtidos numericamente. Os resultados das medições podem ser observados a partir dos gráficos Y e da tabela \ref{tab:calibracao_mpu}.
 
 \begin{table}[htbp]
 \centering
@@ -120,7 +90,7 @@ Para calibração da MPU 6050, foram utilizados dois métodos: a obtenção, via
 
 Os dados foram coletados com o sensor parado e posicionado na horizontal, paralelo ao chão. Foi utilizada uma frequência de amostragem de 50 Hz. Os dados sem o filtro foram coletados por um tempo aproximado de 3 minutos e 19 segundos, totalizando 9950 amostras. Com o filtro passa-baixa habilitado e configurado para a frequência de 5 Hz através da função \emph{mpu.setFilterBandwidth} e o offset calculado aplicado em todos os eixos, foram coletadas um total de 6554 amostras, em um tempo aproximado de 2 minutos e 12 segundos. 
 
-Ao analisar os gráficos e a tabela, nota-se que os dados de máximos e mínimos pós filtragem e aplicação de offset mostram-se mais concisos e coerentes com o posicionamento do sensor, pois espera-se, a partir da configuração descrita anteriormente, valores próximos de 0 em todos os eixos do giroscópio. Quanto ao acelerômetro, são esperados valores próximos de 0 em todos os eixos, com exceção do eixo Z, que, por conta da leitura da aceleração da gravidade, deve apresentar valores próximos a 9.8. Observa-se, também, uma diminuição considerável nas amplitudes e nos picos em bandas de frequência isoladas das amostras filtradas quando comparadas às amostras não filtradas. A diminuição dessa inconsistência resultou em um desvio padrão médio entre os três eixos substancialmente menor no sampling filtrado tanto no acelerômetro quanto no giroscópio, como demonstrado pela tabela X. 
+Ao analisar os gráficos e a tabela, nota-se que os dados de máximos e mínimos pós filtragem e aplicação de offset mostram-se mais concisos e coerentes com o posicionamento do sensor, pois espera-se, a partir da configuração descrita anteriormente, valores próximos de 0 em todos os eixos do giroscópio. Quanto ao acelerômetro, são esperados valores próximos de 0 em todos os eixos, com exceção do eixo Z, que, por conta da leitura da aceleração da gravidade, deve apresentar valores próximos a 9.8. Observa-se, também, uma diminuição considerável nas amplitudes e nos picos em bandas de frequência isoladas das amostras filtradas quando comparadas às amostras não filtradas. A diminuição dessa inconsistência resultou em um desvio padrão médio entre os três eixos substancialmente menor no sampling filtrado tanto no acelerômetro quanto no giroscópio, como demonstrado pela tabela \ref{tab:calibracao_mpu}. 
 
 Os dados amostrados indicam que a aplicação dos métodos de calibração escolhidos resultaram em uma melhora significativa na confiabilidade, precisão e consistência dos dados de output da MPU 6050.
 
