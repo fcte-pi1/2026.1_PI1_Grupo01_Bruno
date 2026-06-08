@@ -345,11 +345,12 @@ Thumbs.db
 # Variáveis de ambiente
 .env
 .env.*
-!.env.example
-
-
-# Dependências do Node
-node_modules/
+!.env.example**/node_modules/
+**/coverage/
 dist/
-build/
-.npm
+
+node_modules
+coverage
+dist
+**/node_modules
+**/coverage
