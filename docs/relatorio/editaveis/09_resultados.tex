@@ -115,13 +115,11 @@ Nosso projeto possui 16 histórias de usuário e durante este ponto de controle 
 
 \subsection{Testes unitários do frontend}
 
-Os testes unitários do frontend foram desenvolvidos com o objetivo de validar o comportamento individual dos componentes da interface gráfica, garantindo que cada elemento funcione corretamente de forma isolada. Para isso, foram utilizados testes automatizados implementados com Vitest.
+Os testes unitários do frontend foram implementados com Vitest. Foram criados testes para os seguintes componentes: badge, battery, bottomBar, breadcrumb, button, card, cell, chart, connection, controlBtn, header, log, maze, modal, tab, table e trace. O código fonte destes testes podem ser acessados em \texttt{src/frontend/src/components/nome\_componente/teste\_componente}.
 
-Foram criadas suítes de testes para todos os componentes desenvolvidos até o presente momento. Os componentes contemplados pelos testes unitários são: badge, battery, bottomBar, breadcrumb, button, card, cell, chart, connection, controlBtn, header, log, maze, modal, tab, table e trace. O código fonte destes testes podem ser acessados em \texttt{src/frontend/src/components/nome\_componente/teste\_componente}.
+Os testes verificaram a renderização dos componentes, o recebimento e a exibição correta das propriedades, o comportamento esperado em interações do usuário e a renderização condicional de elementos.
 
-Os testes verificaram a renderização dos componentes, o recebimento e a exibição correta das propriedades, o comportamento esperado em interações do usuário, o gerenciamento de estados internos e a renderização condicional de elementos.
-
-A cobertura dos testes foi analisada utilizando o Vitest. Conforme apresentado na figura \ref{fig:uni_front}, o projeto alcançou 78,37\% de cobertura de instruções e 86,36\% de cobertura de linhas, atendendo ao requisito mínimo de 70\% de cobertura de código-fonte estabelecido pela disciplina. O relatório também permitiu identificar trechos com menor cobertura, servindo como referência para futuras melhorias nas suítes de testes.
+A cobertura dos testes foi analisada utilizando o Vitest. Conforme apresentado na figura \ref{fig:uni_front}, o projeto alcançou 78,37\% de cobertura de instruções e 86,36\% de cobertura de linhas, atendendo ao requisito mínimo de 70\% de cobertura de código-fonte estabelecido pela disciplina.
 
 \begin{figure}[H]
     \centering
