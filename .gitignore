@@ -342,3 +342,15 @@ TSWLatexianTemp*
 .DS_Store
 Thumbs.db
 
+# Variáveis de ambiente
+.env
+.env.*
+!.env.example**/node_modules/
+**/coverage/
+dist/
+
+node_modules
+coverage
+dist
+**/node_modules
+**/coverage

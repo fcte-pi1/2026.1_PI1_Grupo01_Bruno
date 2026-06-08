@@ -1,0 +1,18 @@
+.Breadcrumb {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: var(--spacing-base);
+    align-self: stretch;
+    width: 100%;
+    font-family: var(--text-code);
+}
+
+.Breadcrumb a {
+    color: var(--pumpkin-500);
+}
+
+.Breadcrumb span {
+    all: unset;
+    text-transform: capitalize;
+}
