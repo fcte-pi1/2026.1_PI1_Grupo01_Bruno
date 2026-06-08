@@ -94,6 +94,12 @@ Ao analisar os gráficos e a tabela, nota-se que os dados de máximos e mínimos
 
 Os dados amostrados indicam que a aplicação dos métodos de calibração escolhidos resultaram em uma melhora significativa na confiabilidade, precisão e consistência dos dados de output da MPU 6050.
 
+\subsubsection{Regulador de tensão e porcentagem de carga da bateria}
+Para garantir uma alimentação adequada da ESP32, foi utilizado um regulador de tensão ajustável. Com o auxílio de um multímetro e da bateria prevista para o projeto, a tensão de saída foi ajustada para 5 V por meio de um trimpot, considerando a utilização do regulador interno da ESP32 DevKit. O resultado do ajuste é apresentado na Figura X, localizada no Apêndice C.
+
+Para identificar a porcentagem de carga disponível na bateria, foi utilizado um divisor de tensão conectado à entrada analógica da ESP32. O circuito também inclui um capacitor de desacoplamento, responsável pela filtragem de ruídos e pela estabilização do sinal medido. O sistema foi validado utilizando um multímetro e uma fonte de tensão contínua ajustável, permitindo observar a resposta do circuito para diferentes níveis de tensão dentro da faixa de operação prevista para a bateria do projeto. O resultado da validação é apresentada na figura Y, localizada no Apêndice C. 
+
+
 \subsection{Atuadores}
 \subsubsection{Ponte H L298N e motores DC 6V}
 Uma vez que a ponte H e os motores DC 6V funcionam juntos, optou-se por realizar testes em ambos como conjunto, e não de cada um dos componentes separadamente. Os testes foram realizados via firmware com controle periódico de PWM e sentido de rotação, gravado na ESP32 conectada à ponte H. A alimentação da L298N foi feita a partir dos pinos de alimentação do devkit do microcontrolador. Os terminais de alimentação dos motores foram conectados diretamente aos terminais da bateria. 
