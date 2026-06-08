@@ -23,16 +23,25 @@
 % \end{itemize}
 \subsection { Testes Estrutura e Prototipagem do Micromouse}
 
-Para o refinamento da estrutura do Micromouse, foram fabricados por impressão 3D, utilizando materiais PETG e PLA, três versões do chassi, duas versões da tampa do compartimento da bateria e dois suportes de fixação, conforme apresentado nas Figuras~\ref{fig:prot_chassis}, \ref{fig:prot_tampa} e \ref{fig:prot_suportes}.
+Para o refinamento da estrutura do Micromouse, foram fabricados por impressão 3D, utilizando materiais PETG e PLA, três versões do chassi, duas versões da tampa do compartimento da bateria e dois suportes de fixação, conforme apresentado nas Figuras~\ref{fig:prot_chassis}, \ref{fig:prot_chassis_angulo} e \ref{fig:prot_versao_final}.
 
-%\begin{figure}[H]
-    %\centering
-    % Inserir imagens dos protótipos
-   % \includegraphics[width=0.45\textwidth]{prototipos.jpg}
-   % \includegraphics[width=0.45\textwidth]{chassi_solid.jpg}
-   % \caption{Protótipos fabricados por impressão 3D e modelo do chassi desenvolvido em CAD.}
-   % \label{fig:prot_chassis}
-%\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.45\textwidth]{figuras/versoes_chassi.jpeg}
+  \captionof{figure}{Protótipos fabricados por impressão 3D.}
+  \label{fig:prot_chassis}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.45\textwidth]{figuras/versoes_chassi_angulo.jpeg}
+  \captionof{figure}{Outro ângulo dos protótipos.}
+  \label{fig:prot_chassis_angulo}
+\end{minipage}
+\end{figure}
+
 
 Entre o projeto conceitual e a versão final, foram realizadas as seguintes modificações:
 
@@ -44,6 +53,13 @@ Entre o projeto conceitual e a versão final, foram realizadas as seguintes modi
 \end{itemize}
 
 Essas alterações resultaram em uma melhor integração entre os componentes do sistema, contribuindo para maior robustez estrutural e facilidade de montagem.
+
+\begin{figure}[H]
+   \centering
+   \includegraphics[width=0.45\textwidth]{figuras/versao1.2.jpeg}
+   \caption{Protótipo da versão 1.2 por impressão 3D.}
+   \label{fig:prot_versao_final}
+\end{figure}
 
 %\begin{figure}[H]
    % \centering
@@ -63,12 +79,12 @@ adequassem às medidas definidas no projeto.
 
 Durante a montagem, foi identificado um erro no dimensionamento das laterais do labirinto,
 onde o cálculo inicial considerou uma parede a menos do que o necessário, resultando em
-células com dimensões diferentes entre si. Para corrigir o problema, optou-se por reajustar
+células com dimensões diferentes entre si tal como evidenciado nas Figuras~\ref{fig:montagemlabirintov1.0} e \ref{fig:labirinto}. Para corrigir o problema, optou-se por reajustar
 as dimensões totais do labirinto, de modo que as paredes internas passassem a compor a
 medida prevista de 18 x 18 cm para cada célula. Com essa alteração, as dimensões
 externas do labirinto foram reduzidas para 72 x 72 cm. As paredes mantiveram a espessura
 de 1,5 cm, conforme definido no projeto conceitual, enquanto a dimensão interna de cada
-uma das 16 células passou a ser 16,125 x 16,125 cm. Dessa forma, o labirinto tornou-se
+uma das 16 células passou a ser 16,125 x 16,125 cm. Dessa forma, como consta na Figura~\ref{fig:montagemlabirintov1.1}, o labirinto tornou-se
 mais compacto, mas continuou atendendo aos requisitos estabelecidos para os testes.
 
 % \section{Testes de \textit{hardware}}
