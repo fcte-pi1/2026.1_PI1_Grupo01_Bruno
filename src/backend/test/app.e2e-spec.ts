@@ -11,7 +11,7 @@ describe('Integração Back-end <-> Firebase (e2e)', () => {
   let idCorridaTeste: string = 'corrida_fake_123';
 
   beforeAll(async () => {
-    // Dublê do FirebaseService
+   
     const mockFirebase = {
       saveTelemetry: jest.fn().mockResolvedValue(true),
       obterCorridas: jest.fn().mockResolvedValue({ 'corrida_fake_123': { status: 'Em execução' } }),
@@ -26,7 +26,7 @@ describe('Integração Back-end <-> Firebase (e2e)', () => {
 
     app = moduleFixture.createNestApplication();
     
-    // AQUI ESTÁ A CORREÇÃO: Colocando um dublê no AppService para o DELETE não usar a internet
+    
     const appService = app.get(AppService);
     jest.spyOn(appService, 'deletarCorrida').mockResolvedValue({ sucesso: true, mensagem: 'apagado' } as any);
 
