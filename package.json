@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "rechart": "^0.0.1"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^4.1.8"
   }
 }

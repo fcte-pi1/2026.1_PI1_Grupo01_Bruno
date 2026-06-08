@@ -342,6 +342,7 @@ TSWLatexianTemp*
 .DS_Store
 Thumbs.db
 
+<<<<<<< HEAD
 # Variáveis de ambiente
 .env
 .env.*
@@ -353,3 +354,8 @@ node_modules/
 dist/
 build/
 .npm
+=======
+
+.node_modules/
+.dist/
+>>>>>>> 8d70cc8a80871563c54530088741a9b16d6d5457
