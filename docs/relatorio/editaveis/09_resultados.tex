@@ -95,9 +95,9 @@ Ao analisar os gráficos e a tabela, nota-se que os dados de máximos e mínimos
 Os dados amostrados indicam que a aplicação dos métodos de calibração escolhidos resultaram em uma melhora significativa na confiabilidade, precisão e consistência dos dados de output da MPU 6050.
 
 \subsubsection{Regulador de tensão e porcentagem de carga da bateria}
-Para garantir uma alimentação adequada da ESP32, foi utilizado um regulador de tensão ajustável. Com o auxílio de um multímetro e da bateria prevista para o projeto, a tensão de saída foi ajustada para 5 V por meio de um trimpot, considerando a utilização do regulador interno da ESP32 DevKit. O resultado do ajuste é apresentado na Figura X, localizada no Apêndice C.
+Para garantir uma alimentação adequada da ESP32, foi utilizado um regulador de tensão ajustável. Com o auxílio de um multímetro e da bateria prevista para o projeto, a tensão de saída foi ajustada para 5 V por meio de um trimpot, considerando a utilização do regulador interno da ESP32 DevKit. O resultado do ajuste é apresentado na Figura {fig:regulador_tensao} , localizada no Apêndice C.
 
-Para identificar a porcentagem de carga disponível na bateria, foi utilizado um divisor de tensão conectado à entrada analógica da ESP32. O circuito também inclui um capacitor de desacoplamento, responsável pela filtragem de ruídos e pela estabilização do sinal medido. O sistema foi validado utilizando um multímetro e uma fonte de tensão contínua ajustável, permitindo observar a resposta do circuito para diferentes níveis de tensão dentro da faixa de operação prevista para a bateria do projeto. O resultado da validação é apresentada na figura Y, localizada no Apêndice C. 
+Para identificar a porcentagem de carga disponível na bateria, foi utilizado um divisor de tensão conectado à entrada analógica da ESP32. O circuito também inclui um capacitor de desacoplamento, responsável pela filtragem de ruídos e pela estabilização do sinal medido. O sistema foi validado utilizando um multímetro e uma fonte de tensão contínua ajustável, permitindo observar a resposta do circuito para diferentes níveis de tensão dentro da faixa de operação prevista para a bateria do projeto. O resultado da validação é apresentada na figura {fig:medidor_tensao}, localizada no Apêndice C. 
 
 
 \subsection{Atuadores}
@@ -109,9 +109,27 @@ O sistema apresentou o comportamento esperado em todas as etapas de teste. As va
 
 
 
-% \section{Testes de consumo energético}
+ \section{Validação de consumo energético}
 
-% \textcolor{red}{Apresentar com detalhes os testes feitos para conferir se as demandas energéticas do projeto foram atendidas.}
+ Para a validação prática do dimensionamento energético, foi realizado um teste experimental com o protótipo operando pelo tempo de 20 minutos (1200 segundos). A metodologia consistiu de 10 medições de tensão ($V_k$) e corrente ($I_k$) em intervalos regulares ao longo do percurso. A partir de cada par de dados coletados, determinou-se a potência instantânea por meio do produto $P_k = V_k \cdot I_k$, gerando 10 valores distintos de potência. Na sequência, calculou-se a potência média operacional ($\bar{P}$) através da média aritmética simples dessas amostras. Por fim, esse valor médio de 15,58 W foi multiplicado pelo tempo total de operação convertido para horas ($1200/3600$ h) para a determinação da potência final consumida de 5,19 Wh. A Tabela \ref{tab:comparativo_eletrico} apresenta o comparativo entre os dados projetados no modelo teórico ideal e os dados medidos durante a validação.
+
+\begin{table}[h!]
+\centering
+\caption{Comparativo de Parâmetros Elétricos (Teórico vs. Real)}
+\label{tab:comparativo_eletrico}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lcc}
+\hline
+\textbf{Parâmetro} & \textbf{Modelo Teórico} & \textbf{Teste Real} \\ \hline
+Tensão Média Operacional & 7,40 V & 7,60 V \\ 
+Potência Média & 14,15 W & 15,58 W \\ 
+Energia Consumida (20 min) & 4,71 Wh & 5,19 Wh \\ 
+Condição Final da Bateria & -- & 7,22 V \\ \hline
+\end{tabular}
+\end{table}
+
+A bateria começou o teste com sua carga máxima de 8,4 V (tensão de pico das células Li-po 2S). Ao final do teste, a energia consumida pelo micromouse foi de 5,19 Wh, o que representou uma potência média de 15,58 W. A célula finalizou em 7,2 V.
+Comparando os resultados, o consumo real foi superior ao valor teórico de 4,71 Wh devido ao torque e às perdas térmicas por efeito Joule. O consumo real permaneceu abaixo da demanda projetada com a margem de segurança estabelecida validando a escolha da bateria.
 
 % \section{Testes de \textit{software}}
 
