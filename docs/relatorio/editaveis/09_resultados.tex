@@ -1,68 +1,173 @@
-% \chapter{Testes de Verificação e Validação}
+\chapter{Testes de Verificação e Validação}
 
-% \section{Características Gerais}
+\section{Características Gerais}
 
-% \textcolor{red}{Introduzir os principais pontos deste capítulo. Cada teste deve conter explicações completas que garantam sua repetibilidade:
-% \begin{itemize}
-%     \item Hipóteses levantadas
-%     \item Condições de contorno
-%     \item Resultados esperados
-%     \item Materiais e métodos
-%     \item Precisão e acurácia das medidas obtidas.
-% \end{itemize}
-% }
+\textcolor{red}{Introduzir os principais pontos deste capítulo. Cada teste deve conter explicações completas que garantam sua repetibilidade:
+\begin{itemize}
+    \item Hipóteses levantadas
+    \item Condições de contorno
+    \item Resultados esperados
+    \item Materiais e métodos
+    \item Precisão e acurácia das medidas obtidas.
+\end{itemize}
+}
 
-% \section{Testes da estrutura}
+\section{Testes da estrutura}
 
-% \textcolor{red}{Apresentar com detalhes os testes feitos para conferir se os objetivos da estrutura foram atendidos, incluindo:}
+\textcolor{red}{Apresentar com detalhes os testes feitos para conferir se os objetivos da estrutura foram atendidos, incluindo:}
 
-% \begin{itemize}
-%     \item \textcolor{red}{Imagem com todas as peças separadas da estrutura (carcaça) do veículo;}
-%     \item \textcolor{red}{Imagem que apresente a estrutura já montada (sem necessidade de partes internas, como eletrônica ou motores);}
-%     \item \textcolor{red}{Ilustração contemplando o carro montado virtualmente em alguma ferramenta de CAD, no intuito de verificar se as peças foram construídas e montadas em conformidade com o projeto.}
-% \end{itemize}
+\begin{itemize}
+    \item \textcolor{red}{Imagem com todas as peças separadas da estrutura (carcaça) do veículo;}
+    \item \textcolor{red}{Imagem que apresente a estrutura já montada (sem necessidade de partes internas, como eletrônica ou motores);}
+    \item \textcolor{red}{Ilustração contemplando o carro montado virtualmente em alguma ferramenta de CAD, no intuito de verificar se as peças foram construídas e montadas em conformidade com o projeto.}
+\end{itemize}
 
-% \section{Testes de \textit{hardware}}
+\section{Testes de \textit{hardware}}
 
-% \textcolor{red}{Apresentar com detalhes os testes feitos para conferir se os objetivos do \textit{hardware} foram atendidos, incluindo:}
+\textcolor{red}{Apresentar com detalhes os testes feitos para conferir se os objetivos do \textit{hardware} foram atendidos, incluindo:}
 
-% \begin{enumerate}
-%     \item \textcolor{red}{Processamento (Arduino, ESP32 etc):}
-%     \begin{itemize}
-%         \item \textcolor{red}{Definir interface de desenvolvimento;}
-%         \item \textcolor{red}{Rodar exemplo mínimo.}
-%     \end{itemize}
-%     \item \textcolor{red}{Sensores (temperatura, pressão, posição, velocidade etc.):}
-%     \begin{itemize}
-%         \item \textcolor{red}{Realizar leitura básica de dados;}
-%         \item \textcolor{red}{Validar/calibrar leituras;}
-%         \item \textcolor{red}{Definir taxas de amostragem e quantidade de dados para transmissão e/ou armazenamento;}
-%         \item \textcolor{red}{Validar taxas definidas e quantidade de dados;}
-%         \item \textcolor{red}{Realizar processamento básico de dados (\textit{thresholding}, filtro média-móvel etc.).}
-%     \end{itemize}
-%     \item \textcolor{red}{Armazenamento (memória interna, cartão SD, pendrive etc.):}
-%     \begin{itemize}
-%         \item \textcolor{red}{Armazenar dados básicos;}
-%         \item \textcolor{red}{Armazenar e validar dados de sensores.}
-%     \end{itemize}
-%     \item \textcolor{red}{Atuadores (Motores DC, relés, LEDs etc.):}
-%     \begin{itemize}
-%         \item \textcolor{red}{Realizar acionamentos básicos;}
-%         \item \textcolor{red}{Realizar acionamentos com base em dados de sensores;}
-%         \item \textcolor{red}{Realizar processamento básico de dados (PWM etc.).}
-%     \end{itemize}
-%     \item \textcolor{red}{Comunicações (UART, I2C, SPI, USB, WiFi, Bluetooth etc.):}
-%     \begin{itemize}
-%         \item \textcolor{red}{Transmissão básica de dados;}
-%         \item \textcolor{red}{Transmissão de dados de sensores dentro da taxa de amostragem.}
-%     \end{itemize}
-% \end{enumerate}
+\begin{enumerate}
+    \item \textcolor{red}{Processamento (Arduino, ESP32 etc):}
+    \begin{itemize}
+        \item \textcolor{red}{Definir interface de desenvolvimento;}
+        \item \textcolor{red}{Rodar exemplo mínimo.}
+    \end{itemize}
+    \item \textcolor{red}{Sensores (temperatura, pressão, posição, velocidade etc.):}
+    \begin{itemize}
+        \item \textcolor{red}{Realizar leitura básica de dados;}
+        \item \textcolor{red}{Validar/calibrar leituras;}
+        \item \textcolor{red}{Definir taxas de amostragem e quantidade de dados para transmissão e/ou armazenamento;}
+        \item \textcolor{red}{Validar taxas definidas e quantidade de dados;}
+        \item \textcolor{red}{Realizar processamento básico de dados (\textit{thresholding}, filtro média-móvel etc.).}
+    \end{itemize}
+    \item \textcolor{red}{Armazenamento (memória interna, cartão SD, pendrive etc.):}
+    \begin{itemize}
+        \item \textcolor{red}{Armazenar dados básicos;}
+        \item \textcolor{red}{Armazenar e validar dados de sensores.}
+    \end{itemize}
+    \item \textcolor{red}{Atuadores (Motores DC, relés, LEDs etc.):}
+    \begin{itemize}
+        \item \textcolor{red}{Realizar acionamentos básicos;}
+        \item \textcolor{red}{Realizar acionamentos com base em dados de sensores;}
+        \item \textcolor{red}{Realizar processamento básico de dados (PWM etc.).}
+    \end{itemize}
+    \item \textcolor{red}{Comunicações (UART, I2C, SPI, USB, WiFi, Bluetooth etc.):}
+    \begin{itemize}
+        \item \textcolor{red}{Transmissão básica de dados;}
+        \item \textcolor{red}{Transmissão de dados de sensores dentro da taxa de amostragem.}
+    \end{itemize}
+\end{enumerate}
 
-% \section{Testes de consumo energético}
+\section{Testes de consumo energético}
 
-% \textcolor{red}{Apresentar com detalhes os testes feitos para conferir se as demandas energéticas do projeto foram atendidas.}
+\textcolor{red}{Apresentar com detalhes os testes feitos para conferir se as demandas energéticas do projeto foram atendidas.}
 
-% \section{Testes de \textit{software}}
+\section{Testes de \textit{software}}
+
+Esta seção apresenta os testes realizados para verificar e validar as funcionalidades implementadas no sistema. Os testes tiveram como objetivo garantir que os requisitos definidos nas histórias de usuário foram atendidos corretamente, bem como avaliar a qualidade do código desenvolvido por meio de testes automatizados em diferentes níveis.
+
+\subsection{Testes do algoritmo de navegação (Floodfill)}
+
+Para validar a lógica de navegação autônoma do robô, foram realizados testes isolados do algoritmo de \textit{Floodfill}. Tendo em vista que o processamento de navegação executará estritamente de forma local no microcontrolador (ESP32-S3), fez-se necessário garantir a corretude da lógica implementada em linguagem C para o mapeamento e otimização de rotas antes da integração com os periféricos de \textit{hardware}.
+
+Todos os artefatos de validação encontram-se versionados na \textit{branch} \texttt{hardware} do repositório do projeto, alocados especificamente no diretório \href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/tree/hardware/hw/docs/flood_fill/testes}{hw/docs/flood\_fill/testes}. 
+
+Os testes contemplaram três cenários distintos, alterando as condições de contorno por meio da variação das dimensões das matrizes do labirinto. O objetivo foi avaliar não apenas o encontro do trajeto ótimo, mas também a escalabilidade e a gestão de memória do algoritmo. Para cada uma das configurações, o diretório contém o código em C utilizado para a execução e um vídeo demonstrativo comprovando o resultado:
+
+\begin{itemize}
+    \item \textbf{Cenário 4x4:} Validação da lógica base e detecção de paredes em um ambiente reduzido (arquivos \texttt{teste\_floodfill\_4x4.c} e \texttt{Teste4x4.mp4}).
+    \item \textbf{Cenário 8x8:} Validação em ambiente intermediário, sendo esta a dimensão principal para os desafios de percurso estabelecidos para o projeto (arquivos \texttt{teste\_floodfill\_8x8.c} e \texttt{Teste8x8.mp4}).
+    \item \textbf{Cenário 16x16:} Teste de estresse elaborado para atestar o funcionamento e a eficiência computacional da travessia em labirintos de alta complexidade (arquivos \texttt{teste\_floodfill\_16x16.c} e \texttt{Teste16x16.mp4}).
+\end{itemize}
+
+\subsection{Histórias de usuário implementadas}
+
+Nosso projeto possui 16 histórias de usuário e durante este ponto de controle foram implementadas 13 histórias de usuário, totalizando 81\% das histórias de usuário, sendo elas listadas na tabela \ref{tab:historias} e observadas na figura \ref{fig:hus-implementadas} do protótipo . As demais histórias de usuário estão parcialmente criadas.
+\begin{table}[H]
+    \centering
+    \scriptsize
+    \caption{Histórias de usuário implementadas.}
+    \label{tab:historias}
+    \begin{tabular}{|l|l|}
+    \hline
+        \href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/246}{Hu 9 }  & Iniciar temporizador ao iniciar percurso \\ \hline
+        \href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/247}{Hu 10}  & Iniciar temporizador ao reiniciar percurso \\ \hline
+        \href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/252}{Hu 15}   & Identificação de obstáculos  \\ \hline
+        \href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/251}{Hu 14}   & Processamento de obstáculos \\ \hline
+        \href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/232}{Hu 3 }  & Exibição da bateria disponível \\ \hline
+        \href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/233}{Hu 4 } & Exibição da bateria consumida  \\ \hline
+        \href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/253}{Hu 16}   & Mapeamento do labirinto \\ \hline
+        \href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/236}{Hu 7}   & Exibição da velocidade média \\ \hline
+        \href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/234}{Hu 5}   & Exibição do tempo de percurso \\ \hline
+        \href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/231}{Hu 2}   & Exibição do tipo de labirinto \\ \hline
+        \href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/237}{Hu 8}   & Possuir Botão para controle remoto de operação \\ \hline
+        \href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/230}{Hu 1}   & Visualização do labirinto \\ \hline
+        \href{https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/235}{Hu 6}   & Status do desafio \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{figuras/software/HUsImplementadas.jpg}
+    \caption{HUs implementadas apresentadas no protótipo.}
+    \label{fig:hus-implementadas}
+\end{figure}
+
+\subsection{Testes unitários do frontend}
+
+Os testes unitários do frontend foram implementados com Vitest. Foram criados testes para os seguintes componentes: badge, battery, bottomBar, breadcrumb, button, card, cell, chart, connection, controlBtn, header, log, maze, modal, tab, table e trace. O código fonte destes testes podem ser acessados em \texttt{src/frontend/src/components/nome\_componente/teste\_componente}.
+
+Os testes verificaram a renderização dos componentes, o recebimento e a exibição correta das propriedades, o comportamento esperado em interações do usuário e a renderização condicional de elementos.
+
+A cobertura dos testes foi analisada utilizando o Vitest. Conforme apresentado na figura \ref{fig:uni_front}, o projeto alcançou 78,37\% de cobertura de instruções e 86,36\% de cobertura de linhas, atendendo ao requisito mínimo de 70\% de cobertura de código-fonte estabelecido pela disciplina.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figuras/software/testes_uni_front.png}
+    \captionsetup{font=footnotesize}
+    \caption{Relatorio de cobertura dos testes unitários do frontend.}
+    \label{fig:uni_front}
+\end{figure}
+
+
+\subsection{Testes unitários do backend}
+
+Os testes unitários do backend foram desenvolvidos com o objetivo de validar o comportamento individual dos serviços, controladores e gateways da aplicação, garantindo que cada módulo funcione corretamente de forma isolada. Para isso, foram utilizados testes automatizados implementados com Jest em conjunto com o módulo de testes do NestJS (\texttt{@nestjs/testing}).
+
+Foram criadas suítes de testes para os principais módulos desenvolvidos. Os módulos contemplados pelos testes unitários são: \texttt{AppController}, \texttt{AppService}, \texttt{FirebaseService} e \texttt{TelemetryGateway}. O código fonte destes testes pode ser acessado em \texttt{src/backend/src}, nos arquivos com sufixo \texttt{.spec.ts} ao lado de cada módulo testado.
+
+Os testes verificaram a inicialização correta dos módulos, o comportamento esperado dos endpoints HTTP, a comunicação via WebSocket com os eventos \texttt{postStart}, \texttt{postNos}, \texttt{postVelBat}, \texttt{postFinish}, \texttt{post\_posicao\_atual} e \texttt{sendcomand}, a integração com o Firebase Realtime Database, o tratamento de erros e o gerenciamento de conexões e desconexões de clientes.
+
+A cobertura dos testes foi analisada utilizando o Jest com a flag \texttt{--coverage}. Conforme apresentado na figura \ref{fig:uni_back}, o projeto alcançou 84,14\% de cobertura de instruções e 84,11\% de cobertura de linhas, superando o requisito mínimo de 70\% de cobertura de código-fonte estabelecido pela disciplina. Os arquivos de configuração de módulos e inicialização da aplicação (\texttt{main.ts}, \texttt{app.module.ts} e \texttt{telemetry.module.ts}) foram excluídos da análise de cobertura por não possuírem lógica de negócio testável. O relatório também permitiu identificar trechos com menor cobertura, como o filtro de exceções WebSocket (\texttt{ws-exception.filter.ts}), servindo como referência para futuras melhorias nas suítes de testes.
+
+% \begin{table}[!ht]
+%     \centering
+%     \caption{Cobertura dos testes unitários do backend por módulo.}
+%     \label{tab:cov_back}
+%     \begin{tabular}{|l|c|c|c|c|}
+%     \hline
+%         \textbf{Arquivo} & \textbf{\% Stmts} & \textbf{\% Branch} & \textbf{\% Funcs} & \textbf{\% Lines} \\ \hline
+%         app.controller.ts         & 93,54 & 87,50  & 66,66 & 93,10  \\ \hline
+%         app.service.ts            & 100   & 100    & 100   & 100    \\ \hline
+%         firebase.service.ts       & 100   & 80     & 100   & 100    \\ \hline
+%         telemetry.gateway.ts      & 78,49 & 62,50  & 64,28 & 79,54  \\ \hline
+%         ws-exception.filter.ts    & 26,31 & 0      & 0     & 17,64  \\ \hline
+%         \textbf{Total}            & \textbf{84,14} & \textbf{62,74} & \textbf{72,41} & \textbf{84,11} \\ \hline
+%     \end{tabular}
+% \end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figuras/software/uni_back.png}
+    \captionsetup{font=footnotesize}
+    \caption{Relatório de cobertura dos testes unitários do backend.}
+    \label{fig:uni_back}
+\end{figure}
+
+
+\subsection{Testes E2E}
+
+Foram implementados testes end-to-end utilizando Cypress com base nos roteiros de testes funcionais definidos na primeira entrega do projeto. Até o momento, foi possível implementar os casos de teste CT1, CT2 e CT3, uma vez que os demais dependem de histórias de usuário ainda não desenvolvidas. O código fonte destes testes podem ser acessados em \texttt{src/frontend/src/cypress/e2e} e podem ser observados no apêndice \ref{app:e2e}.
 
 % \textcolor{red}{Apresentar com detalhes os testes feitos para conferir se os objetivos do \textit{software} foram atendidos.
 % Considerando a implementação de $50\%$ do \textit{backlog} do produto (funcional):}
@@ -100,9 +205,29 @@
 %     \item \textcolor{red}{Catch2}
 % \end{itemize}
 
-% \section{Testes de integração}
+\subsection{Testes de integração}
 
-% \textcolor{red}{Apresentar com detalhes os testes feitos para conferir se os objetivos do projeto como um todo foram atendidos.}
+Os testes de integração tiveram como foco principal validar os \textit{endpoints} da API e sua correta orquestração com a camada de serviços responsáveis pela comunicação e persistência de dados no Firebase Realtime Database.
 
-% %\textcolor{red}{Com relação ao \textit{software}, será necessário apresentar pacotes de componentes de \textit{software}, suas funções e características, e explicar as decisões de projeto.}
+Para a realização das chamadas, utilizou-se a biblioteca \textit{Supertest}, que simula requisições HTTP e avalia os códigos de status e corpos de resposta. A suíte de testes contemplou o fluxo completo de gerenciamento de corridas e telemetria:
 
+\begin{itemize}
+    \item \textbf{GET / (Healthcheck):} Validação da disponibilidade e tempo de resposta da API.
+    \item \textbf{POST /telemetria:} Validação do recebimento do \textit{payload} estruturado pelo robô e do acionamento do serviço de salvamento.
+    \item \textbf{GET /corridas:} Validação da recuperação, estruturação e formatação dos dados provindos do banco de dados.
+    \item \textbf{DELETE /corridas/:id:} Validação da rotina de remoção de registros.
+\end{itemize}
+
+Durante a validação, devido a restrições rigorosas de rede no ambiente de desenvolvimento Linux (isolamento provocado por contêineres Flatpak), a conexão externa direta aos servidores do Google Cloud sofreu bloqueios operacionais, falhas de \textit{timeout} e \textit{Gaxios Error}. 
+
+Para contornar essa limitação de infraestrutura sem comprometer a validação da arquitetura, aplicou-se a técnica de \textit{Provider Override} suportada nativamente pelo NestJS. Os serviços de conexão direta, \texttt{FirebaseService} e \texttt{AppService}, foram interceptados e mockados com respostas controladas. 
+
+Essa abordagem atesta que os controladores, as rotas e o sistema de injeção de dependências estão perfeitamente integrados e capazes de processar os dados adequadamente até a fronteira final com o banco de dados. Como ilustrado na figura \ref{fig:integracao_back}, a bateria de testes foi aprovada com sucesso.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figuras/software/testeIntegracao.png} 
+    \captionsetup{font=footnotesize}
+    \caption{Relatório de aprovação dos testes de integração da API (Supertest).}
+    \label{fig:integracao_back}
+\end{figure}
