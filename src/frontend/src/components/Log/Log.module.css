@@ -1,0 +1,46 @@
+.LogContainer {
+    display: flex;
+    height: 260px;
+    padding: var(--spacing-2x);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-base);
+    flex-shrink: 0;
+    align-self: stretch;
+    border-radius: var(--radius-2x);
+    background: var(--bg-secondary);
+}
+
+.Top {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    gap: var(--spacing-base) var(--spacing-base);
+    padding-block: var(--spacing-half);
+    align-self: stretch;
+    flex-wrap: wrap;
+}
+
+.LogCenter {
+    display: flex;
+    flex-direction: column-reverse;
+    padding: var(--spacing-2x);
+    align-items: start;
+    gap: var(--spacing-half);
+    flex: 1 0 0;
+    align-self: stretch;
+    border-radius: var(--radius-base);
+    border: 1px solid var(--border);
+    overflow-y: auto;
+    max-height: 200px;
+}
+
+.LogCenter code {
+    width: 100%;
+    text-align: start;
+    color: var(--txt-primary);
+}
+
+.LogCenter code:first-child {
+    color: var(--success);
+}
