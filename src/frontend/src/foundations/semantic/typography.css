@@ -1,0 +1,5 @@
+:root{
+  --text-body: var(--font-display);
+  --text-heading: var(--font-sans);
+  --text-code: var(--font-mono); 
+}
