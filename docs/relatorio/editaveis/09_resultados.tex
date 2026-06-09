@@ -14,6 +14,8 @@
 
 \section{Testes da estrutura}
 
+Testes sobre a estrutura e versões dos protótipos do chassi e labirinto.
+
 \subsection { Testes Estrutura e Prototipagem do Micromouse}
 
 Para o refinamento da estrutura do Micromouse, foram fabricados por impressão 3D, utilizando materiais PETG e PLA, três versões do chassi, duas versões da tampa do compartimento da bateria e dois suportes de fixação, conforme apresentado nas Figuras~\ref{fig:prot_chassis}, \ref{fig:prot_chassis_angulo} e \ref{fig:prot_versao_final}.
@@ -81,6 +83,9 @@ uma das 16 células passou a ser 16,125 x 16,125 cm. Dessa forma, como consta na
 mais compacto, mas continuou atendendo aos requisitos estabelecidos para os testes.
 
 \section{Testes de \textit{hardware}}
+
+Seção para relato dos testes de hardware, que incluem testes de processamento, sensores, armazenamento, atuadores e comunicações.
+
 \subsection{ESP32}
 \subsubsection{\textit{Dual Core}}
 Para validar o funcionamento da ESP32 e de seus dois núcleos de processamento, foi realizado um teste utilizando o FreeRTOS. A execução das tarefas foi monitorada por meio da comunicação serial, permitindo verificar a correta operação dos dois núcleos do microcontrolador. 
@@ -172,9 +177,9 @@ Uma vez que a ponte H e os motores DC 6V funcionam juntos, optou-se por realizar
 
 O sistema apresentou o comportamento esperado em todas as etapas de teste. As variações de PWM, em intervalos de 50 (o argumento do PWM varia de 0 a 255), resultaram em mudanças na velocidade do motor. A mudança nos bits de sentido resultou em alteração no sentido de rotação, que, no firmware utilizado no teste, mudou a cada 2 segundos. Ambos os canais da ponte H e ambos os motores DC foram testados e avaliados, com resultados semelhantes obtidos em todos os cenários testados. Devido ao caráter qualitativo do protocolo de teste desse sistema, parte do teste foi registrado em formato de vídeo, que pode ser acessado através \href{https://unbbr-my.sharepoint.com/:f:/g/personal/231027079_aluno_unb_br/IgBTkERhmse0RpFUGiqooULzAQvzFr9VL5YGq6soeIDkyNI?e=624aZd}{deste link}.
 
- \section{Validação de consumo energético}
+\section{Testes de consumo energético}
 
- Para a validação prática do dimensionamento energético, foi realizado um teste experimental com o protótipo operando pelo tempo de 20 minutos (1200 segundos). A metodologia consistiu de 10 medições de tensão ($V_k$) e corrente ($I_k$) em intervalos regulares ao longo do percurso. A partir de cada par de dados coletados, determinou-se a potência instantânea por meio do produto $P_k = V_k \cdot I_k$, gerando 10 valores distintos de potência. Na sequência, calculou-se a potência média operacional ($\bar{P}$) através da média aritmética simples dessas amostras. Por fim, esse valor médio de 15,58 W foi multiplicado pelo tempo total de operação convertido para horas ($1200/3600$ h) para a determinação da potência final consumida de 5,19 Wh. A Tabela \ref{tab:comparativo_eletrico} apresenta o comparativo entre os dados projetados no modelo teórico ideal e os dados medidos durante a validação.
+Para a validação prática do dimensionamento energético, foi realizado um teste experimental com o protótipo operando pelo tempo de 20 minutos (1200 segundos). A metodologia consistiu de 10 medições de tensão ($V_k$) e corrente ($I_k$) em intervalos regulares ao longo do percurso. A partir de cada par de dados coletados, determinou-se a potência instantânea por meio do produto $P_k = V_k \cdot I_k$, gerando 10 valores distintos de potência. Na sequência, calculou-se a potência média operacional ($\bar{P}$) através da média aritmética simples dessas amostras. Por fim, esse valor médio de 15,58 W foi multiplicado pelo tempo total de operação convertido para horas ($1200/3600$ h) para a determinação da potência final consumida de 5,19 Wh. A Tabela \ref{tab:comparativo_eletrico} apresenta o comparativo entre os dados projetados no modelo teórico ideal e os dados medidos durante a validação.
 
 \begin{table}[h!]
 \centering
