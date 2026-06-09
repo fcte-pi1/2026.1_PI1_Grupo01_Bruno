@@ -1,16 +1,16 @@
 \chapter{Testes de Verificação e Validação}
 
-\section{Características Gerais}
+%\section{Características Gerais}
 
-\textcolor{red}{Introduzir os principais pontos deste capítulo. Cada teste deve conter explicações completas que garantam sua repetibilidade:
-\begin{itemize}
-    \item Hipóteses levantadas
-    \item Condições de contorno
-    \item Resultados esperados
-    \item Materiais e métodos
-    \item Precisão e acurácia das medidas obtidas.
-\end{itemize}
-}
+%\textcolor{red}{Introduzir os principais pontos deste capítulo. Cada teste deve %conter explicações completas que garantam sua repetibilidade:
+% \begin{itemize}
+%     \item Hipóteses levantadas
+%     \item Condições de contorno
+%     \item Resultados esperados
+%     \item Materiais e métodos
+%     \item Precisão e acurácia das medidas obtidas.
+% \end{itemize}
+%}
 
 \section{Testes da estrutura}
 
@@ -23,50 +23,124 @@
 \end{itemize}
 
 \section{Testes de \textit{hardware}}
+\subsection{ESP32}
+\subsubsection{\textit{Dual Core}}
+Para validar o funcionamento da ESP32 e de seus dois núcleos de processamento, foi realizado um teste utilizando o FreeRTOS. A execução das tarefas foi monitorada por meio da comunicação serial, permitindo verificar a correta operação dos dois núcleos do microcontrolador. 
 
-\textcolor{red}{Apresentar com detalhes os testes feitos para conferir se os objetivos do \textit{hardware} foram atendidos, incluindo:}
+Foi desenvolvida uma rotina simples em que duas tarefas independentes eram atribuídas a núcleos distintos da ESP32. Cada tarefa enviava uma mensagem pela interface serial contendo a identificação do núcleo responsável pela execução. O resultado do teste é apresentado na Figura \ref{fig:teste_dualcore}, localizada no Apêndice C. 
 
-\begin{enumerate}
-    \item \textcolor{red}{Processamento (Arduino, ESP32 etc):}
-    \begin{itemize}
-        \item \textcolor{red}{Definir interface de desenvolvimento;}
-        \item \textcolor{red}{Rodar exemplo mínimo.}
-    \end{itemize}
-    \item \textcolor{red}{Sensores (temperatura, pressão, posição, velocidade etc.):}
-    \begin{itemize}
-        \item \textcolor{red}{Realizar leitura básica de dados;}
-        \item \textcolor{red}{Validar/calibrar leituras;}
-        \item \textcolor{red}{Definir taxas de amostragem e quantidade de dados para transmissão e/ou armazenamento;}
-        \item \textcolor{red}{Validar taxas definidas e quantidade de dados;}
-        \item \textcolor{red}{Realizar processamento básico de dados (\textit{thresholding}, filtro média-móvel etc.).}
-    \end{itemize}
-    \item \textcolor{red}{Armazenamento (memória interna, cartão SD, pendrive etc.):}
-    \begin{itemize}
-        \item \textcolor{red}{Armazenar dados básicos;}
-        \item \textcolor{red}{Armazenar e validar dados de sensores.}
-    \end{itemize}
-    \item \textcolor{red}{Atuadores (Motores DC, relés, LEDs etc.):}
-    \begin{itemize}
-        \item \textcolor{red}{Realizar acionamentos básicos;}
-        \item \textcolor{red}{Realizar acionamentos com base em dados de sensores;}
-        \item \textcolor{red}{Realizar processamento básico de dados (PWM etc.).}
-    \end{itemize}
-    \item \textcolor{red}{Comunicações (UART, I2C, SPI, USB, WiFi, Bluetooth etc.):}
-    \begin{itemize}
-        \item \textcolor{red}{Transmissão básica de dados;}
-        \item \textcolor{red}{Transmissão de dados de sensores dentro da taxa de amostragem.}
-    \end{itemize}
-\end{enumerate}
+\subsubsection{Comunicação}
+Para validar a comunicação Wi-Fi da ESP32, foi desenvolvido um algoritmo simples de conexão à rede. Durante o teste, utilizou-se uma rede Wi-Fi pessoal, cujos dados de identificação foram omitidos para preservar a privacidade dos integrantes da equipe.
 
-\section{Testes de consumo energético}
+Após o estabelecimento da conexão, foi realizada uma requisição HTTP ao endereço \href{http://jsonplaceholder.typicode.com/posts/1}{http://jsonplaceholder.typicode.com/posts/1}, seguida da leitura dos dados retornados pelo servidor. Após duas requisições bem-sucedidas, a conexão com a internet foi interrompida com o objetivo de verificar o comportamento do sistema e as mensagens de erro geradas na ausência de conectividade.
 
-\textcolor{red}{Apresentar com detalhes os testes feitos para conferir se as demandas energéticas do projeto foram atendidas.}
+A Figura \ref{fig:teste_Wifi}, apresentada no apêndice C, exibe uma captura do monitor serial contendo as informações transmitidas durante o teste.
+
+\subsection{Sensores}
+\subsubsection{TOF}
+Para validar os sensores TOF, foram coletados dados de distância considerando os limites estimados para a detecção de obstáculos pelo veículo. As medições foram feitas com um objeto branco fixo em frente ao sensor e as distâncias de referência adotadas foram de 80mm para o limite lateral e 50mm para o limite frontal. Durante a coleta, a posição do sensor foi mantida fixa e ajustada com o auxilio de uma régua milimetrada. Foram obtidas 403 amostras para o limite lateral e 334 amostras para o limite frontal, ambas com frequência de amostragem de 4Hz. A analise estatística dos dados coletados é apresentada na Tabela \ref{tab:tof_stats}. 
+
+\begin{table}[h]
+    \centering
+       \begin{tabular}{|l|c|c|}
+        \hline
+        \textbf{Distância} & \textbf{Limite Lateral} & \textbf{Limite Frontal} \\ \hline
+        
+        \multicolumn{3}{|c|}{\textbf{Dados Gerais}} \\ \hline
+        Amostras originais & 403 & 334 \\ \hline
+        Outliers removidos & 0 & 1 \\ \hline
+        Amostras utilizadas & 403 & 333 \\ \hline
+        
+        \multicolumn{3}{|c|}{\textbf{Medidas de Tendência}} \\ \hline
+        Média & 81,422 & 50,928 \\ \hline
+        Mediana & 81,000 & 51,000 \\ \hline
+        
+        \multicolumn{3}{|c|}{\textbf{Medidas de Dispersão}} \\ \hline
+        Desvio padrão & 2,031 & 3,320 \\ \hline
+        Coeficiente de variação (CV) & 2,494\% & 6,520\% \\ \hline
+        
+        \multicolumn{3}{|c|}{\textbf{Extremos}} \\ \hline
+        Mínimo & 76,000 & 43,000 \\ \hline
+        Máximo & 87,000 & 59,000 \\ \hline
+        
+        \multicolumn{3}{|c|}{\textbf{Quartis}} \\ \hline
+        Q1 & 80,000 & 48,750 \\ \hline
+        Q3 & 83,000 & 53,000 \\ \hline
+    \end{tabular}
+    \caption{Análise estatística das medições do sensor TOF para os limites lateral e frontal.}
+    \label{tab:tof_stats}
+\end{table}
+
+Durante os testes, também foi observado que a distância entre os sensores e a superfície sobre a qual o micromouse navegará influencia a precisão das medições. Em alturas reduzidas, as leituras apresentaram rápido aumento de imprecisão, tendendo a valores inferiores às distâncias reais. Essa observação indica que o posicionamento dos sensores deve ser considerado durante o projeto mecânico do veículo. Registros desse comportamento podem ser encontrados nas demonstrações disponíveis no \href{https://unbbr-my.sharepoint.com/:v:/g/personal/231027079_aluno_unb_br/IQD2xGlDyRQrT7hCBopCS1RXAX4SP_C7y0wbpGJBctz3md8?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=rYLxsI}{OneDrive do projeto}. 
+
+A partir dos dados analisados, observa-se que as leituras apresentam boa estabilidade, com pequenas variações em torno das distâncias de referência. Deve-se ressaltar que o método de posicionamento adotado introduz uma parcela de erro fixo nas medições, associada ao alinhamento manual do sensor e do objeto durante os testes. Considerando os resultados obtidos, os dados sugerem que o sensor ToF é adequado para a detecção das paredes do labirinto nas distâncias avaliadas. 
+
+\subsubsection{MPU 6050}
+Para calibração da MPU 6050, foram utilizados dois métodos: a obtenção, via média de erro de leitura, de valores de offset para cada eixo de cada sensor, e a implementação do filtro passa-baixa configurável existente no módulo via biblioteca nativa emph{Adafruit\_MPU6050.h}. O sensor foi mantido ligado e coletou quantidades satisfatórias de dados sob as duas condições (antes e depois da calibração). Os resultados foram documentados e comparados, a fim de determinar a aplicabilidade da filtragem e frequência escolhida e dos parâmetros de offset obtidos numericamente. Os resultados das medições podem ser observados a partir dos gráficos \ref{fig:fft_acelerometro_x} a \ref{fig:fft_giroscopio_z} e da tabela \ref{tab:calibracao_mpu}.
+
+\begin{table}[htbp]
+\centering
+\caption{Desvio padrão médio, mínimos e máximos em cada eixo obtidos em leitura dos dados da MPU 6050 antes e depois da aplicação dos métodos de calibração.}
+\label{tab:calibracao_mpu}
+\renewcommand{\arraystretch}{1.5} 
+\begin{tabular}{|p{2.5cm}|p{2.8cm}|p{2.8cm}|p{2.8cm}|p{2.8cm}|}
+\hline
+ & \textbf{Acelerômetro (dados brutos)} & \textbf{Acelerômetro (dados tratados)} & \textbf{Giroscópio (dados brutos)} & \textbf{Giroscópio (dados tratados)} \\ \hline
+\textbf{SD médio entre eixos} & 0.06827 & 0.00816 & 0.02462 & 0.00311 \\ \hline
+\textbf{X mín.} & 0.59 & -0.10 & -1.17 & 0.00 \\ \hline
+\textbf{Y mín.} & -1.62 & 0.02 & -0.94 & -0.01 \\ \hline
+\textbf{Z mín.} & 5.19 & 9.78 & -0.41 & -0.01 \\ \hline
+\textbf{X máx.} & 4.49 & 0.06 & 3.02 & 0.00 \\ \hline
+\textbf{Y máx.} & 1.10 & 0.09 & 2.92 & 0.00 \\ \hline
+\textbf{Z máx.} & 16.8 & 9.86 & 0.13 & 0.01 \\ \hline
+\end{tabular}
+\end{table}
+
+Os dados foram coletados com o sensor parado e posicionado na horizontal, paralelo ao chão. Foi utilizada uma frequência de amostragem de 50 Hz. Os dados sem o filtro foram coletados por um tempo aproximado de 3 minutos e 19 segundos, totalizando 9950 amostras. Com o filtro passa-baixa habilitado e configurado para a frequência de 5 Hz através da função \emph{mpu.setFilterBandwidth} e o offset calculado aplicado em todos os eixos, foram coletadas um total de 6554 amostras, em um tempo aproximado de 2 minutos e 12 segundos. 
+
+Ao analisar os gráficos e a tabela, nota-se que os dados de máximos e mínimos pós filtragem e aplicação de offset mostram-se mais concisos e coerentes com o posicionamento do sensor, pois espera-se, a partir da configuração descrita anteriormente, valores próximos de 0 em todos os eixos do giroscópio. Quanto ao acelerômetro, são esperados valores próximos de 0 em todos os eixos, com exceção do eixo Z, que, por conta da leitura da aceleração da gravidade, deve apresentar valores próximos a 9.8. Observa-se, também, uma diminuição considerável nas amplitudes e nos picos em bandas de frequência isoladas das amostras filtradas quando comparadas às amostras não filtradas. A diminuição dessa inconsistência resultou em um desvio padrão médio entre os três eixos substancialmente menor no sampling filtrado tanto no acelerômetro quanto no giroscópio, como demonstrado pela tabela \ref{tab:calibracao_mpu}. 
+
+Os dados amostrados indicam que a aplicação dos métodos de calibração escolhidos resultaram em uma melhora significativa na confiabilidade, precisão e consistência dos dados de output da MPU 6050.
+
+\subsubsection{Regulador de tensão e porcentagem de carga da bateria}
+Para garantir uma alimentação adequada da ESP32, foi utilizado um regulador de tensão ajustável. Com o auxílio de um multímetro e da bateria prevista para o projeto, a tensão de saída foi ajustada para 5 V por meio de um trimpot, considerando a utilização do regulador interno da ESP32 DevKit. O resultado do ajuste é apresentado na Figura \ref{fig:regulador_tensao} , localizada no Apêndice C.
+
+Para identificar a porcentagem de carga disponível na bateria, foi utilizado um divisor de tensão conectado à entrada analógica da ESP32. O circuito também inclui um capacitor de desacoplamento, responsável pela filtragem de ruídos e pela estabilização do sinal medido. O sistema foi validado utilizando um multímetro e uma fonte de tensão contínua ajustável, permitindo observar a resposta do circuito para diferentes níveis de tensão dentro da faixa de operação prevista para a bateria do projeto. O resultado da validação é apresentada na figura \ref{fig:medidor_tensao}, localizada no Apêndice C. 
+
+
+\subsection{Atuadores}
+\subsubsection{Ponte H L298N e motores DC 6V}
+Uma vez que a ponte H e os motores DC 6V funcionam juntos, optou-se por realizar testes em ambos como conjunto, e não de cada um dos componentes separadamente. Os testes foram realizados via firmware com controle periódico de PWM e sentido de rotação, gravado na ESP32 conectada à ponte H. A alimentação da L298N foi feita a partir dos pinos de alimentação do devkit do microcontrolador. Os terminais de alimentação dos motores foram conectados diretamente aos terminais da bateria. 
+
+O sistema apresentou o comportamento esperado em todas as etapas de teste. As variações de PWM, em intervalos de 50 (o argumento do PWM varia de 0 a 255), resultaram em mudanças na velocidade do motor. A mudança nos bits de sentido resultou em alteração no sentido de rotação, que, no firmware utilizado no teste, mudou a cada 2 segundos. Ambos os canais da ponte H e ambos os motores DC foram testados e avaliados, com resultados semelhantes obtidos em todos os cenários testados. Devido ao caráter qualitativo do protocolo de teste desse sistema, parte do teste foi registrado em formato de vídeo, que pode ser acessado através \href{https://unbbr-my.sharepoint.com/:f:/g/personal/231027079_aluno_unb_br/IgBTkERhmse0RpFUGiqooULzAQvzFr9VL5YGq6soeIDkyNI?e=624aZd}{deste link}.
+
+ \section{Validação de consumo energético}
+
+ Para a validação prática do dimensionamento energético, foi realizado um teste experimental com o protótipo operando pelo tempo de 20 minutos (1200 segundos). A metodologia consistiu de 10 medições de tensão ($V_k$) e corrente ($I_k$) em intervalos regulares ao longo do percurso. A partir de cada par de dados coletados, determinou-se a potência instantânea por meio do produto $P_k = V_k \cdot I_k$, gerando 10 valores distintos de potência. Na sequência, calculou-se a potência média operacional ($\bar{P}$) através da média aritmética simples dessas amostras. Por fim, esse valor médio de 15,58 W foi multiplicado pelo tempo total de operação convertido para horas ($1200/3600$ h) para a determinação da potência final consumida de 5,19 Wh. A Tabela \ref{tab:comparativo_eletrico} apresenta o comparativo entre os dados projetados no modelo teórico ideal e os dados medidos durante a validação.
+
+\begin{table}[h!]
+\centering
+\caption{Comparativo de Parâmetros Elétricos (Teórico vs. Real)}
+\label{tab:comparativo_eletrico}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lcc}
+\hline
+\textbf{Parâmetro} & \textbf{Modelo Teórico} & \textbf{Teste Real} \\ \hline
+Tensão Média Operacional & 7,40 V & 7,60 V \\ 
+Potência Média & 14,15 W & 15,58 W \\ 
+Energia Consumida (20 min) & 4,71 Wh & 5,19 Wh \\ 
+Condição Final da Bateria & -- & 7,22 V \\ \hline
+\end{tabular}
+\end{table}
+
+A bateria começou o teste com sua carga máxima de 8,4 V (tensão de pico das células Li-po 2S). Ao final do teste, a energia consumida pelo micromouse foi de 5,19 Wh, o que representou uma potência média de 15,58 W. A célula finalizou em 7,2 V.
+Comparando os resultados, o consumo real foi superior ao valor teórico de 4,71 Wh devido ao torque e às perdas térmicas por efeito Joule. O consumo real permaneceu abaixo da demanda projetada com a margem de segurança estabelecida validando a escolha da bateria.
 
 \section{Testes de \textit{software}}
 
 Esta seção apresenta os testes realizados para verificar e validar as funcionalidades implementadas no sistema. Os testes tiveram como objetivo garantir que os requisitos definidos nas histórias de usuário foram atendidos corretamente, bem como avaliar a qualidade do código desenvolvido por meio de testes automatizados em diferentes níveis.
 
-\subsection{Testes do algoritmo de navegação (Floodfill)}
+\subsection{Testes do algoritmo de navegação}
 
 Para validar a lógica de navegação autônoma do robô, foram realizados testes isolados do algoritmo de \textit{Floodfill}. Tendo em vista que o processamento de navegação executará estritamente de forma local no microcontrolador (ESP32-S3), fez-se necessário garantir a corretude da lógica implementada em linguagem C para o mapeamento e otimização de rotas antes da integração com os periféricos de \textit{hardware}.
 
