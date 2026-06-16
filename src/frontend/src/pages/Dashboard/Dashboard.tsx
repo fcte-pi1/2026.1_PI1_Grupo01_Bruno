@@ -105,7 +105,7 @@ export function Dashboard() {
                         datetime: new Date(corrida.metadados?.inicio_timestamp || Date.now()).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }),
                         size: `${corrida.metadados?.dimensao_labirinto || 16}x${corrida.metadados?.dimensao_labirinto || 16}`,
                         status: corrida.metadados?.status || 'concluido',
-                        duracao, velocity, consume, distance: safeNum(ultimaTel?.distancia),
+                        duracao, velocity, consume, distance: safeNum(ultimaTel?.distancia)
                     };
                 });
                 
@@ -123,10 +123,19 @@ export function Dashboard() {
     };
 
     const apagarCorrida = async (param: any) => {
+        console.log('O botão foi clicado!', param);
+
         const idParaApagar = typeof param === 'object' ? param.id : param;
-        if (!idParaApagar) return;
+        console.log('O ID extraído é:', idParaApagar);
+
+        if (!idParaApagar) {	
+            console.error('ERRO: O ID está vazio!');	
+            return;	
+        }
         try {
-            await axios.delete(`${API_URL}corridas/${idParaApagar}`);
+            console.log(`Enviando ordem para apagar a corrida: ${idParaApagar}`);
+            const response = await axios.delete(`http://localhost:3000/corridas/${idParaApagar}`);
+            console.log('Back-end respondeu:', response.data);
             fetchCorridas();
             fetchChartData();
         } catch (error) { 
