@@ -83,13 +83,3 @@ Entre o projeto conceitual e a versão final, foram realizadas as seguintes modi
 - **Realocação dos sensores ToF** das laterais da placa eletrônica para as faces externas do chassi.
 
 Essas alterações resultaram em uma melhor integração entre os componentes do sistema, contribuindo para **maior robustez estrutural e facilidade de montagem**.
-
----
-
-## 5. Rastreabilidade
-
-O desenvolvimento da estrutura pode ser acompanhado pelas seguintes Issues no repositório do projeto:
-
-- [Issue #437 – Relatorio Estrutura: testes chassi](https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/437)
-- [Issue #295 – Estrutura PC1](https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/295)
-- [Issue #464 – Adicionar categoria Áreas > Estruturas no GitPages](https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/464)
