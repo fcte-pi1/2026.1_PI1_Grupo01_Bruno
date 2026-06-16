@@ -6,8 +6,11 @@ import { Button } from '../../components/Button';
 import { Table } from '../../components/Table';
 import type { Column } from '../../components/Table';
 import { Badge } from '../../components/Badge';
+import { Chart } from '../../components/Chart/Chart';
 import { socket } from '../../socket';
 import styles from './Dashboard.module.css';
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 const STATUS_BADGE: Record<string, 'success' | 'warn' | 'alert'> = {
     'Concluído': 'success', 'Falhou': 'alert', 'Em curso': 'warn'
@@ -39,10 +42,45 @@ const columns: Column<any>[] = [
 export function Dashboard() {
     const navigate = useNavigate();
     const [corridasHistorico, setCorridasHistorico] = useState<any[]>([]);
+    const [chartPoints, setChartPoints] = useState<any[]>([]);
     const [stats, setStats] = useState({ qtd: 0, sucesso: 0, tempo: '0.0s', vel: '0.00 m/s', consumo: '0.0 Wh' });
 
+    const fetchChartData = () => {
+        axios.get(`${API_URL}corridas`)
+            .then(response => {
+                const dadosNode = response.data.dados;
+                if (!dadosNode) return;
+
+                const pontos = Object.entries(dadosNode).map(([_, corrida]: any, index) => {
+                    const eventos = corrida.telemetria
+                        ? Object.values(corrida.telemetria) as any[]
+                        : [];
+
+                    const media = (campo: string) =>
+                        eventos.length > 0
+                            ? eventos.reduce((acc: number, e: any) => acc + safeNum(e[campo]), 0) / eventos.length
+                            : 0;
+
+                    const duracao = eventos.length > 1
+                        ? (safeNum((eventos.at(-1) as any)?.timestamp) - safeNum((eventos[0] as any)?.timestamp)) / 1000
+                        : 0;
+
+                    return {
+                        timestamp: index,
+                        hora: `${index + 1}`,
+                        velocidade: media('velocidade'),
+                        tensao: media('tensao'),
+                        corrente: media('corrente'),
+                        duracao,
+                    };
+                });
+
+                setChartPoints(pontos);
+            }).catch(console.error);
+    };
+
     const fetchCorridas = () => {
-        axios.get('http://localhost:3000/corridas')
+        axios.get(`${API_URL}corridas`)
             .then(response => {
                 const dadosNode = response.data.dados;
                 if (!dadosNode) return;
@@ -52,7 +90,6 @@ export function Dashboard() {
 
                 const formatoTabela = corridas.map(([firebaseId, corrida]: any, index) => {
                     const ultimaTel = corrida.telemetria ? Object.values(corrida.telemetria).pop() as any : null;
-                    
                     
                     const duracao = safeNum(ultimaTel?.tempoMedio);
                     const velocity = safeNum(ultimaTel?.velMedia);
@@ -64,7 +101,7 @@ export function Dashboard() {
 
                     return {
                         id: firebaseId,
-                        displayId: index + 1, 
+                        displayId: index + 1,
                         datetime: new Date(corrida.metadados?.inicio_timestamp || Date.now()).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }),
                         size: `${corrida.metadados?.dimensao_labirinto || 16}x${corrida.metadados?.dimensao_labirinto || 16}`,
                         status: corrida.metadados?.status || 'concluido',
@@ -81,35 +118,38 @@ export function Dashboard() {
                     consumo: total > 0 ? ((totalConsumo / total) * 0.0084).toFixed(1) + ' Wh' : '0.0 Wh' 
                 });
 
-                setCorridasHistorico(formatoTabela.reverse().slice(0, 5)); 
+                setCorridasHistorico(formatoTabela.reverse().slice(0, 5));
             }).catch(console.error);
     };
 
     const apagarCorrida = async (param: any) => {
         console.log('O botão foi clicado!', param);
-        
+
         const idParaApagar = typeof param === 'object' ? param.id : param;
         console.log('O ID extraído é:', idParaApagar);
-        
-        if (!idParaApagar) {
-            console.error('ERRO: O ID está vazio!');
-            return;
+
+        if (!idParaApagar) {	
+            console.error('ERRO: O ID está vazio!');	
+            return;	
         }
-        
         try {
             console.log(`Enviando ordem para apagar a corrida: ${idParaApagar}`);
             const response = await axios.delete(`http://localhost:3000/corridas/${idParaApagar}`);
             console.log('Back-end respondeu:', response.data);
-            
-            fetchCorridas(); 
+            fetchCorridas();
+            fetchChartData();
         } catch (error) { 
             console.error("Deu erro na API:", error); 
         }
     };
 
     useEffect(() => {
-        fetchCorridas(); 
-        socket.on('corrida_atualizada', fetchCorridas); 
+        fetchCorridas();
+        fetchChartData();
+        socket.on('corrida_atualizada', () => {
+            fetchCorridas();
+            fetchChartData();
+        });
         return () => { socket.off('corrida_atualizada'); };
     }, []);
 
@@ -141,6 +181,18 @@ export function Dashboard() {
             </div>
             <div style={{ backgroundColor: '#0D0D0D', borderRadius: '12px', border: '1px solid #222', overflowX: 'auto' }}>
                 <Table columns={columns as any} data={corridasHistorico} onDelete={apagarCorrida} />
+            </div>
+
+            <h3 style={{ fontSize: '1.3rem', marginTop: '3rem', marginBottom: '1.5rem' }}>Dados Gerais</h3>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '2rem', width: '100%' }}>
+                <Chart title="VELOCIDADE MÉDIA" dataKey="velocidade" icon="speed" points={chartPoints} />
+                <Chart title="TEMPO MÉDIO DE RESOLUÇÃO" dataKey="duracao" icon="timer" points={chartPoints} />
+            </div>
+
+            <h3 style={{ fontSize: '1.3rem', marginTop: '3rem', marginBottom: '1.5rem' }}>Bateria</h3>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '2rem', width: '100%' }}>
+                <Chart title="VOLTAGEM MÉDIA DA BATERIA" dataKey="tensao" icon="bolt" points={chartPoints} />
+                <Chart title="AMPERAGEM MÉDIA DA BATERIA" dataKey="corrente" icon="electric_bolt" points={chartPoints} />
             </div>
         </div>
     );
