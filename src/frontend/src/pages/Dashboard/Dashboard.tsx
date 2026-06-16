@@ -10,6 +10,8 @@ import { Chart } from '../../components/Chart/Chart';
 import { socket } from '../../socket';
 import styles from './Dashboard.module.css';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const STATUS_BADGE: Record<string, 'success' | 'warn' | 'alert'> = {
     'Concluído': 'success', 'Falhou': 'alert', 'Em curso': 'warn'
 };
@@ -43,8 +45,42 @@ export function Dashboard() {
     const [chartPoints, setChartPoints] = useState<any[]>([]);
     const [stats, setStats] = useState({ qtd: 0, sucesso: 0, tempo: '0.0s', vel: '0.00 m/s', consumo: '0.0 Wh' });
 
+    const fetchChartData = () => {
+        axios.get(`${API_URL}corridas`)
+            .then(response => {
+                const dadosNode = response.data.dados;
+                if (!dadosNode) return;
+
+                const pontos = Object.entries(dadosNode).map(([_, corrida]: any, index) => {
+                    const eventos = corrida.telemetria
+                        ? Object.values(corrida.telemetria) as any[]
+                        : [];
+
+                    const media = (campo: string) =>
+                        eventos.length > 0
+                            ? eventos.reduce((acc: number, e: any) => acc + safeNum(e[campo]), 0) / eventos.length
+                            : 0;
+
+                    const duracao = eventos.length > 1
+                        ? (safeNum((eventos.at(-1) as any)?.timestamp) - safeNum((eventos[0] as any)?.timestamp)) / 1000
+                        : 0;
+
+                    return {
+                        timestamp: index,
+                        hora: `${index + 1}`,
+                        velocidade: media('velocidade'),
+                        tensao: media('tensao'),
+                        corrente: media('corrente'),
+                        duracao,
+                    };
+                });
+
+                setChartPoints(pontos);
+            }).catch(console.error);
+    };
+
     const fetchCorridas = () => {
-        axios.get('http://localhost:3000/corridas')
+        axios.get(`${API_URL}corridas`)
             .then(response => {
                 const dadosNode = response.data.dados;
                 if (!dadosNode) return;
@@ -60,15 +96,6 @@ export function Dashboard() {
                     const mahRestante = safeNum(ultimaTel?.mah_restante);
                     const consume = mahRestante > 0 ? 1000 - mahRestante : 0;
 
-                    // calcula médias de tensão e corrente iterando pelos eventos
-                    const eventos = corrida.telemetria ? Object.values(corrida.telemetria) as any[] : [];
-                    const mediaTensao = eventos.length > 0
-                        ? eventos.reduce((acc: number, e: any) => acc + safeNum(e.tensao), 0) / eventos.length
-                        : 0;
-                    const mediaCorrente = eventos.length > 0
-                        ? eventos.reduce((acc: number, e: any) => acc + safeNum(e.corrente), 0) / eventos.length
-                        : 0;
-
                     totalTempo += duracao; totalVel += velocity; totalConsumo += consume;
                     if (corrida.metadados?.status === 'concluido') concluidas++;
 
@@ -79,13 +106,6 @@ export function Dashboard() {
                         size: `${corrida.metadados?.dimensao_labirinto || 16}x${corrida.metadados?.dimensao_labirinto || 16}`,
                         status: corrida.metadados?.status || 'concluido',
                         duracao, velocity, consume, distance: safeNum(ultimaTel?.distancia),
-
-                        // campos para o Chart
-                        timestamp: index,
-                        hora: `${index + 1}`,       
-                        velocidade: velocity,
-                        tensao: mediaTensao,
-                        corrente: mediaCorrente,
                     };
                 });
                 
@@ -99,8 +119,6 @@ export function Dashboard() {
                 });
 
                 setCorridasHistorico(formatoTabela.reverse().slice(0, 5));
-                // chart usa todas as corridas, na ordem cronológica original
-                setChartPoints([...formatoTabela].reverse());
             }).catch(console.error);
     };
 
@@ -108,16 +126,21 @@ export function Dashboard() {
         const idParaApagar = typeof param === 'object' ? param.id : param;
         if (!idParaApagar) return;
         try {
-            await axios.delete(`http://localhost:3000/corridas/${idParaApagar}`);
-            fetchCorridas(); 
+            await axios.delete(`${API_URL}corridas/${idParaApagar}`);
+            fetchCorridas();
+            fetchChartData();
         } catch (error) { 
             console.error("Deu erro na API:", error); 
         }
     };
 
     useEffect(() => {
-        fetchCorridas(); 
-        socket.on('corrida_atualizada', fetchCorridas); 
+        fetchCorridas();
+        fetchChartData();
+        socket.on('corrida_atualizada', () => {
+            fetchCorridas();
+            fetchChartData();
+        });
         return () => { socket.off('corrida_atualizada'); };
     }, []);
 
