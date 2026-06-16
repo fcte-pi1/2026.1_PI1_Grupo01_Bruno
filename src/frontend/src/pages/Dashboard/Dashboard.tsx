@@ -6,6 +6,7 @@ import { Button } from '../../components/Button';
 import { Table } from '../../components/Table';
 import type { Column } from '../../components/Table';
 import { Badge } from '../../components/Badge';
+import { Chart } from '../../components/Chart/Chart';
 import { socket } from '../../socket';
 import styles from './Dashboard.module.css';
 
@@ -39,6 +40,7 @@ const columns: Column<any>[] = [
 export function Dashboard() {
     const navigate = useNavigate();
     const [corridasHistorico, setCorridasHistorico] = useState<any[]>([]);
+    const [chartPoints, setChartPoints] = useState<any[]>([]);
     const [stats, setStats] = useState({ qtd: 0, sucesso: 0, tempo: '0.0s', vel: '0.00 m/s', consumo: '0.0 Wh' });
 
     const fetchCorridas = () => {
@@ -53,22 +55,37 @@ export function Dashboard() {
                 const formatoTabela = corridas.map(([firebaseId, corrida]: any, index) => {
                     const ultimaTel = corrida.telemetria ? Object.values(corrida.telemetria).pop() as any : null;
                     
-                    
                     const duracao = safeNum(ultimaTel?.tempoMedio);
                     const velocity = safeNum(ultimaTel?.velMedia);
                     const mahRestante = safeNum(ultimaTel?.mah_restante);
                     const consume = mahRestante > 0 ? 1000 - mahRestante : 0;
+
+                    // calcula médias de tensão e corrente iterando pelos eventos
+                    const eventos = corrida.telemetria ? Object.values(corrida.telemetria) as any[] : [];
+                    const mediaTensao = eventos.length > 0
+                        ? eventos.reduce((acc: number, e: any) => acc + safeNum(e.tensao), 0) / eventos.length
+                        : 0;
+                    const mediaCorrente = eventos.length > 0
+                        ? eventos.reduce((acc: number, e: any) => acc + safeNum(e.corrente), 0) / eventos.length
+                        : 0;
 
                     totalTempo += duracao; totalVel += velocity; totalConsumo += consume;
                     if (corrida.metadados?.status === 'concluido') concluidas++;
 
                     return {
                         id: firebaseId,
-                        displayId: index + 1, 
+                        displayId: index + 1,
                         datetime: new Date(corrida.metadados?.inicio_timestamp || Date.now()).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }),
                         size: `${corrida.metadados?.dimensao_labirinto || 16}x${corrida.metadados?.dimensao_labirinto || 16}`,
                         status: corrida.metadados?.status || 'concluido',
-                        duracao, velocity, consume, distance: safeNum(ultimaTel?.distancia)
+                        duracao, velocity, consume, distance: safeNum(ultimaTel?.distancia),
+
+                        // campos para o Chart
+                        timestamp: index,
+                        hora: `${index + 1}`,       
+                        velocidade: velocity,
+                        tensao: mediaTensao,
+                        corrente: mediaCorrente,
                     };
                 });
                 
@@ -81,26 +98,17 @@ export function Dashboard() {
                     consumo: total > 0 ? ((totalConsumo / total) * 0.0084).toFixed(1) + ' Wh' : '0.0 Wh' 
                 });
 
-                setCorridasHistorico(formatoTabela.reverse().slice(0, 5)); 
+                setCorridasHistorico(formatoTabela.reverse().slice(0, 5));
+                // chart usa todas as corridas, na ordem cronológica original
+                setChartPoints([...formatoTabela].reverse());
             }).catch(console.error);
     };
 
     const apagarCorrida = async (param: any) => {
-        console.log('O botão foi clicado!', param);
-        
         const idParaApagar = typeof param === 'object' ? param.id : param;
-        console.log('O ID extraído é:', idParaApagar);
-        
-        if (!idParaApagar) {
-            console.error('ERRO: O ID está vazio!');
-            return;
-        }
-        
+        if (!idParaApagar) return;
         try {
-            console.log(`Enviando ordem para apagar a corrida: ${idParaApagar}`);
-            const response = await axios.delete(`http://localhost:3000/corridas/${idParaApagar}`);
-            console.log('Back-end respondeu:', response.data);
-            
+            await axios.delete(`http://localhost:3000/corridas/${idParaApagar}`);
             fetchCorridas(); 
         } catch (error) { 
             console.error("Deu erro na API:", error); 
@@ -141,6 +149,18 @@ export function Dashboard() {
             </div>
             <div style={{ backgroundColor: '#0D0D0D', borderRadius: '12px', border: '1px solid #222', overflowX: 'auto' }}>
                 <Table columns={columns as any} data={corridasHistorico} onDelete={apagarCorrida} />
+            </div>
+
+            <h3 style={{ fontSize: '1.3rem', marginTop: '3rem', marginBottom: '1.5rem' }}>Dados Gerais</h3>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '2rem', width: '100%' }}>
+                <Chart title="VELOCIDADE MÉDIA" dataKey="velocidade" icon="speed" points={chartPoints} />
+                <Chart title="TEMPO MÉDIO DE RESOLUÇÃO" dataKey="duracao" icon="timer" points={chartPoints} />
+            </div>
+
+            <h3 style={{ fontSize: '1.3rem', marginTop: '3rem', marginBottom: '1.5rem' }}>Bateria</h3>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '2rem', width: '100%' }}>
+                <Chart title="VOLTAGEM MÉDIA DA BATERIA" dataKey="tensao" icon="bolt" points={chartPoints} />
+                <Chart title="AMPERAGEM MÉDIA DA BATERIA" dataKey="corrente" icon="electric_bolt" points={chartPoints} />
             </div>
         </div>
     );
