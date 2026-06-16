@@ -1,0 +1,1279 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://fcte-pi1.github.io/2026.1_PI1_Grupo01_Bruno/entrega2/hardware/">
+      
+      
+        <link rel="prev" href="../introducao/">
+      
+      
+        <link rel="next" href="../../entrega3/introducao/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Hardware - XAROPi</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/css/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="deep-orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-algoritmo-de-navegacao" class="md-skip">
+          Ir para o conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="../.." title="XAROPi" class="md-header__button md-logo" aria-label="XAROPi" data-md-component="logo">
+      
+  <img src="../../assets/images/logo-xaropi.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            XAROPi
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hardware
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Abas" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  HOME
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../entrega1/requisitos/" class="md-tabs__link">
+          
+  
+  
+  ENTREGA 1
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../introducao/" class="md-tabs__link">
+          
+  
+  
+  ENTREGA 2
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../entrega3/introducao/" class="md-tabs__link">
+          
+  
+  
+  ENTREGA 3
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../areas/estruturas/" class="md-tabs__link">
+          
+  
+  
+  ÁREAS
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="XAROPi" class="md-nav__button md-logo" aria-label="XAROPi" data-md-component="logo">
+      
+  <img src="../../assets/images/logo-xaropi.svg" alt="logo">
+
+    </a>
+    XAROPi
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HOME
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ENTREGA 1
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ENTREGA 1
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entrega1/requisitos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Requisitos
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entrega1/descricao_software/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Descrição de Software
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ENTREGA 2
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ENTREGA 2
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introducao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Em breve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-algoritmo-de-navegacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Algoritmo de Navegação
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Algoritmo de Navegação">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-definicao-e-rastreabilidade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Definição e Rastreabilidade
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-configuracoes-e-definicoes-iniciais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Configurações e Definições Iniciais
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-memoria-do-robo-variaveis-globais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Memória do Robô (Variáveis Globais)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-estrutura-de-fila-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 Estrutura de Fila (Queue)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-mapeamento-inteligente-de-paredes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 Mapeamento Inteligente de Paredes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-o-coracao-algoritmo-flood-fill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6 O Coração: Algoritmo Flood Fill
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17-decisao-e-movimentacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.7 Decisão e Movimentação
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18-o-loop-principal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8 O Loop Principal
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ENTREGA 3
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ENTREGA 3
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entrega3/introducao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Em breve
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ÁREAS
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ÁREAS
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../areas/estruturas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Estruturas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-algoritmo-de-navegacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Algoritmo de Navegação
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Algoritmo de Navegação">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-definicao-e-rastreabilidade" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Definição e Rastreabilidade
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-configuracoes-e-definicoes-iniciais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Configurações e Definições Iniciais
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-memoria-do-robo-variaveis-globais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Memória do Robô (Variáveis Globais)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-estrutura-de-fila-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 Estrutura de Fila (Queue)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-mapeamento-inteligente-de-paredes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 Mapeamento Inteligente de Paredes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-o-coracao-algoritmo-flood-fill" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6 O Coração: Algoritmo Flood Fill
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17-decisao-e-movimentacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.7 Decisão e Movimentação
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18-o-loop-principal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8 O Loop Principal
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Hardware</h1>
+
+<h2 id="1-algoritmo-de-navegacao">1. Algoritmo de Navegação</h2>
+<h3 id="11-definicao-e-rastreabilidade">1.1 Definição e Rastreabilidade</h3>
+<p>O algoritmo <strong>Flood Fill</strong> (Preenchimento por Inundação) é uma técnica clássica utilizada em competições de robótica para mapear e encontrar o centro de um labirinto desconhecido. </p>
+<p>Nesta seção, vamos destrinchar uma implementação em C feita para o simulador MMS, bloco a bloco, para entender como o robô constrói sua memória sobre o labirinto e decide seu próximo passo.</p>
+<p>O desenvolvimento do algoritmo, pode ser mapeada e rastreada através da seguinte Issue:
+<a href="https://github.com/fcte-pi1/2026.1_PI1_Grupo01_Bruno/issues/266">Desenvolvimento e Simulação do Flood Fill em C #266</a>.</p>
+<hr />
+<h3 id="12-configuracoes-e-definicoes-iniciais">1.2 Configurações e Definições Iniciais</h3>
+<p>No início do código, definimos as bibliotecas padrão, as constantes do mundo do robô e como as paredes serão representadas na memória. Utilizamos valores hexadecimais para as paredes, o que nos permite usar operações de bits.</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdint.h&gt;
+#include &lt;stdbool.h&gt;
+#include &quot;API.h&quot;
+
+// --- PARÂMETROS DO LABIRINTO ---
+#define SIZE 16
+#define TOTAL_CELLS (SIZE * SIZE)
+
+#define DIR_NORTH 0
+#define DIR_EAST  1
+#define DIR_SOUTH 2
+#define DIR_WEST  3
+
+#define WALL_NORTH 0x01
+#define WALL_EAST  0x02
+#define WALL_SOUTH 0x04
+#define WALL_WEST  0x08
+</code></pre>
+<hr />
+<h3 id="13-memoria-do-robo-variaveis-globais">1.3 Memória do Robô (Variáveis Globais)</h3>
+<p>Aqui criamos as matrizes que representam o mapa mental que o robô vai construindo enquanto explora. A matriz <code>maze</code> guarda as paredes, enquanto <code>distances</code> guarda o "peso" (distância) de cada célula até o destino.</p>
+<pre><code class="language-c">uint8_t maze[SIZE][SIZE] = {0}; 
+uint8_t distances[SIZE][SIZE]; 
+
+int current_x = 0;
+int current_y = 0;
+int current_dir = DIR_NORTH; 
+</code></pre>
+<hr />
+<h3 id="14-estrutura-de-fila-queue">1.4 Estrutura de Fila (Queue)</h3>
+<p>O Flood Fill funciona de forma similar à água se espalhando (Busca em Largura). Para olhar os vizinhos mais próximos antes dos mais distantes, precisamos de uma estrutura de Fila Circular.</p>
+<pre><code class="language-c">// --- FILA PARA O FLOOD FILL ---
+typedef struct { uint8_t x, y; } Cell;
+Cell queue[TOTAL_CELLS];
+int head = 0, tail = 0;
+
+void enqueue(uint8_t x, uint8_t y) {
+    queue[tail].x = x; queue[tail].y = y;
+    tail = (tail + 1) % TOTAL_CELLS; 
+}
+
+Cell dequeue() {
+    Cell c = queue[head];
+    head = (head + 1) % TOTAL_CELLS;
+    return c;
+}
+
+bool isQueueEmpty() { return head == tail; }
+</code></pre>
+<hr />
+<h3 id="15-mapeamento-inteligente-de-paredes">1.5 Mapeamento Inteligente de Paredes</h3>
+<p>Quando o robô detecta uma parede, ele a registra no seu mapa <code>maze</code> usando a operação <code>|=</code> (OR bit a bit). Como toda parede divide duas células, o código garante a consistência avisando o vizinho sobre a nova parede.</p>
+<pre><code class="language-c">void setWallAbsoluta(int x, int y, int dir) {
+    if (dir == DIR_NORTH) {
+        maze[x][y] |= WALL_NORTH;
+        if (y &lt; SIZE - 1) maze[x][y + 1] |= WALL_SOUTH; // Vizinho ganha parede no Sul
+    } else if (dir == DIR_EAST) {
+        maze[x][y] |= WALL_EAST;
+        if (x &lt; SIZE - 1) maze[x + 1][y] |= WALL_WEST;  // Vizinho ganha parede no Oeste
+    } else if (dir == DIR_SOUTH) {
+        maze[x][y] |= WALL_SOUTH;
+        if (y &gt; 0) maze[x][y - 1] |= WALL_NORTH;        // Vizinho ganha parede no Norte
+    } else if (dir == DIR_WEST) {
+        maze[x][y] |= WALL_WEST;
+        if (x &gt; 0) maze[x - 1][y] |= WALL_EAST;         // Vizinho ganha parede no Leste
+    }
+}
+</code></pre>
+<hr />
+<h3 id="16-o-coracao-algoritmo-flood-fill">1.6 O Coração: Algoritmo Flood Fill</h3>
+<p>Esta função recalcula todas as rotas com base nas paredes descobertas até o momento. Ela reseta o mapa para <code>255</code> (infinito), define o alvo (as 4 células centrais) como <code>0</code>, e "inunda" os vizinhos acessíveis somando <code>+ 1</code> à distância.</p>
+<pre><code class="language-c">// --- ALGORITMO FLOOD FILL ---
+void floodFill() {
+    for (int i = 0; i &lt; SIZE; i++) {
+        for (int j = 0; j &lt; SIZE; j++) {
+            distances[i][j] = 255;
+        }
+    }
+
+    head = 0; tail = 0;
+
+    uint8_t c1 = (SIZE / 2) - 1;
+    uint8_t c2 = (SIZE / 2);
+
+    distances[c1][c1] = 0; enqueue(c1, c1);
+    distances[c1][c2] = 0; enqueue(c1, c2);
+    distances[c2][c1] = 0; enqueue(c2, c1);
+    distances[c2][c2] = 0; enqueue(c2, c2);
+
+    while (!isQueueEmpty()) {
+        Cell current = dequeue();
+        uint8_t cx = current.x;
+        uint8_t cy = current.y;
+        uint8_t d = distances[cx][cy];
+
+        if (cy &lt; (SIZE - 1) &amp;&amp; !(maze[cx][cy] &amp; WALL_NORTH) &amp;&amp; distances[cx][cy + 1] == 255) { 
+            distances[cx][cy + 1] = d + 1; enqueue(cx, cy + 1); 
+        }
+        if (cy &gt; 0 &amp;&amp; !(maze[cx][cy] &amp; WALL_SOUTH) &amp;&amp; distances[cx][cy - 1] == 255) {
+            distances[cx][cy - 1] = d + 1; enqueue(cx, cy - 1);
+        }
+        if (cx &lt; (SIZE - 1) &amp;&amp; !(maze[cx][cy] &amp; WALL_EAST) &amp;&amp; distances[cx + 1][cy] == 255) {
+            distances[cx + 1][cy] = d + 1; enqueue(cx + 1, cy);
+        }
+        if (cx &gt; 0 &amp;&amp; !(maze[cx][cy] &amp; WALL_WEST) &amp;&amp; distances[cx - 1][cy] == 255) {
+            distances[cx - 1][cy] = d + 1; enqueue(cx - 1, cy);
+        }
+    }
+}
+</code></pre>
+<hr />
+<h3 id="17-decisao-e-movimentacao">1.7 Decisão e Movimentação</h3>
+<p>Com o labirinto inundado por valores, o robô procura o vizinho acessível com a menor distância, calcula a manobra necessária para alinhar o "nariz" e se move para a frente.</p>
+<pre><code class="language-c">// --- LÓGICA DE DECISÃO E MOVIMENTO ---
+void decidirEMover() {
+    uint8_t min_dist = 255;
+    int best_dir = current_dir; 
+
+    if (current_y &lt; (SIZE - 1) &amp;&amp; !(maze[current_x][current_y] &amp; WALL_NORTH)) {
+        if (distances[current_x][current_y + 1] &lt; min_dist) {
+            min_dist = distances[current_x][current_y + 1]; best_dir = DIR_NORTH;
+        }
+    }
+    if (current_x &lt; (SIZE - 1) &amp;&amp; !(maze[current_x][current_y] &amp; WALL_EAST)) {
+        if (distances[current_x + 1][current_y] &lt; min_dist) {
+            min_dist = distances[current_x + 1][current_y]; best_dir = DIR_EAST;
+        }
+    }
+    if (current_y &gt; 0 &amp;&amp; !(maze[current_x][current_y] &amp; WALL_SOUTH)) {
+        if (distances[current_x][current_y - 1] &lt; min_dist) {
+            min_dist = distances[current_x][current_y - 1]; best_dir = DIR_SOUTH;
+        }
+    }
+    if (current_x &gt; 0 &amp;&amp; !(maze[current_x][current_y] &amp; WALL_WEST)) {
+        if (distances[current_x - 1][current_y] &lt; min_dist) {
+            min_dist = distances[current_x - 1][current_y]; best_dir = DIR_WEST;
+        }
+    }
+
+    int turn_diff = (best_dir - current_dir + 4) % 4;
+
+    if (turn_diff == 1) {
+        API_turnRight();
+    } else if (turn_diff == 2) {
+        API_turnRight();
+        API_turnRight(); 
+    } else if (turn_diff == 3) {
+        API_turnLeft();
+    }
+
+    current_dir = best_dir;
+    API_moveForward();
+
+    if (current_dir == DIR_NORTH) current_y += 1;
+    else if (current_dir == DIR_EAST)  current_x += 1;
+    else if (current_dir == DIR_SOUTH) current_y -= 1;
+    else if (current_dir == DIR_WEST)  current_x -= 1;
+}
+</code></pre>
+<hr />
+<h3 id="18-o-loop-principal">1.8 O Loop Principal</h3>
+<p>O maestro que une todas as etapas em um ciclo contínuo. Ele traduz as leituras relativas dos sensores para paredes absolutas, inunda o labirinto e toma a decisão de movimento, parando apenas quando <code>distances == 0</code>.</p>
+<pre><code class="language-c">// --- LOOP PRINCIPAL ---
+int main() {
+    API_setColor(0, 0, 'G'); 
+    API_setText(0, 0, &quot;START&quot;);
+
+    floodFill(); 
+
+    while(true) {
+        if (distances[current_x][current_y] == 0) {
+            API_setText(current_x, current_y, &quot;WIN!&quot;);
+            API_setColor(current_x, current_y, 'G'); 
+            break; 
+        }
+
+        // PASSO 1: Lê Sensores Relativos
+        bool wallFront = API_wallFront();
+        bool wallRight = API_wallRight();
+        bool wallLeft  = API_wallLeft();
+
+        // PASSO 2: Traduz Paredes Relativas para Absolutas
+        int dirFront = current_dir;
+        int dirRight = (current_dir + 1) % 4;
+        int dirLeft  = (current_dir + 3) % 4;
+
+        if (wallFront) setWallAbsoluta(current_x, current_y, dirFront);
+        if (wallRight) setWallAbsoluta(current_x, current_y, dirRight);
+        if (wallLeft)  setWallAbsoluta(current_x, current_y, dirLeft);
+
+        // Atualiza a interface gráfica do MMS (Paredes)
+        if (maze[current_x][current_y] &amp; WALL_NORTH) API_setWall(current_x, current_y, 'n');
+        if (maze[current_x][current_y] &amp; WALL_EAST)  API_setWall(current_x, current_y, 'e');
+        if (maze[current_x][current_y] &amp; WALL_SOUTH) API_setWall(current_x, current_y, 's');
+        if (maze[current_x][current_y] &amp; WALL_WEST)  API_setWall(current_x, current_y, 'w');
+
+        // PASSO 3: Inunda o Labirinto 
+        floodFill();
+
+        // Atualiza a interface gráfica do MMS (Textos)
+        char text_dist[5];
+        sprintf(text_dist, &quot;%d&quot;, distances[current_x][current_y]);
+        API_setText(current_x, current_y, text_dist);
+        API_setColor(current_x, current_y, 'Y'); 
+
+        // PASSO 4: Decide e move
+        decidirEMover();
+    }
+
+    return 0;
+}
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.instant", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
