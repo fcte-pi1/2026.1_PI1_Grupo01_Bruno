@@ -26,8 +26,10 @@ nav:
   - ENTREGA 2: 
       - Em breve: entrega2/introducao.md
       - Hardware: entrega2/hardware.md
-  - ENTREGA 3: 
+  - ENTREGA 3:
       - Em breve: entrega3/introducao.md
+  - ÁREAS:
+      - Estruturas: areas/estruturas.md
 
 
 extra_css:
