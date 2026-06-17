@@ -4,7 +4,10 @@ import { socket } from '../../socket';
 import { Card } from '../../components/Card';
 import { ControlBtn } from '../../components/ControlBtn';
 import { Maze } from '../../components/Maze';
-import { Chart } from '../../components/Chart/Chart';
+import { Chart } from '../../components/Chart';
+import { Log } from '../../components/Log';
+import { Modal } from '../../components/Modal';
+import styles from './Percurso.module.css';
 
 interface LogEntry { time: string; message: string; type: 'info' | 'success' | 'warning'; }
 
@@ -141,66 +144,57 @@ export function Percurso() {
     ];
 
     return (
-        <div style={{ width: '100%', paddingBottom: '4rem', color: '#FFF' }}>
-            
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', width: '100%', alignItems: 'center', marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.6rem', margin: 0, textTransform: 'uppercase' }}>PERCURSO #{shortId}</h2>
-                <div>
-                    <ControlBtn 
-                        onStart={() => enviarComando('iniciar')} onPause={() => enviarComando('pausar')}
-                        onResume={() => enviarComando('continuar')} onCancel={() => enviarComando('cancelar')}
-                        onRestart={() => enviarComando('reiniciar')}
-                    />
+        <div className={styles.MainTest}>
+            <section>
+                <div className={styles.TopInfos}>
+                    <h2>Percurso #{shortId}</h2>
+                    <div>
+                        <ControlBtn 
+                            onStart={() => enviarComando('iniciar')} onPause={() => enviarComando('pausar')}
+                            onResume={() => enviarComando('continuar')} onCancel={() => enviarComando('cancelar')}
+                            onRestart={() => enviarComando('reiniciar')}
+                        />
+                    </div>
                 </div>
-            </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'minmax(350px, 450px) 1fr', gap: '2rem', width: '100%' }}>
-                <div style={{ backgroundColor: '#0D0D0D', padding: '1.5rem', borderRadius: '12px', border: '1px solid #222', width: '100%' }}>
+                <div className={styles.Content}>
                     <Maze size={mazeSize as any} updates={updates} path={path} />
-                </div>
-                
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
-                        {cards.map(card => <Card key={card.label} icon={card.icon} label={card.label} value={card.value} size="default" />)}
-                    </div>
-    
-                    <div style={{ backgroundColor: '#0D0D0D', border: '1px solid #222', borderRadius: '12px', padding: '1rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.8rem' }}>
-                            <h4 style={{ margin: 0, fontSize: '0.85rem', color: '#FFF', letterSpacing: '1px' }}>LOG DE TESTE</h4>
-                            <span onClick={() => setIsLogModalOpen(true)} style={{ fontSize: '0.75rem', color: '#FF5A00', cursor: 'pointer', fontWeight: 'bold' }}>📄 VER LOG COMPLETO</span>
+                    
+                    <div className={styles.InfosLog}>
+                        <div className={styles.ControlCards}>
+                            {cards.map(card => <Card key={card.label} icon={card.icon} label={card.label} value={card.value} size="default" />)}
                         </div>
-                        <div style={{ height: '150px', overflowY: 'auto', fontFamily: 'monospace', fontSize: '0.85rem', color: '#AAA' }}>
-                            {logs.length === 0 ? <span>Aguardando eventos...</span> : logs.slice(-6).map((log, index) => (
-                                <div key={index} style={{ color: log.type === 'success' ? '#00E676' : log.type === 'warning' ? '#FFC107' : '#AAAAAA', marginBottom: '6px' }}>
-                                    {log.time} {log.message}
-                                </div>
-                            ))}
-                        </div>
+        
+                        <Log 
+                            entries={logs}
+                            onViewFull={() => setIsLogModalOpen(true)}
+                        />
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <h3 style={{ fontSize: '1.3rem', marginTop: '3rem', marginBottom: '1.5rem' }}>Dados Gerais</h3>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '2rem', width: '100%' }}>
-                <Chart title="VELOCIDADE DURANTE O TESTE" dataKey="velocidade" icon="speed" points={points} />
-                <Chart title="EVOLUÇÃO DA DISTÂNCIA" dataKey="distancia" icon="alt_route" points={points} />
-                <Chart title="VOLTAGEM DA BATERIA" dataKey="tensao" icon="bolt" points={points} />
-                <Chart title="AMPERAGEM DA BATERIA" dataKey="corrente" icon="electric_bolt" points={points} />
-            </div>
-
-            {isLogModalOpen && (
-                <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', backgroundColor: 'rgba(0,0,0,0.8)', zIndex: 9999, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <div style={{ width: '600px', backgroundColor: '#0D0D0D', border: '1px solid #333', borderRadius: '12px', padding: '1.5rem' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                            <h3 style={{ color: '#FFF', margin: 0 }}>LOG DE TESTE COMPLETO</h3>
-                            <button onClick={() => setIsLogModalOpen(false)} style={{ background: 'transparent', color: '#FF5A00', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}>✕ FECHAR LOG</button>
-                        </div>
-                        <div style={{ backgroundColor: '#1A1A1A', borderRadius: '8px', padding: '1rem', height: '400px', overflowY: 'auto', fontFamily: 'monospace', fontSize: '0.85rem' }}>
-                            {logs.map((log, index) => <div key={index} style={{ color: log.type === 'success' ? '#00E676' : log.type === 'warning' ? '#FFC107' : '#AAAAAA', marginBottom: '4px' }}>{log.time} {log.message}</div>)}
-                        </div>
-                    </div>
+            <section>
+                <h3>Dados Gerais</h3>
+                <div className={styles.Charts}>
+                    <Chart title="VELOCIDADE DURANTE O TESTE" dataKey="velocidade" icon="speed" points={points} />
+                    <Chart title="EVOLUÇÃO DA DISTÂNCIA" dataKey="distancia" icon="alt_route" points={points} />
+                    <Chart title="VOLTAGEM DA BATERIA" dataKey="tensao" icon="bolt" points={points} />
+                    <Chart title="AMPERAGEM DA BATERIA" dataKey="corrente" icon="electric_bolt" points={points} />
                 </div>
-            )}
+            </section>
+
+        {isLogModalOpen && (
+            <Modal
+                open={isLogModalOpen}
+                onClose={() => setIsLogModalOpen(false)}
+                title="Log de teste"
+            >
+                <div>
+                    <Log entries={logs} standalone={false} />
+
+                </div>
+            </Modal>
+        )}
         </div>
     );
 }

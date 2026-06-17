@@ -314,6 +314,7 @@
     border-top: 1px solid var(--border);
   }
   .canvas {
+    display: flex;
     height: 400px !important;
     order: 1; 
   }

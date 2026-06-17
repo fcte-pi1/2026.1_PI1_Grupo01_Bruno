@@ -37,7 +37,7 @@ dialog {
     align-items: center;
     gap: var(--spacing-base);
     align-self: stretch;
-    border-bottom: 1px solid var(--border);
+    /* border-bottom: 1px solid var(--border); */
     justify-content: space-between;
 
 }
@@ -60,7 +60,7 @@ dialog {
     align-items: center;
     gap: var(--spacing-base);
     align-self: stretch;
-    border-top: 1px solid var(--border);
+    /* border-top: 1px solid var(--border); */
 }
 
 .BtnFull {

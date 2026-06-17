@@ -73,7 +73,7 @@ function AppLayout() {
               <h1>{label}</h1>
               <p>{description}</p>
             </div>
-            <div className={styles.TopPageRight} style={{ display: 'flex', gap: '1rem', width: 'auto' }}>
+            <div className={styles.TopPageRight}>
               <Connection status={connection.status} port={connection.port} />
               <Battery level={battery.level} voltage={battery.voltage} />
             </div>
