@@ -27,14 +27,14 @@ export function Chart({ title, icon, dataKey, points }: ChartProps) {
       ? data.reduce((acc, item) => acc + ((item as any)[dataKey] ?? 0), 0) / data.length
       : null;
 
-  const formatValue = (value: number) => {
-    const rounded = Number(value.toFixed(2));
-    if (dataKey === 'velocidade') return `${value} m/s`;
-    if (dataKey === 'distancia') return `${value} m`;
-    if (dataKey === 'tensao') return `${value} V`;
-    if (dataKey === 'corrente') return `${value} mA`;
+const formatValue = (value: number) => {
+    const rounded = Number(value.toFixed(3));
+    if (dataKey === 'velocidade') return `${rounded} m/s`;
+    if (dataKey === 'distancia') return `${rounded} m`;
+    if (dataKey === 'tensao') return `${rounded} V`;
+    if (dataKey === 'corrente') return `${rounded} mA`;
     return rounded;
-  };
+};
 
   return (
     <div className={styles.ChartContainer}>
