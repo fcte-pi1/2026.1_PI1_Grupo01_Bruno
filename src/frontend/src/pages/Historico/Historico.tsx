@@ -85,10 +85,10 @@ export function Historico() {
     };
 
     return (
-        <div style={{ width: '100%', color: '#FFF' }}>
-            <div style={{ backgroundColor: '#0D0D0D', borderRadius: '12px', border: '1px solid #222', overflowX: 'auto' }}>
+        <>
+            <div>
                 <Table columns={columns} data={data} onDelete={apagarCorrida} />
             </div>
-        </div>
+        </>
     );
 }

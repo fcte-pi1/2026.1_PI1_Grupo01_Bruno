@@ -159,41 +159,45 @@ export function Dashboard() {
         { icon: 'timer', label: 'tempo médio', value: stats.tempo, size: 'lg' as const },
         { icon: 'speed', label: 'Vel. média geral', value: stats.vel, size: 'lg' as const },
         { icon: 'electric_bolt', label: 'Cons. energ. médio', value: stats.consumo, size: 'lg' as const },
-        { icon: 'sync', label: 'Lat. méd. de comunicação', value: '18–120 ms', size: 'default' as const },
-        { icon: 'alt_route', label: 'Eficiência de trajeto', value: '70,5%', size: 'default' as const },
-        { icon: 'thermostat', label: 'Temp. média do sistema', value: '48°C', size: 'default' as const },
-        { icon: 'shield', label: 'Confiabilidade geral', value: '92%', size: 'default' as const },
+        // { icon: 'sync', label: 'Lat. méd. de comunicação', value: '18–120 ms', size: 'default' as const },
+        // { icon: 'alt_route', label: 'Eficiência de trajeto', value: '70,5%', size: 'default' as const },
+        // { icon: 'thermostat', label: 'Temp. média do sistema', value: '48°C', size: 'default' as const },
+        // { icon: 'shield', label: 'Confiabilidade geral', value: '92%', size: 'default' as const },
     ];
 
     return (
-        <div style={{ width: '100%', color: '#FFF' }}>
-            <div className={styles.Cards}>
+        <>
+            <div className={styles.BtnRoute}>
+                <Button icon='add' label='NOVO PERCURSO' onClick={() => navigate('/percurso')} />
+            </div>
+
+            <section className={styles.Cards}>
                 {cardsData.map(stat => (
                     <div key={stat.label} className={stat.size === 'lg' ? styles.SpanLg : styles.SpanDefault}>
                         <Card icon={stat.icon} label={stat.label} value={stat.value} size={stat.size} />
                     </div>    
                 ))}
-            </div>
+            </section>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '4rem', marginBottom: '1.5rem' }}>
-                <h3 style={{ fontSize: '1.3rem', margin: 0 }}>Histórico de testes</h3>
-                <Button icon='add' label='NOVO PERCURSO' onClick={() => navigate('/percurso')} />
-            </div>
-            <div style={{ backgroundColor: '#0D0D0D', borderRadius: '12px', border: '1px solid #222', overflowX: 'auto' }}>
+            <section className={styles.SectionDefault}>
+                <section className={styles.SectionDefault}>
+                    <h3>Dados Gerais</h3>
+                    <div className={styles.Charts}>
+                        <Chart title="VELOCIDADE MÉDIA" dataKey="velocidade" icon="speed" points={chartPoints} />
+                        <Chart title="TEMPO MÉDIO DE RESOLUÇÃO" dataKey="duracao" icon="timer" points={chartPoints} />
+                        <Chart title="VOLTAGEM MÉDIA DA BATERIA" dataKey="tensao" icon="bolt" points={chartPoints} />
+                        <Chart title="AMPERAGEM MÉDIA DA BATERIA" dataKey="corrente" icon="electric_bolt" points={chartPoints} />
+                    </div>
+                </section>
+            </section>
+
+            <section className={styles.SectionDefault}>
+                <div className={styles.PageTitle}>
+                    <h3>Histórico</h3>
+                    <Button icon='history' hierarchy="tertiary" label='Ver tudo' aria-label="Navegar para histórico" onClick={() => navigate('/historico')} />
+                </div>
                 <Table columns={columns as any} data={corridasHistorico} onDelete={apagarCorrida} />
-            </div>
-
-            <h3 style={{ fontSize: '1.3rem', marginTop: '3rem', marginBottom: '1.5rem' }}>Dados Gerais</h3>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '2rem', width: '100%' }}>
-                <Chart title="VELOCIDADE MÉDIA" dataKey="velocidade" icon="speed" points={chartPoints} />
-                <Chart title="TEMPO MÉDIO DE RESOLUÇÃO" dataKey="duracao" icon="timer" points={chartPoints} />
-            </div>
-
-            <h3 style={{ fontSize: '1.3rem', marginTop: '3rem', marginBottom: '1.5rem' }}>Bateria</h3>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '2rem', width: '100%' }}>
-                <Chart title="VOLTAGEM MÉDIA DA BATERIA" dataKey="tensao" icon="bolt" points={chartPoints} />
-                <Chart title="AMPERAGEM MÉDIA DA BATERIA" dataKey="corrente" icon="electric_bolt" points={chartPoints} />
-            </div>
-        </div>
+            </section>
+        </>
     );
 }
