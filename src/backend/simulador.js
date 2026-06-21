@@ -45,7 +45,7 @@ function emitirDados() {
     }
 
     const pos = pathReal[passoAtual];
-    bateriaMah -= 5; // Simula a bateria caindo a cada passo
+    bateriaMah -= 5; // Simula a bateria ccaindo a cada passo
 
     // Manda a Posição
     socket.emit('post_posicao_atual', { id_corrida: idAtual, posicao: pos });
