@@ -32,7 +32,7 @@ export const PAGE_CONFIG: Record<Page, {
         description: 'Membros da equipe',
     },
 
-    // label deve ser "novo percurso" se for novo ou "consultar percurso" se for percurso antigo
+   
     percurso: {
         route: '/percurso',
         label: 'Novo Percurso',

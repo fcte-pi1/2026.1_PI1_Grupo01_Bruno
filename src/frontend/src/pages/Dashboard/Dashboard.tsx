@@ -13,10 +13,14 @@ import styles from './Dashboard.module.css';
 const API_URL = import.meta.env.VITE_API_URL;
 
 const STATUS_BADGE: Record<string, 'success' | 'warn' | 'alert'> = {
-    'Concluído': 'success', 'Falhou': 'alert', 'Em curso': 'warn'
+  'Concluído': 'success', 
+  'Interrompido': 'alert', 
+  'Em curso': 'warn',
 };
 const STATUS_LABEL: Record<string, string> = {
-    'concluido': 'Concluído', 'falha': 'Falhou', 'interrompida': 'Falhou', 'em_execucao': 'Em curso'
+    'concluido': 'Concluído', 
+    'interrompida': 'Interrompido', 
+    'em_execucao': 'Em curso',
 };
 
 const safeNum = (val: any) => { const n = Number(val); return isNaN(n) ? 0 : n; };
