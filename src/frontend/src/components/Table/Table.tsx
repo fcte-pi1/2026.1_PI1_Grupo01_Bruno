@@ -16,12 +16,11 @@ interface TableProps<T> {
   data: T[]
   pageSize?: number
   actions?: boolean
-  
   onDelete?: (id: string | number) => void 
+  onRowClick?: (id: string | number) => void
 }
 
-
-export function Table<T extends { id: string | number }>({ columns, data, pageSize = 10, actions = true, onDelete }: TableProps<T>) {
+export function Table<T extends { id: string | number }>({ columns, data, pageSize = 10, actions = true, onDelete, onRowClick }: TableProps<T>) {
   const [page, setPage] = useState(1)
   const [deleteId, setDeleteId] = useState<string | number | null>(null)
 
@@ -52,14 +51,14 @@ export function Table<T extends { id: string | number }>({ columns, data, pageSi
         </thead>
         <tbody>
           {paginated.map(row => (
-            <tr key={row.id}>
+            <tr key={row.id} onClick={() => onRowClick && onRowClick(row.id)} style={{ cursor: onRowClick ? 'pointer' : 'default' }}>
               {columns.map(col => (
                 <td key={String(col.key)}>
                   {col.render ? col.render(row[col.key], row) : String(row[col.key])}
                 </td>
               ))}
               {actions && (
-                <td style={{ width: '1px', whiteSpace: 'nowrap' }}>
+                <td style={{ width: '1px', whiteSpace: 'nowrap' }} onClick={(e) => e.stopPropagation()}>
                   <Button 
                     density='high' 
                     type='circle' 

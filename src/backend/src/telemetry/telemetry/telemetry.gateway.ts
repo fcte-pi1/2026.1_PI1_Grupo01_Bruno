@@ -7,6 +7,7 @@ import {
     OnGatewayConnection,
     OnGatewayDisconnect
 } from '@nestjs/websockets';
+
 import { Server, Socket } from 'socket.io';
 import { FirebaseService } from '../../firebase/firebase.service';
 import { PostStartDto } from '../dto/post-start.dto';
@@ -17,6 +18,7 @@ import { PostPosicaoAtualDto } from '../dto/post-posicao-atual.dto';
 import { SendCommandDto } from '../dto/send-command.dto';
 import { UsePipes, UseFilters, ValidationPipe } from '@nestjs/common';
 import { WsValidationFilter } from './ws-exception.filter';
+import { timestamp } from 'rxjs';
 
 @WebSocketGateway({ cors: true })
 @UsePipes(new ValidationPipe({ transform: true, whitelist: true, forbidNonWhitelisted: true }))
@@ -134,7 +136,6 @@ export class TelemetryGateway implements OnGatewayConnection, OnGatewayDisconnec
 
     await telemetriaRef.set(novaLeitura);
 
-    // Notifica o canal de telemetria viva e o canal geral esperado pelas views
     this.server.to('telemetria_viva_room').emit('telemetria_viva', novaLeitura);
     this.server.emit('novaTelemetria', data);
 
@@ -168,8 +169,24 @@ export class TelemetryGateway implements OnGatewayConnection, OnGatewayDisconnec
   }
 
   @SubscribeMessage('sendcomand')
-  async handleSendCommand(@MessageBody() data: SendCommandDto) {
+  async handleSendCommand(@MessageBody() data: SendCommandDto, @ConnectedSocket() client: Socket) {
     this.server.emit('receiveCommand', data);
+    if (data.comando === 'cancelar'){
+      const db = this.firebaseService.getDb();
+      const metadadosRef = db.ref(`corridas/${data.id_corrida}/metadados`);
+
+      await metadadosRef.update({
+        status: 'interrompida',
+        fim_timestamp: Date.now()
+      });
+
+      this.server.to('telemetria_viva_room').emit('novaTelemetria', {
+        status: 'interrompida',
+        timestamp: Date.now()
+      });
+      
+      this.corridasAtivas.delete(client.id);
+    }
     return { status: 'comando_encaminhado' };
   }
 
