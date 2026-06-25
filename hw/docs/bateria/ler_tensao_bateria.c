@@ -3,7 +3,7 @@
 #include <Arduino.h>  // necessário para analogRead e analogReadResolution
 
 // pino e configurações do ADC
-#define PINO_ADC_BATERIA  1
+#define PINO_ADC_BATERIA  9
 #define TAMANHO_JANELA    10
 #define RESOLUCAO_ADC     10      // 10 bits → valores de 0 a 1023
 #define VREF              3.3f    // tensão de referência do ESP32-S3
