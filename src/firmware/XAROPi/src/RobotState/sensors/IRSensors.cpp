@@ -49,24 +49,24 @@ namespace IRSensors {
         // --- Sensor Esquerdo ---
         digitalWrite(XSHUT_ESQ, HIGH); 
         delay(10);
-        sensorEsq.setAddress(ADDR_ESQ);
         if (!sensorEsq.init()) { Serial.println("[IRSensors] Erro: ToF Esquerdo não respondeu!"); while(1); }
+        sensorEsq.setAddress(ADDR_ESQ);
         sensorEsq.setTimeout(200);
         sensorEsq.startContinuous();
 
         // --- Sensor Frontal ---
         digitalWrite(XSHUT_FRON, HIGH); 
         delay(10);
-        sensorFron.setAddress(ADDR_FRON);
         if (!sensorFron.init()) { Serial.println("[IRSensors] Erro: ToF Frontal não respondeu!"); while(1); }
+        sensorFron.setAddress(ADDR_FRON);
         sensorFron.setTimeout(200);
         sensorFron.startContinuous();
 
         // --- Sensor Direito ---
         digitalWrite(XSHUT_DIR, HIGH); 
         delay(10);
-        sensorDir.setAddress(ADDR_DIR);
         if (!sensorDir.init()) { Serial.println("[IRSensors] Erro: ToF Direito não respondeu!"); while(1); }
+        sensorDir.setAddress(ADDR_DIR);
         sensorDir.setTimeout(200);
         sensorDir.startContinuous();
 
