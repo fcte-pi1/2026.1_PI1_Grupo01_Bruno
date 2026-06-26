@@ -1,5 +1,5 @@
 #include "Floodfill.h"
-#include "../config.h"
+#include "../../config.h"
 
 struct Cell { uint8_t x, y; };
 static Cell _queue[TOTAL_CELLS];
