@@ -27,7 +27,7 @@
     flex-direction: column;
     padding: var(--spacing-2x);
     align-items: start;
-    height: 0;
+    /* height: 0; */
     justify-content: end;
     gap: var(--spacing-half);
     flex: 1 0 0;
@@ -35,7 +35,7 @@
     border-radius: var(--radius-base);
     border: 1px solid var(--border);
     overflow-y: auto;
-    max-height: 200px;
+    /* max-height: 200px; */
     overflow-anchor: none;
 }
 

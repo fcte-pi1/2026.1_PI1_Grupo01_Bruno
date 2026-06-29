@@ -50,7 +50,7 @@ export function Dashboard() {
     const [stats, setStats] = useState({ qtd: 0, sucesso: 0, tempo: '0.0s', vel: '0.00 m/s', consumo: '0.0 Wh' });
 
     const fetchChartData = () => {
-        axios.get(`${API_URL}corridas`)
+        axios.get(`${API_URL}/corridas`)
             .then(response => {
                 const dadosNode = response.data.dados;
                 if (!dadosNode) return;
@@ -84,7 +84,7 @@ export function Dashboard() {
     };
 
     const fetchCorridas = () => {
-        axios.get(`${API_URL}corridas`)
+        axios.get(`${API_URL}/corridas`)
             .then(response => {
                 const dadosNode = response.data.dados;
                 if (!dadosNode) return;

@@ -260,7 +260,7 @@ export function Percurso() {
                         <Log 
                             entries={logs}
                             onViewFull={() => setIsLogModalOpen(true)}
-                        />
+                            />
                     </div>
                 </div>
             </section>
@@ -281,9 +281,9 @@ export function Percurso() {
                 onClose={() => setIsLogModalOpen(false)}
                 title="Log de teste"
             >
-                <div>
-                    <Log entries={logs} standalone={false} />
-                </div>
+                    <div className={styles.innerModalLog}>
+                        <Log entries={logs} standalone={false} />
+                    </div>
             </Modal>
         )}
         </div>
