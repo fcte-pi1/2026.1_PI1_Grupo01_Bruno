@@ -1,5 +1,5 @@
 #include "WebSocketManager.h"
-#include "../config.h"
+#include "../../config.h"
 #include <WiFi.h>
 #include <WebServer.h>
 #include <WebSocketsClient.h>
