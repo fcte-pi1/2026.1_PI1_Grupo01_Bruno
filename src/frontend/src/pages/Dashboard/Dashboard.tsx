@@ -93,10 +93,17 @@ export function Dashboard() {
                 let totalTempo = 0, totalVel = 0, totalConsumo = 0, concluidas = 0;
 
                 const formatoTabela = corridas.map(([firebaseId, corrida]: any, index) => {
-                    const ultimaTel = corrida.telemetria ? Object.values(corrida.telemetria).pop() as any : null;
-                    
-                    const duracao = safeNum(ultimaTel?.tempoMedio);
-                    const velocity = safeNum(ultimaTel?.velMedia);
+                    const inicioTs = safeNum(corrida.metadados?.inicio_timestamp);
+                    let fimTs = safeNum(corrida.metadados?.fim_timestamp);
+                    const eventos = corrida.telemetria ? (Object.values(corrida.telemetria) as any[]) : [];
+                    const ultimaTel = eventos.length > 0 ? eventos[eventos.length - 1] : null;
+
+                    if (fimTs <= 0 && ultimaTel?.timestamp) fimTs = safeNum(ultimaTel.timestamp);
+
+                    const duracao = (fimTs > inicioTs && inicioTs > 0) ? (fimTs - inicioTs) / 1000 : 0;
+                    const velocity = eventos.length > 0
+                        ? eventos.reduce((acc: number, e: any) => acc + safeNum(e.velocidade), 0) / eventos.length
+                        : 0;
                     const mahRestante = safeNum(ultimaTel?.mah_restante);
                     const consume = mahRestante > 0 ? 1000 - mahRestante : 0;
 
