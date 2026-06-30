@@ -80,7 +80,20 @@ export function Percurso() {
                     setUpdates(paredesFormatadas);
                 }
                 
-                if (dadosSelecionados.estado_atual?.posicao_vetor !== undefined) {
+                // CORREÇÃO: Carregar o trajeto completo no histórico para desenhar a linha laranja
+                if (isConsulta && dadosSelecionados.telemetria) {
+                    const eventosHistorico = Object.values(dadosSelecionados.telemetria) as any[];
+                    const caminhoCompleto = eventosHistorico
+                        .map(tel => tel.posicao_vetor)
+                        .filter(pos => pos !== undefined);
+                    
+                    if (caminhoCompleto.length > 0) {
+                        setPath(caminhoCompleto);
+                    } else if (dadosSelecionados.estado_atual?.posicao_vetor !== undefined) {
+                        setPath([dadosSelecionados.estado_atual.posicao_vetor]);
+                    }
+                } else if (dadosSelecionados.estado_atual?.posicao_vetor !== undefined) {
+                    // Mantém o comportamento original caso não seja histórico ou não tenha telemetria
                     setPath([dadosSelecionados.estado_atual.posicao_vetor]);
                 }
 
