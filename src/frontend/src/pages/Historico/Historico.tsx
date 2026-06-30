@@ -3,12 +3,17 @@ import axios from 'axios';
 import { Table } from '../../components/Table';
 import type { Column } from '../../components/Table';
 import { Badge } from '../../components/Badge';
+import { useNavigate } from 'react-router-dom';
 
 const STATUS_BADGE: Record<string, 'success' | 'warn' | 'alert'> = {
-  'Concluído': 'success', 'Falhou': 'alert', 'Em curso': 'warn',
+  'Concluído': 'success', 
+  'Interrompido': 'alert', 
+  'Em curso': 'warn',
 };
 const STATUS_LABEL: Record<string, string> = {
-    'concluido': 'Concluído', 'falha': 'Falhou', 'interrompida': 'Falhou', 'em_execucao': 'Em curso',
+    'concluido': 'Concluído', 
+    'interrompida': 'Interrompido', 
+    'em_execucao': 'Em curso',
 };
 
 const safeNum = (val: any) => { const n = Number(val); return isNaN(n) ? 0 : n; };
@@ -25,39 +30,73 @@ const columns: Column<any>[] = [
             return <Badge size='sm' type={type} label={label} />;
         }
     },
-    { key: 'duracao', label: 'Duração', icon: 'timer', render: (value) => <p>{Number(value).toFixed(1)}s</p> },
+    { key: 'duracao', label: 'Duração', icon: 'timer', render: (value) => <p>{Number(value).toFixed(3)}s</p> },
     { key: 'velocity', label: 'Vel. Média', icon: 'speed', render: (value) => <p>{Number(value).toFixed(2)} m/s</p> },
     { key: 'consume', label: 'Consumo', icon: 'electric_bolt', render: (value) => <p>{Number(value).toFixed(0)} mAh</p> },
     { key: 'distance', label: 'Distância', icon: 'route', render: (value) => <p>{Number(value).toFixed(2)} m</p> },
 ];
 
 export function Historico() {
+    const navigate = useNavigate();
     const [data, setData] = useState<any[]>([]);
 
     const fetchCorridas = () => {
-        axios.get('http://localhost:3000/corridas')
-            .then(response => {
-                const dadosNode = response.data.dados;
-                if (!dadosNode) return;
+        axios.get('http://localhost:3000/corridas').then(response => {
+            const dadosNode = response.data.dados;
+            if (!dadosNode) return;
 
-                const listaCorridas = Object.entries(dadosNode);
-                const formatoTabela = listaCorridas.map(([firebaseId, corrida]: any, index) => {
-                    const ultimaTel = corrida.telemetria ? Object.values(corrida.telemetria).pop() as any : null;
-                    const mahRestante = safeNum(ultimaTel?.mah_restante);
-                    return {
-                        id: firebaseId, // ID real para deletar
-                        displayId: index + 1, // ID visual da tabela
-                        datetime: new Date(corrida.metadados?.inicio_timestamp || Date.now()).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }),
-                        size: `${corrida.metadados?.dimensao_labirinto || 16}x${corrida.metadados?.dimensao_labirinto || 16}` as any,
-                        status: corrida.metadados?.status || 'concluido',
-                        duracao: safeNum(ultimaTel?.tempoMedio),
-                        velocity: safeNum(ultimaTel?.velMedia),
-                        consume: mahRestante > 0 ? 1000 - mahRestante : 0, 
-                        distance: safeNum(ultimaTel?.distancia)
-                    };
+            const listaCorridas = Object.entries(dadosNode);
+            const formatoTabela = listaCorridas.map(([firebaseId, corrida]: any, index) => {
+                let distTotal = 0;
+                let lastTimeStamp = 0;
+                const inicioTs = safeNum(corrida.metadados?.inicio_timestamp);
+                let fimTs = safeNum(corrida.metadados?.fim_timestamp);
+                
+                const eventos = corrida.telemetria ? Object.values(corrida.telemetria) as any[] : [];
+                const ultimaTel = eventos.length > 0 ? eventos[eventos.length - 1] : null;
+
+                if (fimTs <= 0 && ultimaTel?.timestamp) {
+                    fimTs = safeNum(ultimaTel.timestamp);
+                }
+
+                const duration = (fimTs > inicioTs && inicioTs > 0) ? (fimTs - inicioTs) / 1000 : 0;
+                
+                eventos.forEach((tel: any) => {
+                    let Tel = Object(tel);
+                    if(distTotal !== -1){
+                        if(lastTimeStamp === 0) {
+                            lastTimeStamp = inicioTs;
+                        }
+
+                        if(Tel.timestamp < lastTimeStamp){
+                            distTotal = -1;
+                        } else {
+                            distTotal += safeNum(Tel.velocidade) * (safeNum(Tel.timestamp) - lastTimeStamp) / 1000;
+                            lastTimeStamp = safeNum(Tel.timestamp);
+                        }
+                    }
                 });
-                setData(formatoTabela.reverse()); 
-            }).catch(console.error);
+
+                const mahRestante = safeNum(ultimaTel?.mah_restante);
+
+                const velocidadeMediaDashboard = eventos.length > 0
+                    ? eventos.reduce((acc: number, e: any) => acc + safeNum(e.velocidade), 0) / eventos.length
+                    : 0;
+
+                return {
+                    id: firebaseId, 
+                    displayId: index + 1, 
+                    datetime: new Date(inicioTs > 0 ? inicioTs : Date.now()).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }),
+                    size: `${corrida.metadados?.dimensao_labirinto || 16}x${corrida.metadados?.dimensao_labirinto || 16}` as any,
+                    status: corrida.metadados?.status || 'concluido',
+                    duracao: duration, 
+                    velocity: velocidadeMediaDashboard, 
+                    consume: mahRestante > 0 ? 1000 - mahRestante : 0, 
+                    distance: distTotal !== -1 ? distTotal : 0
+                };
+            });
+            setData(formatoTabela.reverse()); 
+        }).catch(console.error);
     };
 
     useEffect(() => { fetchCorridas(); }, []);
@@ -84,10 +123,15 @@ export function Historico() {
         }
     };
 
-    return (
+   return (
         <>
             <div>
-                <Table columns={columns} data={data} onDelete={apagarCorrida} />
+                <Table 
+                    columns={columns} 
+                    data={data} 
+                    onDelete={apagarCorrida} 
+                    onRowClick={(id) => navigate(`/percurso/${id}`)} 
+                />
             </div>
         </>
     );

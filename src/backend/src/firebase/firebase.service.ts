@@ -49,7 +49,7 @@ export class FirebaseService implements OnModuleInit {
     console.log('Firebase Realtime Database conectado via JSON Template + .env!');
   }
 
-  async saveTelemetry(data: any) {
+  async saveTelemetry(data: any): Promise<any> {
     const ref = this.db.ref('telemetry');
     return await ref.push(data);
   }

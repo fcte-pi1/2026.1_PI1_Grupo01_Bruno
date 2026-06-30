@@ -47,8 +47,15 @@ function AppLayout() {
     };
   }, []);
 
-  const currentPage = (Object.entries(PAGE_CONFIG).find(([, config]) => config.route === location.pathname)?.[0] ?? 'dashboard') as Page;
-  const { label, description, showTopPage } = PAGE_CONFIG[currentPage];
+  const currentPage = (Object.entries(PAGE_CONFIG).find(([, config]) => 
+                                                                        location.pathname === config.route || 
+                                                                        (config.route !== '/' && location.pathname.startsWith(`${config.route}/`)))?.[0] ?? 'dashboard') as Page;
+  let { label, description, showTopPage } = PAGE_CONFIG[currentPage];
+
+  if (currentPage === 'percurso' && location.pathname.includes('/percurso/')) {
+    label = 'Consultar Percurso';
+    description = 'Visualizando dados históricos do percurso selecionado.';
+  }
   const handlePageChange = (page: Page) => navigate(PAGE_CONFIG[page].route);
   const toggleTheme = () => {
     const next = theme === 'light' ? 'dark' : 'light';
@@ -87,6 +94,7 @@ function AppLayout() {
             <Route path="/projeto" element={<Projeto />} />
             <Route path="/equipe" element={<Equipe />} />
             <Route path="/percurso" element={<Percurso />} />
+            <Route path="/percurso/:id" element={<Percurso />} /> {/* Nova Rota */}
             <Route path="/chassi" element={<Chassi3D />} />
           </Routes>
         </main>

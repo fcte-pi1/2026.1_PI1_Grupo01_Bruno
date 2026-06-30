@@ -34,7 +34,6 @@ describe('TelemetryGateway', () => {
 
     gateway = module.get<TelemetryGateway>(TelemetryGateway);
 
-    // Corrige o erro "Cannot read properties of undefined (reading 'to')"
     gateway.server = {
       to: mockTo,
       emit: mockEmit,
@@ -112,13 +111,32 @@ describe('TelemetryGateway', () => {
     });
   });
 
-  describe('sendcomand', () => {
-    it('deve encaminhar o comando e retornar sucesso', async () => {
+ describe('sendcomand', () => {
+    it('deve encaminhar o comando "iniciar" e retornar sucesso', async () => {
       const dto = { id_corrida: 'fake-id-123', comando: 'iniciar' };
+      
+      const clientMock = { id: 'fake-client-id' } as any;
 
-      const resultado = await gateway.handleSendCommand(dto);
+      const resultado = await gateway.handleSendCommand(dto, clientMock);
 
       expect(mockEmit).toHaveBeenCalledWith('receiveCommand', dto);
+      expect(resultado).toEqual({ status: 'comando_encaminhado' });
+    });
+
+    it('deve atualizar o banco e avisar a sala ao enviar comando "cancelar"', async () => {
+      const dto = { id_corrida: 'fake-id-123', comando: 'cancelar' };
+      const clientMock = { id: 'fake-client-id' } as any;
+
+      (gateway as any).corridasAtivas.set(clientMock.id, dto.id_corrida);
+
+      const resultado = await gateway.handleSendCommand(dto, clientMock);
+
+      expect(mockEmit).toHaveBeenCalledWith('receiveCommand', dto);
+      
+      expect(mockRef.update).toHaveBeenCalledWith(expect.objectContaining({
+        status: 'interrompida',
+      }));
+
       expect(resultado).toEqual({ status: 'comando_encaminhado' });
     });
   });
@@ -126,7 +144,6 @@ describe('TelemetryGateway', () => {
   describe('handleDisconnect', () => {
     it('deve marcar corrida como interrompida se cliente tinha corrida ativa', async () => {
       const clienteMock = { id: 'socket-123' } as any;
-      // Simula que esse cliente tinha uma corrida ativa
       (gateway as any).corridasAtivas.set('socket-123', 'fake-id-123');
 
       await gateway.handleDisconnect(clienteMock);

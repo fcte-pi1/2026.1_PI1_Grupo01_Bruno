@@ -7,6 +7,7 @@ import {
     OnGatewayConnection,
     OnGatewayDisconnect
 } from '@nestjs/websockets';
+
 import { Server, Socket } from 'socket.io';
 import { FirebaseService } from '../../firebase/firebase.service';
 import { PostStartDto } from '../dto/post-start.dto';
@@ -28,6 +29,8 @@ export class TelemetryGateway implements OnGatewayConnection, OnGatewayDisconnec
 
   private corridasAtivas: Map<string, string> = new Map();
   private corridaAtual: string | null = null;
+  // Mapa para guardar a última posição conhecida por corrida
+  private ultimaPosicao: Map<string, number> = new Map(); 
 
   constructor(private readonly firebaseService: FirebaseService) {}
 
@@ -89,6 +92,7 @@ export class TelemetryGateway implements OnGatewayConnection, OnGatewayDisconnec
     const idCorrida = novaCorridaRef.key as string;
     this.corridasAtivas.set(client.id, idCorrida);
     this.corridaAtual = idCorrida;
+    this.ultimaPosicao.set(idCorrida, 0); // Inicializa posição em 0
 
     await novaCorridaRef.set({
       metadados: {
@@ -124,19 +128,22 @@ export class TelemetryGateway implements OnGatewayConnection, OnGatewayDisconnec
     const db = this.firebaseService.getDb();
     const telemetriaRef = db.ref(`corridas/${data.id_corrida}/telemetria`).push();
       
+    // Pega a última posição conhecida ou 0 caso não exista
+    const posicaoAtual = this.ultimaPosicao.get(data.id_corrida) ?? 0;
+
     const novaLeitura = {
       timestamp: Date.now(),
       velocidade: data.velocidade,
       corrente: data.corrente,
       tensao: data.tensao,
-      mah_restante: data.mah_restante
+      mah_restante: data.mah_restante,
+      posicao_vetor: posicaoAtual // AGORA VAI SALVAR A POSIÇÃO AQUI
     };
 
     await telemetriaRef.set(novaLeitura);
 
-    // Notifica o canal de telemetria viva e o canal geral esperado pelas views
     this.server.to('telemetria_viva_room').emit('telemetria_viva', novaLeitura);
-    this.server.emit('novaTelemetria', data);
+    this.server.emit('novaTelemetria', { ...data, posicao: posicaoAtual });
 
     return { status: 'sucesso' };
   }
@@ -153,11 +160,15 @@ export class TelemetryGateway implements OnGatewayConnection, OnGatewayDisconnec
     });
 
     this.corridasAtivas.delete(client.id);
+    this.ultimaPosicao.delete(data.id_corrida); // Limpa memória
     return { status: 'sucesso' };
   }
 
   @SubscribeMessage('post_posicao_atual')
   async handlePostPosicaoAtual(@MessageBody() data: PostPosicaoAtualDto) {
+    // Atualiza a memória com a nova posição
+    this.ultimaPosicao.set(data.id_corrida, data.posicao);
+
     const db = this.firebaseService.getDb();
     const estadoRef = db.ref(`corridas/${data.id_corrida}/estado_atual`);
 
@@ -168,8 +179,25 @@ export class TelemetryGateway implements OnGatewayConnection, OnGatewayDisconnec
   }
 
   @SubscribeMessage('sendcomand')
-  async handleSendCommand(@MessageBody() data: SendCommandDto) {
+  async handleSendCommand(@MessageBody() data: SendCommandDto, @ConnectedSocket() client: Socket) {
     this.server.emit('receiveCommand', data);
+    if (data.comando === 'cancelar'){
+      const db = this.firebaseService.getDb();
+      const metadadosRef = db.ref(`corridas/${data.id_corrida}/metadados`);
+
+      await metadadosRef.update({
+        status: 'interrompida',
+        fim_timestamp: Date.now()
+      });
+
+      this.server.to('telemetria_viva_room').emit('novaTelemetria', {
+        status: 'interrompida',
+        timestamp: Date.now()
+      });
+      
+      this.corridasAtivas.delete(client.id);
+      this.ultimaPosicao.delete(data.id_corrida);
+    }
     return { status: 'comando_encaminhado' };
   }
 
@@ -181,6 +209,7 @@ export class TelemetryGateway implements OnGatewayConnection, OnGatewayDisconnec
 
       await metadadosRef.update({ status: 'interrompida', fim_timestamp: Date.now() });
       this.corridasAtivas.delete(client.id);
+      this.ultimaPosicao.delete(id_corrida);
       console.log(`[ALERTA] Conexão perdida. Corrida ${id_corrida} marcada como interrompida.`);
     }
   }
