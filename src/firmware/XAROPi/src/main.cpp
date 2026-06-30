@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include "config.h"
-#include "comm/WebSocketManager.h"
-#include "navigation/Floodfill.h"
+#include "RobotState/comm/WebSocketManager.h"
+#include "RobotState/navigation/Floodfill.h"
 
 // #include "sensors/BatteryMonitor.h"
 // #include "sensors/IRSensors.h"
