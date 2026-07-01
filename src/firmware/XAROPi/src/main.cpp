@@ -1,449 +1,570 @@
-#include <Arduino.h>
 #include <WiFi.h>
 #include <WebServer.h>
 #include <Wire.h>
 #include <Adafruit_VL53L0X.h>
+#include <Adafruit_MPU6050.h>
+#include <Adafruit_Sensor.h>
 
-// ─── I2C & MPU-6050 ───────────────────────────────────────────────────────────
-#define SDA_PIN      11
-#define SCL_PIN      8
+// =========================
+// PINAGEM NOVA
+// =========================
+static const int ENC_DIR_C1   = 47;
+static const int ENC_DIR_C2   = 48;
+static const int MOT_DIR_IN1  = 42;
+static const int MOT_DIR_IN2  = 41;
+
+static const int ENC_ESQ_C1   = 12;
+static const int ENC_ESQ_C2   = 14;
+static const int MOT_ESQ_IN1  = 15;
+static const int MOT_ESQ_IN2  = 16;
+
+static const int XSHUT_TOF_ESQ = 5;
+static const int XSHUT_TOF_DIR = 40;
+
+// ToF frontal sem XSHUT
+static const int SDA_PIN = 8;   // ajuste se necessário na sua placa
+static const int SCL_PIN = 9;   // ajuste se necessário na sua placa
+
+// MPU6050
 #define MPU_ADDR     0x68
 #define PWR_MGMT_1   0x6B
 #define CONFIG_REG   0x1A
 #define ACCEL_XOUT_H 0x3B
 
-// ─── Pinagem MX1508 (Motores) ────────────────────────────────────────────────
-#define INT1  1
-#define INT2  2
-#define INT3  42
-#define INT4  41
+// Endereços I2C finais dos ToFs
+static const uint8_t TOF_ADDR_FRONT = 0x29; // padrão
+static const uint8_t TOF_ADDR_LEFT  = 0x30;
+static const uint8_t TOF_ADDR_RIGHT = 0x31;
 
-#define CH_INT1  0
-#define CH_INT2  1
-#define CH_INT3  2
-#define CH_INT4  3
-#define PWM_FREQ 1000
-#define PWM_BITS 8
-
-// ─── Pinagem Encoders ────────────────────────────────────────────────────────
-#define ENC_ESQ_C1 12
-#define ENC_ESQ_C2 13
-#define ENC_DIR_C1 20
-#define ENC_DIR_C2 21
-
-volatile long countEsq = 0;
-volatile long countDir = 0;
-
-// ─── ToF (VL53L0X) ───────────────────────────────────────────────────────────
-#define XSHUT_ESQ  5
-#define XSHUT_DIR  35
-
-Adafruit_VL53L0X tofEsq  = Adafruit_VL53L0X();
-Adafruit_VL53L0X tofFrnt = Adafruit_VL53L0X();
-Adafruit_VL53L0X tofDir  = Adafruit_VL53L0X();
-
-bool tofEsqOK  = false;
-bool tofFrntOK = false;
-bool tofDirOK  = false;
-
-uint16_t distEsq  = 0;
-uint16_t distFrnt = 0;
-uint16_t distDir  = 0;
-
-unsigned long lastTofTime = 0;
-uint8_t       tofIndex    = 0;
-
-// Offsets estruturais dos ToFs (mm)
+// Offsets informados
 const int offsetEsq  = 25;
 const int offsetFrnt = 25;
 const int offsetDir  = 35;
 
-// ─── Wi-Fi AP ─────────────────────────────────────────────────────────────────
-const char* SSID     = "XAROPi-Bot";
-const char* PASSWORD = "xaropi123";
+// Wi-Fi AP
+const char* AP_SSID = "ESP32S3_Robo";
+const char* AP_PASS = "12345678";
+
 WebServer server(80);
 
-// ─── IMU Variáveis ────────────────────────────────────────────────────────────
-bool    mpuOK        = false;
-float   gz           = 0.0;
-float   yaw          = 0.0;
-float   gyroZ_Offset = 0.0;
-unsigned long lastTime = 0;
+// Sensores
+Adafruit_VL53L0X tofFront;
+Adafruit_VL53L0X tofLeft;
+Adafruit_VL53L0X tofRight;
+Adafruit_MPU6050 mpu;
 
-// ─── Potência dos Motores (Ajustáveis individualmente via Web) ────────────────
-int pwmEsq = 65;
-int pwmDir = 65;
+// Estado do sistema
+enum InitState { NOT_INIT = 0, INIT_OK = 1, INIT_FAIL = 2 };
 
-String ultimaAcao = "Pronto para testes manuais";
+volatile long encLeftCount = 0;
+volatile long encRightCount = 0;
 
-// ─── Modo automático: mover uma célula ───────────────────────────────────────
-bool moverCelulaAtivo = false;
+InitState tofFrontState = NOT_INIT;
+InitState tofLeftState  = NOT_INIT;
+InitState tofRightState = NOT_INIT;
+InitState mpuState      = NOT_INIT;
 
-const float CELL_MM = 173.0f;       // distância de uma célula
-const float MM_POR_PULSO = 1.0f;    // CALIBRAR
-const uint16_t TOF_FREIO_MM = 168;  // reduz velocidade ao entrar nessa faixa
-const uint16_t TOF_STOP_MM  = 95;   // margem de segurança para parar
+String tofFrontError = "";
+String tofLeftError  = "";
+String tofRightError = "";
+String mpuError      = "";
 
-const int PWM_CELULA_CRUZEIRO = 85;
-const int PWM_CELULA_LENTO    = 45;
-const float RAMPA_FINAL_MM    = 40.0f;
+int pwmLeft = 120;
+int pwmRight = 120;
+bool motorsEnabled = false;
 
-long alvoPulsosCelula = 0;
+unsigned long lastSensorRead = 0;
+const unsigned long SENSOR_PERIOD_MS = 150;
 
-// ─── Interrupções dos Encoders ────────────────────────────────────────────────
-void IRAM_ATTR isrEncoderEsq() {
-    if (digitalRead(ENC_ESQ_C1) == digitalRead(ENC_ESQ_C2)) countEsq++; else countEsq--;
-}
-void IRAM_ATTR isrEncoderDir() {
-    if (digitalRead(ENC_DIR_C1) == digitalRead(ENC_DIR_C2)) countDir++; else countDir--;
-}
+float ax_g = 0, ay_g = 0, az_g = 0;
+float gx_dps = 0, gy_dps = 0, gz_dps = 0;
+float temp_c = 0;
 
-void encodersInit() {
-    pinMode(ENC_ESQ_C1, INPUT_PULLUP); pinMode(ENC_ESQ_C2, INPUT_PULLUP);
-    pinMode(ENC_DIR_C1, INPUT_PULLUP); pinMode(ENC_DIR_C2, INPUT_PULLUP);
-    attachInterrupt(digitalPinToInterrupt(ENC_ESQ_C1), isrEncoderEsq, CHANGE);
-    attachInterrupt(digitalPinToInterrupt(ENC_DIR_C1), isrEncoderDir, CHANGE);
-}
+int distLeft = -1;
+int distFront = -1;
+int distRight = -1;
 
-// ─── Inicialização dos ToFs ───────────────────────────────────────────────────
-void tofInit() {
-    pinMode(XSHUT_ESQ, OUTPUT);
-    pinMode(XSHUT_DIR, OUTPUT);
-    digitalWrite(XSHUT_ESQ, LOW);
-    digitalWrite(XSHUT_DIR, LOW);
-    delay(20);
-    
-    if (tofFrnt.begin(0x32, false, &Wire)) { tofFrntOK = true; }
-    delay(20);
-    digitalWrite(XSHUT_ESQ, HIGH);
-    delay(20);
-    if (tofEsq.begin(0x30, false, &Wire)) { tofEsqOK = true; }
-    delay(20);
-    digitalWrite(XSHUT_DIR, HIGH);
-    delay(20);
-    if (tofDir.begin(0x34, false, &Wire)) { tofDirOK = true; }
-}
+// LEDC config
+static const int PWM_FREQ = 20000;
+static const int PWM_RES_BITS = 8;
+static const int PWM_MAX = 255;
 
-// ─── MPU-6050 Driver e Calibração Robustecida ─────────────────────────────────
-void mpuWrite(uint8_t reg, uint8_t val) {
-    Wire.beginTransmission(MPU_ADDR); Wire.write(reg); Wire.write(val); Wire.endTransmission();
-}
+static const int CH_MOT_DIR_IN1 = 0;
+static const int CH_MOT_DIR_IN2 = 1;
+static const int CH_MOT_ESQ_IN1 = 2;
+static const int CH_MOT_ESQ_IN2 = 3;
 
-bool mpuInit() {
-    Wire.beginTransmission(MPU_ADDR);
-    if (Wire.endTransmission() != 0) return false;
-    mpuWrite(PWR_MGMT_1, 0x00); delay(50);
-    mpuWrite(CONFIG_REG, 0x04); delay(50); // DLPF 20Hz contra vibração
-    return true;
-}
-
-void mpuReadAll() {
-    Wire.beginTransmission(MPU_ADDR); Wire.write(ACCEL_XOUT_H); Wire.endTransmission(false);
-    Wire.requestFrom((uint8_t)MPU_ADDR, (uint8_t)14, (uint8_t)true);
-    for(int i=0; i<6; i++) Wire.read(); // Ignora acelerômetro
-    Wire.read(); Wire.read();           // Ignora temperatura
-    for(int i=0; i<4; i++) Wire.read(); // Ignora Gyro X e Y
-    int16_t rawGz = (Wire.read() << 8) | Wire.read();
-    gz = rawGz / 131.0f;
-}
-
-void calibrateGyro() {
-    for (int i = 0; i < 100; i++) { mpuReadAll(); delay(5); } // Aquecimento
-    float sumZ = 0.0f; int n = 0;
-    unsigned long t0 = millis();
-    while (n < 500 && millis() - t0 < 6000) {
-        mpuReadAll();
-        if (fabsf(gz) < 3.0f) { sumZ += gz; n++; }
-        delay(10);
-    }
-    gyroZ_Offset = (n > 0) ? (sumZ / n) : 0.0f;
-}
-
-// ─── Movimentação Bruta dos Motores ───────────────────────────────────────────
-void motorsInit() {
-    ledcSetup(CH_INT1, PWM_FREQ, PWM_BITS); ledcAttachPin(INT1, CH_INT1);
-    ledcSetup(CH_INT2, PWM_FREQ, PWM_BITS); ledcAttachPin(INT2, CH_INT2);
-    ledcSetup(CH_INT3, PWM_FREQ, PWM_BITS); ledcAttachPin(INT3, CH_INT3);
-    ledcSetup(CH_INT4, PWM_FREQ, PWM_BITS); ledcAttachPin(INT4, CH_INT4);
-}
-
-void stopMotors() {
-    ledcWrite(CH_INT1, 0); ledcWrite(CH_INT2, 0);
-    ledcWrite(CH_INT3, 0); ledcWrite(CH_INT4, 0);
-}
-
-void setMotoresPontes(int esq, int dir) {
-    if (esq >= 0) { ledcWrite(CH_INT3, esq); ledcWrite(CH_INT4, 0); }
-    else          { ledcWrite(CH_INT3, 0); ledcWrite(CH_INT4, abs(esq)); }
-    if (dir >= 0) { ledcWrite(CH_INT1, 0); ledcWrite(CH_INT2, dir); }
-    else          { ledcWrite(CH_INT1, abs(dir)); ledcWrite(CH_INT2, 0); }
-}
-
-// ─── Rotas HTTP do Servidor Web ───────────────────────────────────────────────
-void handleForward()  { setMotoresPontes(pwmEsq, pwmDir); ultimaAcao = "Frente"; server.send(200, "text/plain", "OK"); }
-void handleBackward() { setMotoresPontes(-pwmEsq, -pwmDir); ultimaAcao = "Re"; server.send(200, "text/plain", "OK"); }
-void handleLeft()     { setMotoresPontes(-pwmEsq, pwmDir); ultimaAcao = "Giro Esquerda"; server.send(200, "text/plain", "OK"); }
-void handleRight()    { setMotoresPontes(pwmEsq, -pwmDir); ultimaAcao = "Giro Direita"; server.send(200, "text/plain", "OK"); }
-void handleStop()     { stopMotors(); ultimaAcao = "Parado"; server.send(200, "text/plain", "OK"); }
-
-void handleZerar() {
-    countEsq = 0; countDir = 0; yaw = 0.0f;
-    ultimaAcao = "Telemetria Zerada";
-    server.send(200, "text/plain", "OK");
-}
-
-void handleSetPwm() {
-    if (server.hasArg("esq")) pwmEsq = constrain(server.arg("esq").toInt(), 0, 255);
-    if (server.hasArg("dir")) pwmDir = constrain(server.arg("dir").toInt(), 0, 255);
-    server.send(200, "text/plain", "PWM Atualizado");
-}
-
-void handleDados() {
-    String json = "{";
-    json += "\"yaw\":"     + String(yaw, 1)   + ",";
-    json += "\"encEsq\":"  + String(countEsq) + ",";
-    json += "\"encDir\":"  + String(countDir) + ",";
-    json += "\"tofEsq\":"  + String(distEsq)   + ",";
-    json += "\"tofFrnt\":" + String(distFrnt)  + ",";
-    json += "\"tofDir\":"  + String(distDir)   + ",";
-    json += "\"pwmEsq\":"  + String(pwmEsq)    + ",";
-    json += "\"pwmDir\":"  + String(pwmDir)    + ",";
-    json += "\"acao\":\""  + ultimaAcao        + "\"";
-    json += "}";
-    server.send(200, "application/json", json);
-}
-
-void handleRoot() {
-    String html = R"rawhtml(
+// =========================
+// HTML
+// =========================
+const char INDEX_HTML[] PROGMEM = R"rawliteral(
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>XAROPi - Calibracao Física</title>
-<style>
-  :root { --bg:#0a0a0f; --card:#12121a; --line:#1e1e2e; --cyan:#00e5ff; --red:#ff3b3b; --text:#c8c8e0; --muted:#444466; }
-  * { box-sizing: border-box; margin:0; padding:0; }
-  body { background: var(--bg); color: var(--text); font-family: monospace; display: flex; flex-direction: column; align-items: center; padding: 20px 12px; gap: 14px; }
-  h1 { color: var(--cyan); font-size: 1.4rem; letter-spacing: 2px; }
-  .card { width: 100%; max-width: 420px; background: var(--card); border: 1px solid var(--line); padding: 14px; border-radius: 6px; }
-  .card-title { font-size: .7rem; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-bottom: 10px; border-bottom: 1px solid var(--line); padding-bottom: 4px; }
-  .tele { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; text-align: center; margin-bottom: 10px; }
-  .tele .val { font-size: 1.2rem; color: var(--cyan); font-weight: bold; }
-  .tele .lbl { font-size: .65rem; color: var(--muted); }
-  .slider-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 0.85rem; }
-  .slider-row label { min-width: 70px; }
-  .slider-row input { flex: 1; accent-color: var(--cyan); }
-  .slider-row .val-pwm { min-width: 30px; text-align: right; color: var(--cyan); }
-  .btn-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 10px; }
-  button { padding: 16px 8px; font-family: inherit; font-size: 0.9rem; font-weight: bold; background: var(--bg); color: var(--text); border: 1px solid var(--muted); border-radius: 6px; cursor: pointer; user-select: none; }
-  button:active, button.pressed { background: var(--cyan); color: var(--bg); border-color: var(--cyan); }
-  .btn-stop { border-color: var(--red); color: var(--red); } .btn-stop:active { background: var(--red); color: #fff; }
-  .btn-util { border-color: #bb88ff; color: #bb88ff; width: 100%; max-width: 420px; padding: 14px; }
-  .btn-util:active { background: #bb88ff; color: var(--bg); }
-  .placeholder { background: transparent; border: none; cursor: default; }
-</style>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>ESP32S3 Controle</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background:#0f172a; color:#e2e8f0; }
+    .card { background:#1e293b; padding:16px; border-radius:12px; margin-bottom:16px; }
+    button { padding:10px 14px; border:0; border-radius:8px; cursor:pointer; margin:4px; }
+    .ok { background:#16a34a; color:white; }
+    .warn { background:#dc2626; color:white; }
+    .info { background:#2563eb; color:white; }
+    .muted { background:#475569; color:white; }
+    input[type=range] { width:100%; }
+    .row { display:flex; gap:16px; flex-wrap:wrap; }
+    .col { flex:1; min-width:280px; }
+    pre { white-space:pre-wrap; word-break:break-word; }
+    .status-ok { color:#4ade80; }
+    .status-fail { color:#f87171; }
+    .status-wait { color:#facc15; }
+  </style>
 </head>
 <body>
-
-  <h1>XAROPi - Modo Diagnóstico</h1>
-  <div class="card" id="statusCard" style="text-align:center; font-size: 0.9rem;">Ação: <span id="act" style="color:var(--cyan)">—</span></div>
+  <h1>Painel ESP32-S3</h1>
 
   <div class="card">
-    <div class="card-title">Sensores Otimizados</div>
-    <div class="tele">
-      <div><div class="val" id="tEsq">—</div><div class="lbl">ToF ESQ</div></div>
-      <div><div class="val" id="tFrn">—</div><div class="lbl">ToF FRNT</div></div>
-      <div><div class="val" id="tDir">—</div><div class="lbl">ToF DIR</div></div>
-      <div><div class="val" id="eEsq">—</div><div class="lbl">ENC ESQ</div></div>
-      <div><div class="val" id="yaw">—</div><div class="lbl">YAW °</div></div>
-      <div><div class="val" id="eDir">—</div><div class="lbl">ENC DIR</div></div>
-    </div>
-    <button class="btn-util" onclick="cmd('/zerar')">🔄 ZERAR CONTADORES (YAW / ENCODERS)</button>
+    <h2>Sensores</h2>
+    <button class="info" onclick="initAll()">Inicializar sensores</button>
+    <button class="warn" onclick="retryAll()">Tentar acionamento novamente</button>
+    <button class="muted" onclick="refreshStatus()">Atualizar status</button>
+    <div id="sensorStatus"></div>
   </div>
 
   <div class="card">
-    <div class="card-title">Balanço de Força dos Motores</div>
-    <div class="slider-row">
-      <label>Motor Esq</label>
-      <input type="range" min="30" max="150" value="65" id="slEsq" oninput="document.getElementById('vEsq').innerText=this.value" onchange="enviarPwm()">
-      <span class="val-pwm" id="vEsq">65</span>
+    <h2>Motores</h2>
+    <div class="row">
+      <div class="col">
+        <label>PWM motor esquerdo: <span id="pwmLeftVal">120</span></label>
+        <input type="range" min="0" max="255" value="120" id="pwmLeft" oninput="pwmLeftVal.textContent=this.value">
+      </div>
+      <div class="col">
+        <label>PWM motor direito: <span id="pwmRightVal">120</span></label>
+        <input type="range" min="0" max="255" value="120" id="pwmRight" oninput="pwmRightVal.textContent=this.value">
+      </div>
     </div>
-    <div class="slider-row">
-      <label>Motor Dir</label>
-      <input type="range" min="30" max="150" value="65" id="slDir" oninput="document.getElementById('vDir').innerText=this.value" onchange="enviarPwm()">
-      <span class="val-pwm" id="vDir">65</span>
-    </div>
+    <button class="info" onclick="applyPWM()">Aplicar PWM</button>
+    <button class="ok" onclick="moveCmd('forward')">Frente</button>
+    <button class="info" onclick="moveCmd('left')">Esquerda</button>
+    <button class="info" onclick="moveCmd('right')">Direita</button>
+    <button class="muted" onclick="moveCmd('backward')">Ré</button>
+    <button class="warn" onclick="moveCmd('stop')">Parar</button>
   </div>
 
   <div class="card">
-    <div class="card-title">Controle Direcional Bruto</div>
-    <div class="btn-grid">
-      <div class="placeholder"></div>
-      <button id="btnFwd" onmousedown="hold('/forward','btnFwd')" onmouseup="release()" ontouchstart="hold('/forward','btnFwd')" ontouchend="release()">⬆ FRENTE</button>
-      <div class="placeholder"></div>
-      
-      <button id="btnL" onmousedown="hold('/left','btnL')" onmouseup="release()" ontouchstart="hold('/left','btnL')" ontouchend="release()">⬅ ESQ</button>
-      <button class="btn-stop" onclick="cmd('/stop')">⏹ PARAR</button>
-      <button id="btnR" onmousedown="hold('/right','btnR')" onmouseup="release()" ontouchstart="hold('/right','btnR')" ontouchend="release()">DIR ➡</button>
-      
-      <div class="placeholder"></div>
-      <button id="btnBwd" onmousedown="hold('/backward','btnBwd')" onmouseup="release()" ontouchstart="hold('/backward','btnBwd')" ontouchend="release()">⬇ RÉ</button>
-      <div class="placeholder"></div>
-    </div>
+    <h2>Telemetria</h2>
+    <pre id="telemetry">Carregando...</pre>
   </div>
 
 <script>
-var heldPath = null;
-var holdInterval = null;
-
-function cmd(path) {
-  var xhr = new XMLHttpRequest(); xhr.open('GET', path, true); xhr.send();
-}
-function enviarPwm() {
-  var e = document.getElementById('slEsq').value;
-  var d = document.getElementById('slDir').value;
-  cmd('/setpwm?esq=' + e + '&dir=' + d);
-}
-function hold(path, btnId) {
-  if (heldPath) return;
-  heldPath = path;
-  document.getElementById(btnId).classList.add('pressed');
-  cmd(path);
-  holdInterval = setInterval(function(){ cmd(path); }, 150);
-}
-function release() {
-  clearInterval(holdInterval); holdInterval = null; heldPath = null;
-  cmd('/stop');
-  document.querySelectorAll('.pressed').forEach(function(el){ el.classList.remove('pressed'); });
+async function getJSON(url, options={}) {
+  const res = await fetch(url, options);
+  return await res.json();
 }
 
-setInterval(() => {
-  fetch('/dados').then(r => r.json()).then(d => {
-    document.getElementById('yaw').innerText = d.yaw;
-    document.getElementById('eEsq').innerText = d.encEsq;
-    document.getElementById('eDir').innerText = d.encDir;
-    document.getElementById('tEsq').innerText = d.tofEsq;
-    document.getElementById('tFrn').innerText = d.tofFrnt;
-    document.getElementById('tDir').innerText = d.tofDir;
-    document.getElementById('act').innerText = d.acao;
-  }).catch(()=>{});
-}, 200);
+function statusLine(name, st, err, val) {
+  let cls = 'status-wait', txt = 'não inicializado';
+  if (st === 1) { cls = 'status-ok'; txt = 'ok'; }
+  if (st === 2) { cls = 'status-fail'; txt = 'falhou'; }
+  return `<p><b>${name}</b>: <span class="${cls}">${txt}</span>${val ? ' | valor: ' + val : ''}${err ? ' | erro: ' + err : ''}</p>`;
+}
+
+async function refreshStatus() {
+  try {
+    const d = await getJSON('/status');
+    document.getElementById('sensorStatus').innerHTML =
+      statusLine('ToF esquerdo', d.tofLeftState, d.tofLeftError, d.distLeft) +
+      statusLine('ToF frontal', d.tofFrontState, d.tofFrontError, d.distFront) +
+      statusLine('ToF direito', d.tofRightState, d.tofRightError, d.distRight) +
+      statusLine('MPU6050', d.mpuState, d.mpuError, `gx=${d.gx}, gy=${d.gy}, gz=${d.gz}`);
+
+    document.getElementById('telemetry').textContent = JSON.stringify(d, null, 2);
+  } catch (e) {
+    document.getElementById('sensorStatus').innerHTML =
+      '<p class="status-fail">Não foi possível consultar o status.</p>';
+  }
+}
+
+async function initAll() {
+  try {
+    await getJSON('/init');
+    refreshStatus();
+  } catch (e) {
+    alert('Não foi possível ligar os sensores.');
+  }
+}
+
+async function retryAll() {
+  try {
+    await getJSON('/retry');
+    refreshStatus();
+  } catch (e) {
+    alert('Não foi possível tentar novamente.');
+  }
+}
+
+async function applyPWM() {
+  const l = document.getElementById('pwmLeft').value;
+  const r = document.getElementById('pwmRight').value;
+  try {
+    await getJSON(`/pwm?left=${l}&right=${r}`);
+    refreshStatus();
+  } catch (e) {
+    alert('Não foi possível aplicar PWM.');
+  }
+}
+
+async function moveCmd(cmd) {
+  try {
+    await getJSON(`/move?cmd=${cmd}`);
+    refreshStatus();
+  } catch (e) {
+    alert('Não foi possível acionar o comando.');
+  }
+}
+
+setInterval(refreshStatus, 1000);
+refreshStatus();
 </script>
-</body></html>
-)rawhtml";
-    server.send(200, "text/html", html);
+</body>
+</html>
+)rawliteral";
+
+// =========================
+// ENCODERS
+// =========================
+void IRAM_ATTR isrEncLeft() {
+  int b = digitalRead(ENC_ESQ_C2);
+  encLeftCount += (b ? 1 : -1);
 }
 
-long mediaAbsEncoders() {
-    return (labs(countEsq) + labs(countDir)) / 2;
+void IRAM_ATTR isrEncRight() {
+  int b = digitalRead(ENC_DIR_C2);
+  encRightCount += (b ? 1 : -1);
 }
 
-void iniciarMoverUmaCelula() {
-    countEsq = 0;
-    countDir = 0;
-    alvoPulsosCelula = (long)(CELL_MM / MM_POR_PULSO);
-    moverCelulaAtivo = true;
-    ultimaAcao = "Modo auto: mover 1 célula";
+// =========================
+// MOTORES
+// =========================
+void stopMotors() {
+  ledcWrite(CH_MOT_DIR_IN1, 0);
+  ledcWrite(CH_MOT_DIR_IN2, 0);
+  ledcWrite(CH_MOT_ESQ_IN1, 0);
+  ledcWrite(CH_MOT_ESQ_IN2, 0);
+  motorsEnabled = false;
 }
 
-void atualizarMoverUmaCelula() {
-    if (!moverCelulaAtivo) return;
+void motorsInit() {
+  ledcSetup(CH_MOT_DIR_IN1, PWM_FREQ, PWM_RES_BITS);
+  ledcSetup(CH_MOT_DIR_IN2, PWM_FREQ, PWM_RES_BITS);
+  ledcSetup(CH_MOT_ESQ_IN1, PWM_FREQ, PWM_RES_BITS);
+  ledcSetup(CH_MOT_ESQ_IN2, PWM_FREQ, PWM_RES_BITS);
 
-    long pulsos = mediaAbsEncoders();
-    float mmPercorridos = pulsos * MM_POR_PULSO;
-    float mmRestantes = CELL_MM - mmPercorridos;
+  ledcAttachPin(MOT_DIR_IN1, CH_MOT_DIR_IN1);
+  ledcAttachPin(MOT_DIR_IN2, CH_MOT_DIR_IN2);
+  ledcAttachPin(MOT_ESQ_IN1, CH_MOT_ESQ_IN1);
+  ledcAttachPin(MOT_ESQ_IN2, CH_MOT_ESQ_IN2);
 
-    int pwmAtualEsq = PWM_CELULA_CRUZEIRO;
-    int pwmAtualDir = PWM_CELULA_CRUZEIRO;
+  stopMotors();
+}
 
-    // desacelera ao se aproximar do alvo por encoder
-    if (mmRestantes <= RAMPA_FINAL_MM) {
-        pwmAtualEsq = PWM_CELULA_LENTO;
-        pwmAtualDir = PWM_CELULA_LENTO;
-        ultimaAcao = "Freando por encoder";
+void setMotorPWM(int left, int right) {
+  pwmLeft = constrain(left, 0, PWM_MAX);
+  pwmRight = constrain(right, 0, PWM_MAX);
+}
+
+void moveForward() {
+  ledcWrite(CH_MOT_ESQ_IN1, pwmLeft);
+  ledcWrite(CH_MOT_ESQ_IN2, 0);
+  ledcWrite(CH_MOT_DIR_IN1, pwmRight);
+  ledcWrite(CH_MOT_DIR_IN2, 0);
+  motorsEnabled = true;
+}
+
+void moveBackward() {
+  ledcWrite(CH_MOT_ESQ_IN1, 0);
+  ledcWrite(CH_MOT_ESQ_IN2, pwmLeft);
+  ledcWrite(CH_MOT_DIR_IN1, 0);
+  ledcWrite(CH_MOT_DIR_IN2, pwmRight);
+  motorsEnabled = true;
+}
+
+void turnLeft() {
+  ledcWrite(CH_MOT_ESQ_IN1, 0);
+  ledcWrite(CH_MOT_ESQ_IN2, pwmLeft);
+  ledcWrite(CH_MOT_DIR_IN1, pwmRight);
+  ledcWrite(CH_MOT_DIR_IN2, 0);
+  motorsEnabled = true;
+}
+
+void turnRight() {
+  ledcWrite(CH_MOT_ESQ_IN1, pwmLeft);
+  ledcWrite(CH_MOT_ESQ_IN2, 0);
+  ledcWrite(CH_MOT_DIR_IN1, 0);
+  ledcWrite(CH_MOT_DIR_IN2, pwmRight);
+  motorsEnabled = true;
+}
+
+// =========================
+// MPU
+// =========================
+bool initMPU() {
+  mpuError = "";
+  if (!mpu.begin(MPU_ADDR, &Wire)) {
+    mpuState = INIT_FAIL;
+    mpuError = "MPU6050 nao encontrado no I2C";
+    return false;
+  }
+
+  mpu.setAccelerometerRange(MPU6050_RANGE_8_G);
+  mpu.setGyroRange(MPU6050_RANGE_500_DEG);
+  mpu.setFilterBandwidth(MPU6050_BAND_21_HZ);
+
+  mpuState = INIT_OK;
+  return true;
+}
+
+void readMPU() {
+  if (mpuState != INIT_OK) return;
+
+  sensors_event_t a, g, temp;
+  if (mpu.getEvent(&a, &g, &temp)) {
+    ax_g = a.acceleration.x;
+    ay_g = a.acceleration.y;
+    az_g = a.acceleration.z;
+    gx_dps = g.gyro.x;
+    gy_dps = g.gyro.y;
+    gz_dps = g.gyro.z;
+    temp_c = temp.temperature;
+  }
+}
+
+// =========================
+// TOF
+// =========================
+bool startTofWithAddress(Adafruit_VL53L0X &sensor, uint8_t newAddr, String &errRef) {
+  errRef = "";
+  if (!sensor.begin(newAddr, false, &Wire)) {
+    errRef = "Falha ao iniciar VL53L0X";
+    return false;
+  }
+  return true;
+}
+
+bool initToFs() {
+  tofLeftError = "";
+  tofFrontError = "";
+  tofRightError = "";
+
+  tofLeftState = NOT_INIT;
+  tofFrontState = NOT_INIT;
+  tofRightState = NOT_INIT;
+
+  pinMode(XSHUT_TOF_ESQ, OUTPUT);
+  pinMode(XSHUT_TOF_DIR, OUTPUT);
+
+  // desliga laterais
+  digitalWrite(XSHUT_TOF_ESQ, LOW);
+  digitalWrite(XSHUT_TOF_DIR, LOW);
+  delay(20);
+
+  // frontal fica ligado sem xshut
+  if (tofFront.begin(TOF_ADDR_FRONT, false, &Wire)) {
+    tofFrontState = INIT_OK;
+  } else {
+    tofFrontState = INIT_FAIL;
+    tofFrontError = "Falha ToF frontal";
+  }
+
+  // esquerdo
+  digitalWrite(XSHUT_TOF_ESQ, HIGH);
+  delay(20);
+  if (startTofWithAddress(tofLeft, TOF_ADDR_LEFT, tofLeftError)) {
+    tofLeftState = INIT_OK;
+  } else {
+    tofLeftState = INIT_FAIL;
+  }
+
+  // direito
+  digitalWrite(XSHUT_TOF_DIR, HIGH);
+  delay(20);
+  if (startTofWithAddress(tofRight, TOF_ADDR_RIGHT, tofRightError)) {
+    tofRightState = INIT_OK;
+  } else {
+    tofRightState = INIT_FAIL;
+  }
+
+  return (tofLeftState == INIT_OK || tofFrontState == INIT_OK || tofRightState == INIT_OK);
+}
+
+int readSingleToF(Adafruit_VL53L0X &sensor, InitState st, int offsetMm) {
+  if (st != INIT_OK) return -1;
+
+  VL53L0X_RangingMeasurementData_t measure;
+  sensor.rangingTest(&measure, false);
+
+  if (measure.RangeStatus != 4) {
+    int val = (int)measure.RangeMilliMeter - offsetMm;
+    if (val < 0) val = 0;
+    return val;
+  }
+  return -1;
+}
+
+void readToFs() {
+  distLeft = readSingleToF(tofLeft, tofLeftState, offsetEsq);
+  distFront = readSingleToF(tofFront, tofFrontState, offsetFrnt);
+  distRight = readSingleToF(tofRight, tofRightState, offsetDir);
+}
+
+// =========================
+// INIT GERAL
+// =========================
+void initSensorsSafe() {
+  initMPU();
+  initToFs();
+}
+
+// =========================
+// WEB JSON
+// =========================
+String jsonStatus() {
+  String s = "{";
+  s += "\"tofLeftState\":" + String((int)tofLeftState) + ",";
+  s += "\"tofFrontState\":" + String((int)tofFrontState) + ",";
+  s += "\"tofRightState\":" + String((int)tofRightState) + ",";
+  s += "\"mpuState\":" + String((int)mpuState) + ",";
+
+  s += "\"tofLeftError\":\"" + tofLeftError + "\",";
+  s += "\"tofFrontError\":\"" + tofFrontError + "\",";
+  s += "\"tofRightError\":\"" + tofRightError + "\",";
+  s += "\"mpuError\":\"" + mpuError + "\",";
+
+  s += "\"distLeft\":" + String(distLeft) + ",";
+  s += "\"distFront\":" + String(distFront) + ",";
+  s += "\"distRight\":" + String(distRight) + ",";
+
+  s += "\"ax\":" + String(ax_g, 3) + ",";
+  s += "\"ay\":" + String(ay_g, 3) + ",";
+  s += "\"az\":" + String(az_g, 3) + ",";
+  s += "\"gx\":" + String(gx_dps, 3) + ",";
+  s += "\"gy\":" + String(gy_dps, 3) + ",";
+  s += "\"gz\":" + String(gz_dps, 3) + ",";
+  s += "\"temp\":" + String(temp_c, 2) + ",";
+
+  s += "\"encLeft\":" + String(encLeftCount) + ",";
+  s += "\"encRight\":" + String(encRightCount) + ",";
+  s += "\"pwmLeft\":" + String(pwmLeft) + ",";
+  s += "\"pwmRight\":" + String(pwmRight) + ",";
+  s += "\"motorsEnabled\":" + String(motorsEnabled ? "true" : "false");
+  s += "}";
+  return s;
+}
+
+// =========================
+// ROTAS
+// =========================
+void setupRoutes() {
+  server.on("/", HTTP_GET, []() {
+    server.send_P(200, "text/html; charset=utf-8", INDEX_HTML);
+  });
+
+  server.on("/status", HTTP_GET, []() {
+    server.send(200, "application/json", jsonStatus());
+  });
+
+  server.on("/init", HTTP_GET, []() {
+    initSensorsSafe();
+    server.send(200, "application/json", jsonStatus());
+  });
+
+  server.on("/retry", HTTP_GET, []() {
+    initSensorsSafe();
+    server.send(200, "application/json", jsonStatus());
+  });
+
+  server.on("/pwm", HTTP_GET, []() {
+    if (!server.hasArg("left") || !server.hasArg("right")) {
+      server.send(400, "application/json", "{\"error\":\"parametros left/right ausentes\"}");
+      return;
+    }
+    setMotorPWM(server.arg("left").toInt(), server.arg("right").toInt());
+    server.send(200, "application/json", jsonStatus());
+  });
+
+  server.on("/move", HTTP_GET, []() {
+    if (!server.hasArg("cmd")) {
+      server.send(400, "application/json", "{\"error\":\"cmd ausente\"}");
+      return;
     }
 
-    // desacelera se o ToF frontal indicar zona de decisão
-    if (tofFrntOK && distFrnt > 0 && distFrnt <= TOF_FREIO_MM) {
-        pwmAtualEsq = min(pwmAtualEsq, PWM_CELULA_LENTO);
-        pwmAtualDir = min(pwmAtualDir, PWM_CELULA_LENTO);
-        ultimaAcao = "Freando por ToF frontal";
+    String cmd = server.arg("cmd");
+
+    if (cmd == "forward") moveForward();
+    else if (cmd == "backward") moveBackward();
+    else if (cmd == "left") turnLeft();
+    else if (cmd == "right") turnRight();
+    else if (cmd == "stop") stopMotors();
+    else {
+      server.send(400, "application/json", "{\"error\":\"comando invalido\"}");
+      return;
     }
 
-    // parada por segurança ou conclusão da célula
-    if ((tofFrntOK && distFrnt > 0 && distFrnt <= TOF_STOP_MM) || (mmRestantes <= 0)) {
-        stopMotors();
-        moverCelulaAtivo = false;
-        ultimaAcao = "Célula concluída / aguardando decisão";
-        return;
-    }
+    server.send(200, "application/json", jsonStatus());
+  });
 
-    setMotoresPontes(pwmAtualEsq, pwmAtualDir);
+  server.onNotFound([]() {
+    server.send(404, "application/json", "{\"error\":\"rota nao encontrada\"}");
+  });
+
+  server.begin();
 }
 
-void handleCelula() {
-    iniciarMoverUmaCelula();
-    server.send(200, "text/plain", "Modo moverUmaCelula iniciado");
-}
-
-// ─── Setup ────────────────────────────────────────────────────────────────────
+// =========================
+// SETUP
+// =========================
 void setup() {
-    Serial.begin(115200);
-    Wire.begin(SDA_PIN, SCL_PIN);
-    delay(100);
+  Serial.begin(115200);
+  delay(200);
 
-    motorsInit();
-    stopMotors();
-    encodersInit();
-    tofInit();
+  Wire.begin(SDA_PIN, SCL_PIN, 400000);
 
-    WiFi.softAP(SSID, PASSWORD);
-    server.on("/",         handleRoot);
-    server.on("/dados",     handleDados);
-    server.on("/forward",   handleForward);
-    server.on("/backward",  handleBackward);
-    server.on("/left",      handleLeft);
-    server.on("/right",     handleRight);
-    server.on("/stop",      handleStop);
-    server.on("/zerar",     handleZerar);
-    server.on("/setpwm",    handleSetPwm);
-    server.on("/celula",    handleCelula);
-    server.begin();
+  pinMode(ENC_ESQ_C1, INPUT_PULLUP);
+  pinMode(ENC_ESQ_C2, INPUT_PULLUP);
+  pinMode(ENC_DIR_C1, INPUT_PULLUP);
+  pinMode(ENC_DIR_C2, INPUT_PULLUP);
 
-    mpuOK = mpuInit();
-    if (mpuOK) {
-        calibrateGyro();
-    }
-    lastTime = millis();
+  attachInterrupt(digitalPinToInterrupt(ENC_ESQ_C1), isrEncLeft, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(ENC_DIR_C1), isrEncRight, CHANGE);
+
+  motorsInit();
+  stopMotors();
+
+  WiFi.mode(WIFI_AP);
+  WiFi.softAP(AP_SSID, AP_PASS);
+
+  setupRoutes();
+
+  initSensorsSafe();
+
+  Serial.println("Sistema pronto.");
+  Serial.print("IP AP: ");
+  Serial.println(WiFi.softAPIP());
 }
 
-// ─── Loop Principal ───────────────────────────────────────────────────────────
+// =========================
+// LOOP
+// =========================
 void loop() {
-    server.handleClient();
-    unsigned long now = millis();
+  server.handleClient();
 
-    // 1. ToFs (round-robin contínuo)
-    if (now - lastTofTime >= 40) {
-        lastTofTime = now;
-        if      (tofIndex == 0 && tofEsqOK)  { uint16_t r = tofEsq.readRange();  distEsq  = (r > offsetEsq)  ? (r - offsetEsq)  : 0; }
-        else if (tofIndex == 1 && tofFrntOK) { uint16_t r = tofFrnt.readRange(); distFrnt = (r > offsetFrnt) ? (r - offsetFrnt) : 0; }
-        else if (tofIndex == 2 && tofDirOK)  { uint16_t r = tofDir.readRange();  distDir  = (r > offsetDir)  ? (r - offsetDir)  : 0; }
-        tofIndex = (tofIndex + 1) % 3;
-    }
+  unsigned long now = millis();
+  if (now - lastSensorRead >= SENSOR_PERIOD_MS) {
+    lastSensorRead = now;
+    readMPU();
+    readToFs();
+  }
 
-    // 2. Giroscópio estável (~100 Hz com nova zona morta de 2.5°/s)
-    if (mpuOK && (now - lastTime >= 10)) {
-        float dt = (now - lastTime) / 1000.0f;
-        lastTime = now;
-        mpuReadAll();
-        float gzComp = gz - gyroZ_Offset;
-        if (fabsf(gzComp) < 2.5f) gzComp = 0.0f; 
-        yaw += gzComp * dt;
-    } else if (!mpuOK) {
-        lastTime = now;
-    }
-
-    // 3. Controle autônomo: mover uma célula
-    atualizarMoverUmaCelula();
+  delay(2);
 }
