@@ -76,6 +76,20 @@ int pwmDir = 65;
 
 String ultimaAcao = "Pronto para testes manuais";
 
+// ─── Modo automático: mover uma célula ───────────────────────────────────────
+bool moverCelulaAtivo = false;
+
+const float CELL_MM = 173.0f;       // distância de uma célula
+const float MM_POR_PULSO = 1.0f;    // CALIBRAR
+const uint16_t TOF_FREIO_MM = 168;  // reduz velocidade ao entrar nessa faixa
+const uint16_t TOF_STOP_MM  = 95;   // margem de segurança para parar
+
+const int PWM_CELULA_CRUZEIRO = 85;
+const int PWM_CELULA_LENTO    = 45;
+const float RAMPA_FINAL_MM    = 40.0f;
+
+long alvoPulsosCelula = 0;
+
 // ─── Interrupções dos Encoders ────────────────────────────────────────────────
 void IRAM_ATTR isrEncoderEsq() {
     if (digitalRead(ENC_ESQ_C1) == digitalRead(ENC_ESQ_C2)) countEsq++; else countEsq--;
@@ -321,6 +335,58 @@ setInterval(() => {
     server.send(200, "text/html", html);
 }
 
+long mediaAbsEncoders() {
+    return (labs(countEsq) + labs(countDir)) / 2;
+}
+
+void iniciarMoverUmaCelula() {
+    countEsq = 0;
+    countDir = 0;
+    alvoPulsosCelula = (long)(CELL_MM / MM_POR_PULSO);
+    moverCelulaAtivo = true;
+    ultimaAcao = "Modo auto: mover 1 célula";
+}
+
+void atualizarMoverUmaCelula() {
+    if (!moverCelulaAtivo) return;
+
+    long pulsos = mediaAbsEncoders();
+    float mmPercorridos = pulsos * MM_POR_PULSO;
+    float mmRestantes = CELL_MM - mmPercorridos;
+
+    int pwmAtualEsq = PWM_CELULA_CRUZEIRO;
+    int pwmAtualDir = PWM_CELULA_CRUZEIRO;
+
+    // desacelera ao se aproximar do alvo por encoder
+    if (mmRestantes <= RAMPA_FINAL_MM) {
+        pwmAtualEsq = PWM_CELULA_LENTO;
+        pwmAtualDir = PWM_CELULA_LENTO;
+        ultimaAcao = "Freando por encoder";
+    }
+
+    // desacelera se o ToF frontal indicar zona de decisão
+    if (tofFrntOK && distFrnt > 0 && distFrnt <= TOF_FREIO_MM) {
+        pwmAtualEsq = min(pwmAtualEsq, PWM_CELULA_LENTO);
+        pwmAtualDir = min(pwmAtualDir, PWM_CELULA_LENTO);
+        ultimaAcao = "Freando por ToF frontal";
+    }
+
+    // parada por segurança ou conclusão da célula
+    if ((tofFrntOK && distFrnt > 0 && distFrnt <= TOF_STOP_MM) || (mmRestantes <= 0)) {
+        stopMotors();
+        moverCelulaAtivo = false;
+        ultimaAcao = "Célula concluída / aguardando decisão";
+        return;
+    }
+
+    setMotoresPontes(pwmAtualEsq, pwmAtualDir);
+}
+
+void handleCelula() {
+    iniciarMoverUmaCelula();
+    server.send(200, "text/plain", "Modo moverUmaCelula iniciado");
+}
+
 // ─── Setup ────────────────────────────────────────────────────────────────────
 void setup() {
     Serial.begin(115200);
@@ -342,6 +408,7 @@ void setup() {
     server.on("/stop",      handleStop);
     server.on("/zerar",     handleZerar);
     server.on("/setpwm",    handleSetPwm);
+    server.on("/celula",    handleCelula);
     server.begin();
 
     mpuOK = mpuInit();
@@ -376,4 +443,7 @@ void loop() {
     } else if (!mpuOK) {
         lastTime = now;
     }
+
+    // 3. Controle autônomo: mover uma célula
+    atualizarMoverUmaCelula();
 }
