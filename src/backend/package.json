@@ -41,6 +41,7 @@
     "@nestjs/cli": "^11.0.0",
     "@nestjs/schematics": "^11.0.0",
     "@nestjs/testing": "^11.0.1",
+    "@types/better-sqlite3": "^7.6.13",
     "@types/express": "^5.0.0",
     "@types/jest": "^30.0.0",
     "@types/node": "^24.0.0",
@@ -77,10 +78,10 @@
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
-    "main.ts",
-    "app.module.ts",
-    "telemetry.module.ts",
-    "src/telemetry/tests"
-  ]
+      "main.ts",
+      "app.module.ts",
+      "telemetry.module.ts",
+      "src/telemetry/tests"
+    ]
   }
 }
