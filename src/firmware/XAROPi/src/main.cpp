@@ -5,9 +5,6 @@
 #include <Adafruit_MPU6050.h>
 #include <Adafruit_Sensor.h>
 
-// =========================
-// PINAGEM NOVA
-// =========================
 static const int ENC_DIR_C1   = 47;
 static const int ENC_DIR_C2   = 48;
 static const int MOT_DIR_IN1  = 42;
@@ -21,9 +18,9 @@ static const int MOT_ESQ_IN2  = 16;
 static const int XSHUT_TOF_ESQ = 5;
 static const int XSHUT_TOF_DIR = 40;
 
-// ToF frontal sem XSHUT
-static const int SDA_PIN = 8;   // ajuste se necessário na sua placa
-static const int SCL_PIN = 9;   // ajuste se necessário na sua placa
+
+static const int SDA_PIN = 8;   
+static const int SCL_PIN = 9;   
 
 // MPU6050
 #define MPU_ADDR     0x68
@@ -31,29 +28,24 @@ static const int SCL_PIN = 9;   // ajuste se necessário na sua placa
 #define CONFIG_REG   0x1A
 #define ACCEL_XOUT_H 0x3B
 
-// Endereços I2C finais dos ToFs
-static const uint8_t TOF_ADDR_FRONT = 0x29; // padrão
+static const uint8_t TOF_ADDR_FRONT = 0x29; 
 static const uint8_t TOF_ADDR_LEFT  = 0x30;
 static const uint8_t TOF_ADDR_RIGHT = 0x31;
 
-// Offsets informados
 const int offsetEsq  = 25;
 const int offsetFrnt = 25;
 const int offsetDir  = 35;
 
-// Wi-Fi AP
 const char* AP_SSID = "ESP32S3_Robo";
 const char* AP_PASS = "12345678";
 
 WebServer server(80);
 
-// Sensores
 Adafruit_VL53L0X tofFront;
 Adafruit_VL53L0X tofLeft;
 Adafruit_VL53L0X tofRight;
 Adafruit_MPU6050 mpu;
 
-// Estado do sistema
 enum InitState { NOT_INIT = 0, INIT_OK = 1, INIT_FAIL = 2 };
 
 volatile long encLeftCount = 0;
@@ -94,9 +86,6 @@ static const int CH_MOT_DIR_IN2 = 1;
 static const int CH_MOT_ESQ_IN1 = 2;
 static const int CH_MOT_ESQ_IN2 = 3;
 
-// =========================
-// HTML
-// =========================
 const char INDEX_HTML[] PROGMEM = R"rawliteral(
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -231,9 +220,7 @@ refreshStatus();
 </html>
 )rawliteral";
 
-// =========================
-// ENCODERS
-// =========================
+// encoders
 void IRAM_ATTR isrEncLeft() {
   int b = digitalRead(ENC_ESQ_C2);
   encLeftCount += (b ? 1 : -1);
@@ -244,9 +231,7 @@ void IRAM_ATTR isrEncRight() {
   encRightCount += (b ? 1 : -1);
 }
 
-// =========================
-// MOTORES
-// =========================
+// motores
 void stopMotors() {
   ledcWrite(CH_MOT_DIR_IN1, 0);
   ledcWrite(CH_MOT_DIR_IN2, 0);
@@ -306,9 +291,7 @@ void turnRight() {
   motorsEnabled = true;
 }
 
-// =========================
-// MPU
-// =========================
+// mpu
 bool initMPU() {
   mpuError = "";
   if (!mpu.begin(MPU_ADDR, &Wire)) {
@@ -340,9 +323,7 @@ void readMPU() {
   }
 }
 
-// =========================
-// TOF
-// =========================
+// tof
 bool startTofWithAddress(Adafruit_VL53L0X &sensor, uint8_t newAddr, String &errRef) {
   errRef = "";
   if (!sensor.begin(newAddr, false, &Wire)) {
@@ -418,17 +399,12 @@ void readToFs() {
   distRight = readSingleToF(tofRight, tofRightState, offsetDir);
 }
 
-// =========================
-// INIT GERAL
-// =========================
+
 void initSensorsSafe() {
   initMPU();
   initToFs();
 }
 
-// =========================
-// WEB JSON
-// =========================
 String jsonStatus() {
   String s = "{";
   s += "\"tofLeftState\":" + String((int)tofLeftState) + ",";
@@ -462,9 +438,7 @@ String jsonStatus() {
   return s;
 }
 
-// =========================
-// ROTAS
-// =========================
+// rotas web de teste
 void setupRoutes() {
   server.on("/", HTTP_GET, []() {
     server.send_P(200, "text/html; charset=utf-8", INDEX_HTML);
@@ -521,9 +495,7 @@ void setupRoutes() {
   server.begin();
 }
 
-// =========================
-// SETUP
-// =========================
+
 void setup() {
   Serial.begin(115200);
   delay(200);
@@ -553,9 +525,6 @@ void setup() {
   Serial.println(WiFi.softAPIP());
 }
 
-// =========================
-// LOOP
-// =========================
 void loop() {
   server.handleClient();
 
