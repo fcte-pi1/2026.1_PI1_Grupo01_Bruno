@@ -1,1 +1,24 @@
-[]
+[
+  {
+    "id_corrida": "-OwU8iRqUNphU8NKYekj",
+    "telemetria": {
+      "timestamp": 1782934072300,
+      "velocidade": "0.57",
+      "corrente": 439,
+      "tensao": "6.80",
+      "mah_restante": 935,
+      "posicao_vetor": 102
+    }
+  },
+  {
+    "id_corrida": "-OwUAq2-WoWqQaDpdFKN",
+    "telemetria": {
+      "timestamp": 1782934641861,
+      "velocidade": "0.59",
+      "corrente": 484,
+      "tensao": "6.70",
+      "mah_restante": 925,
+      "posicao_vetor": 119
+    }
+  }
+]
