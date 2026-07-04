@@ -1,3 +1,105 @@
+INICIO DO CAPITULO DE LIÇÕES APRENDIDAS
+\chapter{Lições Aprendidas}
+
+Esta seção tem como objetivo documentar as lições aprendidas ao longo do desenvolvimento do projeto do micromouse, de forma a consolidar os conhecimentos adquiridos, reconhecer os acertos da equipe e identificar os pontos passíveis de melhoria.
+
+\section{Análise SWOT}
+
+A fim de consolidar as lições aprendidas ao longo do desenvolvimento do micromouse, realizou-se uma análise SWOT do produto, contemplando os fatores internos (pontos fortes e fracos da equipe e do projeto) e os fatores externos (oportunidades e ameaças relacionadas ao contexto do desenvolvimento). A Tabela~\ref{tab:swot} sintetiza os principais pontos identificados pela equipe.
+
+\begin{table}[H]
+\centering
+\footnotesize
+\caption{Análise SWOT do produto.}
+\begin{tabular}{|c|c|c|} \hline
+ & \textbf{Pontos fortes} & \textbf{Pontos fracos}  \\ \hline 
+{\parbox{0.1\textwidth}{ \textbf{Fatores \\ internos}}}  &
+{\parbox{0.4\textwidth}{ Forças: 
+\begin{itemize}
+    \item Chassi leve, contribuindo para melhor desempenho geral do robô
+    \item Bateria eficiente, garantindo boa autonomia 
+    \item Uso do inerciômetro como redundância de movimentação, mitigando falha em um dos encoders
+    \item Experiência prévia dos membros em tecnologias específicas, acelerando o desenvolvimento
+    \item Arquitetura em React.js permitindo boa modularização e escalabilidade do frontend
+    \item Comunicação em tempo real via WebSocket entre hardware e software
+    \item Entregas extras de valor agregado, como o carrinho modelado em 3D
+\end{itemize}}}
+&
+{\parbox{0.4\textwidth}{ Fraquezas:
+\begin{itemize}
+    \item Largura/formato do chassi maior que o ideal, dificultando manobras nas curvas
+    \item Queima de componentes durante o processo
+    \item Aumento do orçamento previsto devido à reposição dos componentes danificados
+    \item Eletrônica mais sensível devido ao uso de jumpers em placa perfurada
+    \item Banco de dados dependente de conexão à internet, exigindo solução de backup offline
+    \item Predominância de testes isolados em detrimento de testes de integração, gerando imprevistos na integração final
+\end{itemize}}}
+\\ \hline
+
+{\parbox{0.1\textwidth}{ \textbf{Fatores \\ externos}}}  &
+{\parbox{0.4\textwidth}{ Oportunidades:
+\begin{itemize}
+    \item Reaproveitamento do chassi, algoritmo de navegação e sistema de energia como base para outros projetos acadêmicos, TCCs ou iniciação científica
+    \item Adaptação dos módulos desenvolvidos (gerenciamento de energia, navegação) para outros robôs móveis, como VANTs ou rovers
+\end{itemize}}}
+&
+{\parbox{0.4\textwidth}{ Ameaças:
+\begin{itemize}
+    \item Prazo apertado devido a imprevistos técnicos
+    \item Dificuldade de integração entre subsistemas, com falhas pequenas se acumulando e dificultando o diagnóstico
+    \item Alto escopo de entregas em curto espaço de tempo, exigindo decisões rápidas
+    \item Dificuldade em entender como organizar o GitHub em relação à EAP do projeto
+    \item Demora na integração com o hardware, atrasando o desenvolvimento da telemetria
+\end{itemize}}}
+\\ \hline
+\end{tabular}
+\label{tab:swot}
+\end{table}
+
+
+\section{Projeto}
+
+A partir da experiência acumulada durante as etapas de desenvolvimento, integração e testes do micromouse, foram identificados os principais pontos fortes e fracos do projeto, descritos a seguir.
+
+\subsection{Pontos fortes}
+
+\begin{enumerate}
+    \item Chassi leve e de montagem simples, facilitando ajustes e manutenção ao longo do projeto.
+    \item Uso do inerciômetro como redundância, essencial diante da falha em um dos encoders.
+    \item Arquitetura em React.js e comunicação via WebSocket garantiram um frontend modular e responsivo.
+    \item Experiência prévia da equipe em tecnologias específicas acelerou o desenvolvimento geral.
+\end{enumerate}
+
+\subsection{Pontos fracos}
+
+\begin{enumerate}
+    \item Formato do chassi dificultou manobras nas curvas do labirinto.
+    \item Queima de componentes durante o processo, elevando o orçamento previsto do projeto.
+    \item Predomínio de testes isolados sobre testes de integração, gerando imprevistos na integração final.
+    \item Engajamento desigual entre os membros da equipe, dificultando o cumprimento dos prazos.
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 % \chapter{Lições Aprendidas}
 
 % \textcolor{red}{Documentar as lições aprendidas de modo a aperfeiçoar os processos e evitar que os erros e problemas encontrados se repitam em futuros projetos.}
