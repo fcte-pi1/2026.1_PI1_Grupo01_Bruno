@@ -498,23 +498,29 @@ Como espera-se que o back-end e o front-end do servidor web sejam executados na 
 O diagrama mostra também a relação de dependência entre o back-end e o \textit{micromouse}, indicando que o rato é capaz de operar independentemente, e entre o front-end e o back-end. 
 
 \subsection{Visão de Dados do Software} 
+A Visão de Dados descreve a forma como as informações geradas, processadas e consumidas pelo sistema são estruturadas e armazenadas. Tendo em vista as características do projeto, que exige atualização e armazenamento de dados de telemetria em tempo real, optou-se pela utilização do Firebase Realtime Database, um banco de dados NoSQL que organiza as informações em uma única estrutura hierárquica no formato JSON.
 
-A Visão de Dados descreve a forma como as informações geradas, processadas e consumidas pelo sistema são estruturadas e armazenadas. Tendo em vista as características do projeto, que exige alta taxa de transferência e armazenamento de dados de telemetria em tempo real, optou-se pela utilização do Firebase, um banco de dados NoSQL orientado a documentos que armazena os dados em coleções, as quais contêm documentos que podem abrigar subcoleções.
+Diferentemente de bancos relacionais, que organizam os dados em tabelas, ou do Cloud Firestore, que utiliza coleções e documentos, o Firebase Realtime Database armazena os dados por meio de nós e subnós. Dessa forma, a modelagem do banco foi representada como uma árvore JSON, na qual cada nó agrupa informações relacionadas a um domínio específico da aplicação.
+\subsubsection{Diagrama de Estrutura JSON do Banco de Dados}
 
-\subsubsection{Diagrama de Estrutura de Documentos} 
-    Na Figura \ref{fig:diagrama_estrutura_documentos}, temos o Diagrama de Estrutura de Documentos que reflete a modelagem escolhida para otimizar as consultas do sistema web. A base de dados está dividida em duas coleções principais:
+Na Figura \ref{fig:diagrama_estrutura_json}, temos o Diagrama de Estrutura JSON do Banco de Dados, que representa a modelagem utilizada para armazenar os dados de telemetria recebidos do micromouse. Como o projeto utiliza o Firebase Realtime Database, os dados são organizados em uma árvore JSON composta por nós e subnós. O nó principal da estrutura é \textit{corridas}, responsável por armazenar os registros das corridas do micromouse. Cada corrida é identificada por uma chave única, representada por \textit{id\_corrida}, gerada no momento em que uma nova execução é iniciada.
 
-    \begin{itemize}
-        \item \textbf{Coleção Labirinto:} Responsável por armazenar a estrutura física e lógica do labirinto percorrido. Cada documento representa um labirinto específico e possui atributos como \textit{id} e \textit{status}, além de uma subcoleção \textit{Nos} e uma subcoleção de metadados para dimensionamento.
-        \item \textbf{Coleção Tentativa:} Responsável por armazenar o registro de telemetria do Micromouse. Cada vez que o robô inicia um percurso, um novo documento é criado nesta coleção, contendo atributos da tentativa e subcoleções específicas para os dados de velocidade e de bateria.
-    \end{itemize}
+\begin{itemize}
+    \item \textbf{Subnó Estado Atual:} responsável por armazenar o estado mais recente do micromouse durante a corrida, incluindo a posição atual no vetor do labirinto e o instante em que essa informação foi registrada.
 
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=\textwidth]{figuras/software/diagrama_estrutura_documentos.png}
-        \caption{Diagrama de Estrutura de Documentos.}
-        \label{fig:diagrama_estrutura_documentos}
-    \end{figure}
+    \item \textbf{Subnó Labirinto:} responsável por armazenar as células percorridas ou identificadas durante a execução. Cada célula contém informações sobre as direções disponíveis, representadas pelos campos norte, sul, leste e oeste.
+
+    \item \textbf{Subnó Metadados:} responsável por armazenar informações gerais da corrida, como bateria inicial, bateria total, bateria final, dimensão do labirinto, instante de início, instante de fim e status da execução.
+
+    \item \textbf{Subnó Telemetria:} responsável por armazenar os registros de telemetria coletados durante a corrida. Cada registro contém informações como corrente, carga restante da bateria, tensão, velocidade e timestamp.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figuras/software/diagrama_estrutura_json.png}
+    \caption{Diagrama de Estrutura JSON do Banco de Dados.}
+    \label{fig:diagrama_estrutura_json}
+\end{figure}
 
     \subsection{Roteiro de testes funcionais}
 
