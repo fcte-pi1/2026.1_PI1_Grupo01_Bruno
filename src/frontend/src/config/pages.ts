@@ -24,14 +24,12 @@ export const PAGE_CONFIG: Record<Page, {
         route: '/projeto',
         label: 'Projeto',
         description: 'Informações sobre o projeto',
-        showTopPage: false,
     },
 
     equipe: {
         route: '/equipe',
         label: 'Equipe',
         description: 'Membros da equipe',
-        showTopPage: false,
     },
 
    
