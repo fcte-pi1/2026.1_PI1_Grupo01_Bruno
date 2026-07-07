@@ -15,8 +15,8 @@ interface HeaderProps {
 const TABS: {page: Page; label: string; icon: string}[] = [
     {page: 'dashboard', label: 'Dashboard', icon: 'dashboard'},
     {page: 'historico', label: 'Histórico', icon: 'history'},
-    {page: 'projeto', label: 'Projeto', icon: 'architecture'},
-    {page: 'equipe', label: 'Equipe', icon: 'group'},
+    // {page: 'projeto', label: 'Projeto', icon: 'architecture'},
+    // {page: 'equipe', label: 'Equipe', icon: 'group'},
     {page: 'chassi', label: 'Chassi', icon: 'view_in_ar'},
 ]
 
