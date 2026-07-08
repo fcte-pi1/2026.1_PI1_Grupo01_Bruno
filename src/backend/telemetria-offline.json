@@ -1,1 +1,189 @@
-[]
+[
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465853539,
+      "velocidade": "0.35",
+      "corrente": 432,
+      "tensao": "7.20",
+      "mah_restante": 975,
+      "posicao_vetor": 34
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465854541,
+      "velocidade": "0.36",
+      "corrente": 449,
+      "tensao": "7.15",
+      "mah_restante": 970,
+      "posicao_vetor": 35
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465855552,
+      "velocidade": "0.25",
+      "corrente": 498,
+      "tensao": "7.10",
+      "mah_restante": 965,
+      "posicao_vetor": 36
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465856563,
+      "velocidade": "0.22",
+      "corrente": 480,
+      "tensao": "7.05",
+      "mah_restante": 960,
+      "posicao_vetor": 52
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465857576,
+      "velocidade": "0.26",
+      "corrente": 455,
+      "tensao": "7.00",
+      "mah_restante": 955,
+      "posicao_vetor": 68
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465858578,
+      "velocidade": "0.41",
+      "corrente": 483,
+      "tensao": "6.95",
+      "mah_restante": 950,
+      "posicao_vetor": 69
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465859580,
+      "velocidade": "0.35",
+      "corrente": 461,
+      "tensao": "6.90",
+      "mah_restante": 945,
+      "posicao_vetor": 70
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465860583,
+      "velocidade": "0.43",
+      "corrente": 453,
+      "tensao": "6.85",
+      "mah_restante": 940,
+      "posicao_vetor": 86
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465861599,
+      "velocidade": "0.40",
+      "corrente": 435,
+      "tensao": "6.80",
+      "mah_restante": 935,
+      "posicao_vetor": 102
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465862604,
+      "velocidade": "0.54",
+      "corrente": 404,
+      "tensao": "6.75",
+      "mah_restante": 930,
+      "posicao_vetor": 118
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465863608,
+      "velocidade": "0.47",
+      "corrente": 437,
+      "tensao": "6.70",
+      "mah_restante": 925,
+      "posicao_vetor": 119
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465864616,
+      "velocidade": "0.54",
+      "corrente": 468,
+      "tensao": "6.65",
+      "mah_restante": 920,
+      "posicao_vetor": 120
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465865619,
+      "velocidade": "0.30",
+      "corrente": 418,
+      "tensao": "6.60",
+      "mah_restante": 915,
+      "posicao_vetor": 136
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465866625,
+      "velocidade": "0.35",
+      "corrente": 426,
+      "tensao": "6.55",
+      "mah_restante": 910,
+      "posicao_vetor": 152
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465867639,
+      "velocidade": "0.36",
+      "corrente": 413,
+      "tensao": "6.50",
+      "mah_restante": 905,
+      "posicao_vetor": 168
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465868641,
+      "velocidade": "0.24",
+      "corrente": 400,
+      "tensao": "6.45",
+      "mah_restante": 900,
+      "posicao_vetor": 169
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465869656,
+      "velocidade": "0.30",
+      "corrente": 477,
+      "tensao": "6.40",
+      "mah_restante": 895,
+      "posicao_vetor": 170
+    }
+  }
+]

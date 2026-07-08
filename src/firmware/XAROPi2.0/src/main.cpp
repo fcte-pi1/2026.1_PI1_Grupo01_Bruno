@@ -1,6 +1,8 @@
 #include <Arduino.h>
 #include <WiFi.h>
 #include <WebServer.h>
+#include <SocketIOclient.h>
+#include <ArduinoJson.h>
 #include "hardware/hardware.h"
 #include "motor/movimento.h"
 
@@ -23,7 +25,7 @@ int mapaDist[4][4];
 byte mapaParedes[4][4]; 
 
 enum EstadoRobo { PARADO, LENDO_SENSORES, ATUALIZANDO_MAPA, VIRANDO, AVANCANDO_CELULA, FUGA_RE_EMERGENCIA, OBJETIVO_ALCANCADO };
-EstadoRobo estadoAtual = PARADO;
+EstadoRobo estadoAtual = PARADO; 
 
 float leituraFrontalAoVivo = -1, leituraDireitoAoVivo = -1, leituraEsquerdoAoVivo = -1;
 unsigned long ultimaLeituraToFAoVivo = 0;
@@ -32,6 +34,138 @@ WebServer server(80);
 const char* ssid = "XAROPi_AP";
 const char* password = "adminxaropi";
 
+void resetarLabirinto(); // forward decl (usada pelo handler de comando, abaixo)
+
+// ==========================================
+// SOCKET.IO — CONEXÃO COM O SERVIDOR EXTERNO (NestJS no PC)
+// ==========================================
+// IP do PC que roda o backend, dentro da rede XAROPi_AP (confira com ipconfig).
+const char* BACKEND_HOST = "192.168.4.2";
+const uint16_t BACKEND_PORT = 3000;
+
+SocketIOclient socketIO;
+bool socketConectado = false;
+String idCorridaAtual = "";
+
+void emitirEvento(const String& evento, JsonDocument& payload) {
+    if (!socketConectado) return;
+    DynamicJsonDocument doc(512);
+    JsonArray arr = doc.to<JsonArray>();
+    arr.add(evento);
+    arr.add(payload.as<JsonVariant>());
+    String saida;
+    serializeJson(doc, saida);
+    socketIO.sendEVENT(saida);
+}
+
+void wsPostNos(int idCelula, bool n, bool s, bool l, bool o) {
+    if (idCorridaAtual == "") return;
+    DynamicJsonDocument doc(200);
+    doc["id_corrida"] = idCorridaAtual;
+    doc["id_celula"] = idCelula;
+    doc["n"] = n; doc["s"] = s; doc["l"] = l; doc["o"] = o;
+    emitirEvento("postNos", doc);
+}
+
+void wsPostVelBat(float velocidadeMMs, float corrente, float tensao, float mahRestante) {
+    if (idCorridaAtual == "") return;
+    DynamicJsonDocument doc(200);
+    doc["id_corrida"] = idCorridaAtual;
+    doc["velocidade"] = velocidadeMMs;
+    doc["corrente"] = corrente;
+    doc["tensao"] = tensao;
+    doc["mah_restante"] = mahRestante;
+    emitirEvento("postVelBat", doc);
+}
+
+void wsPostFinish(float bateriaFinal) {
+    if (idCorridaAtual == "") return;
+    DynamicJsonDocument doc(100);
+    doc["id_corrida"] = idCorridaAtual;
+    doc["bateria_final"] = bateriaFinal;
+    emitirEvento("postFinish", doc);
+}
+
+// posicao é UM número (índice da célula 0-15), não um array — é o que o frontend espera.
+void wsPostPosicaoAtual(int idCelula) {
+    if (idCorridaAtual == "") return;
+    DynamicJsonDocument doc(100);
+    doc["id_corrida"] = idCorridaAtual;
+    doc["posicao"] = idCelula;
+    emitirEvento("post_posicao_atual", doc);
+}
+
+// Executa o que o frontend pediu através do botão de controle do percurso.
+void processarComando(const String& comando, const String& idRecebido) {
+    Serial.print("[CMD] comando=" + comando + " id_corrida=" + idRecebido);
+    Serial.println();
+
+    if (comando == "iniciar") {
+        idCorridaAtual = idRecebido;
+        resetarLabirinto();
+        pararAgora = false;
+        rodandoAutonomo = true;
+    } else if (comando == "pausar") {
+        rodandoAutonomo = false;
+    } else if (comando == "continuar") {
+        pararAgora = false;
+        rodandoAutonomo = true;
+    } else if (comando == "cancelar") {
+        rodandoAutonomo = false;
+        pararAgora = true;
+        motorFreio();
+        pararAgora = false;
+    } else if (comando == "reiniciar") {
+        rodandoAutonomo = false;
+        pararAgora = true;
+        motorFreio();
+        resetarLabirinto();
+        pararAgora = false;
+    }
+}
+
+void socketIOEvent(socketIOmessageType_t type, uint8_t* payload, size_t length) {
+    switch (type) {
+        case sIOtype_DISCONNECT:
+            socketConectado = false;
+            Serial.println("[IO] DESCONECTADO");
+            break;
+
+        case sIOtype_CONNECT:
+            Serial.println("[IO] CONECTADO!");
+            socketIO.send(sIOtype_CONNECT, "/");
+            socketConectado = true;
+            break;
+
+        case sIOtype_EVENT: {
+            String msg = String((char*)payload);
+            Serial.print("[IO] EVENTO: ");
+            Serial.println(msg);
+
+            int inicioArray = msg.indexOf('[');
+            if (inicioArray < 0) break;
+
+            DynamicJsonDocument doc(512);
+            if (deserializeJson(doc, msg.substring(inicioArray))) break;
+
+            JsonArray arr = doc.as<JsonArray>();
+            if (arr.size() < 1) break;
+            String nomeEvento = arr[0].as<String>();
+
+            if (nomeEvento == "receiveCommand" && arr.size() > 1) {
+                JsonObject dados = arr[1];
+                String comando = dados["comando"] | "";
+                String idRecebido = dados["id_corrida"] | "";
+                processarComando(comando, idRecebido);
+            }
+            break;
+        }
+
+        default:
+            break;
+    }
+}
+
 // ==========================================
 // GERENCIADOR DE TEMPO NÃO-BLOQUEANTE
 // ==========================================
@@ -39,6 +173,7 @@ void delayComServer(unsigned long ms) {
     unsigned long inicio = millis();
     while (millis() - inicio < ms) {
         server.handleClient();
+        socketIO.loop();
         if (pararAgora) return;
         delay(2);
     }
@@ -51,10 +186,14 @@ bool temParede(int x, int y, int dirGlobal) {
 void setParede(int x, int y, int dirGlobal) {
     mapaParedes[x][y] |= (1 << dirGlobal);
     if (dirGlobal == 0 && y < 3) mapaParedes[x][y+1] |= (1 << 2); 
-    if (dirGlobal == 0 && y < 3) mapaParedes[x][y+1] |= (1 << 2); 
     if (dirGlobal == 1 && x < 3) mapaParedes[x+1][y] |= (1 << 3); 
     if (dirGlobal == 2 && y > 0) mapaParedes[x][y-1] |= (1 << 0); 
     if (dirGlobal == 3 && x > 0) mapaParedes[x-1][y] |= (1 << 1); 
+}
+
+void sincronizarParedesCelula(int x, int y) {
+    int idCelula = x + y * 4;
+    wsPostNos(idCelula, temParede(x,y,0), temParede(x,y,2), temParede(x,y,1), temParede(x,y,3));
 }
 
 void resetarLabirinto() {
@@ -70,7 +209,6 @@ void resetarLabirinto() {
             if (y == 0) setParede(x, y, 2); 
             if (x == 0) setParede(x, y, 3); 
 
-            // Definição exata dos quadrantes de vitória solicitados
             if ((x==1||x==2) && (y==1||y==2)) mapaDist[x][y] = 0;
             else if ((x==1||x==2) && (y==0||y==3)) mapaDist[x][y] = 1;
             else if ((x==0||x==3) && (y==1||y==2)) mapaDist[x][y] = 1;
@@ -86,13 +224,11 @@ void calcularFloodfill() {
         for (int x = 0; x < 4; x++) {
             for (int y = 0; y < 4; y++) {
                 if ((x==1||x==2) && (y==1||y==2)) continue; 
-                
                 int menorVisinho = 255;
                 if (!temParede(x,y,0) && y<3) menorVisinho = min(menorVisinho, mapaDist[x][y+1]);
                 if (!temParede(x,y,1) && x<3) menorVisinho = min(menorVisinho, mapaDist[x+1][y]);
                 if (!temParede(x,y,2) && y>0) menorVisinho = min(menorVisinho, mapaDist[x][y-1]);
-                if (!temParede(x,y,3) && x>0) menorVisinho = min(menorVisinho, mapaDist[x-1][y]); // Corrigido x>0
-
+                if (!temParede(x,y,3) && x>0) menorVisinho = min(menorVisinho, mapaDist[x-1][y]);
                 if (mapaDist[x][y] != menorVisinho + 1 && menorVisinho != 255) {
                     mapaDist[x][y] = menorVisinho + 1;
                     mudou = true;
@@ -116,15 +252,14 @@ void atualizarLeituraToFAoVivo() {
 void executarCicloAutonomo() {
     if (pararAgora) { rodandoAutonomo = false; return; }
 
-    // Validação de parada nos quadrantes centrais
     if ((robotX==1 || robotX==2) && (robotY==1 || robotY==2)) {
         estadoAtual = OBJETIVO_ALCANCADO;
         rodandoAutonomo = false;
         chegouNoCentro = true;
+        wsPostFinish(0); // TODO: sem sensor de bateria disponível ainda
         return;
     }
 
-    // ATUALIZAÇÃO E LEITURA DE PAREDES
     estadoAtual = LENDO_SENSORES;
     float distF = lerToF(sensorFrontal, OFFSET_FRONTAL_MM);
     float distD = lerToF(sensorDireito, OFFSET_DIREITO_MM);
@@ -140,13 +275,14 @@ void executarCicloAutonomo() {
     }
 
     estadoAtual = ATUALIZANDO_MAPA;
-    if (distF > 0 && distF < 150.0) setParede(robotX, robotY, robotDir);
-    if (distD > 0 && distD < 150.0) setParede(robotX, robotY, (robotDir + 1) % 4);
-    if (distE > 0 && distE < 150.0) setParede(robotX, robotY, (robotDir + 3) % 4);
+    bool paredeNova = false;
+    if (distF > 0 && distF < 150.0) { setParede(robotX, robotY, robotDir); paredeNova = true; }
+    if (distD > 0 && distD < 150.0) { setParede(robotX, robotY, (robotDir + 1) % 4); paredeNova = true; }
+    if (distE > 0 && distE < 150.0) { setParede(robotX, robotY, (robotDir + 3) % 4); paredeNova = true; }
+    if (paredeNova) sincronizarParedesCelula(robotX, robotY);
 
     calcularFloodfill();
 
-    // PROCESSAMENTO DO FLOODFILL
     estadoAtual = VIRANDO;
     int dirAlvo = robotDir;
     int menorD = 255;
@@ -160,47 +296,31 @@ void executarCicloAutonomo() {
             if (d == 1 && robotX < 3) valVizinho = mapaDist[robotX+1][robotY];
             if (d == 2 && robotY > 0) valVizinho = mapaDist[robotX][robotY-1];
             if (d == 3 && robotX > 0) valVizinho = mapaDist[robotX-1][robotY];
-            
-            if (valVizinho < menorD) {
-                menorD = valVizinho;
-                dirAlvo = d;
-            }
+            if (valVizinho < menorD) { menorD = valVizinho; dirAlvo = d; }
         }
     }
 
-    bool curvaDireita = false;
-    if (dirAlvo == (robotDir + 1) % 4) {
-        curvaDireita = true;
-    } else if (dirAlvo == (robotDir + 3) % 4) {
-        curvaDireita = false;
-    }
+    bool curvaDireita = (dirAlvo == (robotDir + 1) % 4);
 
-    // Execução das manobras diretas (giro de eixo único)
     if (dirAlvo != robotDir && !pararAgora) {
         bool curvaCompleta = false;
         if (dirAlvo == (robotDir + 1) % 4 || dirAlvo == (robotDir + 3) % 4) {
-            // Curva direta de 90 graus
-            if (girar90(PWM_CURVAS, curvaDireita, 90)) {
-                curvaCompleta = true;
-            }
+            if (girar90(PWM_CURVAS, curvaDireita, 90)) curvaCompleta = true;
         } else if (dirAlvo == (robotDir + 2) % 4) {
-            // Meia-volta direta de 180 graus
-            if (girar90(PWM_CURVAS, true, 180)) {
-                curvaCompleta = true;
-            }
+            if (girar90(PWM_CURVAS, true, 180)) curvaCompleta = true;
         }
-
         if (curvaCompleta && !pararAgora) {
             robotDir = dirAlvo;
-            delayComServer(80); // Pausa mecânica curta para estabilizar
+            delayComServer(80);
         }
     }
 
     if (pararAgora) { rodandoAutonomo = false; return; }
 
-    // DESLOCAMENTO LINEAR
     estadoAtual = AVANCANDO_CELULA;
+    unsigned long tInicio = millis();
     bool avancoSucesso = avancaCelula(PWM_FRENTE_RE, primeiraCelula);
+    unsigned long duracaoMs = millis() - tInicio;
     primeiraCelula = false; 
 
     if (avancoSucesso) {
@@ -209,6 +329,13 @@ void executarCicloAutonomo() {
         if (robotDir == 2 && robotY > 0) robotY--;
         if (robotDir == 3 && robotX > 0) robotX--;
         estadoAtual = PARADO;
+
+        wsPostPosicaoAtual(robotX + robotY * 4);
+
+        float pulsosMedios = (abs(contagemEncoderEsq) + abs(contagemEncoderDir)) / 2.0f;
+        float distanciaMM = pulsosMedios / pulsosPorMM;
+        float velocidadeMMs = duracaoMs > 0 ? (distanciaMM / (duracaoMs / 1000.0f)) : 0.0f;
+        wsPostVelBat(velocidadeMMs, 0, 0, 0); // TODO: corrente/tensão/mAh sem sensor ainda
     } else {
         estadoAtual = FUGA_RE_EMERGENCIA;
         motorRe(PWM_FRENTE_RE); 
@@ -220,7 +347,7 @@ void executarCicloAutonomo() {
 }
 
 // =========================
-//  INTERFACE GRÁFICA HTML
+//  INTERFACE GRÁFICA HTML (teste local do time de firmware — não mexida)
 // =========================
 const char* htmlPage = R"rawliteral(
 <!DOCTYPE html>
@@ -302,6 +429,21 @@ void handleDados() {
     server.send(200, "application/json", json);
 }
 
+
+
+void comandoAuto() {
+    rodandoAutonomo = true; pararAgora = false;
+}
+
+void comandoStop() {
+    rodandoAutonomo = false; pararAgora = true; estadoAtual = PARADO; motorFreio();
+}
+
+void comandoReset() {
+    rodandoAutonomo = false; pararAgora = true; motorFreio();
+    resetarLabirinto();
+}
+
 void handleAction() {
     String comando = server.arg("go");
     if (comando == "S"){
@@ -320,18 +462,26 @@ void handleAction() {
 
 void setup() {
     Serial.begin(115200);
-    inicializarHardware();
+    // inicializarHardware();
     resetarLabirinto(); 
+    WiFi.mode(WIFI_AP);
     WiFi.softAP(ssid, password);
+    Serial.print("[WIFI] IP da ESP: "); Serial.println(WiFi.softAPIP());
+
+    socketIO.begin(BACKEND_HOST, BACKEND_PORT, "/socket.io/?EIO=4&role=firmware&client=xaropi_esp32");
+    socketIO.onEvent(socketIOEvent);
+    socketIO.setReconnectInterval(5000);
+
     server.on("/", HTTP_GET, handleRoot);
     server.on("/dados", HTTP_GET, handleDados);
     server.on("/action", HTTP_GET, handleAction);
     server.begin();
-    Serial.println("[BOOT] Sistema Totalmente Autonomo Pronto.");
+    Serial.println("[BOOT] Pronto.");
 }
 
 void loop() {
     server.handleClient();
+    socketIO.loop();
     atualizarLeituraToFAoVivo();
     
     if (rodandoAutonomo && estadoAtual == PARADO && !chegouNoCentro) {
