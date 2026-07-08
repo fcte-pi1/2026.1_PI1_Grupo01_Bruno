@@ -1,6 +1,7 @@
 # Geral
 .DS_Store
 .vscode
+src/
 
 # Adicione outros arquivos a serem ignorados aqui
 # ...
