@@ -1,8 +1,5 @@
 #include "movimento.h"
 
-// ==========================================
-// CONTROLES DE MOTORES
-// ==========================================
 void motorFrente(int pwm) {
     sentidoMotorDir = 1; sentidoMotorEsq = 1;
     analogWrite(PIN_IN1, 0); analogWrite(PIN_IN2, pwm);
@@ -166,7 +163,6 @@ bool avancaCelula(int pwm, bool ignorarCorrecao) {
 
         long mediaAtual = (abs(contagemEncoderEsq) + abs(contagemEncoderDir)) / 2;
 
-        // Detecção de Estol por travamento de rota
         if (mediaAtual > mediaAnterior) {
             tempoUltimoMovimento = millis(); 
             mediaAnterior = mediaAtual;
