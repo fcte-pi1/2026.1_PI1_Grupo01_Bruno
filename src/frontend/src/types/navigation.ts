@@ -1,1 +1,6 @@
-export type Page = 'dashboard' | 'historico' | 'projeto' | 'equipe' | 'percurso' | 'chassi'
+export type Page = 'dashboard' | 
+                    'historico' | 
+                    // 'projeto' | 
+                    // 'equipe' | 
+                    'percurso' | 
+                    'chassi'

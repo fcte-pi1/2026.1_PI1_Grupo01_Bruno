@@ -91,8 +91,8 @@ function AppLayout() {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/historico" element={<Historico />} />
-            <Route path="/projeto" element={<Projeto />} />
-            <Route path="/equipe" element={<Equipe />} />
+            {/* <Route path="/projeto" element={<Projeto />} />
+            <Route path="/equipe" element={<Equipe />} /> */}
             <Route path="/percurso" element={<Percurso />} />
             <Route path="/percurso/:id" element={<Percurso />} /> {/* Nova Rota */}
             <Route path="/chassi" element={<Chassi3D />} />
