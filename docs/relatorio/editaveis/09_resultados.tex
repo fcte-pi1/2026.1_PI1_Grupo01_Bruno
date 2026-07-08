@@ -330,3 +330,25 @@ Essa abordagem atesta que os controladores, as rotas e o sistema de injeção de
     \caption{Relatório de aprovação dos testes de integração da API (Supertest).}
     \label{fig:integracao_back}
 \end{figure}
+
+Além dos testes via \textit{Supertest} sobre os endpoints REST, foi conduzido um teste de integração da camada de comunicação em tempo real, responsável pela troca de telemetria entre o firmware do robô e o backend. Diferentemente dos testes anteriores, essa validação foi executada com o hardware físico conectado à rede \textit{Access Point} da ESP32, permitindo observar o comportamento real do protocolo \textit{Socket.IO} nas duas pontas da comunicação.
+
+Do lado do servidor, o \texttt{TelemetryGateway} foi instrumentado com um sistema de \textit{logging} detalhado, capaz de registrar cada etapa do ciclo de vida da conexão: o recebimento do \textit{handshake} (incluindo parâmetros de \textit{query} como \texttt{role} e endereço IP de origem), a identificação do cliente como firmware, o envio do evento de confirmação \texttt{firmware\_ack} e a propagação do evento \texttt{firmware\_status} para a sala dos clientes \textit{frontend}. Como ilustrado na figura \ref{fig:integracao_ws_backend}, o servidor inicializa corretamente todos os \textit{gateways} e rotas antes de identificar e confirmar a conexão da placa (\texttt{socket.id=VadC7H4PxRelRcUtAAAB}), validando o correto funcionamento da inicialização da aplicação NestJS e do módulo de \textit{WebSockets}.
+
+Do lado do firmware, o monitor serial da ESP32 confirma a recepção do evento de confirmação enviado pelo backend, registrando a mensagem \texttt{[IO] CONECTADO!} seguida do \textit{payload} \texttt{firmware\_ack} com o \textit{status} \texttt{"conectado"} e o respectivo \textit{timestamp}, conforme apresentado na figura \ref{fig:integracao_ws_firmware}. Esse resultado comprova que o protocolo de conexão implementado é bidirecional e íntegro: o backend reconhece e confirma a placa, e a placa recebe e interpreta corretamente essa confirmação, validando de ponta a ponta a integração entre o firmware embarcado e o serviço de telemetria em tempo real.
+
+\begin{figure}[H]figuras/testeIntegracaoWebSocketFirmware.png
+    \centering
+    \includegraphics[width=0.7\textwidth]{figuras/testeIntegracaoWebSocketFirmware.png} 
+    \captionsetup{font=footnotesize}
+    \caption{Logs do backend NestJS durante a inicialização e a conexão da ESP32 via WebSocket.}
+    \label{fig:integracao_ws_backend}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figuras/testeIntegracaoWebSocketBackend.png} 
+    \captionsetup{font=footnotesize}
+    \caption{Monitor serial da ESP32 confirmando o recebimento do evento \texttt{firmware\_ack}.}
+    \label{fig:integracao_ws_firmware}
+\end{figure}
