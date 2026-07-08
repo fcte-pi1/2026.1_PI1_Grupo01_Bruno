@@ -1,0 +1,62 @@
+.densityDefault { 
+    height: var(--density-default); 
+    padding: 0 var(--spacing-2x); 
+}
+
+.densityHigh { 
+    height: var(--density-high); 
+    padding: 0 var(--spacing-2x); 
+}
+.densityLow { 
+    height: var(--density-low); 
+    padding: 0 var(--spacing-3x); 
+}
+
+.circle.densityHigh { width: var(--density-high); }
+.circle.densityLow { 
+    width: var(--density-low); 
+    padding: var(--spacing-3x); 
+}
+
+
+.button {
+    border: none;
+    cursor: pointer;  
+    display: inline-flex;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-base);
+    border-radius: var(--radius-full);
+}
+
+.primary {
+    background: var(--pumpkin-600);
+    color: var(--neutral-0);
+}
+
+.primary:hover { box-shadow: inset 0 0 0 9999px var(--color-state-hover); }
+.primary:active { box-shadow: inset 0 0 0 9999px var(--color-state-active); }
+
+.secondary {
+    border: 2px solid var(--pumpkin-400);
+    color: var(--pumpkin-400);
+    background: transparent;
+}
+
+.secondary:hover { box-shadow: inset 0 0 0 9999px var(--color-state-hover); }
+.secondary:active { box-shadow: inset 0 0 0 9999px var(--color-state-active); }
+
+.tertiary {
+    background: transparent;
+    color: var(--txt-interaction);
+}
+
+.tertiary:hover { box-shadow: inset 0 0 0 9999px var(--color-state-hover); }
+.tertiary:active { box-shadow: inset 0 0 0 9999px var(--color-state-active); }
+
+.circle {
+    aspect-ratio: 1;
+    border-radius: var(--radius-full);
+    /* padding: var(--spacing-2x); */
+}

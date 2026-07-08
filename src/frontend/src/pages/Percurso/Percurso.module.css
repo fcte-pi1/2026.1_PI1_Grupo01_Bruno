@@ -1,0 +1,89 @@
+.MainTest {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-3x);
+    align-self: stretch;
+}
+
+.TopInfos {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    align-content: center;
+    gap: var(--spacing-2x) var(--spacing-2x);
+    align-self: stretch;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.TopInfos h2 {
+    width: 100%;
+}
+
+.TopInfos div {
+    width: fit-content;
+}
+
+.Content {
+    display: flex;
+    align-items: flex-start;
+    align-content: flex-start;
+    gap: var(--spacing-3x) var(--spacing-3x);
+    align-self: stretch;
+    flex-wrap: wrap;
+}
+
+.InfosLog {
+    display: flex;
+    min-height: 480px;
+    min-width: 400px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-2x, 16px);
+    flex: 1 0 0;
+}
+
+.ControlCards {
+    display: inline-grid;
+    row-gap: var(--spacing-2x);
+    column-gap: var(--spacing-2x);
+    align-self: stretch;
+    grid-template-rows: repeat(2,fit-content(100%));
+    grid-template-columns: repeat(3,minmax(0,1fr));
+    grid-auto-flow: row;
+}
+
+.Charts {
+
+}
+
+.ControlCards > * {
+    width: auto;
+    flex: 0 0 auto;
+    height: fit-content;
+    height: stretch;
+}
+
+@media (max-width: 991px) {
+    .ControlCards {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+        grid-template-rows: repeat(3,fit-content(100%));
+    }
+
+    .Content {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .InfosLog {
+        min-width: 0;
+    }
+
+    .ControlCards {
+        grid-template-rows: repeat(2,fit-content(100%));
+        grid-template-columns: repeat(1,minmax(0,1fr));
+    }
+}

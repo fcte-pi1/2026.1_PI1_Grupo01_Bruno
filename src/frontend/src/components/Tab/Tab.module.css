@@ -1,0 +1,60 @@
+.tab {
+    display: inline-flex;
+    border-radius: var(--radius-half);
+    border: none;
+    cursor: pointer;
+    padding: 0 var(--spacing-base);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    width: fit-content;
+    overflow: hidden;
+    color: var(--txt-primary);
+}
+
+.tab:hover {
+    background: var(--bg-secondary);
+    color: color-mix(in srgb, var(--txt-primary) 80%, transparent);
+}
+
+.tab:active {
+    background: var(--color-state-active);
+    color: var(--txt-primary);
+}
+
+.txtMenu {
+    display: flex;
+    padding: var(--spacing-base) 0;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-half);
+    align-self: stretch;
+}
+
+.lineIndicator {
+    width: 24px;
+    height: 2px;
+    background: var(--txt-interaction);
+    border-radius: var(--radius-2x);
+    visibility: hidden;
+}
+
+.lineIndicator.active {
+    visibility: visible;
+}
+
+.tab.active {
+    color: var(--txt-interaction);
+}
+.active {
+    color: var(--txt-interaction);
+}
+
+.active:hover {
+    background: var(--color-state-hover);
+}
+
+.active:active {
+    background: var(--color-state-active);
+}

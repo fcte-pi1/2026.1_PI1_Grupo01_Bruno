@@ -1,0 +1,13 @@
+.logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    gap: 1em;
+}
+
+.svg {
+  height: clamp(24px, 4vw, 32px);
+  width: auto;
+}

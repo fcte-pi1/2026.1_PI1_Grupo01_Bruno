@@ -1,0 +1,20 @@
+.Badge {
+    width: var(--icon-size-base);
+    aspect-ratio: 1 / 1;
+    height: auto;
+    border-radius: 100%;
+    background: var(--border);
+}
+
+.Badge.lg { width: var(--icon-size-lg); height: var(--icon-size-lg); aspect-ratio: 1 / 1; }
+.Badge.sm { width: var(--icon-size-sm); height: var(--icon-size-sm); aspect-ratio: 1 / 1; }
+
+.Badge.success { background: var(--success); }
+.Badge.warn { background: var(--warn); }
+.Badge.alert { background: var(--alert); }
+
+.BadgeLabel {
+    display: inline-flex;
+    /* width: fit-content; */
+    gap: var(--spacing-half);
+}

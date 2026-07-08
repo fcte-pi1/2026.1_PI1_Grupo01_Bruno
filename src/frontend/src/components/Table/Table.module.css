@@ -1,0 +1,4 @@
+span {
+    font-size: var(--font-scale-base);
+    font-weight: var(--font-regular);
+}

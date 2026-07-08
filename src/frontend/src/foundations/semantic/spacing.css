@@ -1,0 +1,5 @@
+:root{
+    --density-low: var(--spacing-7x);
+    --density-default: var(--spacing-6x);
+    --density-high: var(--spacing-4xh);
+}

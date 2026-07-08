@@ -1,0 +1,24 @@
+:root{
+    --radius-base: 8px;
+
+    --radius-1x: var(--radius-base);
+    --radius-2x: calc(var(--radius-base) * 2);
+    --radius-3x: calc(var(--radius-base) * 3);
+    --radius-4x: calc(var(--radius-base) * 4);
+    --radius-5x: calc(var(--radius-base) * 5);
+    --radius-6x: calc(var(--radius-base) * 6);
+    /* --radius-7x: calc(var(--radius-base) * 7); */
+    --radius-8x: calc(var(--radius-base) * 8);
+    /* --radius-9x: calc(var(--radius-base) * 9); */
+    --radius-10x: calc(var(--radius-base) * 10);
+
+    --radius-half: calc(var(--radius-base) / 2);
+    --radius-2xh: calc(var(--radius-2x) + var(--radius-half));
+    --radius-3xh: calc(var(--radius-3x) + var(--radius-half));
+    --radius-4xh: calc(var(--radius-4x) + var(--radius-half));
+    --radius-5xh: calc(var(--radius-5x) + var(--radius-half));
+
+    --radius-half-half: calc(var(--radius-half) / 2);
+
+    --radius-full: 8000px;
+}

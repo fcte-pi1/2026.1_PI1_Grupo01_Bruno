@@ -1,0 +1,81 @@
+:root {
+    /* pumpkin */
+    --pumpkin-50: #FFF7ED;
+    --pumpkin-100: #FFEDD5;
+    --pumpkin-200: #FED7AA;
+    --pumpkin-300: #FDBA74;
+    --pumpkin-400: #FB923C;
+    --pumpkin-500: #F97316;
+    --pumpkin-600: #EA580C;
+    --pumpkin-700: #C2410C;
+    --pumpkin-800: #9A3412;
+    --pumpkin-900: #7C2D12;
+    --pumpkin-950: #431407;
+    
+    /* chateau-green */
+    --chateau-green-50: #F1FCF5;
+    --chateau-green-100: #DFF9EA;
+    --chateau-green-200: #C0F2D6;
+    --chateau-green-300: #8FE6B6;
+    --chateau-green-400: #56D28E;
+    --chateau-green-500: #2CAB66;
+    --chateau-green-600: #219857;
+    --chateau-green-700: #1E7747;
+    --chateau-green-800: #1C5F3B;
+    --chateau-green-900: #194E33;
+    --chateau-green-950: #082B1A;
+    
+    /* dodger-blue */
+    --dodger-blue-50: #EDFAFF;
+    --dodger-blue-100: #D7F4FF;
+    --dodger-blue-200: #B9EDFF;
+    --dodger-blue-300: #88E4FF;
+    --dodger-blue-400: #50D3FF;
+    --dodger-blue-500: #28BAFF;
+    --dodger-blue-600: #049EFF;
+    --dodger-blue-700: #0A89EB;
+    --dodger-blue-800: #0F6DBE;
+    --dodger-blue-900: #135C95;
+    --dodger-blue-950: #11385A;
+    
+    /* selective-yellow */
+    --selective-yellow-50: #FFFCEB;
+    --selective-yellow-100: #FFF8C6;
+    --selective-yellow-200: #FFF088;
+    --selective-yellow-300: #FFE24A;
+    --selective-yellow-400: #FED121;
+    --selective-yellow-500: #F9B411;
+    --selective-yellow-600: #DC8703;
+    --selective-yellow-700: #B76006;
+    --selective-yellow-800: #944A0C;
+    --selective-yellow-900: #7A3D0D;
+    --selective-yellow-950: #461F02;
+    
+    /* red */
+    --red-50: #FFF0F0;
+    --red-100: #FFDEDE;
+    --red-200: #FFC2C2;
+    --red-300: #FF9797;
+    --red-400: #FF5C5C;
+    --red-500: #FF2929;
+    --red-600: #F91010;
+    --red-700: #D20303;
+    --red-800: #AD0707;
+    --red-900: #8F0D0D;
+    --red-950: #4E0101;
+    
+    /* neutral */
+    --neutral-0: #FFFFFF;
+    --neutral-50: #FAFAFA;
+    --neutral-100: #F2F2F2;
+    --neutral-200: #E6E6E6;
+    --neutral-300: #D6D6D6;
+    --neutral-400: #A5A5A5;
+    --neutral-500: #767676;
+    --neutral-600: #575757;
+    --neutral-700: #434343;
+    --neutral-800: #292929;
+    --neutral-900: #1A1A1A;
+    --neutral-950: #0A0A0B;
+    --neutral-1000: #000000;
+}

@@ -1,0 +1,74 @@
+.Trace {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    --trace-space: 0.8em;
+    --padding-space: calc(0.5 * var(--trace-space));
+    --space: 0.37px;
+    padding: 0;
+    container-type: inline-size;
+    overflow: visible;
+    
+    
+    position: relative;
+    z-index: 10;
+}
+
+.Trace.right {
+    clip-path: inset(var(--space) calc((-1) * var(--trace-space)) var(--space) var(--space));
+    padding-right: calc(0.5 * var(--trace-space));
+}
+
+.Trace.left {
+    clip-path: inset(var(--space) var(--space) var(--space) calc((-1) * var(--trace-space)));
+    padding-left: var(--padding-space);
+}
+
+.Trace.top {
+    clip-path: inset(calc((-1) * var(--trace-space)) var(--space) var(--space) var(--space));
+    padding-top: var(--padding-space);
+}
+
+.Trace.bottom {
+    clip-path: inset(var(--space) var(--space) calc((-1) * var(--trace-space)) var(--space));
+    padding-bottom: var(--padding-space);
+}
+
+.Trace.bottomRight {
+    clip-path: inset(var(--space) calc((-1) * var(--trace-space)) calc((-1) * var(--trace-space)) var(--space));
+    padding-bottom: var(--padding-space);
+    padding-right: var(--padding-space);
+}
+
+.Trace.bottomLeft {
+    clip-path: inset(var(--space) var(--space) calc((-1) * var(--trace-space)) calc((-1) * var(--trace-space)));
+    padding-bottom: var(--padding-space);
+    padding-left: var(--padding-space);
+}
+
+.Trace.topRight {
+    clip-path: inset(calc((-1) * var(--trace-space)) calc((-1) * var(--trace-space)) var(--space) var(--space));
+    padding-top: var(--padding-space);
+    padding-right: var(--padding-space);
+}
+
+.Trace.topLeft {
+    clip-path: inset(calc((-1) * var(--trace-space)) var(--space) var(--space) calc((-1) * var(--trace-space)));
+    padding-top: var(--padding-space);
+    padding-left: var(--padding-space);
+}
+
+.TraceInner {
+    width: 100%;
+    height: 100%;
+    outline: var(--trace-space) solid var(--txt-interaction);
+}
+
+.TraceInner.revisit {
+    border-radius: 0 !important;
+    outline-color: var(--logo-secondary);
+}
+
+.TraceInner.bottomRight { border-radius: 0 0 var(--trace-space) 0; }
+.TraceInner.bottomLeft { border-radius: 0 0 0 var(--trace-space); }
+.TraceInner.topRight { border-radius: 0 var(--trace-space) 0 0; }
+.TraceInner.topLeft { border-radius: var(--trace-space) 0 0 0; }

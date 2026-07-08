@@ -1,0 +1,38 @@
+.header{
+    display: flex;
+    width: 100%;
+    padding: var(--spacing-2x) var(--spacing-5x);
+    align-items: center;
+    gap: var(--spacing-2x);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-primary);
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.logoBtn{
+    all: unset;
+    cursor: pointer;
+    width: fit-content;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-2x);
+    /* flex: 1 0 0; */
+}
+
+@media (max-width: 768px) {
+    nav {
+        display: none;
+    }
+    .header{
+        padding: var(--spacing-1x) var(--spacing-3x);
+    }
+}

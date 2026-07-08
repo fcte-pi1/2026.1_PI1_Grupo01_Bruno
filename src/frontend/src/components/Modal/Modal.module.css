@@ -1,0 +1,68 @@
+.Content {
+    display: flex;
+    padding: var(--spacing-3x);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-2x);
+    align-self: stretch;
+    overflow-y: auto;
+    min-height: 120px;
+}
+
+dialog {
+    display: flex;
+    width: 400px;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: var(--radius-2x);
+    overflow: hidden;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    padding: 0;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--txt-primary);
+}
+
+.dialog::backdrop {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.header {
+    display: flex;
+    padding: var(--spacing-half) var(--spacing-2x);
+    align-items: center;
+    gap: var(--spacing-base);
+    align-self: stretch;
+    border-bottom: 1px solid var(--border);
+    justify-content: space-between;
+
+}
+
+.content {
+    display: flex;
+    padding: var(--spacing-3x);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-2x);
+    align-self: stretch;
+    overflow-y: auto;
+}
+
+.footer {
+    display: flex;
+    padding: var(--spacing-2x);
+    justify-content: flex-end;
+    align-items: center;
+    gap: var(--spacing-base);
+    align-self: stretch;
+    border-top: 1px solid var(--border);
+}
+
+.BtnFull {
+    width: 100%;
+}

@@ -1,0 +1,5 @@
+.buttons {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: var(--spacing-base);
+}

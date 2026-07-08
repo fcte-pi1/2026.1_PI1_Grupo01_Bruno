@@ -1,0 +1,61 @@
+.BatteryContainer {
+    display: flex;
+    width: fit-content;
+    padding: var(--spacing-2x);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-half);
+    border-radius: var(--radius-base);
+    border: 1px solid var(--border);
+}
+
+.CodeTxt {
+    color: var(--txt-secondary);
+    font-weight: var(--font-regular);
+    text-align: right;
+    font-family: var(--text-code);
+}
+
+.LevelTop {
+    display: flex;
+    width: fit-content;
+    align-items: flex-start;
+    gap: var(--spacing-base);
+}
+
+.LevelBottom {
+    display: flex;
+    width: 100%;
+    /* min-width: 130px; */
+    align-items: flex-start;
+    gap: 8px;
+    color: var(--border);
+}
+
+.LevelBars {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-half);
+    flex: 1 0 0;
+}
+
+.Bar {
+    display: flex;
+    height: 20px;
+    min-width: var(--spacing-base);
+    flex: 1 0 0;
+    border-radius: var(--radius-10x);
+    overflow: hidden;
+}
+
+.LevelBottom.low span { color: var(--alert); }
+.LevelBottom.medium span { color: var(--warn); }
+.LevelBottom.high span { color: var(--success); }
+.LevelBottom.inactive span { color: var(--txt-secondary); }
+
+.LevelBottom.low .Active { background: var(--alert); box-shadow: 0 0 20px 0 var(--alert-light); }
+.LevelBottom.medium .Active { background: var(--warn); box-shadow: 0 0 20px 0 var(--warn-light); }
+.LevelBottom.high .Active { background: var(--success); box-shadow: 0 0 20px 0 var(--success-light); }
+.LevelBottom.inactive .Inactive { background: var(--inactive-battery); box-shadow: none; }
+
+.Inactive { background: var(--inactive-battery); }

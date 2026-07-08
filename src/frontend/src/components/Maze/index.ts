@@ -1,0 +1,1 @@
+export { Maze } from './Maze'
