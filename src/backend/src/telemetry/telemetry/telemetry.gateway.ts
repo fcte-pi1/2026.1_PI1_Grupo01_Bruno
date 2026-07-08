@@ -34,7 +34,17 @@ export class TelemetryGateway implements OnGatewayConnection, OnGatewayDisconnec
     @WebSocketServer()
     server!: Server;
 
-    private corridasAtivas: Map<string, string> = new Map();
+    // ANTES: private corridasAtivas: Map<string, string> = new Map();
+    // Esse Map era indexado por client.id (socket), mas quem chama postStart (frontend)
+    // e quem chama postFinish (ESP/firmware) são sockets DIFERENTES. Isso fazia o delete
+    // em handlePostFinish nunca remover a entrada certa, e o handleDisconnect do frontend
+    // (ex.: fechar a aba) sobrescrevia o status de corridas já concluídas para 'interrompida'.
+    //
+    // Como só existe 1 frontend + 1 corrida por vez (garantido), trocamos o Map por uma
+    // referência única: qual corrida está em execução agora, sem depender de qual socket
+    // fez qual chamada.
+    private corridaEmExecucao: string | null = null;
+
     private corridaAtual: string | null = null;
     // Mapa para guardar a última posição conhecida por corrida
     private ultimaPosicao: Map<string, number> = new Map();
@@ -159,7 +169,9 @@ export class TelemetryGateway implements OnGatewayConnection, OnGatewayDisconnec
         const novaCorridaRef = db.ref('corridas').push();
 
         const idCorrida = novaCorridaRef.key as string;
-        this.corridasAtivas.set(client.id, idCorrida);
+
+        // Marca a corrida como "em execução" de forma independente de qual socket chamou.
+        this.corridaEmExecucao = idCorrida;
         this.corridaAtual = idCorrida;
         this.ultimaPosicao.set(idCorrida, 0); // Inicializa posição em 0
 
@@ -288,7 +300,13 @@ export class TelemetryGateway implements OnGatewayConnection, OnGatewayDisconnec
             console.log('[OFFLINE] Falha ao finalizar corrida no Firebase.');
         }
 
-        this.corridasAtivas.delete(client.id);
+        // Antes: this.corridasAtivas.delete(client.id) — não fazia nada, pois quem chama
+        // postFinish é a ESP, e a chave gravada em postStart era o socket do frontend.
+        // Agora: limpamos a referência única, desde que seja a mesma corrida (garante que
+        // um postFinish "atrasado" de uma corrida antiga não apague o controle de uma nova).
+        if (this.corridaEmExecucao === data.id_corrida) {
+            this.corridaEmExecucao = null;
+        }
         this.ultimaPosicao.delete(data.id_corrida);
         this.telemetriaEstado.delete(data.id_corrida);
         return { status: 'sucesso' };
@@ -333,7 +351,10 @@ export class TelemetryGateway implements OnGatewayConnection, OnGatewayDisconnec
                 timestamp: Date.now()
             });
 
-            this.corridasAtivas.delete(client.id);
+            // Mesma lógica: só limpa a referência única se for a corrida que estava de fato ativa.
+            if (this.corridaEmExecucao === data.id_corrida) {
+                this.corridaEmExecucao = null;
+            }
             this.ultimaPosicao.delete(data.id_corrida);
             this.telemetriaEstado.delete(data.id_corrida);
         }
@@ -352,7 +373,10 @@ export class TelemetryGateway implements OnGatewayConnection, OnGatewayDisconnec
             return;
         }
 
-        const id_corrida = this.corridasAtivas.get(client.id);
+        // Antes: buscava this.corridasAtivas.get(client.id). Como só existe 1 frontend por
+        // vez (garantido), usamos diretamente a referência única de corrida em execução —
+        // não precisa mais casar client.id com quem chamou postStart.
+        const id_corrida = this.corridaEmExecucao;
         if (id_corrida) {
             const db = this.firebaseService.getDb();
             const metadadosRef = db.ref(`corridas/${id_corrida}/metadados`);
@@ -361,7 +385,7 @@ export class TelemetryGateway implements OnGatewayConnection, OnGatewayDisconnec
                 await metadadosRef.update({ status: 'interrompida', fim_timestamp: Date.now() });
             } catch (error) {}
 
-            this.corridasAtivas.delete(client.id);
+            this.corridaEmExecucao = null;
             this.ultimaPosicao.delete(id_corrida);
             this.telemetriaEstado.delete(id_corrida);
             console.log(`[ALERTA] Conexão perdida. Corrida ${id_corrida} marcada como interrompida.`);
