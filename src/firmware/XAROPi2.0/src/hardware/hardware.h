@@ -5,9 +5,6 @@
 #include <Wire.h>
 #include <Adafruit_VL53L0X.h>
 
-// ==========================================
-// MAPEAMENTO DE PINOS (Hardware Fixo)
-// ==========================================
 // Motores (Ponte H)
 static const int PIN_IN1 = 20; // Motor Direito
 static const int PIN_IN2 = 21; // Motor Direito
@@ -26,17 +23,11 @@ static const int PIN_SCL = 11;
 static const int PIN_XSHUT_DIR = 45;
 static const int PIN_XSHUT_ESQ = 41;
 
-// ==========================================
-// CONSTANTES GEOMÉTRICAS DO VEÍCULO
-// ==========================================
 const float DISTANCIA_CELULA_MM = 168.0;
 extern float pulsosPorMM;
 extern float fatorCorrecaoCurva;
 extern const long PULSOS_CURVA_90_TEORICO;
 
-// ==========================================
-// VARIÁVEIS GLOBAIS COMPARTILHADAS (extern)
-// ==========================================
 extern volatile long contagemEncoderDir;
 extern volatile long contagemEncoderEsq;
 extern volatile int sentidoMotorDir;
@@ -61,11 +52,8 @@ const float OFFSET_FRONTAL_MM  = 25.0;
 const float OFFSET_DIREITO_MM  = 35.0;
 const float OFFSET_ESQUERDO_MM = 25.0;
 
-// ==========================================
-// FUNÇÕES DO PACOTE DE HARDWARE
-// ==========================================
 void inicializarHardware();
 void pararMotoresImediatamente();
 float lerToF(Adafruit_VL53L0X &sensor, float offsetMM);
 
-#endif // HARDWARE_H
+#endif 
