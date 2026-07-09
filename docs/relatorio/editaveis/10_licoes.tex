@@ -1,3 +1,158 @@
+\chapter{Lições Aprendidas}
+
+Esta seção tem como objetivo documentar as lições aprendidas ao longo do desenvolvimento do projeto do micromouse, de forma a consolidar os conhecimentos adquiridos, reconhecer os acertos da equipe e identificar os pontos passíveis de melhoria.
+
+\section{Análise SWOT}
+
+A fim de consolidar as lições aprendidas ao longo do desenvolvimento do micromouse, realizou-se uma análise SWOT do produto, contemplando os fatores internos (pontos fortes e fracos da equipe e do projeto) e os fatores externos (oportunidades e ameaças relacionadas ao contexto do desenvolvimento). A Tabela~\ref{tab:swot} sintetiza os principais pontos identificados pela equipe.
+
+\begin{table}[H]
+\centering
+\footnotesize
+\caption{Análise SWOT do produto.}
+\begin{tabular}{|c|c|c|} \hline
+ & \textbf{Pontos fortes} & \textbf{Pontos fracos}  \\ \hline 
+{\parbox{0.1\textwidth}{ \textbf{Fatores \\ internos}}}  &
+{\parbox{0.4\textwidth}{ Forças: 
+\begin{itemize}
+    \item Chassi leve, com bom desempenho geral
+    \item Bateria eficiente e boa autonomia
+    \item Lógica planejada previamente, agilizando diagnóstico de erros
+    \item Inerciômetro como redundância, mitigando falha de encoder
+    \item Experiência prévia da equipe em tecnologias específicas
+    \item Arquitetura em React.js modular e escalável
+    \item Comunicação em tempo real via WebSocket
+    \item Extras de valor agregado, como carrinho em 3D
+    \item Agilidade no dimensionamento da alimentação elétrica
+\end{itemize}}}
+&
+{\parbox{0.4\textwidth}{ Fraquezas:
+\begin{itemize}
+    \item Largura/formato do chassi maior que o ideal, dificultando manobras nas curvas
+    \item Queima de componentes durante o processo
+    \item Aumento do orçamento previsto devido à reposição dos componentes danificados
+    \item Eletrônica mais sensível devido ao uso de jumpers em placa perfurada
+    \item Banco de dados dependente de conexão à internet, exigindo solução de backup offline
+    \item Predominância de testes isolados em detrimento de testes de integração, gerando imprevistos na integração final
+\end{itemize}}}
+\\ \hline
+
+{\parbox{0.1\textwidth}{ \textbf{Fatores \\ externos}}}  &
+{\parbox{0.4\textwidth}{ Oportunidades:
+\begin{itemize}
+    \item Reaproveitamento do chassi, algoritmo de navegação e sistema de energia como base para outros projetos acadêmicos, TCCs ou iniciação científica
+    \item Adaptação dos módulos desenvolvidos (gerenciamento de energia, navegação) para outros robôs móveis, como VANTs ou rovers
+\end{itemize}}}
+&
+{\parbox{0.4\textwidth}{ Ameaças:
+\begin{itemize}
+    \item Prazo apertado devido a imprevistos técnicos
+    \item Falhas pequenas acumuladas dificultando diagnóstico na integração
+    \item Alto escopo de entregas em curto prazo
+    \item Dificuldade em organizar o GitHub em relação à EAP
+    \item Demora na integração com hardware, atrasando a telemetria
+\end{itemize}}}
+\\ \hline
+\end{tabular}
+\label{tab:swot}
+\end{table}
+
+
+\section{Planejado x realizado}
+
+\subsection{Prazos}
+
+Em relação aos prazos, houve alguns contratempos, como as demandas das áreas serem muito interdependentes umas das outras. Essa interdependência fez com que as demandas estivessem aninhadas e o atraso em uma área se refletia em outras áreas. O planejamento dos prazos foi pensado em um cenário mais otimista e na prática se mostrou mais desafiador. 
+
+\subsection{Orçamento}
+
+No início do projeto, foi pensado um orçamento máximo de 1.000 reais. A intenção era trabalhar com um valor abaixo do limite, porém, devido ao caráter iterativo do projeto, surgiram custos adicionais, já que diversas soluções precisaram ser testadas e ajustadas até chegar ao resultado desejado. Por outro lado, no início do desenvolvimento, a equipe conseguiu algumas peças emprestadas, o que proporcionou uma maior folga orçamentária. Dessa forma, mesmo com os imprevistos, o valor total permaneceu dentro do limite estabelecido, fechando em 853,88 reais, sendo que a maior parte do investimento foi direcionada aos componentes eletrônicos.
+
+\subsection{Escopo}
+
+No que diz respeito ao escopo do projeto, os objetivos definidos foram majoritariamente cumpridos e o micromouse foi construído conforme planejado, 
+integrando todas as áreas devidamente. Porém, alguns componentes e funcionalidades não foram incorporados à versão final do projeto, na área de hardware, por exemplo,
+o giroscópio MPU-6050 foi removido devido ao ruído eletromagnético que comprometeu a leitura dos valores. Além disso, a capacidade de medição de direção 
+da rotação dos motores foi comprometida e o fio C2 dos encoders não foi utilizado. Em firmware, os switches de seleção e o botão de liga/desliga não foram integrados ao sistema devido
+ao espaço limitado da placa.
+
+
+\section{Projeto}
+
+A partir da experiência acumulada durante as etapas de desenvolvimento, integração e testes do micromouse, foram identificados os principais pontos fortes e fracos do projeto, descritos a seguir.
+
+\subsection{Pontos Fortes}
+
+\begin{enumerate}
+    \item Chassi leve e de montagem simples, facilitando ajustes e manutenção ao longo do projeto.
+    \item Uso do inerciômetro como redundância, essencial diante da falha em um dos encoders.
+    \item Arquitetura em React.js e comunicação via WebSocket garantiram um frontend modular e responsivo.
+    \item Experiência prévia da equipe em tecnologias específicas acelerou o desenvolvimento geral.
+\end{enumerate}
+
+\subsection{Pontos fracos}
+
+\begin{enumerate}
+    \item Formato do chassi dificultou manobras nas curvas do labirinto.
+    \item Queima de componentes durante o processo, elevando o orçamento previsto do projeto.
+    \item Predomínio de testes isolados sobre testes de integração, gerando imprevistos na integração final.
+    \item Engajamento desigual entre os membros da equipe, dificultando o cumprimento dos prazos.
+\end{enumerate}
+
+\section{Recomendações para projetos futuros}
+
+\begin{enumerate}
+    \item Priorizar entregas críticas do caminho principal antes de 
+    funcionalidades secundárias, evitando acúmulo de pendências próximo 
+    ao prazo final.
+    
+    \item Melhorar a comunicação entre as subequipes, estabelecendo 
+    reuniões regulares de alinhamento para reduzir retrabalho causado 
+    por decisões tomadas de forma isolada.
+    
+    \item Concluir cada entrega de forma sólida antes de avançar para 
+    a próxima, evitando retrabalho comprometer a integração final do sistema.
+    
+    \item Adotar revisão em dupla para todas as entregas técnicas, 
+    reduzindo erros simples e aumentando a qualidade do código e da 
+    documentação produzidos.
+\end{enumerate}
+
+\section{Desempenho dos fornecedores}
+
+
+Esta seção apresenta uma avaliação dos fornecedores utilizados ao longo do desenvolvimento do projeto, classificados conforme o desempenho apresentado em relação ao esperado pela equipe.
+
+\subsection{Fornecedores com desempenho acima do esperado}
+
+Fornecedores que a equipe certamente convidaria para um próximo projeto.
+
+\begin{itemize}
+    \item \textbf{HU Infinito} -- Ampla variedade de produtos, atendimento de qualidade e entregas sempre pontuais.
+    \item \textbf{SIA Parafusos e Ferramentas} -- Atendimento rápido, apesar de nem todos os modelos necessários estarem disponíveis em estoque.
+\end{itemize}
+
+\subsection{Fornecedores com desempenho conforme esperado}
+
+Fornecedores que a equipe provavelmente convidaria para um próximo projeto.
+
+\begin{itemize}
+    \item \textbf{RoboCore} -- Pedido entregue com boa qualidade, porém com atraso em relação ao prazo combinado.
+\end{itemize}
+
+\subsection{Fornecedores com desempenho abaixo do esperado}
+
+Fornecedores que a equipe não convidaria para um próximo projeto.
+
+\begin{itemize}
+    \item \textbf{Casa dos Parafusos} -- Variedade adequada de produtos, porém atendimento demorado.
+    \item \textbf{Dr. Eletrônico} -- Entrega não prática e atendimento confuso durante o processo de compra.
+\end{itemize}
+
+
+% Resolvi não pagar os comentarios abaixo por enquanto para fins de consulta
+
+
 % \chapter{Lições Aprendidas}
 
 % \textcolor{red}{Documentar as lições aprendidas de modo a aperfeiçoar os processos e evitar que os erros e problemas encontrados se repitam em futuros projetos.}

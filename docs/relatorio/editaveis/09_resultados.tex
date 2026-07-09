@@ -212,7 +212,8 @@ Os testes contemplaram três cenários distintos, alterando as condições de co
 
 \subsection{Histórias de usuário implementadas}
 
-Nosso projeto possui 16 histórias de usuário e durante este ponto de controle foram implementadas 13 histórias de usuário, totalizando 81\% das histórias de usuário, sendo elas listadas na tabela \ref{tab:historias} e observadas na figura \ref{fig:hus-implementadas} do protótipo . As demais histórias de usuário estão parcialmente criadas.
+Nosso projeto possui 16 histórias de usuário e durante este ponto de controle foram implementadas 13 histórias de usuário, totalizando 81\% das histórias de usuário, sendo elas listadas na tabela \ref{tab:historias} e observadas na figura \ref{fig:hus-implementadas} do protótipo. As demais histórias de usuário estão parcialmente criadas.
+
 \begin{table}[H]
     \centering
     \scriptsize
@@ -259,7 +260,6 @@ A cobertura dos testes foi analisada utilizando o Vitest. Conforme apresentado n
     \label{fig:uni_front}
 \end{figure}
 
-
 \subsection{Testes unitários do backend}
 
 Os testes unitários do backend foram desenvolvidos com o objetivo de validar o comportamento individual dos serviços, controladores e gateways da aplicação, garantindo que cada módulo funcione corretamente de forma isolada. Para isso, foram utilizados testes automatizados implementados com Jest em conjunto com o módulo de testes do NestJS (\texttt{@nestjs/testing}).
@@ -270,22 +270,6 @@ Os testes verificaram a inicialização correta dos módulos, o comportamento es
 
 A cobertura dos testes foi analisada utilizando o Jest com a flag \texttt{--coverage}. Conforme apresentado na figura \ref{fig:uni_back}, o projeto alcançou 84,14\% de cobertura de instruções e 84,11\% de cobertura de linhas, superando o requisito mínimo de 70\% de cobertura de código-fonte estabelecido pela disciplina. Os arquivos de configuração de módulos e inicialização da aplicação (\texttt{main.ts}, \texttt{app.module.ts} e \texttt{telemetry.module.ts}) foram excluídos da análise de cobertura por não possuírem lógica de negócio testável. O relatório também permitiu identificar trechos com menor cobertura, como o filtro de exceções WebSocket (\texttt{ws-exception.filter.ts}), servindo como referência para futuras melhorias nas suítes de testes.
 
-% \begin{table}[!ht]
-%     \centering
-%     \caption{Cobertura dos testes unitários do backend por módulo.}
-%     \label{tab:cov_back}
-%     \begin{tabular}{|l|c|c|c|c|}
-%     \hline
-%         \textbf{Arquivo} & \textbf{\% Stmts} & \textbf{\% Branch} & \textbf{\% Funcs} & \textbf{\% Lines} \\ \hline
-%         app.controller.ts         & 93,54 & 87,50  & 66,66 & 93,10  \\ \hline
-%         app.service.ts            & 100   & 100    & 100   & 100    \\ \hline
-%         firebase.service.ts       & 100   & 80     & 100   & 100    \\ \hline
-%         telemetry.gateway.ts      & 78,49 & 62,50  & 64,28 & 79,54  \\ \hline
-%         ws-exception.filter.ts    & 26,31 & 0      & 0     & 17,64  \\ \hline
-%         \textbf{Total}            & \textbf{84,14} & \textbf{62,74} & \textbf{72,41} & \textbf{84,11} \\ \hline
-%     \end{tabular}
-% \end{table}
-
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{figuras/software/uni_back.png}
@@ -294,46 +278,31 @@ A cobertura dos testes foi analisada utilizando o Jest com a flag \texttt{--cove
     \label{fig:uni_back}
 \end{figure}
 
-
 \subsection{Testes E2E}
 
-Foram implementados testes end-to-end utilizando Cypress com base nos roteiros de testes funcionais definidos na primeira entrega do projeto. Até o momento, foi possível implementar os casos de teste CT1, CT2 e CT3, uma vez que os demais dependem de histórias de usuário ainda não desenvolvidas. O código fonte destes testes podem ser acessados em \texttt{src/frontend/src/cypress/e2e} e podem ser observados no apêndice \ref{app:e2e}. Os testes tiveram resultado positivo em todo o CT1 e CT2, enquanto o CT3 apresentou falha por não apresentar o resultado concluido na tela ao finaliazr o percurso com sucesso, entretanto envia os dados corretamente.
+Foram implementados testes end-to-end utilizando Cypress com base nos roteiros de testes funcionais definidos na primeira entrega do projeto. Até o momento, foi possível implementar os casos de teste do CT1 ao CT5. O código fonte destes testes pode ser acessado em \texttt{src/frontend/src/cypress/e2e}. 
 
-% \textcolor{red}{Apresentar com detalhes os testes feitos para conferir se os objetivos do \textit{software} foram atendidos.
-% Considerando a implementação de $50\%$ do \textit{backlog} do produto (funcional):}
+Os testes tiveram resultado positivo nos cenários CT1, CT2, CT4 e CT5. O CT3 apresentou falha por não exibir o resultado concluído na tela ao finalizar o percurso com sucesso, entretanto envia os dados corretamente para o banco.
 
-% \begin{itemize}
-%     \item \textcolor{red}{Listar as histórias de usuários implementadas.}
-%     \item \textcolor{red}{Listar a associação entre as histórias de usuários e os protótipos, deixando claro qual é a funcionalidade que será acessada pelo usuário/professor(a) por meio da interface gráfica.}
-%     \item \textcolor{red}{Listar os suítes de testes automatizados em nível:}
-%     \begin{itemize}
-%         \item \textcolor{red}{Unitário e integração, com cobertura de código-fonte de pelo menos $70\%$;}
-%         \item \textcolor{red}{Sistema, do tipo funcional (end-to-end E2E).}
-%     \end{itemize}
-% \end{itemize}
+\subsubsection{Caso de Teste 04 (CT4): Consulta de Histórico}
+O CT4 tem como objetivo validar o carregamento e a renderização da tabela de histórico de percursos. O teste automatizado navega até a rota correspondente, intercepta a requisição da API e verifica se os registros antigos estão sendo listados sem perda de informação.
 
-% \textcolor{red}{\textbf{Observações:}}
-% \begin{enumerate}
-%     \item \textcolor{red}{Em relação ao \textit{backlog} do produto, será considerado como referência aquele descrito no primeiro ponto de controle, contemplando as correções e \textit{feedbacks} da-os professora(e)s. O ideal seria a real atualização entre o planejado X realizado.}
-%     \item \textcolor{red}{Os testes mencionados nesta subseção dizem respeito aos testes de \textit{software}. O Roteiro de testes funcionais, entregue no primeiro ponto de controle deve ser corrigido a partir do apontamento da-os professora(e)s. Além disso, ele deve guiar a execução dos testes E2E automatizados. O conjunto de casos de testes funcionais documentados devem estar coerentes com a automação via interface gráfica de entrada de dados.}
-% \end{enumerate}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figuras/software/ct4_cypress.png} 
+    \caption{Execução do Caso de Teste 04 aprovada no Cypress Runner.}
+    \label{fig:ct4_cypress}
+\end{figure}
 
-% \textcolor{red}{Exemplos de ferramentas de teste funcionais E2E:}
-% \begin{itemize}
-%     \item \textcolor{red}{Selenium} 
-%     \item \textcolor{red}{Cypress}
-%     \item \textcolor{red}{Playwright}
-% \end{itemize}
+\subsubsection{Caso de Teste 05 (CT5): Visualização de Percurso Específico}
+O CT5 avança no fluxo do histórico, testando a funcionalidade de inspecionar uma corrida passada. O Cypress valida se, ao acessar a página de detalhes, os dados gerais do percurso, bem como os gráficos de telemetria, são exibidos de forma correta e síncrona.
 
-% \textcolor{red}{Exemplos de ferramentas de testes em nível unitário e integração:}
-% \begin{itemize}
-%     \item \textcolor{red}{Jest}
-%     \item \textcolor{red}{unittest}
-%     \item \textcolor{red}{pytest}
-%     \item \textcolor{red}{tox}
-%     \item \textcolor{red}{gTest}
-%     \item \textcolor{red}{Catch2}
-% \end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figuras/software/ct5_cypress.png}
+    \caption{Execução do Caso de Teste 05 aprovada no Cypress Runner.}
+    \label{fig:ct5_cypress}
+\end{figure}
 
 \subsection{Testes de integração}
 
@@ -360,4 +329,26 @@ Essa abordagem atesta que os controladores, as rotas e o sistema de injeção de
     \captionsetup{font=footnotesize}
     \caption{Relatório de aprovação dos testes de integração da API (Supertest).}
     \label{fig:integracao_back}
+\end{figure}
+
+Além dos testes via \textit{Supertest} sobre os endpoints REST, foi conduzido um teste de integração da camada de comunicação em tempo real, responsável pela troca de telemetria entre o firmware do robô e o backend. Diferentemente dos testes anteriores, essa validação foi executada com o hardware físico conectado à rede \textit{Access Point} da ESP32, permitindo observar o comportamento real do protocolo \textit{Socket.IO} nas duas pontas da comunicação.
+
+Do lado do servidor, o \texttt{TelemetryGateway} foi instrumentado com um sistema de \textit{logging} detalhado, capaz de registrar cada etapa do ciclo de vida da conexão: o recebimento do \textit{handshake} (incluindo parâmetros de \textit{query} como \texttt{role} e endereço IP de origem), a identificação do cliente como firmware, o envio do evento de confirmação \texttt{firmware\_ack} e a propagação do evento \texttt{firmware\_status} para a sala dos clientes \textit{frontend}. Como ilustrado na figura \ref{fig:integracao_ws_backend}, o servidor inicializa corretamente todos os \textit{gateways} e rotas antes de identificar e confirmar a conexão da placa (\texttt{socket.id=VadC7H4PxRelRcUtAAAB}), validando o correto funcionamento da inicialização da aplicação NestJS e do módulo de \textit{WebSockets}.
+
+Do lado do firmware, o monitor serial da ESP32 confirma a recepção do evento de confirmação enviado pelo backend, registrando a mensagem \texttt{[IO] CONECTADO!} seguida do \textit{payload} \texttt{firmware\_ack} com o \textit{status} \texttt{"conectado"} e o respectivo \textit{timestamp}, conforme apresentado na figura \ref{fig:integracao_ws_firmware}. Esse resultado comprova que o protocolo de conexão implementado é bidirecional e íntegro: o backend reconhece e confirma a placa, e a placa recebe e interpreta corretamente essa confirmação, validando de ponta a ponta a integração entre o firmware embarcado e o serviço de telemetria em tempo real.
+
+\begin{figure}[H]figuras/testeIntegracaoWebSocketFirmware.png
+    \centering
+    \includegraphics[width=0.7\textwidth]{figuras/testeIntegracaoWebSocketFirmware.png} 
+    \captionsetup{font=footnotesize}
+    \caption{Logs do backend NestJS durante a inicialização e a conexão da ESP32 via WebSocket.}
+    \label{fig:integracao_ws_backend}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figuras/testeIntegracaoWebSocketBackend.png} 
+    \captionsetup{font=footnotesize}
+    \caption{Monitor serial da ESP32 confirmando o recebimento do evento \texttt{firmware\_ack}.}
+    \label{fig:integracao_ws_firmware}
 \end{figure}
