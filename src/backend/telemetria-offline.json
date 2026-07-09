@@ -1,0 +1,508 @@
+[
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465853539,
+      "velocidade": "0.35",
+      "corrente": 432,
+      "tensao": "7.20",
+      "mah_restante": 975,
+      "posicao_vetor": 34
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465854541,
+      "velocidade": "0.36",
+      "corrente": 449,
+      "tensao": "7.15",
+      "mah_restante": 970,
+      "posicao_vetor": 35
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465855552,
+      "velocidade": "0.25",
+      "corrente": 498,
+      "tensao": "7.10",
+      "mah_restante": 965,
+      "posicao_vetor": 36
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465856563,
+      "velocidade": "0.22",
+      "corrente": 480,
+      "tensao": "7.05",
+      "mah_restante": 960,
+      "posicao_vetor": 52
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465857576,
+      "velocidade": "0.26",
+      "corrente": 455,
+      "tensao": "7.00",
+      "mah_restante": 955,
+      "posicao_vetor": 68
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465858578,
+      "velocidade": "0.41",
+      "corrente": 483,
+      "tensao": "6.95",
+      "mah_restante": 950,
+      "posicao_vetor": 69
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465859580,
+      "velocidade": "0.35",
+      "corrente": 461,
+      "tensao": "6.90",
+      "mah_restante": 945,
+      "posicao_vetor": 70
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465860583,
+      "velocidade": "0.43",
+      "corrente": 453,
+      "tensao": "6.85",
+      "mah_restante": 940,
+      "posicao_vetor": 86
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465861599,
+      "velocidade": "0.40",
+      "corrente": 435,
+      "tensao": "6.80",
+      "mah_restante": 935,
+      "posicao_vetor": 102
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465862604,
+      "velocidade": "0.54",
+      "corrente": 404,
+      "tensao": "6.75",
+      "mah_restante": 930,
+      "posicao_vetor": 118
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465863608,
+      "velocidade": "0.47",
+      "corrente": 437,
+      "tensao": "6.70",
+      "mah_restante": 925,
+      "posicao_vetor": 119
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465864616,
+      "velocidade": "0.54",
+      "corrente": 468,
+      "tensao": "6.65",
+      "mah_restante": 920,
+      "posicao_vetor": 120
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465865619,
+      "velocidade": "0.30",
+      "corrente": 418,
+      "tensao": "6.60",
+      "mah_restante": 915,
+      "posicao_vetor": 136
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465866625,
+      "velocidade": "0.35",
+      "corrente": 426,
+      "tensao": "6.55",
+      "mah_restante": 910,
+      "posicao_vetor": 152
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465867639,
+      "velocidade": "0.36",
+      "corrente": 413,
+      "tensao": "6.50",
+      "mah_restante": 905,
+      "posicao_vetor": 168
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465868641,
+      "velocidade": "0.24",
+      "corrente": 400,
+      "tensao": "6.45",
+      "mah_restante": 900,
+      "posicao_vetor": 169
+    }
+  },
+  {
+    "id_corrida": "-OwyqHqcVhGtkzEy1igD",
+    "telemetria": {
+      "timestamp": 1783465869656,
+      "velocidade": "0.30",
+      "corrente": 477,
+      "tensao": "6.40",
+      "mah_restante": 895,
+      "posicao_vetor": 170
+    }
+  },
+  {
+    "id_corrida": "-Ox1RIJK2GGYkYekTYo0",
+    "telemetria": {
+      "timestamp": 1783526147590,
+      "velocidade": "0.41",
+      "corrente": 417,
+      "tensao": "7.40",
+      "mah_restante": 995,
+      "posicao_vetor": 0
+    }
+  },
+  {
+    "id_corrida": "-Ox1RIJK2GGYkYekTYo0",
+    "telemetria": {
+      "timestamp": 1783526148584,
+      "velocidade": "0.32",
+      "corrente": 453,
+      "tensao": "7.35",
+      "mah_restante": 990,
+      "posicao_vetor": 1
+    }
+  },
+  {
+    "id_corrida": "-Ox1RIJK2GGYkYekTYo0",
+    "telemetria": {
+      "timestamp": 1783526151593,
+      "velocidade": "0.21",
+      "corrente": 444,
+      "tensao": "7.20",
+      "mah_restante": 975,
+      "posicao_vetor": 34
+    }
+  },
+  {
+    "id_corrida": "-Ox1RIJK2GGYkYekTYo0",
+    "telemetria": {
+      "timestamp": 1783526157644,
+      "velocidade": "0.58",
+      "corrente": 468,
+      "tensao": "6.90",
+      "mah_restante": 945,
+      "posicao_vetor": 70
+    }
+  },
+  {
+    "id_corrida": "-Ox1bmZRtrVKiPD7IqmD",
+    "telemetria": {
+      "timestamp": 1783529159268,
+      "velocidade": 0.409999996,
+      "corrente": 472,
+      "tensao": 7.349999905,
+      "mah_restante": 990,
+      "posicao_vetor": 1
+    }
+  },
+  {
+    "id_corrida": "-Ox1wjA5by9Iv8fkyRdL",
+    "telemetria": {
+      "timestamp": 1783534659645,
+      "velocidade": "0.49",
+      "corrente": 459,
+      "tensao": "6.85",
+      "mah_restante": 940,
+      "posicao_vetor": 86
+    }
+  },
+  {
+    "id_corrida": "-Ox1wjA5by9Iv8fkyRdL",
+    "telemetria": {
+      "timestamp": 1783534660656,
+      "velocidade": "0.57",
+      "corrente": 485,
+      "tensao": "6.80",
+      "mah_restante": 935,
+      "posicao_vetor": 102
+    }
+  },
+  {
+    "id_corrida": "-Ox1wjA5by9Iv8fkyRdL",
+    "telemetria": {
+      "timestamp": 1783534661666,
+      "velocidade": "0.43",
+      "corrente": 464,
+      "tensao": "6.75",
+      "mah_restante": 930,
+      "posicao_vetor": 118
+    }
+  },
+  {
+    "id_corrida": "-Ox1wjA5by9Iv8fkyRdL",
+    "telemetria": {
+      "timestamp": 1783534662671,
+      "velocidade": "0.26",
+      "corrente": 477,
+      "tensao": "6.70",
+      "mah_restante": 925,
+      "posicao_vetor": 119
+    }
+  },
+  {
+    "id_corrida": "-Ox1xHFyJ-ONBDtJfLrd",
+    "telemetria": {
+      "timestamp": 1783534808291,
+      "velocidade": "0.22",
+      "corrente": 409,
+      "tensao": "6.60",
+      "mah_restante": 915,
+      "posicao_vetor": 136
+    }
+  },
+  {
+    "id_corrida": "-Ox1xHFyJ-ONBDtJfLrd",
+    "telemetria": {
+      "timestamp": 1783534810320,
+      "velocidade": "0.52",
+      "corrente": 434,
+      "tensao": "6.50",
+      "mah_restante": 905,
+      "posicao_vetor": 168
+    }
+  },
+  {
+    "id_corrida": "-Ox1xHFyJ-ONBDtJfLrd",
+    "telemetria": {
+      "timestamp": 1783534811332,
+      "velocidade": "0.22",
+      "corrente": 468,
+      "tensao": "6.45",
+      "mah_restante": 900,
+      "posicao_vetor": 169
+    }
+  },
+  {
+    "id_corrida": "-Ox1ztoz3U_RYfYgnI9t",
+    "telemetria": {
+      "timestamp": 1783535484922,
+      "velocidade": 212.9197845,
+      "corrente": 0,
+      "tensao": 0,
+      "mah_restante": 0,
+      "posicao_vetor": 8
+    }
+  },
+  {
+    "id_corrida": "-Ox1ztoz3U_RYfYgnI9t",
+    "telemetria": {
+      "timestamp": 1783535494929,
+      "velocidade": 207.8502502,
+      "corrente": 0,
+      "tensao": 0,
+      "mah_restante": 0,
+      "posicao_vetor": 9
+    }
+  },
+  {
+    "id_corrida": "-Ox28Ax2MK8MQCKrZS0N",
+    "telemetria": {
+      "timestamp": 1783537920426,
+      "velocidade": 154.1092834,
+      "corrente": 0,
+      "tensao": 0,
+      "mah_restante": 0,
+      "posicao_vetor": 13
+    }
+  },
+  {
+    "id_corrida": "-Ox28RST1CZkjZLWDEZy",
+    "telemetria": {
+      "timestamp": 1783537980818,
+      "velocidade": 180.3785248,
+      "corrente": 0,
+      "tensao": 0,
+      "mah_restante": 0,
+      "posicao_vetor": 4
+    }
+  },
+  {
+    "id_corrida": "-Ox28RST1CZkjZLWDEZy",
+    "telemetria": {
+      "timestamp": 1783537981960,
+      "velocidade": 176.0867615,
+      "corrente": 0,
+      "tensao": 0,
+      "mah_restante": 0,
+      "posicao_vetor": 8
+    }
+  },
+  {
+    "id_corrida": "-Ox28RST1CZkjZLWDEZy",
+    "telemetria": {
+      "timestamp": 1783537983090,
+      "velocidade": 176.0805054,
+      "corrente": 0,
+      "tensao": 0,
+      "mah_restante": 0,
+      "posicao_vetor": 12
+    }
+  },
+  {
+    "id_corrida": "-Ox28RST1CZkjZLWDEZy",
+    "telemetria": {
+      "timestamp": 1783537988207,
+      "velocidade": 351.0947266,
+      "corrente": 0,
+      "tensao": 0,
+      "mah_restante": 0,
+      "posicao_vetor": 8
+    }
+  },
+  {
+    "id_corrida": "-Ox28RST1CZkjZLWDEZy",
+    "telemetria": {
+      "timestamp": 1783537989444,
+      "velocidade": 180.1230621,
+      "corrente": 0,
+      "tensao": 0,
+      "mah_restante": 0,
+      "posicao_vetor": 4
+    }
+  },
+  {
+    "id_corrida": "-Ox28RST1CZkjZLWDEZy",
+    "telemetria": {
+      "timestamp": 1783537992476,
+      "velocidade": 276.3128052,
+      "corrente": 0,
+      "tensao": 0,
+      "mah_restante": 0,
+      "posicao_vetor": 8
+    }
+  },
+  {
+    "id_corrida": "-Ox28RST1CZkjZLWDEZy",
+    "telemetria": {
+      "timestamp": 1783537993949,
+      "velocidade": 186.5109406,
+      "corrente": 0,
+      "tensao": 0,
+      "mah_restante": 0,
+      "posicao_vetor": 12
+    }
+  },
+  {
+    "id_corrida": "-Ox28ZGF1giXwsxIJNuj",
+    "telemetria": {
+      "timestamp": 1783538019739,
+      "velocidade": 192.1950073,
+      "corrente": 0,
+      "tensao": 0,
+      "mah_restante": 0,
+      "posicao_vetor": 0
+    }
+  },
+  {
+    "id_corrida": "-Ox28ZGF1giXwsxIJNuj",
+    "telemetria": {
+      "timestamp": 1783538021418,
+      "velocidade": 172.1528015,
+      "corrente": 0,
+      "tensao": 0,
+      "mah_restante": 0,
+      "posicao_vetor": 0
+    }
+  },
+  {
+    "id_corrida": "-Ox2EDNRBw8Na8pHmgiZ",
+    "telemetria": {
+      "timestamp": 1783539510045,
+      "velocidade": 198.6650848,
+      "corrente": 0,
+      "tensao": 0,
+      "mah_restante": 0,
+      "posicao_vetor": 8
+    }
+  },
+  {
+    "id_corrida": "-Ox2EDNRBw8Na8pHmgiZ",
+    "telemetria": {
+      "timestamp": 1783539512125,
+      "velocidade": 190.4010773,
+      "corrente": 0,
+      "tensao": 0,
+      "mah_restante": 0,
+      "posicao_vetor": 12
+    }
+  },
+  {
+    "id_corrida": "-Ox2ELH3t2Y6Z97QHl_2",
+    "telemetria": {
+      "timestamp": 1783539532114,
+      "velocidade": 191.9550171,
+      "corrente": 0,
+      "tensao": 0,
+      "mah_restante": 0,
+      "posicao_vetor": 4
+    }
+  },
+  {
+    "id_corrida": "-Ox2ELH3t2Y6Z97QHl_2",
+    "telemetria": {
+      "timestamp": 1783539533245,
+      "velocidade": 201.0780182,
+      "corrente": 0,
+      "tensao": 0,
+      "mah_restante": 0,
+      "posicao_vetor": 8
+    }
+  },
+  {
+    "id_corrida": "-Ox2ELH3t2Y6Z97QHl_2",
+    "telemetria": {
+      "timestamp": 1783539535367,
+      "velocidade": 180.3588257,
+      "corrente": 0,
+      "tensao": 0,
+      "mah_restante": 0,
+      "posicao_vetor": 12
+    }
+  }
+]

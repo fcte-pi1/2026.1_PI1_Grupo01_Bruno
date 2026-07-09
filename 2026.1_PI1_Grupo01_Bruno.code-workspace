@@ -1,0 +1,16 @@
+{
+    "folders": [
+        {
+            "path": "src/firmware/XAROPi2.0"
+        },
+        {
+            "path": "src/backend"
+        },
+        {
+            "path": "src/frontend"
+        }
+    ],
+    "settings": {
+        "platformio-ide.autoReopenSerialMonitor": false
+    }
+}

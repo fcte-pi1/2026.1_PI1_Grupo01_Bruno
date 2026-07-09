@@ -1,7 +1,6 @@
 .ChartContainer {  
   display: flex;
   width: 100%;
-  aspect-ratio: 2;
   min-width: 320px;
   max-width: 800px;
   padding: var(--spacing-3x);
@@ -10,6 +9,13 @@
   gap: var(--spacing-base);
   border-radius: var(--radius-2x);
   background: var(--bg-secondary);
+  aspect-ratio: 5 / 3;
+  padding-bottom: 0;
+}
+
+.recharts-tooltip-wrapper recharts-tooltip-wrapper-left recharts-tooltip-wrapper-bottom {
+  width: fit-content !important;
+  background: var(--bg-secondary) !important;
 }
 
 .ChartHeader {
@@ -20,12 +26,13 @@
   gap: var(--spacing-base) var(--spacing-base);
   align-self: stretch;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .ChartMeta {
   display: flex;
   width: fit-content;
-  color: var(--pumpkin-500);
+  color: var(--txt-interaction);
   height: var(--density-high);
   padding: 0 var(--spacing-2x);
   align-items: center;
@@ -35,12 +42,28 @@
 }
 
 .MetaInfo {
-  font-family: var(--code);
+  font-family: var(--text-code);
   font-weight: var(--font-regular);
-  font-size: 0.8rem;
-  color: var(--pumpkin-500);
+  text-transform: none;
 }
 
-.recharts-wrapper {
-  margin-left: -20px;
+.Tooltip {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-primary);
+  width: 95%;
+  padding: var(--spacing-2x);
+  border-radius: var(--radius-1x);
+  border: solid 1px var(--border);
+}
+
+.TooltipLabel {
+  font-family: var(--text-code);
+  font-weight: var(--font-regular);
+  color: var(--txt-interaction);
+  text-transform: none; 
+}
+
+.TooltipValue {
+  text-transform: none;
 }

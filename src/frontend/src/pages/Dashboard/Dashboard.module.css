@@ -10,6 +10,35 @@
 .SpanLg { grid-column: span 4; }
 .SpanDefault { grid-column: span 5; }
 
+.PageTitle {
+    display: flex;
+    width: 100%;
+    gap: var(--spacing-2x);
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.SectionDefault {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2x);
+    width: 100%;
+}
+
+.BtnRoute{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.Charts {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-2x);
+    width: 100%;
+}
+
 @media (max-width: 768px) {
     .Cards{
         grid-template-rows: repeat(5,fit-content(100%));
@@ -18,6 +47,10 @@
 
     .SpanLg { grid-column: span 1; }
     .SpanDefault { grid-column: span 1; }
+
+    .Charts{
+        grid-template-columns: repeat(1, 1fr);
+    }
 }
 @media (max-width: 480px) {
     .Cards{

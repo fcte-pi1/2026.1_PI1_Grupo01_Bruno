@@ -6,14 +6,21 @@ import { Button } from '../../components/Button';
 import { Table } from '../../components/Table';
 import type { Column } from '../../components/Table';
 import { Badge } from '../../components/Badge';
+import { Chart } from '../../components/Chart/Chart';
 import { socket } from '../../socket';
 import styles from './Dashboard.module.css';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const STATUS_BADGE: Record<string, 'success' | 'warn' | 'alert'> = {
-    'Concluído': 'success', 'Falhou': 'alert', 'Em curso': 'warn'
+  'Concluído': 'success', 
+  'Interrompido': 'alert', 
+  'Em curso': 'warn',
 };
 const STATUS_LABEL: Record<string, string> = {
-    'concluido': 'Concluído', 'falha': 'Falhou', 'interrompida': 'Falhou', 'em_execucao': 'Em curso'
+    'concluido': 'Concluído', 
+    'interrompida': 'Interrompido', 
+    'em_execucao': 'Em curso',
 };
 
 const safeNum = (val: any) => { const n = Number(val); return isNaN(n) ? 0 : n; };
@@ -39,10 +46,45 @@ const columns: Column<any>[] = [
 export function Dashboard() {
     const navigate = useNavigate();
     const [corridasHistorico, setCorridasHistorico] = useState<any[]>([]);
+    const [chartPoints, setChartPoints] = useState<any[]>([]);
     const [stats, setStats] = useState({ qtd: 0, sucesso: 0, tempo: '0.0s', vel: '0.00 m/s', consumo: '0.0 Wh' });
 
+    const fetchChartData = () => {
+        axios.get(`${API_URL}/corridas`)
+            .then(response => {
+                const dadosNode = response.data.dados;
+                if (!dadosNode) return;
+
+                const pontos = Object.entries(dadosNode).map(([_, corrida]: any, index) => {
+                    const eventos = corrida.telemetria
+                        ? Object.values(corrida.telemetria) as any[]
+                        : [];
+
+                    const media = (campo: string) =>
+                        eventos.length > 0
+                            ? eventos.reduce((acc: number, e: any) => acc + safeNum(e[campo]), 0) / eventos.length
+                            : 0;
+
+                    const duracao = eventos.length > 1
+                        ? (safeNum((eventos.at(-1) as any)?.timestamp) - safeNum((eventos[0] as any)?.timestamp)) / 1000
+                        : 0;
+
+                    return {
+                        timestamp: index,
+                        hora: `${index + 1}`,
+                        velocidade: media('velocidade'),
+                        tensao: media('tensao'),
+                        corrente: media('corrente'),
+                        duracao,
+                    };
+                });
+
+                setChartPoints(pontos);
+            }).catch(console.error);
+    };
+
     const fetchCorridas = () => {
-        axios.get('http://localhost:3000/corridas')
+        axios.get(`${API_URL}/corridas`)
             .then(response => {
                 const dadosNode = response.data.dados;
                 if (!dadosNode) return;
@@ -51,11 +93,17 @@ export function Dashboard() {
                 let totalTempo = 0, totalVel = 0, totalConsumo = 0, concluidas = 0;
 
                 const formatoTabela = corridas.map(([firebaseId, corrida]: any, index) => {
-                    const ultimaTel = corrida.telemetria ? Object.values(corrida.telemetria).pop() as any : null;
-                    
-                    
-                    const duracao = safeNum(ultimaTel?.tempoMedio);
-                    const velocity = safeNum(ultimaTel?.velMedia);
+                    const inicioTs = safeNum(corrida.metadados?.inicio_timestamp);
+                    let fimTs = safeNum(corrida.metadados?.fim_timestamp);
+                    const eventos = corrida.telemetria ? (Object.values(corrida.telemetria) as any[]) : [];
+                    const ultimaTel = eventos.length > 0 ? eventos[eventos.length - 1] : null;
+
+                    if (fimTs <= 0 && ultimaTel?.timestamp) fimTs = safeNum(ultimaTel.timestamp);
+
+                    const duracao = (fimTs > inicioTs && inicioTs > 0) ? (fimTs - inicioTs) / 1000 : 0;
+                    const velocity = eventos.length > 0
+                        ? eventos.reduce((acc: number, e: any) => acc + safeNum(e.velocidade), 0) / eventos.length
+                        : 0;
                     const mahRestante = safeNum(ultimaTel?.mah_restante);
                     const consume = mahRestante > 0 ? 1000 - mahRestante : 0;
 
@@ -64,7 +112,7 @@ export function Dashboard() {
 
                     return {
                         id: firebaseId,
-                        displayId: index + 1, 
+                        displayId: index + 1,
                         datetime: new Date(corrida.metadados?.inicio_timestamp || Date.now()).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }),
                         size: `${corrida.metadados?.dimensao_labirinto || 16}x${corrida.metadados?.dimensao_labirinto || 16}`,
                         status: corrida.metadados?.status || 'concluido',
@@ -81,35 +129,38 @@ export function Dashboard() {
                     consumo: total > 0 ? ((totalConsumo / total) * 0.0084).toFixed(1) + ' Wh' : '0.0 Wh' 
                 });
 
-                setCorridasHistorico(formatoTabela.reverse().slice(0, 5)); 
+                setCorridasHistorico(formatoTabela.reverse().slice(0, 5));
             }).catch(console.error);
     };
 
     const apagarCorrida = async (param: any) => {
         console.log('O botão foi clicado!', param);
-        
+
         const idParaApagar = typeof param === 'object' ? param.id : param;
         console.log('O ID extraído é:', idParaApagar);
-        
-        if (!idParaApagar) {
-            console.error('ERRO: O ID está vazio!');
-            return;
+
+        if (!idParaApagar) {	
+            console.error('ERRO: O ID está vazio!');	
+            return;	
         }
-        
         try {
             console.log(`Enviando ordem para apagar a corrida: ${idParaApagar}`);
             const response = await axios.delete(`http://localhost:3000/corridas/${idParaApagar}`);
             console.log('Back-end respondeu:', response.data);
-            
-            fetchCorridas(); 
+            fetchCorridas();
+            fetchChartData();
         } catch (error) { 
             console.error("Deu erro na API:", error); 
         }
     };
 
     useEffect(() => {
-        fetchCorridas(); 
-        socket.on('corrida_atualizada', fetchCorridas); 
+        fetchCorridas();
+        fetchChartData();
+        socket.on('corrida_atualizada', () => {
+            fetchCorridas();
+            fetchChartData();
+        });
         return () => { socket.off('corrida_atualizada'); };
     }, []);
 
@@ -119,29 +170,45 @@ export function Dashboard() {
         { icon: 'timer', label: 'tempo médio', value: stats.tempo, size: 'lg' as const },
         { icon: 'speed', label: 'Vel. média geral', value: stats.vel, size: 'lg' as const },
         { icon: 'electric_bolt', label: 'Cons. energ. médio', value: stats.consumo, size: 'lg' as const },
-        { icon: 'sync', label: 'Lat. méd. de comunicação', value: '18–120 ms', size: 'default' as const },
-        { icon: 'alt_route', label: 'Eficiência de trajeto', value: '70,5%', size: 'default' as const },
-        { icon: 'thermostat', label: 'Temp. média do sistema', value: '48°C', size: 'default' as const },
-        { icon: 'shield', label: 'Confiabilidade geral', value: '92%', size: 'default' as const },
+        // { icon: 'sync', label: 'Lat. méd. de comunicação', value: '18–120 ms', size: 'default' as const },
+        // { icon: 'alt_route', label: 'Eficiência de trajeto', value: '70,5%', size: 'default' as const },
+        // { icon: 'thermostat', label: 'Temp. média do sistema', value: '48°C', size: 'default' as const },
+        // { icon: 'shield', label: 'Confiabilidade geral', value: '92%', size: 'default' as const },
     ];
 
     return (
-        <div style={{ width: '100%', color: '#FFF' }}>
-            <div className={styles.Cards}>
+        <>
+            <div className={styles.BtnRoute}>
+                <Button icon='add' label='NOVO PERCURSO' onClick={() => navigate('/percurso')} />
+            </div>
+
+            <section className={styles.Cards}>
                 {cardsData.map(stat => (
                     <div key={stat.label} className={stat.size === 'lg' ? styles.SpanLg : styles.SpanDefault}>
                         <Card icon={stat.icon} label={stat.label} value={stat.value} size={stat.size} />
                     </div>    
                 ))}
-            </div>
+            </section>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '4rem', marginBottom: '1.5rem' }}>
-                <h3 style={{ fontSize: '1.3rem', margin: 0 }}>Histórico de testes</h3>
-                <Button icon='add' label='NOVO PERCURSO' onClick={() => navigate('/percurso')} />
-            </div>
-            <div style={{ backgroundColor: '#0D0D0D', borderRadius: '12px', border: '1px solid #222', overflowX: 'auto' }}>
+            <section className={styles.SectionDefault}>
+                <section className={styles.SectionDefault}>
+                    <h3>Dados Gerais</h3>
+                    <div className={styles.Charts}>
+                        <Chart title="VELOCIDADE MÉDIA" dataKey="velocidade" icon="speed" points={chartPoints} />
+                        <Chart title="TEMPO MÉDIO DE RESOLUÇÃO" dataKey="duracao" icon="timer" points={chartPoints} />
+                        <Chart title="VOLTAGEM MÉDIA DA BATERIA" dataKey="tensao" icon="bolt" points={chartPoints} />
+                        <Chart title="AMPERAGEM MÉDIA DA BATERIA" dataKey="corrente" icon="electric_bolt" points={chartPoints} />
+                    </div>
+                </section>
+            </section>
+
+            <section className={styles.SectionDefault}>
+                <div className={styles.PageTitle}>
+                    <h3>Histórico</h3>
+                    <Button icon='history' hierarchy="tertiary" label='Ver tudo' aria-label="Navegar para histórico" onClick={() => navigate('/historico')} />
+                </div>
                 <Table columns={columns as any} data={corridasHistorico} onDelete={apagarCorrida} />
-            </div>
-        </div>
+            </section>
+        </>
     );
 }

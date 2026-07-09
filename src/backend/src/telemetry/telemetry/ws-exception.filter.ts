@@ -30,7 +30,7 @@ export class WsValidationFilter extends BaseWsExceptionFilter{
        if (typeof callback === 'function'){
             callback(errorPayload);
        }else{
-            client.emit('exception, errorPayLoad');
+            client.emit('exception', errorPayload);
        }
    }
 }
