@@ -20,21 +20,22 @@ export const PAGE_CONFIG: Record<Page, {
         showTopPage: true,
     },
 
-    projeto: {
-        route: '/projeto',
-        label: 'Projeto',
-        description: 'Informações sobre o projeto',
-    },
+    // projeto: {
+    //     route: '/projeto',
+    //     label: 'Projeto',
+    //     description: 'Informações sobre o projeto',
+    // },
 
-    equipe: {
-        route: '/equipe',
-        label: 'Equipe',
-        description: 'Membros da equipe',
-    },
+    // equipe: {
+    //     route: '/equipe',
+    //     label: 'Equipe',
+    //     description: 'Membros da equipe',
+    // },
 
+   
     percurso: {
         route: '/percurso',
-        label: 'Percurso',
+        label: 'Novo Percurso',
         description: 'Acompanhe os dados da trajetória do micromouse no percurso.',
         showTopPage: true,
     },

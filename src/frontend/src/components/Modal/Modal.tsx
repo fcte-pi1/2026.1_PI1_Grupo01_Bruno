@@ -35,6 +35,16 @@ export function Modal({
         if (e.target === ref.current) onClose()
     }
 
+    useEffect(() => {
+    if (!open) return;
+
+    document.body.style.overflow = 'hidden';
+
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [open]);
+
     return (
         <dialog ref={ref} className={styles.dialog} onClick={handleBackdrop}>
             <header className={styles.header}>

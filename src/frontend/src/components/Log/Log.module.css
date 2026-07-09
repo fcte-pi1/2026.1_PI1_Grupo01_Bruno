@@ -19,28 +19,36 @@
     padding-block: var(--spacing-half);
     align-self: stretch;
     flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .LogCenter {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     padding: var(--spacing-2x);
     align-items: start;
+    /* height: 0; */
+    justify-content: end;
     gap: var(--spacing-half);
     flex: 1 0 0;
     align-self: stretch;
     border-radius: var(--radius-base);
     border: 1px solid var(--border);
     overflow-y: auto;
-    max-height: 200px;
+    /* max-height: 200px; */
+    overflow-anchor: none;
 }
 
 .LogCenter code {
     width: 100%;
     text-align: start;
+    color: var(--txt-secondary);
+    flex-shrink: 0;
+}
+
+.LogCenter code:last-child {
     color: var(--txt-primary);
 }
 
-.LogCenter code:first-child {
-    color: var(--success);
-}
+.Success { color: var(--success); }
+.Warning { color: var(--warn); }

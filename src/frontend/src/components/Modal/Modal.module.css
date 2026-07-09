@@ -12,7 +12,7 @@
 
 dialog {
     display: flex;
-    width: 400px;
+    width: fit-content;
     flex-direction: column;
     align-items: flex-start;
     border-radius: var(--radius-2x);
@@ -29,6 +29,8 @@ dialog {
 
 .dialog::backdrop {
     background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
 }
 
 .header {
@@ -37,7 +39,7 @@ dialog {
     align-items: center;
     gap: var(--spacing-base);
     align-self: stretch;
-    border-bottom: 1px solid var(--border);
+    /* border-bottom: 1px solid var(--border); */
     justify-content: space-between;
 
 }
@@ -60,9 +62,15 @@ dialog {
     align-items: center;
     gap: var(--spacing-base);
     align-self: stretch;
-    border-top: 1px solid var(--border);
+    /* border-top: 1px solid var(--border); */
 }
 
 .BtnFull {
     width: 100%;
+}
+
+@media (max-width: 480px){
+    dialog {
+        width: 90%;
+    }
 }
